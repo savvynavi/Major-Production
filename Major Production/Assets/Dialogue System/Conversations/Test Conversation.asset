@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
+  m_Name: Test Conversation
+  m_EditorClassIdentifier: 
+  nextID: 3
+  startingID: 0
+  Entries:
+  - ID: 0
+    Title: 
+    speakerIndex: 0
+    Text: This is the first line
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 187, y: 164}
+  - ID: 1
+    Title: 
+    speakerIndex: 0
+    Text: This is the second line
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 2
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 186, y: 235}
+  - ID: 2
+    Title: 
+    speakerIndex: 0
+    Text: This is the final line
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 189, y: 309}
+  Speakers:
+  - Tutorial

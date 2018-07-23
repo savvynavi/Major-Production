@@ -22,6 +22,9 @@ namespace Dialogue
         public UnityEvent OnConversationStart;
         public UnityEvent OnConversationEnd;
 
+		bool m_inConversation = false;
+		public bool InConversation {get{return m_inConversation;}}
+
         private void Awake()
         {
             fields = new FieldManager();
@@ -35,12 +38,27 @@ namespace Dialogue
             actors = actorDictionary.ToDictionary();
         }
 
-        public void StartConversation()
+        public bool StartConversation()
         {
-            current = conversation.Start;
-            UISystem.OnConversationStart();
-            OnConversationStart.Invoke();
+			if (!m_inConversation) {
+				current = conversation.Start;
+				UISystem.OnConversationStart ();
+				OnConversationStart.Invoke ();
+				m_inConversation = true;
+				return true;
+			} else {
+				return false;
+			}
         }
+
+		public bool StartConversation(Conversation con){
+			if (!m_inConversation) {
+				conversation = con;
+				return StartConversation ();
+			} else {
+				return false;
+			}
+		}
 
         public void NextEntry()
         {
@@ -77,6 +95,7 @@ namespace Dialogue
             current = null;
             UISystem.OnConversationEnd();
             OnConversationEnd.Invoke();
+			m_inConversation = false;
         }
 
         public void ResponseSelected(int id)

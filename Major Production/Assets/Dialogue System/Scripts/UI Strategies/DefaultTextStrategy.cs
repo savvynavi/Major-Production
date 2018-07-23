@@ -69,11 +69,13 @@ namespace Dialogue
 
         public override void OnConversationStart()
         {
+            this.enabled = true;
             dialoguePanel.gameObject.SetActive(true);
         }
 
         public override void OnConversationEnd()
         {
+            this.enabled = false;
             dialogueText.text = "";
             actorName.text = "";
             responseText.text = "";

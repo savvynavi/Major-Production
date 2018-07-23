@@ -28,7 +28,8 @@ public class Controller : MonoBehaviour {
 		//basic blend tree stuff
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
-		
+//		float sprint = Input.GetAxis ("Fire3");
+
 		Move(x, y);
 	}
 
@@ -38,6 +39,12 @@ public class Controller : MonoBehaviour {
 		anim.SetFloat("velY", y);
 		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
 			encounters.RandomEncounter();
+		}
+		if (Input.GetAxis ("Fire3") != 0) {
+			anim.SetBool ("isSprinting", true);
+		} 
+		else {
+			anim.SetBool ("isSprinting", false);
 		}
 	}
 }

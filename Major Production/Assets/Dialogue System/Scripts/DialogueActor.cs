@@ -8,6 +8,8 @@ namespace Dialogue
     {
         public string Name;
 
+        public Sprite Portrait;
+
         public FieldManager fields;
     }
 }

@@ -11,6 +11,7 @@ namespace Dialogue
         public Text dialogueText;
         public Text actorName;
         public Text responseText;
+        public Image portraitImage;
         public RectTransform dialoguePanel;
 
         private void Awake()
@@ -50,6 +51,7 @@ namespace Dialogue
         {
             dialogueText.text = entry.Text;
             actorName.text = uiManager.manager.GetCurrentActor().Name;
+            portraitImage.sprite = uiManager.manager.GetCurrentActor().Portrait;
 
             uiManager.manager.cutsceneManager.DoCutsceneEvents(entry.cutsceneEvents);
         }

@@ -76,10 +76,8 @@ namespace Dialogue
         {
             nameText.text = uiManager.manager.GetCurrentActor().Name;
 
-            
-
             // Dialogue panel
-            dialogueText.text = Localize(entry.Text);
+            dialogueText.text = entry.Text;
 
             uiManager.manager.cutsceneManager.DoCutsceneEvents(entry.cutsceneEvents);
         }

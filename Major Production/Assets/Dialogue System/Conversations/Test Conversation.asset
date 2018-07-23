@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: Test Conversation
   m_EditorClassIdentifier: 
-  nextID: 3
+  nextID: 5
   startingID: 0
   Entries:
   - ID: 0
@@ -36,13 +36,28 @@ MonoBehaviour:
     OnEnter: []
     cutsceneEvents: []
     transitions:
-      transitions:
-      - transition:
-          TargetID: 2
-        condition: {fileID: 0}
+      transitions: []
     isEnd: 0
     parent: {fileID: 11400000}
-    Responses: []
+    Responses:
+    - Text: Choice 1
+      OnChosen: []
+      Prerequisite: {fileID: 0}
+      transitions:
+        transitions:
+        - transition:
+            TargetID: 3
+          condition: {fileID: 0}
+      Position: {x: 86, y: 288}
+    - Text: Choice 2
+      OnChosen: []
+      Prerequisite: {fileID: 0}
+      transitions:
+        transitions:
+        - transition:
+            TargetID: 4
+          condition: {fileID: 0}
+      Position: {x: 450, y: 281}
     position: {x: 186, y: 235}
   - ID: 2
     Title: 
@@ -55,6 +70,36 @@ MonoBehaviour:
     isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 189, y: 309}
+    position: {x: 339, y: 458}
+  - ID: 3
+    Title: 
+    speakerIndex: 0
+    Text: This is option 1
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 2
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 181, y: 371}
+  - ID: 4
+    Title: 
+    speakerIndex: 0
+    Text: This is option 2
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 2
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 451, y: 387}
   Speakers:
   - Tutorial

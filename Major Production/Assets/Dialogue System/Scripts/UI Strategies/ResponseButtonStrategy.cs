@@ -7,24 +7,16 @@ namespace Dialogue
 {
     public class ResponseButtonStrategy : UIDisplayStrategy
     {
-        [SerializeField]
-        RectTransform namePanel;
-        float namePanelMinWidth;
-        float namePanelMinHeight;
+
         [SerializeField]
         Text nameText;
         [SerializeField]
-        float namePanelPadding = 20f;
+        Image portraitImage;
 
         [SerializeField]
         RectTransform dialoguePanel;
-        Vector2 dialoguePanelMinSize;
         [SerializeField]
         Text dialogueText;
-        [SerializeField]
-        float dialogueTopPadding;
-        [SerializeField]
-        float dialogueBottomPadding;
 
         [SerializeField]
         RectTransform responsePanel;
@@ -47,16 +39,12 @@ namespace Dialogue
         private void Awake()
         {
             uiManager = gameObject.GetComponent<DialogueUI>();
+            dialoguePanel.gameObject.SetActive(false);
         }
 
         private void Start()
         {
             NextButton.onClick.AddListener(uiManager.manager.NextEntry);
-
-            namePanelMinWidth = namePanel.rect.width;
-            namePanelMinHeight = namePanel.rect.height;
-
-            dialoguePanelMinSize = dialoguePanel.rect.size;
         }
 
         public override void ClearResponses()
@@ -75,6 +63,7 @@ namespace Dialogue
         public override void DisplayDialogueEntry(DialogueEntry entry)
         {
             nameText.text = uiManager.manager.GetCurrentActor().Name;
+            portraitImage.sprite = uiManager.manager.GetCurrentActor().Portrait;
 
             // Dialogue panel
             dialogueText.text = entry.Text;
@@ -102,7 +91,7 @@ namespace Dialogue
                 buttonPos.y = numResponses * -(buttonTransform.rect.height + buttonSpacing);
                 buttonTransform.anchoredPosition = buttonPos;
 
-                buttonText.text = Localize(response.Text);
+                buttonText.text = response.Text;
 
                 buttonScript.onClick.AddListener(() => uiManager.manager.ResponseSelected(ID));
 
@@ -121,12 +110,12 @@ namespace Dialogue
             // TODO resize panels to fit dialogue and buttons
 
             // Resize Name Panel
-            TextGenerator textGen = new TextGenerator();
-            TextGenerationSettings genSettings = nameText.GetGenerationSettings(new Vector2(namePanelMinWidth, namePanelMinHeight));
-            float namePanelWidth = textGen.GetPreferredWidth(nameText.text, genSettings) + namePanelPadding;
-            float namePanelHeight = textGen.GetPreferredHeight(nameText.text, genSettings);
-            namePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Max(namePanelMinWidth, namePanelWidth));
-            namePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(namePanelMinHeight, namePanelHeight));
+            //TextGenerator textGen = new TextGenerator();
+            //TextGenerationSettings genSettings = nameText.GetGenerationSettings(new Vector2(namePanelMinWidth, namePanelMinHeight));
+            //float namePanelWidth = textGen.GetPreferredWidth(nameText.text, genSettings) + namePanelPadding;
+            //float namePanelHeight = textGen.GetPreferredHeight(nameText.text, genSettings);
+            //namePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Max(namePanelMinWidth, namePanelWidth));
+            //namePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(namePanelMinHeight, namePanelHeight));
 
             // Get size needed for buttons if no response panel
             Vector2 buttonAreaSize = NextButton.GetComponent<RectTransform>().rect.size + new Vector2(20, 20);
@@ -145,20 +134,19 @@ namespace Dialogue
             }
 
             // TODO resize dialogue panel to fit both dialogue and the response panel (or next button)
-            genSettings = dialogueText.GetGenerationSettings(dialoguePanelMinSize);
-            float dialogueHeight = textGen.GetPreferredHeight(dialogueText.text, genSettings) + dialogueTopPadding + dialogueBottomPadding;
+            //genSettings = dialogueText.GetGenerationSettings(dialoguePanelMinSize);
+            //float dialogueHeight = textGen.GetPreferredHeight(dialogueText.text, genSettings) + dialogueTopPadding + dialogueBottomPadding;
 
             // Move dialogue text down by padding
             Vector2 dialoguePos = dialogueText.GetComponent<RectTransform>().anchoredPosition;
-            dialoguePos.y = -dialogueTopPadding;
             dialogueText.GetComponent<RectTransform>().anchoredPosition = dialoguePos;
 
-            // Move response panel down by padding
-            responsePanel.anchoredPosition = new Vector2(0,-dialogueHeight);
+            //// Move response panel down by padding
+            //responsePanel.anchoredPosition = new Vector2(0,-dialogueHeight);
 
-            // Calculate total size
-            float totalHeight = Mathf.Max(dialogueHeight + buttonAreaSize.y, dialoguePanelMinSize.y);
-            dialoguePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
+            //// Calculate total size
+            //float totalHeight = Mathf.Max(dialogueHeight + buttonAreaSize.y, dialoguePanelMinSize.y);
+            //dialoguePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
 
         }
 
@@ -170,11 +158,6 @@ namespace Dialogue
         public override void OnConversationStart()
         {
             dialoguePanel.gameObject.SetActive(true);
-        }
-
-        string Localize(string key)
-        {
-            return uiManager.localizer.GetLine(key);
         }
     }
 }

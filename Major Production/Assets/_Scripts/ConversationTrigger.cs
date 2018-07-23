@@ -6,9 +6,7 @@ public class ConversationTrigger : MonoBehaviour {
 
     Dialogue.DialogueManager dialogueManager;
     [SerializeField] Dialogue.Conversation conversation;
-
-    // Maybe have 
-    [SerializeField]Dialogue.StringActorDict actors;
+    [SerializeField] Dialogue.StringActorDict actors;
     Dictionary<string, Dialogue.DialogueActor> m_actorDict;
 
     bool triggered;
@@ -25,10 +23,16 @@ public class ConversationTrigger : MonoBehaviour {
 		
 	}
 
+    //HACK
     private void OnTriggerEnter(Collider other)
     {
         if(!triggered && other.GetComponent<CharacterController>() != null)
         {
+            // Add this conversation's actors to manager
+            foreach(KeyValuePair<string,Dialogue.DialogueActor> entry in m_actorDict)
+            {
+                dialogueManager.actors[entry.Key] = entry.Value;
+            }
             dialogueManager.StartConversation(conversation);
             triggered = true;
         }

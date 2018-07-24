@@ -73,8 +73,6 @@ namespace Dialogue
 
         public override void DisplayResponse(Response response, int ID, bool possible)
         {
-            //TODO if necessary resize panel to fit new response
-            //TODO spawn new button with action to select appropriate response
             if (possible)
             {
                 // Disable Next button
@@ -107,15 +105,6 @@ namespace Dialogue
 
         public override void FinishedDisplayResponses()
         {
-            // TODO resize panels to fit dialogue and buttons
-
-            // Resize Name Panel
-            //TextGenerator textGen = new TextGenerator();
-            //TextGenerationSettings genSettings = nameText.GetGenerationSettings(new Vector2(namePanelMinWidth, namePanelMinHeight));
-            //float namePanelWidth = textGen.GetPreferredWidth(nameText.text, genSettings) + namePanelPadding;
-            //float namePanelHeight = textGen.GetPreferredHeight(nameText.text, genSettings);
-            //namePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Max(namePanelMinWidth, namePanelWidth));
-            //namePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(namePanelMinHeight, namePanelHeight));
 
             // Get size needed for buttons if no response panel
             Vector2 buttonAreaSize = NextButton.GetComponent<RectTransform>().rect.size + new Vector2(20, 20);
@@ -132,21 +121,11 @@ namespace Dialogue
 
                 buttonAreaSize = responsePanel.rect.size;
             }
-
-            // TODO resize dialogue panel to fit both dialogue and the response panel (or next button)
-            //genSettings = dialogueText.GetGenerationSettings(dialoguePanelMinSize);
-            //float dialogueHeight = textGen.GetPreferredHeight(dialogueText.text, genSettings) + dialogueTopPadding + dialogueBottomPadding;
+            
 
             // Move dialogue text down by padding
             Vector2 dialoguePos = dialogueText.GetComponent<RectTransform>().anchoredPosition;
             dialogueText.GetComponent<RectTransform>().anchoredPosition = dialoguePos;
-
-            //// Move response panel down by padding
-            //responsePanel.anchoredPosition = new Vector2(0,-dialogueHeight);
-
-            //// Calculate total size
-            //float totalHeight = Mathf.Max(dialogueHeight + buttonAreaSize.y, dialoguePanelMinSize.y);
-            //dialoguePanel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
 
         }
 

@@ -64,9 +64,6 @@ namespace Dialogue
                 }
 
                 Vector2 entryPosition = entry.FindPropertyRelative("position").vector2Value;
-                // HACK figure out best rule for initial position
-                // position based on index rule
-                //newResponse.FindPropertyRelative("Position").vector2Value = entryPosition + new Vector2(150, oldSize * 75);
                 // below last in list rule
                 if (oldSize == 0)
                 {

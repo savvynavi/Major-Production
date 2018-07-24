@@ -35,8 +35,12 @@ public class Controller : MonoBehaviour {
 
 	//does animation movement 
 	private void Move(float x, float y){
-		anim.SetFloat("velX", x);
-		anim.SetFloat("velY", y);
+        //HACK fix this to use relative camera direction
+        Vector3 move = new Vector3(y, 0, -x); 
+        
+        // Project movement onto character axes
+		anim.SetFloat("velX", Vector3.Dot(transform.right,move));
+		anim.SetFloat("velY", Vector3.Dot(transform.forward,move));
 		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
 			encounters.RandomEncounter();
 		}

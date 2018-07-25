@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
+  m_Name: Strengthen
+  m_EditorClassIdentifier: 
+  manaCost: 15
+  damage: 0
+  dmgType: 0
+  statType: 4
+  target: 1
+  anim: 2
+  powName: Strengthen
+  description: Buffs Strength by 15 for 4 turns
+  duration: 4
+  currentEffects:
+  - {fileID: 11400000, guid: cba1b809776871647b1a4acfc1f4fc5d, type: 2}

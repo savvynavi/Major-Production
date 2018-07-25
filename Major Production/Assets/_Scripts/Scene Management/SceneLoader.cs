@@ -44,7 +44,7 @@ public class SceneLoader : MonoBehaviour {
     {
         SetSceneObjectActive(dungeonScene, true);
         SceneManager.SetActiveScene(dungeonScene);
-        SceneManager.UnloadSceneAsync(dungeonScene);
+        SceneManager.UnloadSceneAsync(battleScene);
     }
 
     IEnumerator AsyncBattleLoad(string sceneName)

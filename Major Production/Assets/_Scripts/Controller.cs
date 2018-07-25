@@ -26,25 +26,30 @@ public class Controller : MonoBehaviour {
 	//currently no isGrounded check
 	void FixedUpdate () {
 		//basic blend tree stuff
-		float x = Input.GetAxis("Horizontal");
-		float y = Input.GetAxis("Vertical");
-//		float sprint = Input.GetAxis ("Fire3");
+		float right = Input.GetAxis("Horizontal");
+		float forward = Input.GetAxis("Vertical");
+        anim.SetBool("isSprinting", Input.GetButton("Fire3"));
 
-		Move(x, y);
+		Move(forward, right);
+
+        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+			encounters.RandomEncounter();
+		}
 	}
 
 	//does animation movement 
-	private void Move(float x, float y){
-		anim.SetFloat("velX", x);
-		anim.SetFloat("velY", y);
-		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-			encounters.RandomEncounter();
-		}
-		if (Input.GetAxis ("Fire3") != 0) {
-			anim.SetBool ("isSprinting", true);
-		} 
-		else {
-			anim.SetBool ("isSprinting", false);
-		}
+	private void Move(float forward, float right){
+        Transform cam = Camera.main.transform;
+        // HACK won't work properly if camera isn't facing down
+        Vector3 forwardAxis = Vector3.ProjectOnPlane(cam.up, Vector3.up);
+        Vector3 rightAxis = Vector3.ProjectOnPlane(cam.right, Vector3.up);
+        Vector3.OrthoNormalize(ref forwardAxis,ref rightAxis);
+
+        Vector3 move = forward * forwardAxis + right * rightAxis;
+        
+        // Project movement onto character axes
+		anim.SetFloat("velX", Vector3.Dot(transform.right,move));
+		anim.SetFloat("velY", Vector3.Dot(transform.forward,move));
+		
 	}
 }

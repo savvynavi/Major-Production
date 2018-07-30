@@ -1258,7 +1258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &916127138
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1645,11 +1645,27 @@ Prefab:
     - target: {fileID: 114655191158835610, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
         type: 2}
       propertyPath: m_Text
-      value: Quit
+      value: End Fight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &950698352 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1792913280812206, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
+    type: 2}
+  m_PrefabInternal: {fileID: 950698351}
+--- !u!114 &950698353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950698352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5feb5795fb0482a4abe338eeae1ef4f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1050874238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2023,7 @@ Prefab:
     - target: {fileID: 114928872371196886, guid: ef7dec2d82450bb4e92ab1eb9dec9e4f,
         type: 2}
       propertyPath: hpStat
-      value: 75
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4604630649603426, guid: ef7dec2d82450bb4e92ab1eb9dec9e4f, type: 2}
       propertyPath: m_RootOrder
@@ -2729,7 +2745,7 @@ Prefab:
     - target: {fileID: 114625488474336460, guid: 5fe85032775b0fc468ee57e42661b67f,
         type: 2}
       propertyPath: hpStat
-      value: 150
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114625488474336460, guid: 5fe85032775b0fc468ee57e42661b67f,
         type: 2}

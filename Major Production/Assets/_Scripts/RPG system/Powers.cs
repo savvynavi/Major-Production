@@ -89,6 +89,8 @@ namespace RPGsys
 			if(obj.Mp - manaCost >= 0) {
 				target.Hp -= (damage + attMod);
 				obj.Mp -= manaCost;
+
+                Debug.Log(target.ToString() + " hp: " + target.Hp.ToString());
 			}
 
 			

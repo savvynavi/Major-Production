@@ -58,11 +58,13 @@ public class SceneLoader : MonoBehaviour {
 
     IEnumerator AsyncBattleLoad(string sceneName)
     {
+        SetSceneObjectActive(dungeonScene, false);
+
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         // TODO do battle loading effects
         yield return new WaitUntil(() => { return loadOp.isDone; });
         // Deactivate objects in dungeon scene
-        SetSceneObjectActive(dungeonScene, false);
+        
         // Get Battle scene and set as active scene
         battleScene = SceneManager.GetSceneByName(sceneName);
         SceneManager.SetActiveScene(battleScene);

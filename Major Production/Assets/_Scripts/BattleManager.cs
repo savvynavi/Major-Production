@@ -7,7 +7,7 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour {
 
     public Transform playerTeam;
-    public Transform enemyTeam;
+    public Transform enemyTeam; // Transform containing enemies to move into battle scene
     SceneLoader loader;
 
 	// Use this for initialization
@@ -22,7 +22,6 @@ public class BattleManager : MonoBehaviour {
 
     public void StartBattle(string sceneName, Transform enemies)
     {
-        // May have to decide if this just clones enemies?
         enemyTeam = enemies;
 
         // TODO any other setup for team

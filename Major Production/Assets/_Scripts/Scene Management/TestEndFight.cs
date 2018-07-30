@@ -7,8 +7,8 @@ public class TestEndFight : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        SceneLoader loader = FindObjectOfType<SceneLoader>();
-        GetComponent<Button>().onClick.AddListener(loader.EndBattle);
+        BattleManager manager = FindObjectOfType<BattleManager>();
+        GetComponent<Button>().onClick.AddListener(manager.EndBattle);
 	}
 	
 	// Update is called once per frame

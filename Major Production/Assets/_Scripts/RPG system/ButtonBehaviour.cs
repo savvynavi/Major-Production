@@ -1,10 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace RPGsys {
+    [System.Serializable]
+    public class ButtonBehaviourObjects
+    {
+        public GameObject canvas;
+        public Transform menuPos;
+        public Transform namePos;
+
+        public Transform hpPosition;
+        public Transform mpPosition;
+        public Transform hpTextPos;
+        public Transform mpTextPos;
+        public Transform hoverTxtPos;
+    }
+
 	public class ButtonBehaviour : MonoBehaviour {
 
 		float CharacterCurrentHP;
@@ -70,17 +85,28 @@ namespace RPGsys {
 			CharacterMaxMP = GetComponent<Character>().mpStat;
 		}
 
-		public void Setup() {
+		public void Setup(ButtonBehaviourObjects bboRefs) {
 			int count = 0;
 			playerActivated = false;
 			charaName = transform.name;
 
-			//setting up menu items in correct positions	
 
-			//CHEKC IF INSTANTIATING DIFFERENTLY WILL SAVE SETUP TIME//
+            canvas = bboRefs.canvas;
+            menuPos = bboRefs.menuPos;
+            namePos = bboRefs.namePos;
 
-			//menu bg
-			GameObject tmpPaper = Instantiate(menuBG.gameObject);
+            hpPosition = bboRefs.hpPosition;
+            mpPosition = bboRefs.mpPosition;
+            hpTextPos = bboRefs.hpTextPos;
+            mpTextPos = bboRefs.mpTextPos;
+            hoverTxtPos = bboRefs.hoverTxtPos;
+
+        //setting up menu items in correct positions	
+
+        //CHEKC IF INSTANTIATING DIFFERENTLY WILL SAVE SETUP TIME//
+
+        //menu bg
+        GameObject tmpPaper = Instantiate(menuBG.gameObject);
 			menuBG = tmpPaper.GetComponent<Image>();
 			menuBG.transform.SetParent(canvas.transform, false);
 			menuBG.transform.position = menuPos.transform.position;
@@ -243,5 +269,10 @@ namespace RPGsys {
 		public void OnPointerExit(BaseEventData data, int index) {
 			HoverText.gameObject.SetActive(false);
 		}
+
+        public void CleanUp()
+        {
+            //TODO 
+        }
 	}
 }

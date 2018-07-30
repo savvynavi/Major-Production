@@ -13,9 +13,9 @@ public class SceneFrame  {
 
     Scene m_scene;
 
-    Scene ContainedScene { get { return m_scene; } }
+    public Scene ContainedScene { get { return m_scene; } }
 
-    void SetSceneObjectsActive(bool value)
+    public void SetSceneObjectsActive(bool value)
     {
         int rootcount = m_scene.rootCount;
         GameObject[] rootObjects = m_scene.GetRootGameObjects();
@@ -28,10 +28,7 @@ public class SceneFrame  {
         }
     }
 
-    public void Pushed()
-    {
-        SceneManager.SetActiveScene(m_scene);
-    }
+
 
     public void Popped()
     {
@@ -43,10 +40,5 @@ public class SceneFrame  {
     {
         SceneManager.SetActiveScene(m_scene);
         SetSceneObjectsActive(true);
-    }
-
-    public void PushedOnto()
-    {
-        SetSceneObjectsActive(false);
     }
 }

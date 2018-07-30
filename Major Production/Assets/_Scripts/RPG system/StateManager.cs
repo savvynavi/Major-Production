@@ -29,18 +29,37 @@ namespace RPGsys {
 		public float startDelay;
 		public float endDelay;
 
+        BattleManager battleManager;
+        public ButtonBehaviourObjects buttonBehaviourObjects;
+        public GameObject uiCanvas; //HACK
+
+        [SerializeField] List<Transform> playerPositions;
+        [SerializeField] List<Transform> enemyPositions;
+
 		// Use this for initialization
 		void Start() {
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
+            battleManager = FindObjectOfType<BattleManager>();
 
 			endWait = new WaitForSeconds(endDelay);
 			characters = new List<Character>();
 			enemies = new List<Character>();
-			enemyBehav = FindObjectsOfType<EnemyBehaviour>();
+
+            // Activate own and enemy team from battleManager, and move enemy team into this scene
+            battleManager.playerTeam.gameObject.SetActive(true);
+            battleManager.enemyTeam.gameObject.SetActive(true);
+            SceneManager.MoveGameObjectToScene(battleManager.enemyTeam.gameObject, gameObject.scene);
+
+            enemyBehav = battleManager.enemyTeam.GetComponentsInChildren<EnemyBehaviour>(true);
+
 			GameObject go = Instantiate(selector);
 			selector = go;
 			selector.SetActive(false);
+
+            // move Selector into this scene
+            SceneManager.MoveGameObjectToScene(selector, this.gameObject.scene);
+
 
 			//game over menu stuff
 			GameOverUI = GameObject.Find("GameOverMenu");
@@ -55,39 +74,44 @@ namespace RPGsys {
 			GameOverTextWin.SetActive(false);
 
 			//grabbing players/enemies from the scene to fill lists
-			GameObject[] tmp;
-			tmp = GameObject.FindGameObjectsWithTag("Player");
-			foreach(GameObject chara in tmp) {
-				if(chara.GetComponent<Character>() != null) {
-					characters.Add(chara.GetComponent<Character>());
-				}
-			}
+            characters.AddRange(battleManager.playerTeam.GetComponentsInChildren<Character>(true));
+
 
 			//sort player list based on their choiceOrder number(so you can make it that the closest one to the screen picks first ect)
 			List<Character> sortedList = characters.OrderBy(o => o.ChoiceOrder).ToList();
 			characters = sortedList;
+            //TODO place characters in scene positions based on this order (ie List<Transform> playerPositions and List<Transform> enemyPositions)
 
-			tmp = GameObject.FindGameObjectsWithTag("Enemy");
-			foreach(GameObject enemy in tmp) {
-				if(enemy.GetComponent<Character>() != null) {
-					enemies.Add(enemy.GetComponent<Character>());
-				}
-			}
+            enemies.AddRange(battleManager.enemyTeam.GetComponentsInChildren<Character>(true));
 
 			foreach(Character chara in characters) {
-				chara.GetComponent<ButtonBehaviour>().Setup();
-			}
+				chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
+                chara.GetComponent<TargetSelection>().selector = gameObject;
+            }
+
+            // place player team in set positions
+            for(int i = 0; i<playerPositions.Count; ++i)
+            {
+                characters[i].transform.position = playerPositions[i].position;
+                characters[i].transform.rotation = playerPositions[i].rotation;
+            }
 
 			//shows enemy ui
 			foreach(Character enemy in enemies) {
-				enemy.GetComponent<EnemyUI>().enemyUISetup();
-			}
+                enemy.GetComponent<EnemyUI>().enemyUISetup(uiCanvas);
+            }
 			foreach(Character enemy in enemies) {
 				enemy.GetComponent<EnemyUI>().ShowUI();
 			}
 
+            for (int i = 0; i < enemyPositions.Count; ++i)
+            {
+                enemies[i].transform.position = enemyPositions[i].position;
+                enemies[i].transform.rotation = enemyPositions[i].rotation;
+            }
 
-			turnBehaviour.Setup(characters, enemies);
+
+            turnBehaviour.Setup(characters, enemies);
 			confirmMenu.Setup();
 
 			//starting game loops
@@ -113,7 +137,16 @@ namespace RPGsys {
 			Debug.Log("peope are dead now");
 
 			if(BattleOver() == true) {
-				Debug.Log("menu popup");
+
+                // Cleanup button behaviours
+                List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
+                battleManager.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
+                foreach (ButtonBehaviour bb in buttonBehaviours)
+                {
+                    bb.CleanUp();
+                }
+
+                Debug.Log("menu popup");
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					GameOverTextWin.SetActive(true);

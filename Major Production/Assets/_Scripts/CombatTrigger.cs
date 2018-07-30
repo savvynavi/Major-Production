@@ -7,13 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class CombatTrigger : MonoBehaviour {
 
-    SceneLoader loader;
+    BattleManager manager;
     [SerializeField] string battleScene;
+    [SerializeField] GameObject enemies;
     bool triggered = false;
 
 	// Use this for initialization
 	void Start () {
-        loader = FindObjectOfType<SceneLoader>();
+        manager = FindObjectOfType<BattleManager>();
 	}
 	
 	// Update is called once per frame
@@ -29,7 +30,9 @@ public class CombatTrigger : MonoBehaviour {
     {
         if (!triggered && other.CompareTag("Player"))
         {
-            loader.LoadBattle(battleScene);
+            GameObject go = GameObject.Instantiate(enemies.gameObject);
+            go.SetActive(false);
+            manager.StartBattle(battleScene, go.transform);
             triggered = true;
         }
     }

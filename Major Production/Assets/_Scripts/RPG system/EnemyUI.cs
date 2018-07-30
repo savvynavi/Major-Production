@@ -51,7 +51,9 @@ namespace RPGsys {
 			mp.fillAmount = mpScale;
 		}
 
-		public void enemyUISetup() {
+		public void enemyUISetup(GameObject uiCanvas) {
+            canvas = uiCanvas;
+
 			//hp/mp bars/bg
 			GameObject tmpbg1 = Instantiate(bg.gameObject);
 			bg1 = tmpbg1.GetComponent<Image>();

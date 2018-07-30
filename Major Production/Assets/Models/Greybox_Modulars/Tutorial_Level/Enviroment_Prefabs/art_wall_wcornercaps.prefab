@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4326254448837406}
   - component: {fileID: 33081259486408660}
   - component: {fileID: 23053345656959568}
-  - component: {fileID: 95986941957643186}
+  - component: {fileID: 64552947729042160}
   m_Layer: 0
   m_Name: art_wall_wcornercaps
   m_TagString: Untagged
@@ -83,20 +83,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490561602185842}
   m_Mesh: {fileID: 4300000, guid: 8884eded7f5505446873dd66823091eb, type: 3}
---- !u!95 &95986941957643186
-Animator:
-  serializedVersion: 3
+--- !u!64 &64552947729042160
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490561602185842}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8884eded7f5505446873dd66823091eb, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 8884eded7f5505446873dd66823091eb, type: 3}

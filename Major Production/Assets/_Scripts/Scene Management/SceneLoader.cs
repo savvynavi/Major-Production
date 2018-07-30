@@ -7,13 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
+    // HACK for testing scene transition stuff
     Scene dungeonScene;
     Scene battleScene;
 
+    Stack<SceneFrame> scenes;
+
 	// Use this for initialization
 	void Start () {
+        scenes = new Stack<SceneFrame>();
+
         // HACK for testing, later dungeonScene will be loaded on reaching dungeon
         dungeonScene = SceneManager.GetActiveScene();
+
+        scenes.Push(new SceneFrame(SceneManager.GetActiveScene()));
 	}
 	
 	// Update is called once per frame
@@ -35,11 +42,13 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
+    //HACK for test
     public void LoadBattle(string sceneName)
     {
         StartCoroutine(AsyncBattleLoad(sceneName));
     }
 
+    //HACK for testing
     public void EndBattle()
     {
         SetSceneObjectActive(dungeonScene, true);
@@ -57,5 +66,25 @@ public class SceneLoader : MonoBehaviour {
         // Get Battle scene and set as active scene
         battleScene = SceneManager.GetSceneByName(sceneName);
         SceneManager.SetActiveScene(battleScene);
+    }
+
+    IEnumerator AsyncSceneLoad(string sceneName)
+    {
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        // TODO do battle loading effects
+        yield return new WaitUntil(() => { return loadOp.isDone; });
+        // Deactivate objects in dungeon scene
+        scenes.Peek().PushedOnto();
+        // Get Battle scene and set as active scene
+        SceneFrame newFrame = new SceneFrame(SceneManager.GetSceneByName(sceneName));
+        newFrame.Pushed();
+        scenes.Push(newFrame);
+    }
+
+    void EndScene()
+    {
+        SceneFrame lastScene = scenes.Pop();
+        scenes.Peek().PoppedInto();
+        lastScene.Popped();
     }
 }

@@ -58,13 +58,14 @@ public class SceneLoader : MonoBehaviour {
 
     IEnumerator AsyncBattleLoad(string sceneName)
     {
-        SetSceneObjectActive(dungeonScene, false);
-
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        loadOp.allowSceneActivation = false;
         // TODO do battle loading effects
-        yield return new WaitUntil(() => { return loadOp.isDone; });
+        yield return new WaitUntil(() => { return loadOp.progress >= 0.9f; });
         // Deactivate objects in dungeon scene
-        
+        SetSceneObjectActive(dungeonScene, false);
+        loadOp.allowSceneActivation = true;
+
         // Get Battle scene and set as active scene
         battleScene = SceneManager.GetSceneByName(sceneName);
         SceneManager.SetActiveScene(battleScene);
@@ -73,10 +74,12 @@ public class SceneLoader : MonoBehaviour {
     IEnumerator AsyncSceneLoad(string sceneName)
     {
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        loadOp.allowSceneActivation = false;
         // TODO do battle loading effects
-        yield return new WaitUntil(() => { return loadOp.isDone; });
+        yield return new WaitUntil(() => { return loadOp.progress >= 0.9f; });
         // Deactivate objects in dungeon scene
         scenes.Peek().PushedOnto();
+        loadOp.allowSceneActivation = true;
         // Get Battle scene and set as active scene
         SceneFrame newFrame = new SceneFrame(SceneManager.GetSceneByName(sceneName));
         newFrame.Pushed();

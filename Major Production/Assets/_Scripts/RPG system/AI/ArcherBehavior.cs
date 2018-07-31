@@ -14,6 +14,7 @@ namespace RPGsys
         void Start()
         {
             loaded = true;
+            //TODO maybe should check valid powers at start?
         }
 
         public override void AddAttack(List<Character> targets, List<Character> allies)

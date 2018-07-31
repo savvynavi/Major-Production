@@ -252,9 +252,7 @@ namespace RPGsys {
 			for(int i = 0; i < enemies.Count; i++) {
 				for(int j = 0; j < enemyBehav.Count(); j++) {
 					if(enemies[i] == enemyBehav[j].GetChara) {
-						rand = Random.Range(0, characters.Count);
-						enemies[i].target = characters[rand].gameObject;
-						enemyBehav[j].AddEnemyAttackRand(characters[rand]);
+                        enemyBehav[j].AddAttack(characters, enemies);
 						break;
 					}
 				}

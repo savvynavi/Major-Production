@@ -576,10 +576,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4013302588495610}
   - component: {fileID: 95468866805792984}
-  - component: {fileID: 114820498014910086}
   - component: {fileID: 114625488474336460}
   - component: {fileID: 114173173085775222}
   - component: {fileID: 136682211957306392}
+  - component: {fileID: 114782348486490448}
   m_Layer: 0
   m_Name: Orc_Wolfrider
   m_TagString: Enemy
@@ -1087,7 +1087,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1263897124635766}
-  m_LocalRotation: {x: 0.52750516, y: 0.031375706, z: 0.8487588, w: 0.019032255}
+  m_LocalRotation: {x: 0.5275052, y: 0.03137571, z: 0.84875894, w: 0.019032257}
   m_LocalPosition: {x: -0.33738193, y: 0.000027808379, z: -0.066646256}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
@@ -1643,8 +1643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: {fileID: 114786207104202202, guid: 998aa48bf4c29e8489eb44fd60b28900, type: 2}
   mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
-  bg1: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
-  bg2: {fileID: 114826360805416186, guid: 70f1f8e4d4fd3794889024ef4a755c05, type: 2}
+  bg: {fileID: 0}
   canvas: {fileID: 0}
 --- !u!114 &114625488474336460
 MonoBehaviour:
@@ -1657,7 +1656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dceb8891fe289344584a4819e4898c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selector: {fileID: 1500619447144818, guid: 6710e4fa39a8c0442bfe3f6962e3dae2, type: 2}
   speedStat: 7
   strStat: 5
   defStat: 5
@@ -1669,9 +1667,10 @@ MonoBehaviour:
   agiStat: 25
   classInfo: {fileID: 11400000, guid: 4efbfe73f7f3ae84ba9f9c854576b17c, type: 2}
   anim: {fileID: 0}
+  ChoiceOrder: 0
   target: {fileID: 0}
   currentEffects: []
---- !u!114 &114820498014910086
+--- !u!114 &114782348486490448
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1679,12 +1678,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1682510433339760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bcaa9492f30bb04a99d7ca1019d3a3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
-  canvas: {fileID: 0}
-  btnPos: []
 --- !u!136 &136682211957306392
 CapsuleCollider:
   m_ObjectHideFlags: 1

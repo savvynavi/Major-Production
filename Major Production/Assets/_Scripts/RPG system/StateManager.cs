@@ -35,12 +35,18 @@ namespace RPGsys {
 
         [SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
+        [SerializeField] Camera camera;
 
 		// Use this for initialization
 		void Start() {
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
             battleManager = FindObjectOfType<BattleManager>();
+
+            if(camera == null)
+            {
+                camera = Camera.main;
+            }
 
 			endWait = new WaitForSeconds(endDelay);
 			characters = new List<Character>();
@@ -86,7 +92,7 @@ namespace RPGsys {
 
 			foreach(Character chara in characters) {
 				chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
-                chara.GetComponent<TargetSelection>().selector = gameObject;
+                chara.GetComponent<TargetSelection>().Init(this.gameObject, camera);
             }
 
             // place player team in set positions

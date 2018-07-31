@@ -15,8 +15,14 @@ namespace RPGsys {
 			camera = Camera.main;
 		}
 
-		// Update is called once per frame
-		void Update() {
+        public void Init(GameObject selector, Camera camera)
+        {
+            this.selector = selector;
+            this.camera = camera;
+        }
+
+        // Update is called once per frame
+        void Update() {
 			if(Input.GetMouseButton(0)) {
 				ray = camera.ScreenPointToRay(Input.mousePosition);
 				Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue);

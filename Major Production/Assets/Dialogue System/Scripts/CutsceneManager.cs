@@ -22,7 +22,7 @@ namespace Dialogue {
                 Animator target = AnimatorDictionary[e.target];
                 if(target != null)
                 {
-                    target.Play(e.animation);
+                    target.Play(e.animation, e.layer);
                 } else
                 {
                     Debug.LogError("Animator \"" + e.target + "\" not found in Cutscene Manager");

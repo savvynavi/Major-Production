@@ -11,10 +11,13 @@ namespace Dialogue
         public Text dialogueText;
         public Text actorName;
         public Text responseText;
+        public Image portraitImage;
+        public RectTransform dialoguePanel;
 
         private void Awake()
         {
             uiManager = gameObject.GetComponent<DialogueUI>();
+            dialoguePanel.gameObject.SetActive(false);
         }
 
         // Use this for initialization
@@ -48,6 +51,7 @@ namespace Dialogue
         {
             dialogueText.text = entry.Text;
             actorName.text = uiManager.manager.GetCurrentActor().Name;
+            portraitImage.sprite = uiManager.manager.GetCurrentActor().Portrait;
 
             uiManager.manager.cutsceneManager.DoCutsceneEvents(entry.cutsceneEvents);
         }
@@ -65,11 +69,19 @@ namespace Dialogue
             responseText.text = "";
         }
 
+        public override void OnConversationStart()
+        {
+            this.enabled = true;
+            dialoguePanel.gameObject.SetActive(true);
+        }
+
         public override void OnConversationEnd()
         {
-            dialogueText.text = "THE END";
+            this.enabled = false;
+            dialogueText.text = "";
             actorName.text = "";
             responseText.text = "";
+            dialoguePanel.gameObject.SetActive(false);
         }
     }
 }

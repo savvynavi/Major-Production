@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1544350131580200}
+  m_IsPrefabParent: 1
+--- !u!1 &1544350131580200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4296976551498534}
+  - component: {fileID: 114923751725222000}
+  - component: {fileID: 114202671310878756}
+  - component: {fileID: 114897717166542706}
+  - component: {fileID: 114568332946333738}
+  m_Layer: 0
+  m_Name: Dialogue Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4296976551498534
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544350131580200}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.63, y: 7.97, z: -12.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114202671310878756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544350131580200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04bda0f1a0724440b4375e75613e696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114923751725222000}
+  cutsceneManager: {fileID: 114897717166542706}
+  displayStrategy: {fileID: 114568332946333738}
+  localizer: {fileID: 0}
+--- !u!114 &114568332946333738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544350131580200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e67420f49b3a30409ebaba038afc832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
+  nameText: {fileID: 0}
+  portraitImage: {fileID: 0}
+  dialoguePanel: {fileID: 0}
+  dialogueText: {fileID: 0}
+  responsePanel: {fileID: 0}
+  NextButton: {fileID: 0}
+  ButtonPrototype: {fileID: 1750177891152120, guid: 1e595358b4f572c41b4110662b88980b,
+    type: 2}
+  buttonSpacing: 0
+  buttonPadding: 20
+  buttonBottomMargin: 20
+--- !u!114 &114897717166542706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544350131580200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e94b826c0687c4aaa0d7b9bb592062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animators:
+    keys: []
+    values: []
+--- !u!114 &114923751725222000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544350131580200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0c3f4a656f3974f899a4908d1bed62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UISystem: {fileID: 114202671310878756}
+  cutsceneManager: {fileID: 114897717166542706}
+  conversation: {fileID: 0}
+  current:
+    ID: 0
+    Title: 
+    speakerIndex: 0
+    Text: 
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 0
+    parent: {fileID: 0}
+    Responses: []
+    position: {x: 0, y: 0}
+  actorDictionary:
+    keys: []
+    values: []
+  OnConversationStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnConversationEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null

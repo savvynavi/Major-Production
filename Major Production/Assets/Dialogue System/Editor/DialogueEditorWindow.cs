@@ -151,7 +151,6 @@ namespace Dialogue
             nodePanel = new Rect(0, 0, position.width * nodePanelWidth, position.height);
             // Begins a GUILayout block for the Node panel
             GUILayout.BeginArea(nodePanel);
-            // TODO draw grid
             if (conversation != null)
             {
                 DrawNodes();

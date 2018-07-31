@@ -44,50 +44,12 @@ namespace RPGsys
 
 		public void Apply(Character obj ,Character target){
 
-			float attMod;
-			//get stat that is being affected, none applied if no damage set
-			if(damage > 0) {
-				switch(statType) {
-				case RPGStats.Stats.Speed:
-					attMod = obj.Speed;
-					break;
-				case RPGStats.Stats.Str:
-					attMod = obj.Str;
-					break;
-				case RPGStats.Stats.Def:
-					attMod = obj.Def;
-					break;
-				case RPGStats.Stats.Int:
-					attMod = obj.Int;
-					break;
-				case RPGStats.Stats.Mind:
-					attMod = obj.Mind;
-					break;
-				case RPGStats.Stats.Hp:
-					attMod = obj.Hp;
-					break;
-				case RPGStats.Stats.Mp:
-					attMod = obj.Mp;
-					break;
-				case RPGStats.Stats.Dex:
-					attMod = obj.Dex;
-					break;
-				case RPGStats.Stats.Agi:
-					attMod = obj.Agi;
-					break;
-				default:
-					Debug.Log("no given attack mod type, adding zero to damage");
-					attMod = 0;
-					break;
-				}
-			} else {
-				attMod = 0;
-			}
-
+            float totalDamage = CalculateDamage(obj, target);
+            Debug.Log(obj.name + " used " + powName + " on " + target.name);
 
 			//decrease target hp by damage amount + the chatacters given stat
 			if(obj.Mp - manaCost >= 0) {
-				target.Hp -= (damage + attMod);
+				target.Hp -= (totalDamage);
 				obj.Mp -= manaCost;
 
                 Debug.Log(target.ToString() + " hp: " + target.Hp.ToString());
@@ -104,5 +66,55 @@ namespace RPGsys
 		void setAnimName(Transform obj) {
 			obj.GetComponent<Animator>().name = anim.ToString();
 		}
+
+        public float CalculateDamage(Character obj, Character target)
+        {
+            float attMod;
+            //get stat that is being affected, none applied if no damage set
+            if (damage > 0)
+            {
+                switch (statType)
+                {
+                    case RPGStats.Stats.Speed:
+                        attMod = obj.Speed;
+                        break;
+                    case RPGStats.Stats.Str:
+                        attMod = obj.Str;
+                        break;
+                    case RPGStats.Stats.Def:
+                        attMod = obj.Def;
+                        break;
+                    case RPGStats.Stats.Int:
+                        attMod = obj.Int;
+                        break;
+                    case RPGStats.Stats.Mind:
+                        attMod = obj.Mind;
+                        break;
+                    case RPGStats.Stats.Hp:
+                        attMod = obj.Hp;
+                        break;
+                    case RPGStats.Stats.Mp:
+                        attMod = obj.Mp;
+                        break;
+                    case RPGStats.Stats.Dex:
+                        attMod = obj.Dex;
+                        break;
+                    case RPGStats.Stats.Agi:
+                        attMod = obj.Agi;
+                        break;
+                    default:
+                        Debug.Log("no given attack mod type, adding zero to damage");
+                        attMod = 0;
+                        break;
+                }
+            }
+            else
+            {
+                attMod = 0;
+            }
+
+            // what if attack penalty? min of 0?
+            return damage + attMod;
+        }
 	}
 }

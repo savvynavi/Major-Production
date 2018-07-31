@@ -528,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1116669258303622
 GameObject:
   m_ObjectHideFlags: 1
@@ -2536,10 +2536,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4370857694903602}
   - component: {fileID: 95863037296717638}
-  - component: {fileID: 114142513051561792}
   - component: {fileID: 114391492069112586}
   - component: {fileID: 114730928756164742}
   - component: {fileID: 136924792549959812}
+  - component: {fileID: 114897612145960758}
   m_Layer: 0
   m_Name: Orc_Wolfrider
   m_TagString: Enemy
@@ -2965,8 +2965,8 @@ GameObject:
   - component: {fileID: 95981019085093184}
   - component: {fileID: 136545047064512006}
   - component: {fileID: 114973842767682344}
-  - component: {fileID: 114767707250867686}
   - component: {fileID: 114866149944691700}
+  - component: {fileID: 114941776700667000}
   m_Layer: 0
   m_Name: Orc_archer
   m_TagString: Enemy
@@ -3761,7 +3761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1809227087063142
 GameObject:
   m_ObjectHideFlags: 1
@@ -5466,8 +5466,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1343518867748850}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.088017, y: -0.16, z: -10.141592}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4031215930403490}
@@ -10052,17 +10052,6 @@ MonoBehaviour:
   ChoiceOrder: 1
   target: {fileID: 0}
   currentEffects: []
---- !u!114 &114142513051561792
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544631125691606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bcaa9492f30bb04a99d7ca1019d3a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114166747046565052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10135,7 +10124,7 @@ MonoBehaviour:
   defStat: 5
   intStat: 10
   mindStat: 5
-  hpStat: 5
+  hpStat: 75
   mpStat: 1e+9
   dexStat: 3
   agiStat: 2
@@ -10171,17 +10160,6 @@ MonoBehaviour:
   mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
   bg: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
   canvas: {fileID: 0}
---- !u!114 &114767707250867686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1624652214282210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bcaa9492f30bb04a99d7ca1019d3a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114797365855069034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10210,7 +10188,7 @@ MonoBehaviour:
   defStat: 5
   intStat: 5
   mindStat: 2
-  hpStat: 5
+  hpStat: 40
   mpStat: 100
   dexStat: 10
   agiStat: 25
@@ -10244,6 +10222,30 @@ MonoBehaviour:
   ChoiceOrder: 3
   target: {fileID: 0}
   currentEffects: []
+--- !u!114 &114897612145960758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544631125691606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5daf5f8c7f2da3146a48efc7f1321805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114941776700667000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624652214282210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df25db82bbedc1849ae28cf43c469998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadName: Reloading
+  arrowName: Arrows
 --- !u!114 &114973842767682344
 MonoBehaviour:
   m_ObjectHideFlags: 1

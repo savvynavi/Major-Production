@@ -18,6 +18,8 @@ namespace RPGsys{
 		public float agiStat;
 
 		public ClassInfo classInfo;
+		public List<RPGStats.DmgType> Strengths;
+		public List<RPGStats.DmgType> Weaknesses;
 		public Animator anim;
 
 		public int ChoiceOrder;

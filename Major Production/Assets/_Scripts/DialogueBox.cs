@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-// Sets the content of several UI elements in the same panel
+
+/// <summary>
+/// Sets the content of several UI elements in the same panel
+/// This class expects the textboxPanel, responsePanel, and preferably the ButtonPrototype to
+/// be set up with layout groups
+/// </summary>
 public class DialogueBox : MonoBehaviour {
 
     [SerializeField] RectTransform textboxPanel;

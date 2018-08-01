@@ -43,8 +43,7 @@ namespace RPGsys {
 			confirmMenu = GetComponent<MoveConfirmMenu>();
             battleManager = FindObjectOfType<BattleManager>();
 
-            if(camera == null)
-            {
+            if(camera == null){
                 camera = Camera.main;
             }
 
@@ -191,25 +190,65 @@ namespace RPGsys {
 			}
 
 			//loop through characters and wait until input to move to next one
-			foreach(Character chara in characters) {
-				chara.GetComponent<ButtonBehaviour>().ShowButtons();
+			//foreach(Character chara in characters) {
+			//	chara.GetComponent<ButtonBehaviour>().ShowButtons();
 
 
+			//	foreach(Character chara2 in characters) {
+			//		chara2.GetComponent<TargetSelection>().enabled = false;
+			//	}
+			//	chara.GetComponent<TargetSelection>().enabled = true;
+
+			//	if(chara.target != null) {
+			//		selector.transform.position = chara.target.transform.position;
+
+			//	}
+			//	while(chara.GetComponent<ButtonBehaviour>().playerActivated == false) {
+			//		yield return null;
+			//	}
+			//	//sets character to animation to indicate that their move has passed
+			//	chara.GetComponent<Animator>().SetBool("IdleTransition", false);
+			//	chara.GetComponent<ButtonBehaviour>().HideButtons();
+			//}
+
+			for(int i = 0; i < characters.Count; i++) {
+				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();
 				foreach(Character chara2 in characters) {
 					chara2.GetComponent<TargetSelection>().enabled = false;
 				}
-				chara.GetComponent<TargetSelection>().enabled = true;
+				characters[i].GetComponent<TargetSelection>().enabled = true;
 
-				if(chara.target != null) {
-					selector.transform.position = chara.target.transform.position;
+				if(characters[i].target != null) {
+					selector.transform.position = characters[i].target.transform.position;
 
 				}
-				while(chara.GetComponent<ButtonBehaviour>().playerActivated == false) {
+
+
+				int currentPlayer = i;
+				int previousPlayer = i - 1;
+				while(characters[currentPlayer].GetComponent<ButtonBehaviour>().playerActivated == false) {
+					//if undo button hit, sets current player to previous, sets undo to false
+					if(characters[currentPlayer].GetComponent<ButtonBehaviour>().undoMove == true) {
+						characters[currentPlayer].GetComponent<ButtonBehaviour>().undoMove = false;
+						characters[currentPlayer].GetComponent<ButtonBehaviour>().playerActivated = true;
+						Debug.Log("Undoing Action");
+						currentPlayer = previousPlayer;
+					}
 					yield return null;
 				}
-				//sets character to animation to indicate that their move has passed
-				chara.GetComponent<Animator>().SetBool("IdleTransition", false);
-				chara.GetComponent<ButtonBehaviour>().HideButtons();
+
+				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
+				if(currentPlayer == previousPlayer) {
+					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
+					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
+					//turnBehaviour.MovesThisRound.RemoveAt(turnBehaviour.MovesThisRound.Count - 1);
+					i = previousPlayer - 1;
+
+				} else {
+					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
+					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
+				}
+
 			}
 		}
 
@@ -221,6 +260,8 @@ namespace RPGsys {
 			confirmMenu.HideMenu();
 			if(redoTurn == true) {
 				Debug.Log("in the yield now going to player turn again");
+				turnBehaviour.MovesThisRound.Clear();
+				turnBehaviour.ResetTurnNumber();
 				yield return PlayerTurn();
 			}
 			yield return true;

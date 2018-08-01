@@ -28,6 +28,7 @@ namespace RPGsys
 
 		public float manaCost;
 		public float damage;
+		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
 		public RPGStats.DmgType dmgType;
 		public RPGStats.Stats statType;
 		public Target target;
@@ -86,14 +87,50 @@ namespace RPGsys
 
 
 			//decrease target hp by damage amount + the chatacters given stat
-			if(obj.Mp - manaCost >= 0) {
-				target.Hp -= (damage + attMod);
-				obj.Mp -= manaCost;
+			if(obj.Mp - manaCost >= 0){
+				//SHUFFLEBAG MIGHT FIX BAD VALUES
+				Debug.Log(obj.name);
+				float rand = Random.Range(0, 100);
+				Debug.Log("Rand Number: " + rand);
+				//float ToHit = rand + obj.GetComponent<Character>().Dex - target.GetComponent<Character>().Agi;
+				//Debug.Log("To Hit Number: " + ToHit);
 
-                Debug.Log(target.ToString() + " hp: " + target.Hp.ToString());
+				float accuracy = obj.Dex * 0.1f;
+				float dodge = target.Agi * 0.05f;
+				float chance = ((accuracy - dodge) / accuracy) * 100;
+
+				float evade = (255 - target.Agi) + 1;
+
+				//float hit = (obj.Dex * 0.4f - evade) + 9;
+
+				float hit = obj.Dex / (target.Agi + dodge);
+
+				Debug.Log("Chance to hit: " + chance);
+				float IncomingDmg = 0;
+				float dmgReduction = 0;
+
+				//if(hit >= rand){
+					Debug.Log("HIT TARGET");
+					//damage output
+					IncomingDmg = damage + attMod;
+					//Debug.Log("Incoming Damage: " + IncomingDmg);
+
+					//if the attack type is either magic or physical it changes the mod
+					if(dmgType == RPGStats.DmgType.Physical){
+						dmgReduction = IncomingDmg * (target.Def / 100);
+					} else if(dmgType == RPGStats.DmgType.Magic){
+						dmgReduction = IncomingDmg * ((target.Int / 10)) / 100;
+					}
+				//}
+
+				//get final damage output and subtract from target hp
+				IncomingDmg -= dmgReduction;
+				//Debug.Log("damage Taken: " + IncomingDmg);
+				target.Hp -= IncomingDmg;
+				//Debug.Log("Target HP: " + target.Hp);
+				obj.Mp -= manaCost;
 			}
 
-			
 
 			//loops over current effects on this power, applies them to the target
 			for(int i = 0; i < currentEffects.Count; i++) {

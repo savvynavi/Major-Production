@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPGsys
-{
+namespace RPGsys {
 	[CreateAssetMenu(fileName = "Ability", menuName = "RPG/Ability", order = 1)]
-	public class Powers : ScriptableObject
-	{
+	public class Powers : ScriptableObject {
 		//add in animation/sounds for moves later when they can be tested
 
 		//abilities can either target a group 1 person, no limits on friendly fire
-		public enum Target{
-			Group,
-			Single
+		public enum AreaOfEffect {
+			Single,
+			Group
 		}
 
 		public enum AbilityAnim {
@@ -31,8 +29,8 @@ namespace RPGsys
 		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
 		public RPGStats.DmgType dmgType;
 		public RPGStats.Stats statType;
-		public Target target;
-		public AbilityAnim anim; 
+		public AreaOfEffect areaOfEffect;
+		public AbilityAnim anim;
 		public string powName;
 		public string description;
 		public float duration;
@@ -43,53 +41,26 @@ namespace RPGsys
 			set { value = description; }
 		}
 
-		public void Apply(Character obj ,Character target){
-            float IncomingDmg = 0;
-            Debug.Log(obj.name + " used " + powName + " on " + target.name);
+		//applies damage to target based on character stats + power used
+		public void Apply(Character obj, Character target) {
 
-			//decrease target hp by damage amount + the chatacters given stat
-			if(obj.Mp - manaCost >= 0){
-				//SHUFFLEBAG MIGHT FIX BAD VALUES
-				Debug.Log(obj.name);
-				float rand = Random.Range(0, 100);
-				Debug.Log("Rand Number: " + rand);
-				//float ToHit = rand + obj.GetComponent<Character>().Dex - target.GetComponent<Character>().Agi;
-				//Debug.Log("To Hit Number: " + ToHit);
+			if(obj.Mp - manaCost >= 0) {
+				Debug.Log("can afford mana cost");
+				//float rand = Random.Range(1, 100);
+				//float MissRange = 10 + target.GetComponent<Character>().Agi - obj.GetComponent<Character>().Dex;
+				float IncomingDmg = 0;
 
-                // TODO calculate to hit chances in function so estimate can be made
-
-				float accuracy = obj.Dex * 0.1f;
-				float dodge = target.Agi * 0.05f;
-				float chance = ((accuracy - dodge) / accuracy) * 100;
-
-				float evade = (255 - target.Agi) + 1;
-
-				//float hit = (obj.Dex * 0.4f - evade) + 9;
-
-				float hit = obj.Dex / (target.Agi + dodge);
-
-				Debug.Log("Chance to hit: " + chance);
-
-				//if(hit >= rand){
-					Debug.Log("HIT TARGET");
-					//damage output
-					IncomingDmg = CalculateDamage(obj, target);
-					//Debug.Log("Incoming Damage: " + IncomingDmg);
-
-					
+				//if the random number from 1-100 is less than the miss range, the attack hits
+				//if(rand >= MissRange) {
+				IncomingDmg = CalculateDamage(obj, target);
+				//loops over current effects on this power, applies them to the target
+				for(int i = 0; i < currentEffects.Count; i++) {
+					currentEffects[i].Apply(target, duration);
+				}
 				//}
 
-				//get final damage output and subtract from target hp
-				//Debug.Log("damage Taken: " + IncomingDmg);
 				target.Hp -= IncomingDmg;
-				//Debug.Log("Target HP: " + target.Hp);
 				obj.Mp -= manaCost;
-			}
-
-
-			//loops over current effects on this power, applies them to the target
-			for(int i = 0; i < currentEffects.Count; i++) {
-				currentEffects[i].Apply(target, duration);
 			}
 		}
 
@@ -97,66 +68,71 @@ namespace RPGsys
 			obj.GetComponent<Animator>().name = anim.ToString();
 		}
 
-        public float CalculateDamage(Character obj, Character target)
-        {
-            float attMod = 0;
-            float dmgReduction = 0;
-            float totalDamage = 0;
-            //get stat that is being affected, none applied if no damage set
-            if (damage > 0)
-            {
-                switch (statType)
-                {
-                    case RPGStats.Stats.Speed:
-                        attMod = obj.Speed;
-                        break;
-                    case RPGStats.Stats.Str:
-                        attMod = obj.Str;
-                        break;
-                    case RPGStats.Stats.Def:
-                        attMod = obj.Def;
-                        break;
-                    case RPGStats.Stats.Int:
-                        attMod = obj.Int;
-                        break;
-                    case RPGStats.Stats.Mind:
-                        attMod = obj.Mind;
-                        break;
-                    case RPGStats.Stats.Hp:
-                        attMod = obj.Hp;
-                        break;
-                    case RPGStats.Stats.Mp:
-                        attMod = obj.Mp;
-                        break;
-                    case RPGStats.Stats.Dex:
-                        attMod = obj.Dex;
-                        break;
-                    case RPGStats.Stats.Agi:
-                        attMod = obj.Agi;
-                        break;
-                    default:
-                        Debug.Log("no given attack mod type, adding zero to damage");
-                        attMod = 0;
-                        break;
-                }
+		public float CalculateDamage(Character obj, Character target) {
+			float attMod;
+			//get stat that is being affected, none applied if no damage set
+			if(damage > 0) {
+				switch(statType) {
+				case RPGStats.Stats.Speed:
+					attMod = obj.Speed;
+					break;
+				case RPGStats.Stats.Str:
+					attMod = obj.Str;
+					break;
+				case RPGStats.Stats.Def:
+					attMod = obj.Def;
+					break;
+				case RPGStats.Stats.Int:
+					attMod = obj.Int;
+					break;
+				case RPGStats.Stats.Mind:
+					attMod = obj.Mind;
+					break;
+				case RPGStats.Stats.Hp:
+					attMod = obj.Hp;
+					break;
+				case RPGStats.Stats.Mp:
+					attMod = obj.Mp;
+					break;
+				case RPGStats.Stats.Dex:
+					attMod = obj.Dex;
+					break;
+				case RPGStats.Stats.Agi:
+					attMod = obj.Agi;
+					break;
+				default:
+					Debug.Log("no given attack mod type, adding zero to damage");
+					attMod = 0;
+					break;
+				}
+			}else{
+				attMod = 0;
+			}
 
-                totalDamage = damage + attMod;
 
-                //if the attack type is either magic or physical it changes the mod
-                if (dmgType == RPGStats.DmgType.Physical)
-                {
-                    dmgReduction = totalDamage * (target.Def / 100);
-                }
-                else if (dmgType == RPGStats.DmgType.Magic)
-                {
-                    dmgReduction = totalDamage * ((target.Int / 10)) / 100;
-                }
+			float IncomingDmg = 0;
+			float dmgReduction = 0;
 
-                totalDamage -= dmgReduction;
-            }
+			//decrease target hp by damage amount + the chatacters given stat
+			if(obj.Mp - manaCost >= 0) {
+				
+				Debug.Log("HIT TARGET");
 
-            // what if attack penalty? min of 0?
-            return totalDamage;
-        }
+				//damage output
+				IncomingDmg = damage + attMod;
+
+				//if the attack type is either magic or physical it changes the mod
+				if(dmgType == RPGStats.DmgType.Physical) {
+					dmgReduction = IncomingDmg * (target.Def / 100);
+				} else if(dmgType == RPGStats.DmgType.Magic) {
+					dmgReduction = IncomingDmg * ((target.Int / 10)) / 100;
+				}
+				
+				//get final damage output and subtract from target hp
+				IncomingDmg -= dmgReduction;
+			}
+
+			return IncomingDmg;
+		}
 	}
 }

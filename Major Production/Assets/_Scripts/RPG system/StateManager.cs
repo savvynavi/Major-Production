@@ -190,27 +190,6 @@ namespace RPGsys {
 			}
 
 			//loop through characters and wait until input to move to next one
-			//foreach(Character chara in characters) {
-			//	chara.GetComponent<ButtonBehaviour>().ShowButtons();
-
-
-			//	foreach(Character chara2 in characters) {
-			//		chara2.GetComponent<TargetSelection>().enabled = false;
-			//	}
-			//	chara.GetComponent<TargetSelection>().enabled = true;
-
-			//	if(chara.target != null) {
-			//		selector.transform.position = chara.target.transform.position;
-
-			//	}
-			//	while(chara.GetComponent<ButtonBehaviour>().playerActivated == false) {
-			//		yield return null;
-			//	}
-			//	//sets character to animation to indicate that their move has passed
-			//	chara.GetComponent<Animator>().SetBool("IdleTransition", false);
-			//	chara.GetComponent<ButtonBehaviour>().HideButtons();
-			//}
-
 			for(int i = 0; i < characters.Count; i++) {
 				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();
 				foreach(Character chara2 in characters) {
@@ -341,14 +320,35 @@ namespace RPGsys {
 						info.player.transform.LookAt(info.player.target.transform);
 
 						//does damage/animations
-						info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
-						string name = info.ability.anim.ToString();
-						info.player.GetComponent<Animator>().Play(name);
-						info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
-						//if player character, will allow them to go back to isle anim 
-						if(info.player.tag != "Enemy") {
-							info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
+
+						//if the attack hits, do attack stuff, if miss do dodge anim and nothing else
+						float rand = Random.Range(1, 100);
+						float MissRange = 10 + info.player.target.GetComponent<Character>().Agi - info.player.GetComponent<Character>().Dex;
+
+						if(rand >= MissRange) {
+							if(info.ability.areaOfEffect == Powers.AreaOfEffect.Group) {
+
+								if(info.player.target.tag == "Player") {
+									GroupAttack(info, characters);
+								} else {
+									GroupAttack(info, enemies);
+								}
+
+							} else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
+								info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
+								string name = info.ability.anim.ToString();
+								info.player.GetComponent<Animator>().Play(name);
+								info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+								//if player character, will allow them to go back to isle anim 
+								if(info.player.tag != "Enemy") {
+									info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
+								}
+							}
+						} else {
+							//do dodge anim, any miss triggers go here
+							Debug.Log("Attack missed");
 						}
+
 						//reset player rotation
 						float step = speed * Time.deltaTime;
 
@@ -359,6 +359,7 @@ namespace RPGsys {
 				}
 
 				yield return new WaitForSeconds(info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(1).length + 1.5f);
+				
 				if(info.player.target != null) {
 					Death(info);
 				}
@@ -409,6 +410,20 @@ namespace RPGsys {
 				}
 			}
 			return false;
+		}
+
+		public void GroupAttack(TurnBehaviour.TurnInfo info, List<Character> targets) {
+			foreach(Character chara in targets) {
+				info.ability.Apply(info.player, chara);
+				string name = info.ability.anim.ToString();
+				info.player.GetComponent<Animator>().Play(name);
+				chara.GetComponent<Animator>().Play("TAKE_DAMAGE");
+			}
+
+			//if player character, will allow them to go back to isle anim 
+			if(info.player.tag != "Enemy") {
+				info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
+			}
 		}
 
 		public bool BattleOver() {

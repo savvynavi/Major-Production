@@ -45,19 +45,18 @@ namespace RPGsys {
 		public void Apply(Character obj, Character target) {
 
 			if(obj.Mp - manaCost >= 0) {
-				Debug.Log("can afford mana cost");
-				//float rand = Random.Range(1, 100);
-				//float MissRange = 10 + target.GetComponent<Character>().Agi - obj.GetComponent<Character>().Dex;
+				float rand = Random.Range(1, 100);
+				float MissRange = 10 + target.GetComponent<Character>().Agi - obj.GetComponent<Character>().Dex;
 				float IncomingDmg = 0;
 
 				//if the random number from 1-100 is less than the miss range, the attack hits
-				//if(rand >= MissRange) {
+				if(rand >= MissRange) {
 				IncomingDmg = CalculateDamage(obj, target);
 				//loops over current effects on this power, applies them to the target
 				for(int i = 0; i < currentEffects.Count; i++) {
 					currentEffects[i].Apply(target, duration);
 				}
-				//}
+				}
 
 				target.Hp -= IncomingDmg;
 				obj.Mp -= manaCost;

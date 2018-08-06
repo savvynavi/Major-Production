@@ -9,8 +9,12 @@ namespace RPGsys
 
 		public enum DmgType
 		{
+			None,
 			Physical,
-			Elemental
+			Magic,
+			Fire,
+			Ice,
+			Healing
 		}
 
 		public enum Stats

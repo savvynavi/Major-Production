@@ -593,8 +593,8 @@ GameObject:
   - component: {fileID: 95824546554117016}
   - component: {fileID: 136990229581078338}
   - component: {fileID: 114558140697438620}
-  - component: {fileID: 114714194558316778}
   - component: {fileID: 114928872371196886}
+  - component: {fileID: 114205434404674276}
   m_Layer: 0
   m_Name: Orc_archer
   m_TagString: Enemy
@@ -2543,6 +2543,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114205434404674276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1603612363295328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114558140697438620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2556,23 +2567,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: {fileID: 114786207104202202, guid: 998aa48bf4c29e8489eb44fd60b28900, type: 2}
   mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
-  bg1: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
-  bg2: {fileID: 114826360805416186, guid: 70f1f8e4d4fd3794889024ef4a755c05, type: 2}
+  bg: {fileID: 0}
   canvas: {fileID: 0}
---- !u!114 &114714194558316778
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1603612363295328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bcaa9492f30bb04a99d7ca1019d3a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 0}
-  canvas: {fileID: 0}
-  btnPos: []
 --- !u!114 &114928872371196886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2584,7 +2580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dceb8891fe289344584a4819e4898c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selector: {fileID: 1500619447144818, guid: 6710e4fa39a8c0442bfe3f6962e3dae2, type: 2}
   speedStat: 7
   strStat: 5
   defStat: 5
@@ -2596,6 +2591,7 @@ MonoBehaviour:
   agiStat: 25
   classInfo: {fileID: 11400000, guid: 47874ec15c5ddfb4282ca2df5590797a, type: 2}
   anim: {fileID: 0}
+  ChoiceOrder: 0
   target: {fileID: 0}
   currentEffects: []
 --- !u!136 &136990229581078338

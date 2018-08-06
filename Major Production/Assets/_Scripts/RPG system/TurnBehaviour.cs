@@ -45,6 +45,16 @@ namespace RPGsys {
 			}
 		}
 
+		public void RemoveAttack(){
+			numOfTurns++;
+			MovesThisRound.RemoveAt(MovesThisRound.Count - 1);
+		}
+
+		public void ResetTurnNumber(){
+			numOfTurns = AvailablePlayers.Count;
+		}
+
+
 		//seperates out enemy movement turns from player
 		public void turnAddAttackEnemy(Powers pow, Character chara) {
 			if(numOfEnemyTurns > 0) {

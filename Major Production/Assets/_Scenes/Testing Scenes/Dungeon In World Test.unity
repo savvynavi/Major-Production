@@ -807,8 +807,8 @@ GameObject:
   - component: {fileID: 195311742}
   - component: {fileID: 195311741}
   - component: {fileID: 195311740}
-  - component: {fileID: 195311739}
   - component: {fileID: 195311738}
+  - component: {fileID: 195311739}
   m_Layer: 0
   m_Name: Orc_archer
   m_TagString: Enemy
@@ -883,15 +883,16 @@ MonoBehaviour:
 --- !u!114 &195311739
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114767707250867686, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 195311736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bcaa9492f30bb04a99d7ca1019d3a3c, type: 3}
+  m_Script: {fileID: 11500000, guid: df25db82bbedc1849ae28cf43c469998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reloadName: Reloading
+  arrowName: Arrows
 --- !u!114 &195311740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,7 +1589,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 324897029}
-  m_LocalRotation: {x: 0.52750516, y: 0.031375706, z: 0.8487588, w: 0.019032255}
+  m_LocalRotation: {x: 0.5275052, y: 0.03137571, z: 0.84875894, w: 0.019032257}
   m_LocalPosition: {x: -0.33738193, y: 0.000027808379, z: -0.066646256}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
@@ -8137,10 +8138,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2061789221}
   - component: {fileID: 2061789226}
-  - component: {fileID: 2061789225}
   - component: {fileID: 2061789224}
   - component: {fileID: 2061789223}
   - component: {fileID: 2061789222}
+  - component: {fileID: 2061789225}
   m_Layer: 0
   m_Name: Orc_Wolfrider
   m_TagString: Enemy
@@ -8223,13 +8224,12 @@ MonoBehaviour:
 --- !u!114 &2061789225
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114142513051561792, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2061789220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bcaa9492f30bb04a99d7ca1019d3a3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &2061789226

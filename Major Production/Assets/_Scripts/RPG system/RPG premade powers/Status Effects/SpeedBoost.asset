@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
+  m_Name: SpeedBoost
+  m_EditorClassIdentifier: 
+  particles: {fileID: 198349366802041810, guid: b9464b7952c8bd34ebeb44973132e6ed,
+    type: 2}
+  material: {fileID: 0}
+  timer: 0
+  StatusEffects:
+    effect: 0
+    statBuff: 0
+    amount: 5

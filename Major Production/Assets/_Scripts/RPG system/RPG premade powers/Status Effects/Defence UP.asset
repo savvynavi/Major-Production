@@ -9,16 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
-  m_Name: SpeedBoost
+  m_Name: Defence UP
   m_EditorClassIdentifier: 
-  particles: {fileID: 198349366802041810, guid: b9464b7952c8bd34ebeb44973132e6ed,
-    type: 2}
+  particles: {fileID: 0}
+  material: {fileID: 0}
   timer: 0
-  statusEffect:
-    effect: 0
-    statBuff: 0
-    amount: 0
   StatusEffects:
     effect: 0
-    statBuff: 0
-    amount: 5
+    statBuff: 2
+    amount: 10

@@ -60,7 +60,6 @@ namespace RPGsys {
 			stateManager.confirmMoves = true;
 			if(btn.GetComponentInChildren<Text>().text == "Go Back?") {
 				stateManager.redoTurn = true;
-				Debug.Log("redoing turn");
 			}
 		}
 	}

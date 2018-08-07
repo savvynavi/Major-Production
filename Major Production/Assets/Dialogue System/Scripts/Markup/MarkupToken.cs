@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Dialogue
@@ -44,5 +45,28 @@ namespace Dialogue
 	}
 
 	// TODO might change up heirarchy (got to figure out grammar better)
+
 	// TODO random choice token (contains list of literals or variables)
+	//public class RandomChoice : MarkupToken
+	//{
+	//	List<MarkupToken> Options;
+
+	//	public RandomChoice(IEnumerable<MarkupToken> options)
+	//	{
+	//		Options = new List<MarkupToken>(options);
+	//	}
+
+	//	public override string ToString()
+	//	{
+	//		StringBuilder sb = new StringBuilder("[Random Choice: ");
+	//		foreach(MarkupToken token in Options)
+	//		{
+	//			sb.Append(token.ToString());
+	//			sb.Append("|");
+	//		}
+	//		sb.Length--;    // Remove last character
+	//		sb.Append("]");
+	//		return sb.ToString();
+	//	}
+	//}
 }

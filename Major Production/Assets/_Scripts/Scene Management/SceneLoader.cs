@@ -9,13 +9,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
-    Stack<SceneFrame> scenes;
+	Scene worldScene;
+	Scene battleScene;
 
 	// Use this for initialization
 	void Start () {
-        scenes = new Stack<SceneFrame>();
-
-        scenes.Push(new SceneFrame(SceneManager.GetActiveScene()));
+		worldScene = SceneManager.GetActiveScene();
+		GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -42,38 +42,48 @@ public class SceneLoader : MonoBehaviour {
         StartCoroutine(AsyncSceneLoad(sceneName));
     }
 
-    
+    public void LoadBattle(string sceneName)
+	{
+		StartCoroutine(AsyncBattleLoad(sceneName));
+	}
 
-    IEnumerator AsyncSceneLoad(string sceneName)
+	IEnumerator AsyncBattleLoad(string sceneName)
+	{
+		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+		loadOp.allowSceneActivation = false;
+		// TODO do battle loading effects
+		yield return new WaitUntil(() => { return loadOp.progress >= 0.9f; });
+		// Deactivate objects in world scene
+		SetSceneObjectActive(worldScene, false);
+		loadOp.allowSceneActivation = true;
+		yield return new WaitUntil(() => { return loadOp.isDone; });
+		battleScene = SceneManager.GetSceneByName(sceneName);
+		SceneManager.SetActiveScene(battleScene);
+		//TODO maybe some event/function called here letting battle initialize itself?
+	}
+
+	IEnumerator AsyncSceneLoad(string sceneName)
+	{
+		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+		//TODO tell last scene's SceneController it's ending so it can save changes?
+		// TODO scene loading effects (maybe full load scene?)
+		yield return new WaitUntil(() =>
+		{
+			return loadOp.isDone;
+		});
+		Scene newScene = SceneManager.GetSceneByName(sceneName);
+		SceneManager.SetActiveScene(newScene);
+		// TODO find newScene's SceneController, pass through info needed for initialization
+		worldScene = newScene;
+	}
+
+	public void EndBattle()
     {
-        AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        loadOp.allowSceneActivation = false;
-        // TODO do battle loading effects
-        yield return new WaitUntil(() => { return loadOp.progress >= 0.9f; });
-        // Deactivate objects in dungeon scene
-        scenes.Peek().SetSceneObjectsActive(false);
-        loadOp.allowSceneActivation = true;
+		SetSceneObjectActive(worldScene, true);
+        SceneManager.SetActiveScene(worldScene);
+		// TODO may need to tell scene it was just reactivated?
 
-        yield return new WaitUntil(() =>
-        {
-            return loadOp.isDone;
-        });
-
-        // Get Battle scene and set as active scene
-        SceneFrame newFrame = new SceneFrame(SceneManager.GetSceneByName(sceneName));
-        SceneManager.SetActiveScene(newFrame.ContainedScene);
-        scenes.Push(newFrame);
-    }
-
-    public void EndScene()
-    {
-        SceneFrame lastScene = scenes.Pop();
-        SceneFrame newScene = scenes.Peek();
-
-        newScene.SetSceneObjectsActive(true);
-        SceneManager.SetActiveScene(newScene.ContainedScene);
-
-        lastScene.SetSceneObjectsActive(false);
-        SceneManager.UnloadSceneAsync(lastScene.ContainedScene);
+		SetSceneObjectActive(battleScene, false);
+        SceneManager.UnloadSceneAsync(battleScene);
     }
 }

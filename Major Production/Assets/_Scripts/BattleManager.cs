@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO figure out lifecycle
+//TODO figure out lifecycle, make singleton
 
 public class BattleManager : MonoBehaviour {
 
@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         loader = FindObjectOfType<SceneLoader>();
+		GameObject.DontDestroyOnLoad(this.gameObject);
 
 		//find state manager so we have access to character list
 	}
@@ -30,7 +31,7 @@ public class BattleManager : MonoBehaviour {
 
 		// TODO any other setup for team
 
-		loader.LoadScene(sceneName);
+		loader.LoadBattle(sceneName);
 
 	}
 
@@ -49,6 +50,6 @@ public class BattleManager : MonoBehaviour {
 
 		playerTeam.gameObject.SetActive(false);
         
-        loader.EndScene();
+        loader.EndBattle();
     }
 }

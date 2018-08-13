@@ -14,7 +14,7 @@ public class SceneLoader : MonoBehaviour {
 	Scene worldScene;
 	Scene battleScene;
 
-	Dictionary<string, Dictionary<string, string>> persistentSceneData;
+	public Dictionary<string, Dictionary<string, string>> persistentSceneData;
 
 	private void Awake()
 	{

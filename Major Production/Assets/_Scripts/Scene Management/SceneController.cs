@@ -10,11 +10,10 @@ public class SceneController : MonoBehaviour {
 	// TODO move player to correct entrypoint
 	// TODO change how data stored (just have it in SceneLoader, make this create the dictionary if path doesn't exist already)
 	List<PersistentObject> persistentObjects;
-	Dictionary<string, string> objectData;
+	string sceneKey;
 
 	private void Awake()
 	{
-		objectData = new Dictionary<string, string>();
 	}
 
 	// Use this for initialization
@@ -23,6 +22,17 @@ public class SceneController : MonoBehaviour {
 		foreach(PersistentObject po in persistentObjects)
 		{
 			po.SetController(this);
+		}
+
+		// If this scene has dictionary, load from it
+		sceneKey = gameObject.scene.path;
+		Dictionary<string, string> objectData;
+		if (SceneLoader.Instance.persistentSceneData.TryGetValue(sceneKey, out objectData)){
+			LoadPersistentObjects(objectData);
+		} else
+		{
+			// If dictionary not found, create it
+			SceneLoader.Instance.persistentSceneData[sceneKey] = new Dictionary<string, string>();
 		}
 	}
 	
@@ -34,22 +44,15 @@ public class SceneController : MonoBehaviour {
 	public void SaveObject(PersistentObject po)
 	{
 		//HACK might change where it's stored
-		objectData[po.ID] = JsonUtility.ToJson(po);
+		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = JsonUtility.ToJson(po);
 	} 
-
-	public Dictionary<string,string> GetPersistentData()
-	{
-		return objectData;
-	}
 
 	public void LoadPersistentObjects(Dictionary<string,string> loadData)
 	{
-		// HACK might change where it's stored
-		objectData = loadData;
 		foreach(PersistentObject po in persistentObjects)
 		{
 			string data;
-			if(objectData.TryGetValue(po.ID, out data))
+			if(loadData.TryGetValue(po.ID, out data))
 			{
 				po.Load(data);
 			}

@@ -69,6 +69,11 @@ namespace RPGsys{
 		//Material material;
 		public List<Status> currentEffects;
 
+		//stores the 1 weapon a character can wield
+		public RPGItems.Item Weapon;
+		//stores a list of equipables, mainly the rings
+		public List<RPGItems.Item> Equipment;
+
 		void Awake(){
 			Speed = speedStat;
 			Str = strStat;

@@ -17,7 +17,7 @@ MonoBehaviour:
   - ID: 0
     Title: 
     speakerIndex: 0
-    Text: This is the first line
+    Text: This is the overworld area
     OnEnter: []
     cutsceneEvents: []
     transitions:
@@ -32,7 +32,8 @@ MonoBehaviour:
   - ID: 1
     Title: 
     speakerIndex: 0
-    Text: This is the second line
+    Text: "You are a party of adventurers heading out to battle The Necromancer. \nThe
+      entrance to his tower lies ahead\n\nDo you want to proceed?"
     OnEnter: []
     cutsceneEvents: []
     transitions:
@@ -40,7 +41,7 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses:
-    - Text: Choice 1
+    - Text: Yes
       OnChosen: []
       Prerequisite: {fileID: 0}
       transitions:
@@ -49,7 +50,7 @@ MonoBehaviour:
             TargetID: 3
           condition: {fileID: 0}
       Position: {x: 86, y: 288}
-    - Text: Choice 2
+    - Text: No
       OnChosen: []
       Prerequisite: {fileID: 0}
       transitions:
@@ -62,7 +63,7 @@ MonoBehaviour:
   - ID: 2
     Title: 
     speakerIndex: 0
-    Text: This is the final line
+    Text: Head through the gate ahead.
     OnEnter: []
     cutsceneEvents: []
     transitions:
@@ -74,7 +75,7 @@ MonoBehaviour:
   - ID: 3
     Title: 
     speakerIndex: 0
-    Text: This is option 1
+    Text: Great! Get going!
     OnEnter: []
     cutsceneEvents: []
     transitions:
@@ -89,7 +90,7 @@ MonoBehaviour:
   - ID: 4
     Title: 
     speakerIndex: 0
-    Text: This is option 2
+    Text: Well there's not much else to do here.
     OnEnter: []
     cutsceneEvents: []
     transitions:

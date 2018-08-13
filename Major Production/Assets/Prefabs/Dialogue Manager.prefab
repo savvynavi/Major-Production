@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114923751725222000}
   - component: {fileID: 114202671310878756}
   - component: {fileID: 114897717166542706}
-  - component: {fileID: 114568332946333738}
+  - component: {fileID: 114865849804568868}
   m_Layer: 0
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -56,9 +56,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 114923751725222000}
   cutsceneManager: {fileID: 114897717166542706}
-  displayStrategy: {fileID: 114568332946333738}
+  displayStrategy: {fileID: 114865849804568868}
   localizer: {fileID: 0}
---- !u!114 &114568332946333738
+--- !u!114 &114865849804568868
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -66,21 +66,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1544350131580200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e67420f49b3a30409ebaba038afc832, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cb8cc25882c85549bdd1a8ff7ed24b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
-  nameText: {fileID: 0}
-  portraitImage: {fileID: 0}
-  dialoguePanel: {fileID: 0}
-  dialogueText: {fileID: 0}
-  responsePanel: {fileID: 0}
-  NextButton: {fileID: 0}
-  ButtonPrototype: {fileID: 1750177891152120, guid: 1e595358b4f572c41b4110662b88980b,
-    type: 2}
-  buttonSpacing: 0
-  buttonPadding: 20
-  buttonBottomMargin: 20
+  dialogueBox: {fileID: 0}
 --- !u!114 &114897717166542706
 MonoBehaviour:
   m_ObjectHideFlags: 1

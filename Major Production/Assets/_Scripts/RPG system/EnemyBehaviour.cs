@@ -6,26 +6,30 @@ using UnityEngine.UI;
 namespace RPGsys {
 
 	[RequireComponent(typeof(Character))]
-	public class EnemyBehaviour : MonoBehaviour {
-		Character chara = null;
-		TurnBehaviour turnBehav = null;
-		int rand;
+	public abstract class EnemyBehaviour : MonoBehaviour {
+		protected Character chara = null;
+		protected TurnBehaviour turnBehav = null;
 
 		public Character GetChara{
 			get { return chara; }
 		}
 			
-		private void Awake() {
+		protected void Awake() {
 			chara = GetComponent<Character>();
 			turnBehav = FindObjectOfType<TurnBehaviour>();
 		}
 
-		// Update is called once per frame
-		public void AddEnemyAttackRand(Character target) {
-			chara.target = target.gameObject;
-			rand = Random.Range(0, chara.classInfo.classPowers.Count);
-			turnBehav.turnAddAttackEnemy(chara.classInfo.classPowers[rand], chara);
-		}
-	}
+        public abstract void AddAttack(List<Character> targets, List<Character> allies);
+
+        protected void AttackRandomFallback(List<Character> targets, List<Character> allies)
+        {
+            int targetIndex = Random.Range(0, targets.Count);
+            Character target = targets[targetIndex];
+            chara.target = target.gameObject;
+            int powerIndex = Random.Range(0, chara.classInfo.classPowers.Count);
+            Powers powers = chara.classInfo.classPowers[powerIndex];
+            turnBehav.turnAddAttackEnemy(powers, chara);
+        }
+    }
 
 }

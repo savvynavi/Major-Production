@@ -10,7 +10,7 @@ namespace RPGsys {
 		public bool confirmMoves = false;
 		public bool redoTurn = false;
 		WaitForSeconds endWait;
-		List<Character> characters;
+		public List<Character> characters;
 		List<Character> enemies;
 		TurnBehaviour turnBehaviour;
 		EnemyBehaviour[] enemyBehav;
@@ -35,12 +35,17 @@ namespace RPGsys {
 
         [SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
+        [SerializeField] Camera camera;
 
 		// Use this for initialization
 		void Start() {
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
             battleManager = FindObjectOfType<BattleManager>();
+
+            if(camera == null){
+                camera = Camera.main;
+            }
 
 			endWait = new WaitForSeconds(endDelay);
 			characters = new List<Character>();
@@ -86,7 +91,7 @@ namespace RPGsys {
 
 			foreach(Character chara in characters) {
 				chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
-                chara.GetComponent<TargetSelection>().selector = gameObject;
+                chara.GetComponent<TargetSelection>().Init(this.gameObject, camera);
             }
 
             // place player team in set positions
@@ -146,13 +151,10 @@ namespace RPGsys {
                     bb.CleanUp();
                 }
 
-                Debug.Log("menu popup");
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					GameOverTextWin.SetActive(true);
-					Debug.Log("you won");
 				} else if(EnemyAlive() == true) {
-					Debug.Log("you lost");
 					GameOverTextLose.SetActive(true);
 				}
 			}
@@ -185,25 +187,43 @@ namespace RPGsys {
 			}
 
 			//loop through characters and wait until input to move to next one
-			foreach(Character chara in characters) {
-				chara.GetComponent<ButtonBehaviour>().ShowButtons();
-
-
+			for(int i = 0; i < characters.Count; i++) {
+				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();
 				foreach(Character chara2 in characters) {
 					chara2.GetComponent<TargetSelection>().enabled = false;
 				}
-				chara.GetComponent<TargetSelection>().enabled = true;
+				characters[i].GetComponent<TargetSelection>().enabled = true;
 
-				if(chara.target != null) {
-					selector.transform.position = chara.target.transform.position;
+				if(characters[i].target != null) {
+					selector.transform.position = characters[i].target.transform.position;
 
 				}
-				while(chara.GetComponent<ButtonBehaviour>().playerActivated == false) {
+
+
+				int currentPlayer = i;
+				int previousPlayer = i - 1;
+				while(characters[currentPlayer].GetComponent<ButtonBehaviour>().playerActivated == false) {
+					//if undo button hit, sets current player to previous, sets undo to false
+					if(characters[currentPlayer].GetComponent<ButtonBehaviour>().undoMove == true) {
+						characters[currentPlayer].GetComponent<ButtonBehaviour>().undoMove = false;
+						characters[currentPlayer].GetComponent<ButtonBehaviour>().playerActivated = true;
+						currentPlayer = previousPlayer;
+					}
 					yield return null;
 				}
-				//sets character to animation to indicate that their move has passed
-				chara.GetComponent<Animator>().SetBool("IdleTransition", false);
-				chara.GetComponent<ButtonBehaviour>().HideButtons();
+
+				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
+				if(currentPlayer == previousPlayer) {
+					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
+					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
+					//turnBehaviour.MovesThisRound.RemoveAt(turnBehaviour.MovesThisRound.Count - 1);
+					i = previousPlayer - 1;
+
+				} else {
+					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
+					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
+				}
+
 			}
 		}
 
@@ -214,7 +234,8 @@ namespace RPGsys {
 			}
 			confirmMenu.HideMenu();
 			if(redoTurn == true) {
-				Debug.Log("in the yield now going to player turn again");
+				turnBehaviour.MovesThisRound.Clear();
+				turnBehaviour.ResetTurnNumber();
 				yield return PlayerTurn();
 			}
 			yield return true;
@@ -252,9 +273,7 @@ namespace RPGsys {
 			for(int i = 0; i < enemies.Count; i++) {
 				for(int j = 0; j < enemyBehav.Count(); j++) {
 					if(enemies[i] == enemyBehav[j].GetChara) {
-						rand = Random.Range(0, characters.Count);
-						enemies[i].target = characters[rand].gameObject;
-						enemyBehav[j].AddEnemyAttackRand(characters[rand]);
+                        enemyBehav[j].AddAttack(characters, enemies);
 						break;
 					}
 				}
@@ -270,9 +289,10 @@ namespace RPGsys {
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
-
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
 				originalRotation = info.player.transform.rotation;
+				List<Character> storeTargets = new List<Character>();
+
 				if(info.player.Hp > 0) {
 					info.player.Timer();
 					if(info.player.target == null) {
@@ -296,14 +316,32 @@ namespace RPGsys {
 						info.player.transform.LookAt(info.player.target.transform);
 
 						//does damage/animations
-						info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
-						string name = info.ability.anim.ToString();
-						info.player.GetComponent<Animator>().Play(name);
-						info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
-						//if player character, will allow them to go back to isle anim 
-						if(info.player.tag != "Enemy") {
-							info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
+
+						//if the attack hits, do attack stuff, if miss do dodge anim and nothing else
+						float rand = Random.Range(1, 100);
+						float MissRange = 10 + info.player.target.GetComponent<Character>().Agi - info.player.GetComponent<Character>().Dex;
+
+						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Group) {
+						
+							if(info.player.target.tag == "Player") {
+								GroupAttack(info, characters, storeTargets);
+							} else {
+								GroupAttack(info, enemies, storeTargets);
+							}
+						}else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
+							info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
+							string name = info.ability.anim.ToString();
+							info.player.GetComponent<Animator>().Play(name);
+							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+							//if player character, will allow them to go back to isle anim 
+							if(info.player.tag != "Enemy") {
+								info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
+							}
+							storeTargets.Add(info.player.target.GetComponent<Character>());
+						} else {
+							storeTargets = null;
 						}
+
 						//reset player rotation
 						float step = speed * Time.deltaTime;
 
@@ -314,8 +352,14 @@ namespace RPGsys {
 				}
 
 				yield return new WaitForSeconds(info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(1).length + 1.5f);
-				if(info.player.target != null) {
-					Death(info);
+				
+				if(storeTargets != null) {
+					Death(info.player.target.GetComponent<Character>(), storeTargets);
+				}
+				//if either side dead already, end fight
+				if(BattleOver() == true) {
+					yield return EndBattle();
+					break;
 				}
 			}
 
@@ -326,25 +370,49 @@ namespace RPGsys {
 			yield return new WaitForSeconds(0.5f);
 		}
 
-		public void Death(TurnBehaviour.TurnInfo attackerInfo) {
-			Character attackerTarget = attackerInfo.player.target.GetComponent<Character>();
+		public IEnumerator EndBattle() {
+			// Cleanup button behaviours
+			List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
+			battleManager.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
+			foreach(ButtonBehaviour bb in buttonBehaviours) {
+				bb.CleanUp();
+			}
 
-			if(attackerTarget != null) {
-				if(attackerTarget.Hp <= 0) {
-					attackerTarget.Hp = 0;
-					attackerTarget.GetComponent<Animator>().Play("DEAD");
+			turnBehaviour.MovesThisRound.Clear();
 
-					//remove buff effects on death
-					foreach(Buff buff in attackerTarget.currentEffects) {
-						buff.UpdateEffect(attackerTarget);
-					}
+			foreach(Character chara in characters) {
+				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
+			}
 
-					if(attackerTarget.gameObject.tag == "Enemy") {
-						attackerTarget.GetComponent<EnemyUI>().HideUI();
-						attackerTarget.GetComponent<Collider>().enabled = false;
+			GameOverUI.SetActive(true);
+			if(Alive() == true) {
+				GameOverTextWin.SetActive(true);
+			} else if(EnemyAlive() == true) {
+				GameOverTextLose.SetActive(true);
+			}
+			yield return new WaitForSeconds(0.5f);
+		}
+
+		public void Death(Character attackerTarget, List<Character> targets) {
+			//if no list given, do 1 target, else loop over all targets
+			if(targets != null) {
+				foreach(Character target in targets) {
+					if(target.Hp <= 0) {
+						target.Hp = 0;
+						target.GetComponent<Animator>().Play("DEAD");
+
+						foreach(Buff buff in target.currentEffects) {
+							buff.UpdateEffect(target);
+						}
+
+						if(target.gameObject.tag == "Enemy") {
+							target.GetComponent<EnemyUI>().HideUI();
+							target.GetComponent<Collider>().enabled = false;
+
+						}
 					}
 				}
-			}
+			} 
 		}
 
 		//if player is alive returns true, otherwise false
@@ -364,6 +432,21 @@ namespace RPGsys {
 				}
 			}
 			return false;
+		}
+
+		public void GroupAttack(TurnBehaviour.TurnInfo info, List<Character> targets, List<Character> storeTargets) {
+			foreach(Character chara in targets) {
+				info.ability.Apply(info.player, chara);
+				string name = info.ability.anim.ToString();
+				info.player.GetComponent<Animator>().Play(name);
+				chara.GetComponent<Animator>().Play("TAKE_DAMAGE");
+				storeTargets.Add(chara);
+			}
+
+			//if player character, will allow them to go back to isle anim 
+			if(info.player.tag != "Enemy") {
+				info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
+			}
 		}
 
 		public bool BattleOver() {

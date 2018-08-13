@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // TODO figure out if this needs to call anything on loading/unloading scenes
+// TODO "horizontal" scenes (switching top scene instead of just push or pop
 // TODO work out lifecycle (singleton? made on game start?)
 
 public class SceneLoader : MonoBehaviour {

@@ -33,12 +33,14 @@ namespace RPGsys {
 
 
 		public bool playerActivated;
+		public bool undoMove = false;
 		public List<Button> buttons;
 		public Button button;
 		public Text font;
 		public GameObject canvas;
 		public Transform menuPos;
 		public Image menuBG;
+        GameObject menuBackground;
 		public Transform namePos;
 
 		public Image hpImage;
@@ -58,6 +60,7 @@ namespace RPGsys {
 		Image mpBg;
 		Text hpTxt;
 		Text mpTxt;
+		Button goBackBtn;
 
 
 		private void Awake() {
@@ -106,10 +109,9 @@ namespace RPGsys {
         //CHEKC IF INSTANTIATING DIFFERENTLY WILL SAVE SETUP TIME//
 
         //menu bg
-        GameObject tmpPaper = Instantiate(menuBG.gameObject);
-			menuBG = tmpPaper.GetComponent<Image>();
-			menuBG.transform.SetParent(canvas.transform, false);
-			menuBG.transform.position = menuPos.transform.position;
+            menuBackground = Instantiate(menuBG.gameObject);
+			menuBackground.transform.SetParent(canvas.transform, false);
+			menuBackground.transform.position = menuPos.transform.position;
 
 			//hp/mp bars/bg
 			GameObject tmpbg1 = Instantiate(hpBackground.gameObject);
@@ -155,15 +157,26 @@ namespace RPGsys {
 			//setting up each power with a button
 			foreach(Powers pow in powerList) {
 				GameObject go = Instantiate(button.gameObject);
-				button = go.GetComponent<Button>();
-				button.transform.SetParent(menuBG.transform, false);
-				button.name = pow.powName + "(" + (count + 1) + ")";
-				button.GetComponentInChildren<Text>().text = pow.powName;
-				buttons.Add(button);
+                Button buttonInstance = go.GetComponent<Button>();
+				go.transform.SetParent(menuBackground.transform, false);
+				go.name = pow.powName + "(" + (count + 1) + ")";
+				go.GetComponentInChildren<Text>().text = pow.powName;
+				buttons.Add(buttonInstance);
 
 				//setup for hover textbox, set to inactive 
-				HoverButtonSetup(pow, button);
+				HoverButtonSetup(pow, buttonInstance);
 				count++;
+			}
+
+			//back button setup
+			if(transform.GetComponent<Character>().ChoiceOrder != 1) {
+				GameObject tmp = Instantiate(button.gameObject, menuBackground.transform);
+
+				goBackBtn = tmp.GetComponent<Button>();
+				//goBackBtn.transform.SetParent(menuBG.transform, false);
+				goBackBtn.name = "UNDO";
+				goBackBtn.GetComponentInChildren<Text>().text = "UNDO";
+				goBackBtn.onClick.AddListener(() => HandleClickBack());
 			}
 
 			//adding listeners to each button/settting active state to false
@@ -203,7 +216,7 @@ namespace RPGsys {
 		}
 
 		public void ShowButtons() {
-			menuBG.gameObject.SetActive(true);
+			menuBackground.SetActive(true);
 			charaNameText.gameObject.SetActive(true);
 			hp.gameObject.SetActive(true);
 			float hpScale = Mathf.Clamp01(CharacterCurrentHP / CharacterMaxHP);
@@ -228,7 +241,7 @@ namespace RPGsys {
 		}
 
 		public void HideButtons() {
-			menuBG.gameObject.SetActive(false);
+			menuBackground.SetActive(false);
 			charaNameText.gameObject.SetActive(false);
 			hp.gameObject.SetActive(false);
 			mp.gameObject.SetActive(false);
@@ -255,6 +268,13 @@ namespace RPGsys {
 			}
 		}
 
+		//when UNDO button clicked, will return player to previous character turn screen
+		public void HandleClickBack() {
+			//playerActivated = true;
+			FindObjectOfType<TurnBehaviour>().RemoveAttack();
+			undoMove = true;
+		}
+
 		//use to have button info pop up on screen/clear
 		public void OnPointerEnter(BaseEventData data, int index) {
 			HoverText.gameObject.SetActive(true);
@@ -273,6 +293,9 @@ namespace RPGsys {
         public void CleanUp()
         {
             //TODO 
+
+            // Clear Buttons list
+            buttons.Clear();
         }
 	}
 }

@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPGsys
-{
+namespace RPGsys {
 	[CreateAssetMenu(fileName = "Ability", menuName = "RPG/Ability", order = 1)]
-	public class Powers : ScriptableObject
-	{
+	public class Powers : ScriptableObject {
 		//add in animation/sounds for moves later when they can be tested
 
 		//abilities can either target a group 1 person, no limits on friendly fire
-		public enum Target{
-			Group,
-			Single
+		public enum AreaOfEffect {
+			Single,
+			Group
 		}
 
 		public enum AbilityAnim {
@@ -28,10 +26,11 @@ namespace RPGsys
 
 		public float manaCost;
 		public float damage;
+		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
 		public RPGStats.DmgType dmgType;
 		public RPGStats.Stats statType;
-		public Target target;
-		public AbilityAnim anim; 
+		public AreaOfEffect areaOfEffect;
+		public AbilityAnim anim;
 		public string powName;
 		public string description;
 		public float duration;
@@ -42,8 +41,33 @@ namespace RPGsys
 			set { value = description; }
 		}
 
-		public void Apply(Character obj ,Character target){
+		//applies damage to target based on character stats + power used
+		public void Apply(Character obj, Character target) {
 
+			if(obj.Mp - manaCost >= 0) {
+				float rand = Random.Range(1, 100);
+				float MissRange = 10 + target.GetComponent<Character>().Agi - obj.GetComponent<Character>().Dex;
+				float IncomingDmg = 0;
+
+				//if the random number from 1-100 is less than the miss range, the attack hits
+				if(rand >= MissRange) {
+				IncomingDmg = CalculateDamage(obj, target);
+				//loops over current effects on this power, applies them to the target
+				for(int i = 0; i < currentEffects.Count; i++) {
+					currentEffects[i].Apply(target, duration);
+				}
+				}
+
+				target.Hp -= IncomingDmg;
+				obj.Mp -= manaCost;
+			}
+		}
+
+		void setAnimName(Transform obj) {
+			obj.GetComponent<Animator>().name = anim.ToString();
+		}
+
+		public float CalculateDamage(Character obj, Character target) {
 			float attMod;
 			//get stat that is being affected, none applied if no damage set
 			if(damage > 0) {
@@ -80,29 +104,34 @@ namespace RPGsys
 					attMod = 0;
 					break;
 				}
-			} else {
+			}else{
 				attMod = 0;
 			}
 
 
+			float IncomingDmg = 0;
+			float dmgReduction = 0;
+
 			//decrease target hp by damage amount + the chatacters given stat
 			if(obj.Mp - manaCost >= 0) {
-				target.Hp -= (damage + attMod);
-				obj.Mp -= manaCost;
+				
+				Debug.Log("HIT TARGET");
 
-                Debug.Log(target.ToString() + " hp: " + target.Hp.ToString());
+				//damage output
+				IncomingDmg = damage + attMod;
+
+				//if the attack type is either magic or physical it changes the mod
+				if(dmgType == RPGStats.DmgType.Physical) {
+					dmgReduction = IncomingDmg * (target.Def / 100);
+				} else if(dmgType == RPGStats.DmgType.Magic) {
+					dmgReduction = IncomingDmg * ((target.Int / 10)) / 100;
+				}
+				
+				//get final damage output and subtract from target hp
+				IncomingDmg -= dmgReduction;
 			}
 
-			
-
-			//loops over current effects on this power, applies them to the target
-			for(int i = 0; i < currentEffects.Count; i++) {
-				currentEffects[i].Apply(target, duration);
-			}
-		}
-
-		void setAnimName(Transform obj) {
-			obj.GetComponent<Animator>().name = anim.ToString();
+			return IncomingDmg;
 		}
 	}
 }

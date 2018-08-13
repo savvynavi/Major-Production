@@ -9,13 +9,30 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
+	public static SceneLoader Instance = null;
+
 	Scene worldScene;
 	Scene battleScene;
 
+	Dictionary<string, Dictionary<string, string>> persistentSceneData;
+
+	private void Awake()
+	{
+		if(Instance == null)
+		{
+			Instance = this;
+		} else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
+		GameObject.DontDestroyOnLoad(this.gameObject);
+		persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
+		worldScene = SceneManager.GetActiveScene();
+	}
+
 	// Use this for initialization
 	void Start () {
-		worldScene = SceneManager.GetActiveScene();
-		GameObject.DontDestroyOnLoad(this.gameObject);
+
 	}
 	
 	// Update is called once per frame
@@ -60,6 +77,7 @@ public class SceneLoader : MonoBehaviour {
 		battleScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(battleScene);
 		//TODO maybe some event/function called here letting battle initialize itself?
+		Debug.Log(battleScene.name);
 	}
 
 	IEnumerator AsyncSceneLoad(string sceneName)
@@ -75,6 +93,7 @@ public class SceneLoader : MonoBehaviour {
 		SceneManager.SetActiveScene(newScene);
 		// TODO find newScene's SceneController, pass through info needed for initialization
 		worldScene = newScene;
+		Debug.Log(newScene.name);
 	}
 
 	public void EndBattle()

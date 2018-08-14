@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Starts and ends battles, holding the player and enemy teams 
+/// </summary>
 public class BattleManager : MonoBehaviour {
 
 	public static BattleManager Instance;

@@ -4,11 +4,15 @@ using UnityEngine;
 
 /// <summary>
 /// Class placed in each scene, to correctly initialize player placement/persistent stuff
+/// 
+/// When started, this looks for a dictionary in SceneLoader with the scene's path. If found, 
+/// it loads the data from that dictionary into the scene's PersistentObjects. Otherwise it 
+/// creates that dictionary.
+/// PersistentObjects are saved by this
 /// </summary>
 public class SceneController : MonoBehaviour {
 
 	// TODO move player to correct entrypoint
-	// TODO change how data stored (just have it in SceneLoader, make this create the dictionary if path doesn't exist already)
 	List<PersistentObject> persistentObjects;
 	string sceneKey;
 
@@ -41,10 +45,10 @@ public class SceneController : MonoBehaviour {
 		
 	}
 
+	// Saves PersistentObject to SceneLoader's dictionary
 	public void SaveObject(PersistentObject po)
 	{
-		//HACK might change where it's stored
-		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = JsonUtility.ToJson(po);
+		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = po.Serialize();
 	} 
 
 	public void LoadPersistentObjects(Dictionary<string,string> loadData)

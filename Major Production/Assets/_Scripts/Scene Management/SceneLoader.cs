@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // TODO figure out if this needs to call anything on loading/unloading scenes
-// TODO "horizontal" scenes (switching top scene instead of just push or pop
-// TODO work out lifecycle (singleton? made on game start?)
 
+/// <summary>
+/// This class manages loading and unloading scenes. It also stores data for PersistentObjects
+/// in scenes
+/// </summary>
 public class SceneLoader : MonoBehaviour {
 
 	public static SceneLoader Instance = null;
@@ -59,6 +61,7 @@ public class SceneLoader : MonoBehaviour {
         StartCoroutine(AsyncSceneLoad(sceneName));
     }
 
+	// Loads a battle scene, suspending the current WorldScene
     public void LoadBattle(string sceneName)
 	{
 		StartCoroutine(AsyncBattleLoad(sceneName));
@@ -96,6 +99,7 @@ public class SceneLoader : MonoBehaviour {
 		Debug.Log(newScene.name);
 	}
 
+	// Unloads the BattleScene and reactivates the current World scene
 	public void EndBattle()
     {
 		SetSceneObjectActive(worldScene, true);

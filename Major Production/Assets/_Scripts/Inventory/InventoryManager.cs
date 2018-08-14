@@ -40,18 +40,16 @@ namespace RPGItems {
 
 		//either use a potion or equip an item
 		public void Use(Item item, RPGsys.Character character) {
-
-			//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
-			if(item.Type == Item.ItemType.Consumable) {
-				foreach(RPGsys.Powers power in item.Effects) {
-					power.Apply(character, item);
+			if(item != null && character != null) {
+				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
+				if(item.Type == Item.ItemType.Consumable) {
+					foreach(RPGsys.Powers power in item.Effects) {
+						power.Apply(character, item);
+					}
 				}
 
 				Discard(item);
 			}
 		}
-
-		 
 	}
-
 }

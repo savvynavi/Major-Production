@@ -11,6 +11,7 @@ namespace RPGsys{
 		protected GameObject partInst;
 		protected Material matInst;
 		bool particleRunning;
+		public Equipable equipable;
 
 		//public Animation anim;
 		public enum StatusEffectType {
@@ -23,6 +24,11 @@ namespace RPGsys{
 			Self,
 			Target,
 			Group
+		}
+
+		public enum Equipable {
+			False,
+			True
 		}
 
 		[System.Serializable]

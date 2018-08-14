@@ -98,6 +98,10 @@ namespace RPGsys{
 		public void Timer(){
 			List<Status> deadEffects = new List<Status>();
 			foreach(Status effect in currentEffects){
+				if(effect.equipable == Status.Equipable.True) {
+					return;
+				}
+				
 				//if the timer is less than zero, add to dead list, else count down
 				effect.UpdateEffect(this);
 				if(effect.timer < 0) {

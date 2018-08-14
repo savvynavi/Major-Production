@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO figure out lifecycle
-
+/// <summary>
+/// Starts and ends battles, holding the player and enemy teams 
+/// </summary>
 public class BattleManager : MonoBehaviour {
+
+	public static BattleManager Instance;
 
     public Transform playerTeam;
     public Transform enemyTeam; // Transform containing enemies to move into battle scene
-    SceneLoader loader;
 
-	// Use this for initialization
-	void Start () {
-        loader = FindObjectOfType<SceneLoader>();
+	RPGsys.StateManager stateManager;
+
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
+		GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -24,17 +36,27 @@ public class BattleManager : MonoBehaviour {
     {
         enemyTeam = enemies;
 
-        // TODO any other setup for team
+		// TODO any other setup for team
 
-        loader.LoadScene(sceneName);
-    }
+		SceneLoader.Instance.LoadBattle(sceneName);
 
-    public void EndBattle()
+	}
+
+	public void EndBattle()
     {
-        //TODO end of fight effects, cleanup, etc
+		//TODO end of fight effects, cleanup, etc
+
+		//finds the statemanager, loops over characters, removing effects
+		stateManager = FindObjectOfType<RPGsys.StateManager>();
+
+		foreach(RPGsys.Character chara in stateManager.characters) {
+			foreach(RPGsys.Buff buff in chara.currentEffects) {
+				buff.Remove(chara);
+			}
+		}
+
+		playerTeam.gameObject.SetActive(false);
         
-        playerTeam.gameObject.SetActive(false);
-        
-        loader.EndScene();
+        SceneLoader.Instance.EndBattle();
     }
 }

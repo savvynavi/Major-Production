@@ -12,14 +12,14 @@ public class DialogueMarkupTest {
 
 	[Test]
 	public void LiteralTextParses() {
-		LiteralText literal = MarkupParser.Literal.Parse("Sphinx of black quartz judge my vow.");
+		LiteralText literal = (LiteralText)MarkupParser.Literal.Parse("Sphinx of black quartz judge my vow.").Value;
 		Assert.AreEqual("Sphinx of black quartz judge my vow.", literal.ToString());
 	}
 
 	[Test]
 	public void LiteralTextExcludesBrace()
 	{
-		LiteralText literal = MarkupParser.Literal.Parse("Sphinx of black quartz judge my vow.{markup in here}");
+		LiteralText literal = (LiteralText)MarkupParser.Literal.Parse("Sphinx of black quartz judge my vow.{markup in here}").Value;
 		Assert.AreEqual("Sphinx of black quartz judge my vow.", literal.ToString());
 	}
 
@@ -27,14 +27,14 @@ public class DialogueMarkupTest {
 	[Test]
 	public void QuotedLiteralParses()
 	{
-		LiteralText literal = MarkupParser.QuotedLiteral.Parse("\"Sphinx of black quartz judge my vow.\"");
+		LiteralText literal = (LiteralText)MarkupParser.QuotedLiteral.Parse("\"Sphinx of black quartz judge my vow.\"").Value;
 		Assert.AreEqual("Sphinx of black quartz judge my vow.", literal.ToString());
 	}
 
 	[Test]
 	public void EscapedQuote()
 	{
-		LiteralText literal = MarkupParser.QuotedLiteral.Parse("\"Sphinx of \\\"black quartz\\\" judge my vow.\"");
+		LiteralText literal = (LiteralText)MarkupParser.QuotedLiteral.Parse("\"Sphinx of \\\"black quartz\\\" judge my vow.\"").Value;
 		Assert.AreEqual("Sphinx of \"black quartz\" judge my vow.", literal.ToString());
 	}
 
@@ -46,7 +46,7 @@ public class DialogueMarkupTest {
 	[Test]
 	public void VariableParses()
 	{
-		Variable var = (Variable)MarkupParser.MarkupBlock.Parse("{Guy.foo}");
+		Variable var = (Variable)MarkupParser.MarkupBlock.Parse("{Guy.foo}").Value;
 		Assert.AreEqual("Guy", var.Actor);
 		Assert.AreEqual("foo", var.Field);
 	}

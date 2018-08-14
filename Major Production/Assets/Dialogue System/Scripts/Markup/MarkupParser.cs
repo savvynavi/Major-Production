@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pidgin;
+using Pidgin.Parser;
+using Pidgin.Parser<char>;
 
 namespace Dialogue
 {
@@ -10,51 +13,34 @@ namespace Dialogue
 		// TODO block can concatenate primitives with +?
 		// TODO random choices
 
+		static readonly Parser<char, char> CharExceptBrackets = AnyCharExcept("{}");
+		static readonly Parser<char, char> CharExceptQuoteBrackets = AnyCharExcept("\"{}");
+		static readonly Parser<char, char> CharExceptOperators = AnyCharExcept("{}|.\"");
 
-		public static Parser<char> OpenBracket = Parse.Char('{');
-		public static Parser<char> CloseBracket = Parse.Char('}');
-		public static Parser<char> Brackets = OpenBracket.Or(CloseBracket);
-		public static Parser<char> Pipe = Parse.Char('|');
-		public static Parser<char> Point = Parse.Char('.');
-		public static Parser<char> Quote = Parse.Char('"');
-		public static Parser<char> Operators = Pipe.Or(Point).Or(Quote);
+		public static readonly Parser<char, MarkupToken> Literal =
+			from text in CharExceptBrackets.ManyString()
+			select (MarkupToken)(new LiteralText(text));
 
-		// TODO might need to have parser for other characters ie also checks for pipes, dot
+		// TODO escaping quote in literal?
+		public static readonly Parser<char, MarkupToken> QuotedLiteral =
+			from openQuote in Char('"')
+			from text in CharExceptQuoteBrackets.ManyString()
+			from closeQuote in Char('"')
+			select (MarkupToken)(new LiteralText(text));
 
-		public static Parser<LiteralText> Literal = (
-			from text in Parse.Except(Parse.AnyChar, Brackets).Many().Text()
-			select new LiteralText(text)
-			);
+		public static readonly Parser<char, MarkupToken> VariableToken =
+			from actor in CharExceptOperators.ManyString()
+			from dot in Char('.')
+			from field in CharExceptOperators.ManyString()
+			select (MarkupToken)(new Variable(actor, field));
 
-		// TODO escaping quote in quoted literal?
-		public static Parser<LiteralText> QuotedLiteral = (
-			from text in Parse.Contained(Parse.Except(Parse.AnyChar, Brackets.Or(Quote)).Many().Text(), Quote, Quote)
-			select new LiteralText(text)
-			);
+		public static readonly Parser<char, MarkupToken> MarkupBlock =
+			from openbrace in Char('{')
+			from token in VariableToken.Or(QuotedLiteral)
+			from closebrace in Char('}')
+			select token;
 
-		public static Parser<Variable> VariableToken = (
-			from actor in Parse.Except(Parse.AnyChar, Brackets.Or(Operators)).Many().Text()
-			from dot in Point
-			from field in Parse.Except(Parse.AnyChar, Brackets.Or(Operators)).Many().Text()
-			select new Variable(actor, field)
-			);
-
-
-		//public static Parser<RandomChoice> RandomOptions = (
-		//		// TODO implement
-		//	);
-
-		public static Parser<MarkupToken> MarkupBlock = (
-			//from openbrace in OpenBracket
-			//from token in VariableToken//.Or<MarkupToken>(QuotedLiteral).Or<MarkupToken>(RandomOptions)    //TODO add random choice
-			//from closebrace in CloseBracket
-			//select token
-			Parse.Contained(VariableToken, OpenBracket, CloseBracket)
-
-			);
-
-		// TODO fix this: running the test breaks Unity. Apparently Or causes the TestRunner to crash?
-		public static Parser<IEnumerable<MarkupToken>> Dialogue = (MarkupBlock.Or(Literal)).Many();
+		public static readonly Parser<char, IEnumerable<MarkupToken>> Dialogue = Literal.Or(MarkupBlock).Many();
 
 	}
 }

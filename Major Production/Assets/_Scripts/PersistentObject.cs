@@ -13,5 +13,8 @@ public abstract class PersistentObject : MonoBehaviour {
 		controller.SaveObject(this);
 	}
 
-	public abstract void Load(string data);
+	public virtual void Load(string data)
+	{
+		JsonUtility.FromJsonOverwrite(data, this);
+	}
 }

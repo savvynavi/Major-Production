@@ -9,7 +9,7 @@ public class PersistentBlock : PersistentObject {
 
 	public override void Load(string data)
 	{
-		JsonUtility.FromJsonOverwrite(data, this);
+		base.Load(data);
 		if (Triggered)
 		{
 			ChangeColour();

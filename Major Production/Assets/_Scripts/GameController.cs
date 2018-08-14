@@ -45,7 +45,6 @@ public class GameController : MonoBehaviour {
 		playerTeam = GameObject.Instantiate(initialPlayerTeam, this.transform);
 		playerTeam.SetActive(false);
 		BattleManager.Instance.playerTeam = playerTeam.transform;
-		// HACK should call Init on SceneLoader instead?
-		SceneLoader.Instance.persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
+		SceneLoader.Instance.Init();
 	}
 }

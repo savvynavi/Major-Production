@@ -17,13 +17,13 @@ public class EncounterController : MonoBehaviour {
 		//currently doesn't work
 		float rand = Random.Range(0, 100);
 		nextTimeEncounter = Time.time + rand;
-		Debug.Log("Next Time: " + nextTimeEncounter);
-		Debug.Log("Time: " + Time.time);
-		if(Time.time > nextTimeEncounter) {
-			Debug.Log("Random Encounter!");
-			Debug.Log("Random: " + rand);
+		//Debug.Log("Next Time: " + nextTimeEncounter);
+		//Debug.Log("Time: " + Time.time);
+		//if(Time.time > nextTimeEncounter) {
+		//	Debug.Log("Random Encounter!");
+		//	Debug.Log("Random: " + rand);
 
-		}
+		//}
 		//if(CurveRandomNumber(rand, curve) >= Probability) {
 		//	Debug.Log("Random Encounter");
 		//	Debug.Log(rand);

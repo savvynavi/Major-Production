@@ -13,12 +13,24 @@ namespace RPGItems {
 		public string Description;
 		public Sprite Sprite;
 		public ItemType Type;
-		public List<RPGsys.Powers> Effects;
+		public RPGsys.Powers Effect;
+
+		List<RPGsys.Buff> buffInstances;
 
 		public enum ItemType {
 			Consumable,
 			Equipable
 		}
-	}
 
+		public void Initialize() {
+
+
+			foreach(RPGsys.Buff buff in Effect.currentEffects) {
+
+				RPGsys.Buff tmp = Instantiate(buff);
+				buffInstances.Add(tmp);
+			}
+		}
+
+	}
 }

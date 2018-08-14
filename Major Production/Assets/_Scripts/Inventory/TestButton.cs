@@ -26,12 +26,10 @@ namespace RPGItems {
 
 		public void OnClickAdd() {
 			manager.Use(item, chara);
-			Debug.Log("button clicked!");
 		}
 
 		public void OnClickRemove() {
 			manager.Unequip(item, chara);
-			Debug.Log("button clicked!");
 		}
 	}
 }

@@ -7,6 +7,7 @@ namespace RPGsys {
 	public class Buff : Status {
 		public StatusEffect StatusEffects;
 
+
 		public override void Apply(Character target, float duration) {
 			if(target != null) {
 				Buff tmp = Instantiate(this);

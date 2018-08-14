@@ -4,12 +4,15 @@ using System.Linq;
 using UnityEngine;
 
 namespace RPGItems {
-	//[CreateAssetMenu(fileName = "Inventory", menuName = "RPG/Inventory", order = 5)]
-
-
-		//add safety list==null stuff 
+	//add safety list==null stuff 
 	public class InventoryManager : MonoBehaviour {
 		public List<Item> playerInventory;
+
+		private void Start() {
+			foreach(Item item in playerInventory) {
+				item.Initialize();
+			}
+		}
 
 		//add item to the inventory
 		public void Add(Item item) {
@@ -40,39 +43,42 @@ namespace RPGItems {
 
 		//either use a potion or equip an item
 		public void Use(Item item, RPGsys.Character character) {
-			if(item != null && character != null) {
+			if(item != null && character != null && playerInventory.Count() > 0) {
+				Debug.Log("defence of bard Before adding: " + character.Def);
 				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
 				if(item.Type == Item.ItemType.Equipable) {
 					character.Equipment.Add(item);
 				}
 
-				foreach(RPGsys.Powers power in item.Effects) {
-					power.Apply(character, item);
-				}
+				//foreach(RPGsys.Powers power in item.Effects) {
+					item.Effect.Apply(character, item);
+				//}
 				Discard(item);
+				Debug.Log("defence of bard after adding: " + character.Def);
+			} else {
+				Debug.Log("Inventory empty");
 			}
 		}
 
 		public void Unequip(Item item, RPGsys.Character character) {
-			List<RPGsys.Status> deadEffects = new List<RPGsys.Status>();
-			foreach(RPGsys.Powers effect in item.Effects) {
-				foreach(RPGsys.Status statEffects in effect.currentEffects) {
-					//character.currentEffects.Remove(statEffects);
-					deadEffects.Add(statEffects.);
-					Debug.Log("removing" + statEffects.name);
-				}
+			if(character.Equipment.Count() > 0) {
+				//foreach(RPGsys.Powers pow in item.Effects) {
+					foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
+						buff.Remove(character);
+
+						//character.currentEffects.Remove(buff);
+					}
+				//}
+
+				character.Equipment.Remove(item);
+
+				playerInventory.Add(item);
+
+				Debug.Log("defence of bard after removal: " + character.Def);
+			} else {
+				Debug.Log("nothing to remove");
 			}
 
-			if(deadEffects.Count() > 0) {
-				foreach(RPGsys.Status deadEffect in deadEffects) {
-					deadEffect.Remove(character);
-					character.currentEffects.Remove(deadEffect);
-				}
-			}
-
-			character.Equipment.Remove(item);
-
-			playerInventory.Add(item);
 		}
 	}
 }

@@ -1132,11 +1132,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4439129609795580, guid: 1108c011a55560e4ab77a5da43c96946,
     type: 2}
   m_PrefabInternal: {fileID: 1203457925}
---- !u!1 &966759035 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1802250407667576, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-    type: 2}
-  m_PrefabInternal: {fileID: 1144739988}
 --- !u!1 &992204427
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,7 +1997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleScene: Test Battle
-  enemies: {fileID: 966759035}
+  enemies: {fileID: 1802250407667576, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
 --- !u!65 &1385111741
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2316,7 +2311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleScene: Test Battle
-  enemies: {fileID: 966759035}
+  enemies: {fileID: 1802250407667576, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
 --- !u!65 &1566228737
 BoxCollider:
   m_ObjectHideFlags: 0

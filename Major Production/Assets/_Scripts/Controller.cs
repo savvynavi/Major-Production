@@ -20,7 +20,7 @@ public class Controller : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		moveDir = Vector3.zero;
 
-		encounters = randCount.GetComponent<EncounterController>();
+		//encounters = randCount.GetComponent<EncounterController>();
 	}
 	
 	//currently no isGrounded check

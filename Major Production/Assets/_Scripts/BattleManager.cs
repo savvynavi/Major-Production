@@ -2,21 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO figure out lifecycle
-
+/// <summary>
+/// Starts and ends battles, holding the player and enemy teams 
+/// </summary>
 public class BattleManager : MonoBehaviour {
+
+	public static BattleManager Instance;
 
     public Transform playerTeam;
     public Transform enemyTeam; // Transform containing enemies to move into battle scene
-    SceneLoader loader;
 
 	RPGsys.StateManager stateManager;
 
-	// Use this for initialization
-	void Start () {
-        loader = FindObjectOfType<SceneLoader>();
-
-		//find state manager so we have access to character list
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
+		GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -30,7 +38,7 @@ public class BattleManager : MonoBehaviour {
 
 		// TODO any other setup for team
 
-		loader.LoadScene(sceneName);
+		SceneLoader.Instance.LoadBattle(sceneName);
 
 	}
 
@@ -49,6 +57,6 @@ public class BattleManager : MonoBehaviour {
 
 		playerTeam.gameObject.SetActive(false);
         
-        loader.EndScene();
+        SceneLoader.Instance.EndBattle();
     }
 }

@@ -42,14 +42,37 @@ namespace RPGItems {
 		public void Use(Item item, RPGsys.Character character) {
 			if(item != null && character != null) {
 				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
-				if(item.Type == Item.ItemType.Consumable) {
-					foreach(RPGsys.Powers power in item.Effects) {
-						power.Apply(character, item);
-					}
+				if(item.Type == Item.ItemType.Equipable) {
+					character.Equipment.Add(item);
 				}
 
+				foreach(RPGsys.Powers power in item.Effects) {
+					power.Apply(character, item);
+				}
 				Discard(item);
 			}
+		}
+
+		public void Unequip(Item item, RPGsys.Character character) {
+			List<RPGsys.Status> deadEffects = new List<RPGsys.Status>();
+			foreach(RPGsys.Powers effect in item.Effects) {
+				foreach(RPGsys.Status statEffects in effect.currentEffects) {
+					//character.currentEffects.Remove(statEffects);
+					deadEffects.Add(statEffects.);
+					Debug.Log("removing" + statEffects.name);
+				}
+			}
+
+			if(deadEffects.Count() > 0) {
+				foreach(RPGsys.Status deadEffect in deadEffects) {
+					deadEffect.Remove(character);
+					character.currentEffects.Remove(deadEffect);
+				}
+			}
+
+			character.Equipment.Remove(item);
+
+			playerInventory.Add(item);
 		}
 	}
 }

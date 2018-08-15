@@ -67,7 +67,7 @@ namespace RPGsys {
 		public void Apply(Character character, RPGItems.Item item) {
 			//loops over the items effects, adds to the character (duration = 0 is a one-off heal)
 			for(int i = 0; i < currentEffects.Count; i++) {
-				currentEffects[i].Apply(character, duration);
+				currentEffects[i].EquipApply(character, item);
 			}
 		}
 

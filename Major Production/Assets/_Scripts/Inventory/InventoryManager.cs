@@ -8,11 +8,11 @@ namespace RPGItems {
 	public class InventoryManager : MonoBehaviour {
 		public List<Item> playerInventory;
 
-		private void Start() {
-			foreach(Item item in playerInventory) {
-				item.Initialize();
-			}
-		}
+		//private void Start() {
+		//	foreach(Item item in playerInventory) {
+		//		item.Initialize();
+		//	}
+		//}
 
 		//add item to the inventory
 		public void Add(Item item) {
@@ -41,17 +41,21 @@ namespace RPGItems {
 		}
 
 
+		//yeah this whole sectoion is bad but works, refactor later (changes in basically all base stat/buff class)
 		//either use a potion or equip an item
 		public void Use(Item item, RPGsys.Character character) {
 			if(item != null && character != null && playerInventory.Count() > 0) {
 				Debug.Log("defence of bard Before adding: " + character.Def);
 				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
+
+				item.Effect.Apply(character, item);
+
 				if(item.Type == Item.ItemType.Equipable) {
 					character.Equipment.Add(item);
 				}
 
 				//foreach(RPGsys.Powers power in item.Effects) {
-					item.Effect.Apply(character, item);
+
 				//}
 				Discard(item);
 				Debug.Log("defence of bard after adding: " + character.Def);
@@ -60,11 +64,12 @@ namespace RPGItems {
 			}
 		}
 
+
 		public void Unequip(Item item, RPGsys.Character character) {
 			if(character.Equipment.Count() > 0) {
 				//foreach(RPGsys.Powers pow in item.Effects) {
 					foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
-						buff.Remove(character);
+						buff.EquipRemove(character, item);
 
 						//character.currentEffects.Remove(buff);
 					}

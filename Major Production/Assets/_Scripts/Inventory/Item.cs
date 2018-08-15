@@ -15,20 +15,29 @@ namespace RPGItems {
 		public ItemType Type;
 		public RPGsys.Powers Effect;
 
-		List<RPGsys.Buff> buffInstances;
+		public List<RPGsys.Buff> buffInstances;
 
 		public enum ItemType {
 			Consumable,
 			Equipable
 		}
 
-		public void Initialize() {
+		public void Initialize(RPGsys.Character target) {
 
 
 			foreach(RPGsys.Buff buff in Effect.currentEffects) {
 
 				RPGsys.Buff tmp = Instantiate(buff);
+				tmp.Clone(target);
 				buffInstances.Add(tmp);
+			}
+		}
+
+		public void DeleteInstances(RPGsys.Character target) {
+			foreach(RPGsys.Buff buff in Effect.currentEffects) {
+
+				buffInstances.Clear();
+				buff.Remove(target);
 			}
 		}
 

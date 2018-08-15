@@ -58,6 +58,14 @@ namespace RPGsys{
 			Destroy(partInst);
 		}
 
+		public virtual void EquipApply(Character target, RPGItems.Item item) {
+
+		}
+
+		public virtual void EquipRemove(Character target, RPGItems.Item item) {
+
+		}
+
 		public void Clone(Character target){
 			// make as copy of the particles
 			if(particles != null) {

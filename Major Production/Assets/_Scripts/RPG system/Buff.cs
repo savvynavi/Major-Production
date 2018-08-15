@@ -20,6 +20,26 @@ namespace RPGsys {
 			}
 		}
 
+		public override void EquipApply(Character target, RPGItems.Item item) {
+
+			if(target != null && item != null) {
+				item.Initialize(target);
+				foreach(Status buff in item.buffInstances) {
+					target.currentEffects.Add(buff);
+					SetStats(target);
+				}
+			}
+		}
+
+		public override void EquipRemove(Character target, RPGItems.Item item) {
+			foreach(Status buff in item.buffInstances) {
+				//ResetStats(target);
+				target.currentEffects.Remove(buff);
+			}
+
+			item.DeleteInstances(target);
+		}
+
 		public override void Remove(Character target) {
 			ResetStats(target);
 			base.Remove(target);

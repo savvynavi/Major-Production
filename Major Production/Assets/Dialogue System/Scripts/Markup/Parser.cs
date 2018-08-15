@@ -37,7 +37,7 @@ namespace Dialogue.Parser
 		}
 	}
 
-	abstract class Parser<T>
+	public abstract class Parser<T>
 	{
 		public abstract Result<T> Parse(string input, int index = 0);
 
@@ -54,7 +54,7 @@ namespace Dialogue.Parser
 		}
 	}
 
-	class Or<T> : Parser<T>
+	public class Or<T> : Parser<T>
 	{
 		Parser<T>[] options;
 
@@ -83,7 +83,7 @@ namespace Dialogue.Parser
 		}
 	}
 
-	class Many<T> : Parser<IEnumerable<T>>
+	public class Many<T> : Parser<IEnumerable<T>>
 	{
 		bool _requireOnce;
 		Parser<T> _parser;
@@ -96,8 +96,32 @@ namespace Dialogue.Parser
 		public override Result<IEnumerable<T>> Parse(string input, int index = 0)
 		{
 			CheckInputValid(input, index);
-			//TODO build up list of results
-			throw new System.NotImplementedException();
+            //TODO build up list of results
+            int consumed = 0;
+            List<T> results = new List<T>();
+            // HACK figure out condition
+            bool running = true;
+            while (running)
+            {
+                Result<T> tryResult = _parser.Parse(input, index + consumed);
+                if (tryResult.Success)
+                {
+                    results.Add(tryResult.Value);
+                    consumed += tryResult.Consumed;
+                    running = index + consumed < input.Length;
+                }
+                else
+                {
+                    running = false;
+                }
+            }
+            if(results.Count == 0 && _requireOnce)
+            {
+                return new Result<IEnumerable<T>>(new ParseError("Many parser could not match any of input"));
+            } else
+            {
+                return new Result<IEnumerable<T>>(results, consumed);
+            }
 		}
 	}
 }

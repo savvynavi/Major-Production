@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dialogue.Parser;
 
 namespace Dialogue
 {
@@ -9,39 +10,6 @@ namespace Dialogue
 		// TODO escaping characters?
 		// TODO block can concatenate primitives with +?
 		// TODO random choices
-
-		class ParseError
-		{
-			public string Msg { get; private set; }
-			ParseError(string message)
-			{
-				Msg = message;
-			}
-		}
-
-		class Result<T>
-		{
-			public bool Success { get; private set; }
-			public T Value { get; private set; }
-			public ParseError Error { get; private set; }
-
-			Result(ParseError error)
-			{
-				Success = false;
-				Error = error;
-			}
-
-			Result(T value)
-			{
-				Success = true;
-				Value = value;
-			}
-		}
-
-		abstract class Parser<T>
-		{
-
-		}
 
 		//static readonly Parser<char, char> CharExceptBrackets = AnyCharExcept("{}");
 		//static readonly Parser<char, char> CharExceptQuoteBrackets = AnyCharExcept("\"{}");

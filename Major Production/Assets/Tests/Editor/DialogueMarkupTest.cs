@@ -54,17 +54,17 @@ public class DialogueMarkupTest {
 
 	//TODO figure out why these crash unity. Possibly Or causing trouble when different types?
 
-	//[Test]
-	//public void SentenceWithVariables()
-	//{
-	//	List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {Death.euphemism}. It is an ex-{Animal.species}."));
-	//	Assert.AreEqual("This ", tokens[0].ToString());
-	//	Assert.AreEqual("[Variable: Animal.species]", tokens[1].ToString());
-	//	Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
-	//	Assert.AreEqual("[Variable: Death.euphemism]", tokens[3].ToString());
-	//	Assert.AreEqual(". It is an ex-", tokens[4].ToString());
-	//	Assert.AreEqual("[Variable: Animal.species]", tokens[5].ToString());
-	//}
+	[Test]
+	public void SentenceWithVariables()
+	{
+		List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {Death.euphemism}. It is an ex-{Animal.species}.").Value);
+		Assert.AreEqual("This ", tokens[0].ToString());
+		Assert.AreEqual("[Variable: Animal.species]", tokens[1].ToString());
+		Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
+		Assert.AreEqual("[Variable: Death.euphemism]", tokens[3].ToString());
+		Assert.AreEqual(". It is an ex-", tokens[4].ToString());
+		Assert.AreEqual("[Variable: Animal.species]", tokens[5].ToString());
+	}
 
 	//TODO test random choice
 	//[Test]
@@ -74,13 +74,13 @@ public class DialogueMarkupTest {
 	//}
 
 	//[Test]
-	//public void SentenceWithRandomChoices()
-	//{
-	//	List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {\"ceased to be\"|\"passed on\"}. It is {Death.behaviour|Animal.species|\"joined the choir invisible\"}"));
-	//	Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
-	//	Assert.AreEqual("[Random Choice: ceased to be|passed on]", tokens[3].ToString());
-	//	Assert.AreEqual("[Random Choice: [Variable: Death.behaviour]|[Variable: Animal.species]|joined the choir invisible", tokens[5].ToString());
-	//} 
+	public void SentenceWithRandomChoices()
+	{
+		List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {\"ceased to be\"|\"passed on\"}. It is {Death.behaviour|Animal.species|\"joined the choir invisible\"}").Value);
+		Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
+		Assert.AreEqual("[Random Choice: ceased to be|passed on]", tokens[3].ToString());
+		Assert.AreEqual("[Random Choice: [Variable: Death.behaviour]|[Variable: Animal.species]|joined the choir invisible", tokens[5].ToString());
+	}
 
 	// TODO further tests
 

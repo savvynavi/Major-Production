@@ -11,20 +11,17 @@ namespace Dialogue
 		// TODO block can concatenate primitives with +?
 		// TODO random choices
 
-		//static readonly Parser<char, char> CharExceptBrackets = AnyCharExcept("{}");
-		//static readonly Parser<char, char> CharExceptQuoteBrackets = AnyCharExcept("\"{}");
-		//static readonly Parser<char, char> CharExceptOperators = AnyCharExcept("{}|.\"");
+		public static readonly Parser<MarkupToken> Literal = new LiteralParser("{}".ToCharArray());
 
-		//public static readonly Parser<char, MarkupToken> Literal =
-		//	from text in CharExceptBrackets.ManyString()
-		//	select (MarkupToken)(new LiteralText(text));
+		public static readonly Parser<MarkupToken> QuotedLiteral = new Between<MarkupToken>('"', new LiteralParser("{}\"".ToCharArray()));
 
-		//// TODO escaping quote in literal?
-		//public static readonly Parser<char, MarkupToken> QuotedLiteral =
-		//	from openQuote in Char('"')
-		//	from text in CharExceptQuoteBrackets.ManyString()
-		//	from closeQuote in Char('"')
-		//	select (MarkupToken)(new LiteralText(text));
+		public static readonly Parser<MarkupToken> VariableToken = null; //TODO
+
+		public static readonly Parser<MarkupToken> MarkupBlock = new Between<MarkupToken>('{', new Or<MarkupToken>(VariableToken, QuotedLiteral), '}');
+		//TODO having several things concatenated in the block
+		//TODO having random option in the block
+
+		public static readonly Parser<IEnumerable<MarkupToken>> Dialogue = new Many<MarkupToken>(new Or<MarkupToken>(Literal, MarkupBlock),true);
 
 		//public static readonly Parser<char, MarkupToken> VariableToken =
 		//	from actor in CharExceptOperators.ManyString()
@@ -62,9 +59,19 @@ namespace Dialogue
 			}
 			else
 			{
-				//TODO calculate consumed characters (ie from index to endIndex)
-				//TODO return that substring
+				int consumed = endIndex - index;
+				return new Result<MarkupToken>(new LiteralText(input.Substring(index, consumed)), consumed);
 			}
+		}
+	}
+
+	public class VariableParser : Parser<MarkupToken>
+	{
+		public override Result<MarkupToken> Parse(string input, int index = 0)
+		{
+			// TODO split at dot, first part is actor second part is field
+			// TODO return total characters consumed
+			throw new System.NotImplementedException();
 		}
 	}
 }

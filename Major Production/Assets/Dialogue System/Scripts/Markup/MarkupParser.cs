@@ -7,7 +7,7 @@ namespace Dialogue
 {
 	public class MarkupParser
 	{
-		// TODO escaping characters?
+		// TODO escaping characters
 		// TODO block can concatenate primitives with +?
 		// TODO random choices
 
@@ -40,5 +40,31 @@ namespace Dialogue
 
 		//public static readonly Parser<char, IEnumerable<MarkupToken>> Dialogue = Literal.Or(MarkupBlock).Many();
 
+	}
+
+	public class LiteralParser : Parser<MarkupToken>{
+		char[] excluded;
+		public LiteralParser(char[] ExcludedCharacters)
+		{
+			excluded = ExcludedCharacters;
+		}
+
+		public override Result<MarkupToken> Parse(string input, int index = 0)
+		{
+			int endIndex = input.IndexOfAny(excluded, index);
+			if(endIndex == -1)
+			{
+				endIndex = input.Length;
+			}
+			if(index == endIndex)
+			{
+				return new Result<MarkupToken>(new ParseError("Excluded character at start of index"));
+			}
+			else
+			{
+				//TODO calculate consumed characters (ie from index to endIndex)
+				//TODO return that substring
+			}
+		}
 	}
 }

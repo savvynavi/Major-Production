@@ -9,6 +9,17 @@ namespace Dialogue
 	public abstract class MarkupToken
 	{
 		//TODO figure out best interface
+		public abstract string Evaluate(DialogueManager manager);
+
+		public static string EvaluateTokens(IEnumerable<MarkupToken> tokens, DialogueManager manager)
+		{
+			StringBuilder result = new StringBuilder();
+			foreach(MarkupToken token in tokens)
+			{
+				result.Append(token.Evaluate(manager));
+			}
+			return result.ToString();
+		}
 	}
 
 	// Represents a string of text
@@ -22,6 +33,11 @@ namespace Dialogue
 		}
 
 		public override string ToString()
+		{
+			return Contents;
+		}
+
+		public override string Evaluate(DialogueManager manager)
 		{
 			return Contents;
 		}
@@ -43,6 +59,12 @@ namespace Dialogue
 		{
 			return "[Variable: " + Actor + "." + Field + "]";
 		}
+
+		public override string Evaluate(DialogueManager manager)
+		{
+			// TODO get correct field from actor (or from field?)
+			throw new System.NotImplementedException();
+		}
 	}
 
 	// TODO might change up heirarchy (got to figure out grammar better)
@@ -55,6 +77,11 @@ namespace Dialogue
 		public RandomChoice(IEnumerable<MarkupToken> options)
 		{
 			Options = new List<MarkupToken>(options);
+		}
+
+		public override string Evaluate(DialogueManager manager)
+		{
+			return Options[Random.Range(0, Options.Count)].Evaluate(manager);
 		}
 
 		public override string ToString()

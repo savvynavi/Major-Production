@@ -63,6 +63,19 @@ namespace Dialogue
 		public override string Evaluate(DialogueManager manager)
 		{
 			// TODO get correct field from actor (or from field?)
+
+			// TODO check for keyword, otherwise look for actor
+			//TODO return something if actor not found
+			DialogueActor actorObject = manager.actors[Actor];
+			// TODO make case insensitive
+			if(Field == "Name")
+			{
+				return actorObject.Name;
+			} else
+			{
+				// TODO search through fields for appropriate thing?
+			}
+
 			throw new System.NotImplementedException();
 		}
 	}

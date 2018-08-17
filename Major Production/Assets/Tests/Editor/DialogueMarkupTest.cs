@@ -80,7 +80,7 @@ public class DialogueMarkupTest {
 		List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {\"ceased to be\"|\"passed on\"}. It is {Death.behaviour|Animal.species|\"joined the choir invisible\"}").Value);
 		Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
 		Assert.AreEqual("[Random Choice: ceased to be|passed on]", tokens[3].ToString());
-		Assert.AreEqual("[Random Choice: [Variable: Death.behaviour]|[Variable: Animal.species]|joined the choir invisible", tokens[5].ToString());
+		Assert.AreEqual("[Random Choice: [Variable: Death.behaviour]|[Variable: Animal.species]|joined the choir invisible]", tokens[5].ToString());
 	}
 
 	// TODO further tests

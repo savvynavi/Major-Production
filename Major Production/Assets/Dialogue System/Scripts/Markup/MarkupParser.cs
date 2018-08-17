@@ -14,16 +14,15 @@ namespace Dialogue
 
 		public static readonly Parser<MarkupToken> Literal = new LiteralParser("{}".ToCharArray());
 
-		public static readonly Parser<MarkupToken> QuotedLiteral = new Between<MarkupToken>('"', new LiteralParser("{}\"".ToCharArray()));
+		public static readonly Parser<MarkupToken> QuotedLiteral = new TrimWhitespace<MarkupToken>(new Between<MarkupToken>('"', new LiteralParser("{}\"".ToCharArray())));
 
-		public static readonly Parser<MarkupToken> VariableToken = new VariableParser(); 
+		public static readonly Parser<MarkupToken> VariableToken = new TrimWhitespace<MarkupToken>(new VariableParser());
 
-		public static readonly Parser<MarkupToken> MarkupBlock = new Between<MarkupToken>('{', new Or<MarkupToken>(VariableToken, QuotedLiteral), '}');
+		public static readonly Parser<MarkupToken> RandomToken = new RandomParser(new Or<MarkupToken>(VariableToken, QuotedLiteral), '|'); //TODO
+
+		public static readonly Parser<MarkupToken> MarkupBlock = new Between<MarkupToken>('{', RandomToken, '}');
 		//TODO having several things concatenated in the block
 		//TODO having random option in the block
-
-		public static readonly Parser<MarkupToken> RandomChoice = null; //TODO
-
 		public static readonly Parser<IEnumerable<MarkupToken>> Dialogue = new Many<MarkupToken>(new Or<MarkupToken>(Literal, MarkupBlock),true);
 
 		//public static readonly Parser<char, MarkupToken> VariableToken =
@@ -85,11 +84,6 @@ namespace Dialogue
 				return new Result<MarkupToken>(new ParseError("Unexpected end of input"));
 			}
 			int consumed = 0;
-			// Trim initial whitespace
-			while(index + consumed < input.Length && char.IsWhiteSpace(input[index + consumed]))
-			{
-				++consumed;
-			}
 			if(index + consumed >= input.Length)
 			{
 				return new Result<MarkupToken>(new ParseError("Unexpected end of input"));
@@ -132,12 +126,36 @@ namespace Dialogue
 			{
 				return new Result<MarkupToken>(new ParseError("Field part of variable not found"));
 			}
-			// Trim ending whitespace
-			while (index + consumed < input.Length && char.IsWhiteSpace(input[index + consumed]))
-			{
-				++consumed;
-			}
 			return new Result<MarkupToken>(new Variable(actor, field), consumed);
+		}
+	}
+
+	public class RandomParser : Parser<MarkupToken>
+	{
+		ManyDelimited<MarkupToken> delimiterParser;
+
+		public RandomParser(Parser<MarkupToken> parser, char delimiter)
+		{
+			delimiterParser = new ManyDelimited<MarkupToken>(parser, delimiter);
+		}
+		public override Result<MarkupToken> Parse(string input, int index = 0)
+		{
+			Result < IEnumerable < MarkupToken >> tryResult = delimiterParser.Parse(input, index);
+			if (tryResult.Success)
+			{
+				List<MarkupToken> options = new List<MarkupToken>(tryResult.Value);
+				if(options.Count == 1)
+				{
+					return new Result<MarkupToken>(options[0], tryResult.Consumed);
+				} else
+				{
+					return new Result<MarkupToken>(new RandomChoice(options), tryResult.Consumed);
+				}
+			} else
+			{
+				return new Result<MarkupToken>(tryResult.Error);
+			}
+			
 		}
 	}
 }

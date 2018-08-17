@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using Dialogue;
+using Dialogue.Parser;
 
 public class DialogueMarkupTest {
 
@@ -73,7 +74,7 @@ public class DialogueMarkupTest {
 
 	//}
 
-	//[Test]
+	[Test]
 	public void SentenceWithRandomChoices()
 	{
 		List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {\"ceased to be\"|\"passed on\"}. It is {Death.behaviour|Animal.species|\"joined the choir invisible\"}").Value);
@@ -84,4 +85,53 @@ public class DialogueMarkupTest {
 
 	// TODO further tests
 
+}
+
+public class DialogueMarkupVariableTests
+{
+	[Test]
+	public void WhitespaceTrimmed()
+	{
+		Variable var = (Variable) MarkupParser.MarkupBlock.Parse("{ Guy.foo }").Value;
+		Assert.AreEqual("Guy", var.Actor);
+		Assert.AreEqual("foo", var.Field);
+	}
+
+	[Test]
+	public void EmptyFails()
+	{
+		Result<MarkupToken> result = MarkupParser.VariableToken.Parse("");
+		Assert.False(result.Success);
+		result = MarkupParser.VariableToken.Parse(" ");
+		Assert.False(result.Success);
+		result = MarkupParser.VariableToken.Parse("Guy.");
+		Assert.False(result.Success);
+		result = MarkupParser.VariableToken.Parse(".foo");
+		Assert.False(result.Success);
+	}
+
+	[Test]
+	public void VariableHasDot()
+	{
+		Result<MarkupToken> result = MarkupParser.VariableToken.Parse("Guyfoo");
+		Assert.False(result.Success);
+	}
+
+	[Test]
+	public void ActorIsValid()
+	{
+		Result<MarkupToken> result = MarkupParser.VariableToken.Parse("G{uy.foo");
+		Assert.False(result.Success);
+		result = MarkupParser.VariableToken.Parse("Gu y.foo");
+		Assert.False(result.Success);
+	}
+
+	[Test]
+	public void FieldIsValid()
+	{
+		Result<MarkupToken> result = MarkupParser.VariableToken.Parse("Guy. foo");
+		Assert.False(result.Success);
+		result = MarkupParser.VariableToken.Parse("Guy.}foo");
+		Assert.False(result.Success);
+	} 
 }

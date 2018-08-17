@@ -22,6 +22,8 @@ namespace Dialogue
 		//TODO having several things concatenated in the block
 		//TODO having random option in the block
 
+		public static readonly Parser<MarkupToken> RandomChoice = null; //TODO
+
 		public static readonly Parser<IEnumerable<MarkupToken>> Dialogue = new Many<MarkupToken>(new Or<MarkupToken>(Literal, MarkupBlock),true);
 
 		//public static readonly Parser<char, MarkupToken> VariableToken =

@@ -20,6 +20,22 @@ namespace Dialogue
 			}
 			return result.ToString();
 		}
+
+		// HACK maybe move out to some utility class
+		public static string FirstToUpper(string input)
+		{
+			if (string.IsNullOrEmpty(input))
+			{
+				throw new System.ArgumentException("Input string null or empty", "input");
+			}
+			if (input.Length > 1)
+			{
+				return char.ToUpper(input[0]) + input.Substring(1);
+			} else
+			{
+				return input.ToUpper();
+			}
+		}
 	}
 
 	// Represents a string of text
@@ -75,14 +91,34 @@ namespace Dialogue
 			{
 				actorObject = manager.actors[Actor];
 			}
-				// TODO make case insensitive
-			if(Field.ToLowerInvariant() == "name")
+			// TODO make case insensitive
+
+			switch (Field)
 			{
-				return actorObject.Name;
-			} else
-			{
-				// TODO search through fields for appropriate thing?
-				return actorObject.fields.GetNumber(Field).ToString();
+				case "name":
+				case "Name":
+				case "NAME":
+					return actorObject.Name;
+				case "heshe":
+					return actorObject.HeShe;
+				case "HeShe":
+					return FirstToUpper(actorObject.HeShe);
+				case "himher":
+					return actorObject.HimHer;
+				case "HimHer":
+					return FirstToUpper(actorObject.HimHer);
+				case "hisher":
+					return actorObject.HisHer;
+				case "HisHer":
+					return FirstToUpper(actorObject.HisHer);
+				case "hishers":
+					return actorObject.HisHers;
+				case "HisHers":
+					return FirstToUpper(actorObject.HisHers);
+
+				default:
+					// TODO search through fields for appropriate thing?
+					return actorObject.fields.GetNumber(Field).ToString();
 			}
 		}
 	}

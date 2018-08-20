@@ -23,6 +23,7 @@ namespace RPGItems {
 		//remove idem from the inventory
 		public void Discard(Item item) {
 			playerInventory.Remove(item);
+			SortByName();
 		}
 
 		public void DiscardStack(Item item) {
@@ -74,6 +75,7 @@ namespace RPGItems {
 				playerInventory.Add(item);
 
 				Debug.Log("defence of bard after removal: " + character.Def);
+				SortByName();
 			} else {
 				Debug.Log("nothing to remove");
 			}

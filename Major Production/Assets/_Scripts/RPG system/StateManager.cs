@@ -320,6 +320,10 @@ namespace RPGsys {
 						float rand = Random.Range(1, 100);
 						float MissRange = 10 + info.player.target.GetComponent<Character>().Agi - info.player.GetComponent<Character>().Dex;
 
+
+						////ADD CAMERA MOVEMENT HERE!!!(DIFFERENTIATE BETWEEN GROUP AND SINGLE ATTACKS FOR NOW, ADD IN DISTANCE/CLOSE ATTACKS LATER)
+
+
 						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Group) {
 						
 							if(info.player.target.tag == "Player") {

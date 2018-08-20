@@ -25,11 +25,15 @@ namespace RPGItems {
 		}
 
 		public void OnClickAdd() {
-			manager.Use(manager.playerInventory[0], chara);
+			if(manager.playerInventory.Count > 0) {
+				manager.Use(manager.playerInventory[0], chara);
+			}
 		}
 
 		public void OnClickRemove() {
-			manager.Unequip(chara.Equipment[0], chara);
+			if(chara.Equipment.Count > 0) {
+				manager.Unequip(chara.Equipment[0], chara);
+			}
 		}
 	}
 }

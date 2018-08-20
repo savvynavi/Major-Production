@@ -8,11 +8,11 @@ namespace RPGItems {
 	public class InventoryManager : MonoBehaviour {
 		public List<Item> playerInventory;
 
-		//private void Start() {
-		//	foreach(Item item in playerInventory) {
-		//		item.Initialize();
-		//	}
-		//}
+		private void Awake() {
+			for(int i = 0; i < playerInventory.Count(); i++) {
+				playerInventory[i] = Instantiate(playerInventory[i]);
+			}
+		}
 
 		//add item to the inventory
 		public void Add(Item item) {
@@ -54,9 +54,6 @@ namespace RPGItems {
 					character.Equipment.Add(item);
 				}
 
-				//foreach(RPGsys.Powers power in item.Effects) {
-
-				//}
 				Discard(item);
 				Debug.Log("defence of bard after adding: " + character.Def);
 			} else {
@@ -67,15 +64,12 @@ namespace RPGItems {
 
 		public void Unequip(Item item, RPGsys.Character character) {
 			if(character.Equipment.Count() > 0) {
-				//foreach(RPGsys.Powers pow in item.Effects) {
-					foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
-						buff.EquipRemove(character, item);
+				foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
+					buff.EquipRemove(character, item);
+					character.Equipment.Remove(item);
+				}
 
-						//character.currentEffects.Remove(buff);
-					}
-				//}
 
-				character.Equipment.Remove(item);
 
 				playerInventory.Add(item);
 

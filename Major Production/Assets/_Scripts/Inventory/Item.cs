@@ -21,7 +21,8 @@ namespace RPGItems {
 			Consumable,
 			Equipable
 		}
-
+		
+		//initializes an item and then stores all instances in a list so they can be accessed later
 		public void Initialize(RPGsys.Character target) {
 
 
@@ -33,12 +34,13 @@ namespace RPGItems {
 			}
 		}
 
+		//clears all applied buffs from item from character as well as all particle effects
 		public void DeleteInstances(RPGsys.Character target) {
-			foreach(RPGsys.Buff buff in Effect.currentEffects) {
-
-				buffInstances.Clear();
+			foreach(RPGsys.Buff buff in buffInstances) {
 				buff.Remove(target);
 			}
+
+			buffInstances.Clear();
 		}
 
 	}

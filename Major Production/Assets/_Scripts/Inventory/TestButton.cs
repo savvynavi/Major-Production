@@ -8,7 +8,7 @@ namespace RPGItems {
 	public class TestButton : MonoBehaviour {
 		InventoryManager manager;
 		Button btn;
-		public Item item;
+		//public Item item;
 		public RPGsys.Character chara;
 		public bool AddItemToPlayer;
 
@@ -25,11 +25,11 @@ namespace RPGItems {
 		}
 
 		public void OnClickAdd() {
-			manager.Use(item, chara);
+			manager.Use(manager.playerInventory[0], chara);
 		}
 
 		public void OnClickRemove() {
-			manager.Unequip(item, chara);
+			manager.Unequip(chara.Equipment[0], chara);
 		}
 	}
 }

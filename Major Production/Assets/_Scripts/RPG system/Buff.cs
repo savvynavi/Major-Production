@@ -34,7 +34,9 @@ namespace RPGsys {
 		public override void EquipRemove(Character target, RPGItems.Item item) {
 			foreach(Status buff in item.buffInstances) {
 				//ResetStats(target);
+				buff.UpdateEffect(target);
 				target.currentEffects.Remove(buff);
+
 			}
 
 			item.DeleteInstances(target);

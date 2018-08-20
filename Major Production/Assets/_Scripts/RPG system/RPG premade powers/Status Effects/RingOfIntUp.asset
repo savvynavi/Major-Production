@@ -8,13 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59db5d33a91fcc542b41e2e946c7cd27, type: 3}
-  m_Name: EquipmentTest
+  m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
+  m_Name: RingOfIntUp
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  Sprite: {fileID: 0}
-  Type: 0
-  Effects: []
-  WeaponModel: {fileID: 0}
-  equipmentType: 0
+  particles: {fileID: 0}
+  material: {fileID: 0}
+  equipable: 1
+  timer: 0
+  StatusEffects:
+    effect: 0
+    statBuff: 3
+    amount: 50

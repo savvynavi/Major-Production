@@ -553,6 +553,104 @@ Transform:
   m_PrefabParentObject: {fileID: 4530560035352412, guid: d3cbc0dfeadb13048b5f909e6f649adc,
     type: 2}
   m_PrefabInternal: {fileID: 72632995}
+--- !u!1 &260946290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 260946291}
+  - component: {fileID: 260946295}
+  - component: {fileID: 260946294}
+  - component: {fileID: 260946293}
+  - component: {fileID: 260946292}
+  m_Layer: 0
+  m_Name: chest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &260946291
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260946290}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -48.08, y: 0.5, z: -8.33}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 354942491}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &260946292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260946290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cbb4485e12f1964f988d0535ab3713c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 7dfb3ea11e514914e83eabe175b91402, type: 2}
+  manager: {fileID: 1354954089}
+--- !u!23 &260946293
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260946290}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 79f4069066aa19d47ae8568c24342b51, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!65 &260946294
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260946290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7529097, y: 2.3868523, z: 1.8332622}
+  m_Center: {x: -0.052295208, y: 0.043867588, z: -0.4166311}
+--- !u!33 &260946295
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260946290}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &293522681 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4530853482002222, guid: 26a8471e684eda94083cbae8700ca7ff,
@@ -583,6 +681,7 @@ Transform:
   m_LocalPosition: {x: 52.61, y: 0, z: 10.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 260946291}
   - {fileID: 1840157787}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1799,7 +1898,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f9c6ca24d121c418993f1885010ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
   chara: {fileID: 54175900}
   AddItemToPlayer: 1
 --- !u!1001 &1299720892
@@ -1949,6 +2047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInventory:
   - {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
+  - {fileID: 11400000, guid: 958816bb426327a46985bca0a1f991e1, type: 2}
 --- !u!4 &1375044658 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4076724277917028, guid: fab2ab4c68c43ed4ea56914480ac85b4,
@@ -2117,7 +2216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f9c6ca24d121c418993f1885010ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
   chara: {fileID: 54175900}
   AddItemToPlayer: 0
 --- !u!114 &1409787752
@@ -2843,7 +2941,7 @@ Transform:
   - {fileID: 1408838170}
   - {fileID: 511865124}
   m_Father: {fileID: 354942491}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1886266492
 Prefab:

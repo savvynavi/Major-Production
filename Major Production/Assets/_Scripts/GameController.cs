@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance = null;
 
+	public EGameStates state;
+
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
 	[SerializeField] GameObject initialPlayerTeam;
 	[SerializeField] List<RPGItems.Item> initialInventory;
@@ -31,6 +33,7 @@ public class GameController : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 		inventory = GetComponent<RPGItems.InventoryManager>();
 		inventoryScreen = GetComponentInChildren<InventoryScreen>(true);
+		state = EGameStates.Menu;	//HACK assumes game starts at main menu!
 	}
 	
 	// Use this for initialization
@@ -44,6 +47,7 @@ public class GameController : MonoBehaviour {
 		{
 			//HACK for now, until we put in a proper pause menu
 			SceneManager.LoadScene("Main Menu");
+			state = EGameStates.Menu;
 		}
 
 		if (Input.GetKeyDown(KeyCode.Tab))
@@ -52,9 +56,13 @@ public class GameController : MonoBehaviour {
 			if (inventoryScreen.gameObject.activeInHierarchy)
 			{
 				inventoryScreen.Close();
+				Time.timeScale = 1;
+				// HACK do pause/unpause elsewhere (on opening any menu?)
+
 			} else
 			{
 				inventoryScreen.Open();
+				Time.timeScale = 0;
 			}
 		}
 	}
@@ -72,5 +80,6 @@ public class GameController : MonoBehaviour {
 		SceneLoader.Instance.Init();
 		inventory.Initialize(initialInventory);
 
+		state = EGameStates.Overworld;
 	}
 }

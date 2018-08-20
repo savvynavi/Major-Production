@@ -88,6 +88,8 @@ public class SceneLoader : MonoBehaviour {
 		yield return new WaitUntil(() => { return loadOp.isDone; });
 		battleScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(battleScene);
+		GameController.Instance.state = GameController.EGameStates.Battle;
+
 		//TODO maybe some event/function called here letting battle initialize itself?
 		Debug.Log(battleScene.name);
 	}
@@ -117,5 +119,6 @@ public class SceneLoader : MonoBehaviour {
 
 		SetSceneObjectActive(battleScene, false);
         SceneManager.UnloadSceneAsync(battleScene);
-    }
+		GameController.Instance.state = GameController.EGameStates.Overworld;
+	}
 }

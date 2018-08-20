@@ -66,17 +66,24 @@ namespace Dialogue
 
 			// TODO check for keyword, otherwise look for actor
 			//TODO return something if actor not found
-			DialogueActor actorObject = manager.actors[Actor];
-			// TODO make case insensitive
-			if(Field == "Name")
+			DialogueActor actorObject;
+			if (Actor == "SPEAKER")
+			{
+				actorObject = manager.GetCurrentActor();
+			}
+			else
+			{
+				actorObject = manager.actors[Actor];
+			}
+				// TODO make case insensitive
+			if(Field.ToLowerInvariant() == "name")
 			{
 				return actorObject.Name;
 			} else
 			{
 				// TODO search through fields for appropriate thing?
+				return actorObject.fields.GetNumber(Field).ToString();
 			}
-
-			throw new System.NotImplementedException();
 		}
 	}
 

@@ -25,17 +25,6 @@ namespace Dialogue
 		//TODO having random option in the block
 		public static readonly Parser<IEnumerable<MarkupToken>> Dialogue = new Many<MarkupToken>(new Or<MarkupToken>(Literal, MarkupBlock),true);
 
-		//public static readonly Parser<char, MarkupToken> VariableToken =
-		//	from actor in CharExceptOperators.ManyString()
-		//	from dot in Char('.')
-		//	from field in CharExceptOperators.ManyString()
-		//	select (MarkupToken)(new Variable(actor, field));
-
-		//public static readonly Parser<char, MarkupToken> MarkupBlock =
-		//	from openbrace in Char('{')
-		//	from token in VariableToken.Or(QuotedLiteral)
-		//	from closebrace in Char('}')
-		//	select token;
 
 		//public static readonly Parser<char, IEnumerable<MarkupToken>> Dialogue = Literal.Or(MarkupBlock).Many();
 

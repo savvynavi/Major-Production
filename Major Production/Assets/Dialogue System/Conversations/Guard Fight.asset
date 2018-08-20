@@ -17,7 +17,7 @@ MonoBehaviour:
   - ID: 0
     Title: 
     speakerIndex: 0
-    Text: Oi, you!
+    Text: Oi, you! I'm the {SPEAKER.name}.
     OnEnter: []
     cutsceneEvents: []
     transitions:
@@ -32,7 +32,7 @@ MonoBehaviour:
   - ID: 1
     Title: 
     speakerIndex: 0
-    Text: What are you doing in here?
+    Text: What are you doing in here, {Player.name}?
     OnEnter: []
     cutsceneEvents: []
     transitions:

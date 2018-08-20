@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPGItems {
 	//add safety list==null stuff 
 	public class InventoryManager : MonoBehaviour {
 		public List<Item> playerInventory;
+
+		public UnityEvent OnInventoryChanged;
 
 		private void Awake() {
 			for(int i = 0; i < playerInventory.Count(); i++) {
@@ -21,18 +24,21 @@ namespace RPGItems {
 			{
 				playerInventory.Add(Instantiate(item));
 			}
+			OnInventoryChanged.Invoke();
 		}
 
 		//add item to the inventory
 		public void Add(Item item) {
 			playerInventory.Add(item);
 			SortByName();
+			OnInventoryChanged.Invoke();
 		}
 
 		//remove idem from the inventory
 		public void Discard(Item item) {
 			playerInventory.Remove(item);
 			SortByName();
+			OnInventoryChanged.Invoke();
 		}
 
 		public void DiscardStack(Item item) {
@@ -42,6 +48,7 @@ namespace RPGItems {
 		//delete entire inventory
 		public void Clear() {
 			playerInventory.Clear();
+			OnInventoryChanged.Invoke();
 		}
 
 		//sort the inventory by name

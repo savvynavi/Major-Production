@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour {
 
+	public enum EGameStates{
+		Menu,
+		Overworld,
+		Battle
+	}
+
 	public static GameController Instance = null;
 
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
@@ -11,6 +17,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] List<RPGItems.Item> initialInventory;
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
+	[SerializeField] InventoryScreen inventoryScreen;	// HACK might go elsewhere?
 
 	private void Awake()
 	{
@@ -23,6 +30,7 @@ public class GameController : MonoBehaviour {
 		}
 		DontDestroyOnLoad(gameObject);
 		inventory = GetComponent<RPGItems.InventoryManager>();
+		inventoryScreen = GetComponentInChildren<InventoryScreen>(true);
 	}
 	
 	// Use this for initialization
@@ -36,6 +44,18 @@ public class GameController : MonoBehaviour {
 		{
 			//HACK for now, until we put in a proper pause menu
 			SceneManager.LoadScene("Main Menu");
+		}
+
+		if (Input.GetKeyDown(KeyCode.Tab))
+		{
+			//HACK
+			if (inventoryScreen.gameObject.activeInHierarchy)
+			{
+				inventoryScreen.Close();
+			} else
+			{
+				inventoryScreen.Open();
+			}
 		}
 	}
 

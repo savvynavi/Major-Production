@@ -597,7 +597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 7dfb3ea11e514914e83eabe175b91402, type: 2}
-  manager: {fileID: 1354954089}
 --- !u!23 &260946293
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2048,6 +2047,11 @@ MonoBehaviour:
   playerInventory:
   - {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
   - {fileID: 11400000, guid: 958816bb426327a46985bca0a1f991e1, type: 2}
+  OnInventoryChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &1375044658 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4076724277917028, guid: fab2ab4c68c43ed4ea56914480ac85b4,

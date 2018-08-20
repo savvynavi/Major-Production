@@ -35,7 +35,8 @@ namespace RPGsys
 			Head,
 			Torso,
 			Legs,
-			Hand
+			Hand,
+			Weapon
 		}
 	}
 }

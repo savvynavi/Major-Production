@@ -59,6 +59,7 @@ namespace Dialogue
 		}
 	}
 
+	// Represents a field or variable on an actor
 	public class Variable : MarkupToken
 	{
 		// TODO might need more parameters (ie to get from fields?)
@@ -91,7 +92,6 @@ namespace Dialogue
 			{
 				actorObject = manager.actors[Actor];
 			}
-			// TODO make case insensitive
 
 			switch (Field)
 			{
@@ -115,7 +115,6 @@ namespace Dialogue
 					return actorObject.HisHers;
 				case "HisHers":
 					return FirstToUpper(actorObject.HisHers);
-
 				default:
 					// TODO search through fields for appropriate thing?
 					return actorObject.fields.GetNumber(Field).ToString();
@@ -123,9 +122,7 @@ namespace Dialogue
 		}
 	}
 
-	// TODO might change up heirarchy (got to figure out grammar better)
-
-	// TODO random choice token (contains list of literals or variables)
+	// Represents a group of possible options, one of which is randomly selected
 	public class RandomChoice : MarkupToken
 	{
 		List<MarkupToken> Options;
@@ -149,6 +146,39 @@ namespace Dialogue
 				sb.Append("|");
 			}
 			sb.Length--;    // Remove last character
+			sb.Append("]");
+			return sb.ToString();
+		}
+	}
+
+	public class ConcatenatedTokens : MarkupToken
+	{
+		List<MarkupToken> Tokens;
+
+		public ConcatenatedTokens(IEnumerable<MarkupToken> tokens)
+		{
+			Tokens = new List<MarkupToken>(tokens);
+		}
+
+		public override string Evaluate(DialogueManager manager)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (MarkupToken token in Tokens)
+			{
+				sb.Append(token.Evaluate(manager));
+			}
+			return sb.ToString();
+		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder("[");
+			foreach (MarkupToken token in Tokens)
+			{
+				sb.Append(token.ToString());
+				sb.Append(" + ");
+			}
+			sb.Length -= 3;    // Remove last characters
 			sb.Append("]");
 			return sb.ToString();
 		}

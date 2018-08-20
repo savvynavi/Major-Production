@@ -18,16 +18,15 @@ namespace Dialogue
 
 		public static readonly Parser<MarkupToken> VariableToken = new TrimWhitespace<MarkupToken>(new VariableParser());
 
-		public static readonly Parser<MarkupToken> RandomToken = new RandomParser(new Or<MarkupToken>(VariableToken, QuotedLiteral), '|'); //TODO
+		public static readonly Parser<MarkupToken> Concatenated = new ConcatenateParser(new Or<MarkupToken>(VariableToken, QuotedLiteral), '+');
+
+		public static readonly Parser<MarkupToken> RandomToken = new RandomParser(Concatenated, '|'); //TODO
 
 		public static readonly Parser<MarkupToken> MarkupBlock = new Between<MarkupToken>('{', RandomToken, '}');
 		//TODO having several things concatenated in the block
-		//TODO having random option in the block
+
 		public static readonly Parser<IEnumerable<MarkupToken>> Dialogue = new Many<MarkupToken>(new Or<MarkupToken>(Literal, MarkupBlock),true);
-
-
-		//public static readonly Parser<char, IEnumerable<MarkupToken>> Dialogue = Literal.Or(MarkupBlock).Many();
-
+		
 	}
 
 	public class LiteralParser : Parser<MarkupToken>{
@@ -63,7 +62,6 @@ namespace Dialogue
 
 	public class VariableParser : Parser<MarkupToken>
 	{
-		// TODO write tests for each possible failed result
 		public override Result<MarkupToken> Parse(string input, int index = 0)
 		{
 			// split at dot, first part is actor second part is field
@@ -145,6 +143,37 @@ namespace Dialogue
 				return new Result<MarkupToken>(tryResult.Error);
 			}
 			
+		}
+	}
+
+	public class ConcatenateParser : Parser<MarkupToken>
+	{
+		ManyDelimited<MarkupToken> delimiterParser;
+
+		public ConcatenateParser(Parser<MarkupToken> parser, char delimiter)
+		{
+			delimiterParser = new ManyDelimited<MarkupToken>(parser, delimiter);
+		}
+
+		public override Result<MarkupToken> Parse(string input, int index = 0)
+		{
+			Result<IEnumerable<MarkupToken>> tryResult = delimiterParser.Parse(input, index);
+			if (tryResult.Success)
+			{
+				List<MarkupToken> options = new List<MarkupToken>(tryResult.Value);
+				if (options.Count == 1)
+				{
+					return new Result<MarkupToken>(options[0], tryResult.Consumed);
+				}
+				else
+				{
+					return new Result<MarkupToken>(new ConcatenatedTokens(options), tryResult.Consumed);
+				}
+			}
+			else
+			{
+				return new Result<MarkupToken>(tryResult.Error);
+			}
 		}
 	}
 }

@@ -51,9 +51,13 @@ public class DialogueMarkupTest {
 		Assert.AreEqual("Guy", var.Actor);
 		Assert.AreEqual("foo", var.Field);
 	}
-	// TODO more variable unit tests
-
-	//TODO figure out why these crash unity. Possibly Or causing trouble when different types?
+	
+	[Test]
+	public void ConcatenatedTokenTest()
+	{
+		ConcatenatedTokens cat = (ConcatenatedTokens)MarkupParser.MarkupBlock.Parse("{\"First thing\" + Guy.foo}").Value;
+		Assert.AreEqual("[First thing + [Variable: Guy.foo]]", cat.ToString());
+	}
 
 	[Test]
 	public void SentenceWithVariables()
@@ -67,13 +71,6 @@ public class DialogueMarkupTest {
 		Assert.AreEqual("[Variable: Animal.species]", tokens[5].ToString());
 	}
 
-	//TODO test random choice
-	//[Test]
-	//public void RandomChoice()
-	//{
-
-	//}
-
 	[Test]
 	public void SentenceWithRandomChoices()
 	{
@@ -81,6 +78,15 @@ public class DialogueMarkupTest {
 		Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
 		Assert.AreEqual("[Random Choice: ceased to be|passed on]", tokens[3].ToString());
 		Assert.AreEqual("[Random Choice: [Variable: Death.behaviour]|[Variable: Animal.species]|joined the choir invisible]", tokens[5].ToString());
+	}
+
+	[Test]
+	public void SentenceWithConcatenation()
+	{
+		List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("This {Animal.species} is no more. It has {\"ceased to be\"|\"passed on\"}. It is {Death.behaviour| \"an ex-\" + Animal.species|\"joined the choir invisible\"}").Value);
+		Assert.AreEqual(" is no more. It has ", tokens[2].ToString());
+		Assert.AreEqual("[Random Choice: ceased to be|passed on]", tokens[3].ToString());
+		Assert.AreEqual("[Random Choice: [Variable: Death.behaviour]|[an ex- + [Variable: Animal.species]]|joined the choir invisible]", tokens[5].ToString());
 	}
 
 	// TODO further tests

@@ -8,7 +8,9 @@ public class GameController : MonoBehaviour {
 
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
 	[SerializeField] GameObject initialPlayerTeam;
+	[SerializeField] List<RPGItems.Item> initialInventory;
 	public GameObject playerTeam;
+	public RPGItems.InventoryManager inventory;
 
 	private void Awake()
 	{
@@ -20,8 +22,9 @@ public class GameController : MonoBehaviour {
 			GameObject.Destroy(gameObject);
 		}
 		DontDestroyOnLoad(gameObject);
+		inventory = GetComponent<RPGItems.InventoryManager>();
 	}
-
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -45,6 +48,9 @@ public class GameController : MonoBehaviour {
 		playerTeam = GameObject.Instantiate(initialPlayerTeam, this.transform);
 		playerTeam.SetActive(false);
 		BattleManager.Instance.playerTeam = playerTeam.transform;
+
+		inventory.Initialize(initialInventory);
+
 		// HACK should call Init on SceneLoader instead?
 		SceneLoader.Instance.persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
 	}

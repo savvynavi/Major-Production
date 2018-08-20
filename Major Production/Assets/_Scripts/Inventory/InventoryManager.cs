@@ -14,6 +14,15 @@ namespace RPGItems {
 			}
 		}
 
+		public void Initialize(List<Item> initialInventory)
+		{
+			playerInventory.Clear();
+			foreach(Item item in initialInventory)
+			{
+				playerInventory.Add(Instantiate(item));
+			}
+		}
+
 		//add item to the inventory
 		public void Add(Item item) {
 			playerInventory.Add(item);

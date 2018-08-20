@@ -6,15 +6,13 @@ using UnityEngine.SceneManagement;
 //HACK currently just for testing scene changes
 
 public class CombatTrigger : MonoBehaviour {
-
-    BattleManager manager;
+	
     [SerializeField] string battleScene;
     [SerializeField] GameObject enemies;
     bool triggered = false;
 
 	// Use this for initialization
 	void Start () {
-        manager = FindObjectOfType<BattleManager>();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +30,7 @@ public class CombatTrigger : MonoBehaviour {
         {
             GameObject go = GameObject.Instantiate(enemies.gameObject);
             go.SetActive(false);
-            manager.StartBattle(battleScene, go.transform);
+            BattleManager.Instance.StartBattle(battleScene, go.transform);
             triggered = true;
         }
     }

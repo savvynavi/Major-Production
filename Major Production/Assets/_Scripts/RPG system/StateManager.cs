@@ -28,8 +28,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public float startDelay;
 		public float endDelay;
-
-        BattleManager battleManager;
+		
         public ButtonBehaviourObjects buttonBehaviourObjects;
         public GameObject uiCanvas; //HACK
 
@@ -39,9 +38,9 @@ namespace RPGsys {
 
 		// Use this for initialization
 		void Start() {
+			BattleManager battleManager = BattleManager.Instance;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
-            battleManager = FindObjectOfType<BattleManager>();
 
             if(camera == null){
                 camera = Camera.main;
@@ -145,7 +144,7 @@ namespace RPGsys {
 
                 // Cleanup button behaviours
                 List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
-                battleManager.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
+                BattleManager.Instance.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
                 foreach (ButtonBehaviour bb in buttonBehaviours)
                 {
                     bb.CleanUp();
@@ -321,6 +320,10 @@ namespace RPGsys {
 						float rand = Random.Range(1, 100);
 						float MissRange = 10 + info.player.target.GetComponent<Character>().Agi - info.player.GetComponent<Character>().Dex;
 
+
+						////ADD CAMERA MOVEMENT HERE!!!(DIFFERENTIATE BETWEEN GROUP AND SINGLE ATTACKS FOR NOW, ADD IN DISTANCE/CLOSE ATTACKS LATER)
+
+
 						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Group) {
 						
 							if(info.player.target.tag == "Player") {
@@ -373,7 +376,7 @@ namespace RPGsys {
 		public IEnumerator EndBattle() {
 			// Cleanup button behaviours
 			List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
-			battleManager.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
+			BattleManager.Instance.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
 			foreach(ButtonBehaviour bb in buttonBehaviours) {
 				bb.CleanUp();
 			}

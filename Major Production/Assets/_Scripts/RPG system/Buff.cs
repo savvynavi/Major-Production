@@ -7,6 +7,7 @@ namespace RPGsys {
 	public class Buff : Status {
 		public StatusEffect StatusEffects;
 
+
 		public override void Apply(Character target, float duration) {
 			if(target != null) {
 				Buff tmp = Instantiate(this);
@@ -17,6 +18,28 @@ namespace RPGsys {
 				target.currentEffects.Add(tmp);
 				SetStats(target);
 			}
+		}
+
+		public override void EquipApply(Character target, RPGItems.Item item) {
+
+			if(target != null && item != null) {
+				item.Initialize(target);
+				foreach(Status buff in item.buffInstances) {
+					target.currentEffects.Add(buff);
+					SetStats(target);
+				}
+			}
+		}
+
+		public override void EquipRemove(Character target, RPGItems.Item item) {
+			foreach(Status buff in item.buffInstances) {
+				//ResetStats(target);
+				buff.UpdateEffect(target);
+				target.currentEffects.Remove(buff);
+
+			}
+
+			item.DeleteInstances(target);
 		}
 
 		public override void Remove(Character target) {

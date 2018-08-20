@@ -20,7 +20,7 @@ public class Controller : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		moveDir = Vector3.zero;
 
-		encounters = randCount.GetComponent<EncounterController>();
+		//encounters = randCount.GetComponent<EncounterController>();
 	}
 	
 	//currently no isGrounded check
@@ -33,7 +33,7 @@ public class Controller : MonoBehaviour {
 		Move(forward, right);
 
         if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-			encounters.RandomEncounter();
+			//encounters.RandomEncounter();
 		}
 	}
 

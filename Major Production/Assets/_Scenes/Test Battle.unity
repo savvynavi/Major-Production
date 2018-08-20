@@ -822,6 +822,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1962954535511532, guid: 1f21641d4eb36044c947ed49febba684, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f21641d4eb36044c947ed49febba684, type: 2}
   m_IsPrefabParent: 0
@@ -1375,6 +1379,7 @@ GameObject:
   - component: {fileID: 875702929}
   - component: {fileID: 875702928}
   - component: {fileID: 875702932}
+  - component: {fileID: 875702933}
   m_Layer: 0
   m_Name: FinalStateManager
   m_TagString: Untagged
@@ -1487,8 +1492,6 @@ MonoBehaviour:
   canvas: {fileID: 617563174}
   PowerBackground: {fileID: 114317905611763766, guid: bae157cae2698894b8fafb83a40da8cd,
     type: 2}
-  tabBackground: {fileID: 114359720446039774, guid: 99f5384a9eb48544aad81ab54910cc34,
-    type: 2}
   infoBackground: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b,
     type: 2}
   backButtonBackground: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b,
@@ -1496,6 +1499,18 @@ MonoBehaviour:
   confirmationMenu: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b,
     type: 2}
   position: {fileID: 0}
+--- !u!114 &875702933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 875702927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c3040276dbdd044fa35460810efac28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 1911145746}
 --- !u!224 &879831867 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,

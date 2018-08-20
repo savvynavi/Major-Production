@@ -36,11 +36,15 @@ namespace RPGsys {
         [SerializeField] List<Transform> enemyPositions;
         [SerializeField] Camera camera;
 
+		CameraMovement camMovement;
+
 		// Use this for initialization
 		void Start() {
 			BattleManager battleManager = BattleManager.Instance;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
+
+			camMovement = GetComponent<CameraMovement>();
 
             if(camera == null){
                 camera = Camera.main;
@@ -288,6 +292,8 @@ namespace RPGsys {
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
+
+			//each loop is a players turn
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
 				originalRotation = info.player.transform.rotation;
 				List<Character> storeTargets = new List<Character>();
@@ -313,13 +319,12 @@ namespace RPGsys {
 					if(info.player.target != null) {
 						//turn player towards target
 						info.player.transform.LookAt(info.player.target.transform);
+						camMovement.SetTransforms(info);
+						camMovement.LookAtAttacker();
+						yield return new WaitForSeconds(0.5f);
+
 
 						//does damage/animations
-
-						//if the attack hits, do attack stuff, if miss do dodge anim and nothing else
-						float rand = Random.Range(1, 100);
-						float MissRange = 10 + info.player.target.GetComponent<Character>().Agi - info.player.GetComponent<Character>().Dex;
-
 
 						////ADD CAMERA MOVEMENT HERE!!!(DIFFERENTIATE BETWEEN GROUP AND SINGLE ATTACKS FOR NOW, ADD IN DISTANCE/CLOSE ATTACKS LATER)
 
@@ -335,6 +340,9 @@ namespace RPGsys {
 							info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
 							string name = info.ability.anim.ToString();
 							info.player.GetComponent<Animator>().Play(name);
+
+							camMovement.LookAtTarget();
+
 							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
 							//if player character, will allow them to go back to isle anim 
 							if(info.player.tag != "Enemy") {
@@ -344,6 +352,8 @@ namespace RPGsys {
 						} else {
 							storeTargets = null;
 						}
+						camMovement.Reset();
+
 
 						//reset player rotation
 						float step = speed * Time.deltaTime;

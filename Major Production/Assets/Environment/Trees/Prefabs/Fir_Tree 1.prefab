@@ -10,9 +10,9 @@ GameObject:
   - component: {fileID: 471828}
   - component: {fileID: 3384114}
   - component: {fileID: 2377290}
-  - component: {fileID: 136132658234207208}
+  - component: {fileID: 136075685760332290}
   m_Layer: 0
-  m_Name: Fir_Tree
+  m_Name: Fir_Tree 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192044}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -79.32, y: 3.75, z: 76.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,7 +45,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: af65c0942482e46aeb256506726ff0f7, type: 2}
+  - {fileID: 2100000, guid: 2facf01347f90cc4db11208d9cc9b5b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -87,7 +87,7 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 192044}
   m_IsPrefabParent: 1
---- !u!136 &136132658234207208
+--- !u!136 &136075685760332290
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,7 +96,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.8857777
+  m_Radius: 1.6995854
   m_Height: 5.71314
   m_Direction: 1
-  m_Center: {x: -0.000039458275, y: 2.8566525, z: -0.00022572279}
+  m_Center: {x: -0.000039458275, y: 2.8566525, z: 0.18596649}

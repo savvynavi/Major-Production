@@ -11,6 +11,7 @@ namespace RPGsys{
 		protected GameObject partInst;
 		protected Material matInst;
 		bool particleRunning;
+		public Equipable equipable;
 
 		//public Animation anim;
 		public enum StatusEffectType {
@@ -23,6 +24,11 @@ namespace RPGsys{
 			Self,
 			Target,
 			Group
+		}
+
+		public enum Equipable {
+			False,
+			True
 		}
 
 		[System.Serializable]
@@ -50,6 +56,14 @@ namespace RPGsys{
 
 		public virtual void Remove(Character target){
 			Destroy(partInst);
+		}
+
+		public virtual void EquipApply(Character target, RPGItems.Item item) {
+
+		}
+
+		public virtual void EquipRemove(Character target, RPGItems.Item item) {
+
 		}
 
 		public void Clone(Character target){

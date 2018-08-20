@@ -51,15 +51,23 @@ namespace RPGsys {
 
 				//if the random number from 1-100 is less than the miss range, the attack hits
 				if(rand >= MissRange) {
-				IncomingDmg = CalculateDamage(obj, target);
-				//loops over current effects on this power, applies them to the target
-				for(int i = 0; i < currentEffects.Count; i++) {
-					currentEffects[i].Apply(target, duration);
-				}
+					IncomingDmg = CalculateDamage(obj, target);
+					//loops over current effects on this power, applies them to the target
+					for(int i = 0; i < currentEffects.Count; i++) {
+						currentEffects[i].Apply(target, duration);
+					}
 				}
 
 				target.Hp -= IncomingDmg;
 				obj.Mp -= manaCost;
+			}
+		}
+
+		//used for potions/items
+		public void Apply(Character character, RPGItems.Item item) {
+			//loops over the items effects, adds to the character (duration = 0 is a one-off heal)
+			for(int i = 0; i < currentEffects.Count; i++) {
+				currentEffects[i].EquipApply(character, item);
 			}
 		}
 

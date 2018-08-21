@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+	// TODO destroy this if container destroyed?
 	public ItemBox container;
 	public Transform dragArea;
 	bool dragging;
@@ -17,6 +18,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 		originalPos = transform.position;
 		GetComponent<Image>().raycastTarget = false;
 		transform.SetParent(dragArea);
+		transform.SetAsLastSibling();	// Draw on top
 	}
 
 	public void OnDrag(PointerEventData eventData)
@@ -31,10 +33,43 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 	{
 		if (dragging)
 		{
-			// TODO check for using
-			transform.position = originalPos;
-			transform.SetParent(container.transform);
+			dragging = false;
+			bool used = false;
+			List<GameObject> targets = GetObjectsUnderMouse();
+			foreach (GameObject target in targets)
+			{
+				CharacterBox cb = target.GetComponent<CharacterBox>();
+				if (cb)
+				{
+					// TODO check that character is able to use item
+					GameController.Instance.inventory.Use(container.ContainedItem, cb.ContainedCharacter);
+					used = true;
+					break;
+				}
+			}
+
+			if (!used)
+			{
+				// If nothing else, return to original place
+				transform.position = originalPos;
+				GetComponent<Image>().raycastTarget = true;
+				transform.SetParent(container.transform);
+			}
 		}
+	}
+
+	public List<GameObject> GetObjectsUnderMouse()
+	{
+		List<RaycastResult> hitObjects = new List<RaycastResult>();
+		PointerEventData pointer = new PointerEventData(EventSystem.current);
+		pointer.position = Input.mousePosition;
+		EventSystem.current.RaycastAll(pointer, hitObjects);
+		List<GameObject> objects = new List<GameObject>();
+		foreach (RaycastResult result in hitObjects)
+		{
+			objects.Add(result.gameObject);
+		}
+		return objects;
 	}
 
 	// Use this for initialization

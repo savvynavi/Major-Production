@@ -34,4 +34,9 @@ public class ItemBox : MonoBehaviour
 	void Update () {
 		
 	}
+
+	private void OnDestroy()
+	{
+		GameObject.Destroy(draggable.gameObject);
+	}
 }

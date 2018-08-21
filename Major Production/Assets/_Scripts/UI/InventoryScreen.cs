@@ -47,8 +47,9 @@ public class InventoryScreen : MonoBehaviour {
 		foreach (RPGItems.Item item in GameController.Instance.inventory.playerInventory)
 		{
 			GameObject obj = Instantiate(ItemBoxPrefab, itemPanel);
-			obj.GetComponent<ItemBox>().ContainedItem = item;
-
+			ItemBox box = obj.GetComponent<ItemBox>();
+			box.ContainedItem = item;
+			box.draggable.dragArea = this.transform;
 		}
 	}
 

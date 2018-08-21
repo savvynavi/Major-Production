@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryScreen : MonoBehaviour {
+public class InventoryScreen : MenuScreen{
 
 	public RectTransform itemPanel;
 	public RectTransform characterPanel;
@@ -19,14 +19,14 @@ public class InventoryScreen : MonoBehaviour {
 		
 	}
 
-	public void Open()
+	public override void Open()
 	{
 		gameObject.SetActive(true);
 		GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateItems);
 		UpdateContents();
 	}
 
-	public void Close()
+	public override void Close()
 	{
 		GameController.Instance.inventory.OnInventoryChanged.RemoveListener(UpdateItems);
 		gameObject.SetActive(false);

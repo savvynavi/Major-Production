@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] List<RPGItems.Item> initialInventory;
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
-	[SerializeField] InventoryScreen inventoryScreen;	// HACK might go elsewhere?
+	[SerializeField] MenuManager menus;
 
 	private void Awake()
 	{
@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 		}
 		DontDestroyOnLoad(gameObject);
 		inventory = GetComponent<RPGItems.InventoryManager>();
-		inventoryScreen = GetComponentInChildren<InventoryScreen>(true);
+		menus = GetComponentInChildren<MenuManager>(true);
 		state = EGameStates.Menu;	//HACK assumes game starts at main menu!
 	}
 	
@@ -50,18 +50,18 @@ public class GameController : MonoBehaviour {
 			state = EGameStates.Menu;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Tab))
+		if (Input.GetKeyDown(KeyCode.Tab) && state == EGameStates.Overworld)
 		{
 			//HACK
-			if (inventoryScreen.gameObject.activeInHierarchy)
+			if (menus.Open)
 			{
-				inventoryScreen.Close();
+				menus.CloseMenus();
 				Time.timeScale = 1;
 				// HACK do pause/unpause elsewhere (on opening any menu?)
 
 			} else
 			{
-				inventoryScreen.Open();
+				menus.OpenMenus();
 				Time.timeScale = 0;
 			}
 		}

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+// TODO extract out to Draggable parent class
+// TODO make a DropTarget (DragTarget?) class that reacts to Draggables being hovered over or dropped onto
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	// TODO destroy this if container destroyed?

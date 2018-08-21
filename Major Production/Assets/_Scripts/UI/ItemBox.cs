@@ -27,7 +27,8 @@ public class ItemBox : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		draggable.container = this;
+		draggable.container = this.transform;
+		draggable.itemBox = this;
 	}
 	
 	// Update is called once per frame

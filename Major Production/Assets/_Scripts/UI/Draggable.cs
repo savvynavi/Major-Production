@@ -25,11 +25,44 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (dragging)
 		{
 			transform.position = eventData.position;
+			IDragTarget target = GetDragTargetUnderMouse();
+			if(target != null)
+			{
+				target.Hover(this);
+			}
 		}
 		// TODO check for dragtarget hovered over
 	}
 
-	public abstract void OnEndDrag(PointerEventData eventData);	// TODO implement, make it check for dragtargets
+	public virtual void OnEndDrag(PointerEventData eventData)
+	{
+		if (dragging)
+		{
+			dragging = false;
+			IDragTarget target = GetDragTargetUnderMouse();
+			if (target != null)
+			{
+				target.Drop(this);
+			}
+
+			transform.position = originalPos;
+			GetComponent<Image>().raycastTarget = true;
+			transform.SetParent(container.transform);
+		}
+	}
+
+	public IDragTarget GetDragTargetUnderMouse()
+	{
+		foreach(GameObject obj in GetObjectsUnderMouse())
+		{
+			IDragTarget target = obj.GetComponent<IDragTarget>();
+			if(target != null)
+			{
+				return target;
+			}
+		}
+		return null;
+	}
 
 	public List<GameObject> GetObjectsUnderMouse()
 	{

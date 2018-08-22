@@ -12,7 +12,8 @@ namespace RPGsys {
 
 		// Use this for initialization
 		void Start() {
-			originalCameraTransform.rotation = camera.transform.rotation;
+			//originalCameraTransform.rotation = camera.transform.rotation;
+			originalCameraTransform = camera.transform;
 		}
 
 		public void SetTransforms(TurnBehaviour.TurnInfo info) {
@@ -29,6 +30,7 @@ namespace RPGsys {
 		}
 
 		public void Reset() {
+			//camera.transform.rotation = originalCameraTransform.rotation;
 			camera.transform.rotation = originalCameraTransform.rotation;
 			
 		}

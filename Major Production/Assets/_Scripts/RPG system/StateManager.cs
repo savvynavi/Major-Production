@@ -319,9 +319,9 @@ namespace RPGsys {
 					if(info.player.target != null) {
 						//turn player towards target
 						info.player.transform.LookAt(info.player.target.transform);
-						//camMovement.SetTransforms(info);
-						//camMovement.LookAtAttacker();
-						//yield return new WaitForSeconds(0.5f);
+						camMovement.SetTransforms(info);
+						camMovement.LookAtAttacker();
+						yield return new WaitForSeconds(0.5f);
 
 
 						//does damage/animations
@@ -341,7 +341,7 @@ namespace RPGsys {
 							string name = info.ability.anim.ToString();
 							info.player.GetComponent<Animator>().Play(name);
 
-							//camMovement.LookAtTarget();
+							camMovement.LookAtTarget();
 
 							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
 							//if player character, will allow them to go back to isle anim 
@@ -352,7 +352,8 @@ namespace RPGsys {
 						} else {
 							storeTargets = null;
 						}
-						//camMovement.Reset();
+
+						camMovement.Reset();
 
 
 						//reset player rotation

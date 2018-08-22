@@ -28,7 +28,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public float startDelay;
 		public float endDelay;
-		
+
         public ButtonBehaviourObjects buttonBehaviourObjects;
         public GameObject uiCanvas; //HACK
 
@@ -36,15 +36,24 @@ namespace RPGsys {
         [SerializeField] List<Transform> enemyPositions;
         [SerializeField] Camera camera;
 
-		CameraMovement camMovement;
+		//CameraMovement camMovement;
 
 		// Use this for initialization
 		void Start() {
-			BattleManager battleManager = BattleManager.Instance;
+
+            //turn on feedback scripts
+            FloatingTextController.DamageEnemy();
+            FloatingTextController.DamageAlly();
+            FloatingTextController.Miss();
+            FloatingTextController.HealEnemy();
+            FloatingTextController.HealAlly();
+
+
+            BattleManager battleManager = BattleManager.Instance;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
 
-			camMovement = GetComponent<CameraMovement>();
+			//camMovement = GetComponent<CameraMovement>();
 
             if(camera == null){
                 camera = Camera.main;
@@ -69,8 +78,10 @@ namespace RPGsys {
             SceneManager.MoveGameObjectToScene(selector, this.gameObject.scene);
 
 
-			//game over menu stuff
-			GameOverUI = GameObject.Find("GameOverMenu");
+
+
+            //game over menu stuff
+            GameOverUI = GameObject.Find("GameOverMenu");
 			MainMenu.onClick.AddListener(() => HandleClick(MainMenu));
 			Quit.onClick.AddListener(() => HandleClick(Quit));
 

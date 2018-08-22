@@ -64,7 +64,13 @@ namespace RPGsys {
 				}
 			case StatusEffectType.Heal: {
 					target.Hp += StatusEffects.amount;
-					break;
+                        GetScreenLoc tempLoc = new GetScreenLoc();
+                        Vector2 location = tempLoc.getScreenPos(target.transform);
+                        if (target.tag == "Enemy")
+                            FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
+                        else if (target.tag == "Player")
+                            FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
+                        break;
 				}
 			default:
 				Debug.Log("error");

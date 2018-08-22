@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
-
-public class CharacterBox : MonoBehaviour, IDragTarget {
+public class CharacterBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IPointerExitHandler {
 
 	[SerializeField] Text nameText;
 	Character character;
@@ -30,6 +30,16 @@ public class CharacterBox : MonoBehaviour, IDragTarget {
 	public void Hover(Draggable dragged)
 	{
 		//TODO
+	}
+
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		Debug.Log("Pointer entered");
+	}
+
+	public void OnPointerExit(PointerEventData eventData)
+	{
+		Debug.Log("Pointer exited");
 	}
 
 	void SetCharacter(Character c)

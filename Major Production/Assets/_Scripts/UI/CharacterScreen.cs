@@ -9,6 +9,14 @@ public class CharacterScreen : MenuScreen {
 	List<RPGsys.Character> characters;
 	RPGsys.Character currentChar;
 
+	[SerializeField] Text speedText;
+	[SerializeField] Text strText;
+	[SerializeField] Text defText;
+	[SerializeField] Text intText;
+	[SerializeField] Text mindText;
+	[SerializeField] Text dexText;
+	[SerializeField] Text agiText;
+
 	//HACK 
 	[SerializeField] Text displayText;
 
@@ -44,6 +52,13 @@ public class CharacterScreen : MenuScreen {
 		currentChar = characters[characterDropdown.value];
 		//hack
 		displayText.text = JsonUtility.ToJson(currentChar,true);
+		speedText.text = currentChar.Speed.ToString();
+		strText.text = currentChar.Str.ToString();
+		defText.text = currentChar.Dex.ToString();
+		intText.text = currentChar.Int.ToString();
+		mindText.text = currentChar.Mind.ToString();
+		dexText.text = currentChar.Dex.ToString();
+		agiText.text = currentChar.Agi.ToString();
 	}
 
 	// Use this for initialization

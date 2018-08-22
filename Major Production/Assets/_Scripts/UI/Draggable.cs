@@ -18,6 +18,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		GetComponent<Image>().raycastTarget = false;
 		transform.SetParent(dragArea);
 		transform.SetAsLastSibling();   // Draw on top
+		eventData.Use();
 	}
 
 	public virtual void OnDrag(PointerEventData eventData)
@@ -30,6 +31,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 			{
 				target.Hover(this);
 			}
+			eventData.Use();
 		}
 		// TODO check for dragtarget hovered over
 	}
@@ -48,6 +50,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 			transform.position = originalPos;
 			GetComponent<Image>().raycastTarget = true;
 			transform.SetParent(container.transform);
+			eventData.Use();
 		}
 	}
 

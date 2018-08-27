@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
+// TODO have some OnStateChange function/event (ie to allow menu to close itself)
 public class GameController : MonoBehaviour {
 
 	public enum EGameStates{
@@ -12,7 +15,7 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance = null;
 
-	public EGameStates state;
+	public EGameStates state;		// HACK make private, use a field and ChangeState function for access
 
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
 	[SerializeField] GameObject initialPlayerTeam;
@@ -46,8 +49,7 @@ public class GameController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			//HACK for now, until we put in a proper pause menu
-			SceneManager.LoadScene("Main Menu");
-			state = EGameStates.Menu;
+			QuitToTitle();
 		}
 
 		if (Input.GetKeyDown(KeyCode.Tab) && state == EGameStates.Overworld)
@@ -56,13 +58,9 @@ public class GameController : MonoBehaviour {
 			if (menus.Open)
 			{
 				menus.CloseMenus();
-				Time.timeScale = 1;
-				// HACK do pause/unpause elsewhere (on opening any menu?)
-
 			} else
 			{
 				menus.OpenMenus();
-				Time.timeScale = 0;
 			}
 		}
 	}
@@ -81,5 +79,22 @@ public class GameController : MonoBehaviour {
 		inventory.Initialize(initialInventory);
 
 		state = EGameStates.Overworld;
+	}
+
+	public void Pause()
+	{
+		Time.timeScale = 0;
+	}
+
+	public void Unpause()
+	{
+		Time.timeScale = 1;
+	}
+
+	public void QuitToTitle()
+	{
+		SceneManager.LoadScene("Main Menu");
+		menus.CloseMenus();
+		state = EGameStates.Menu;
 	}
 }

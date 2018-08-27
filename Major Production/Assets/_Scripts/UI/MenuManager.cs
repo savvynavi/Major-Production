@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour {
 
 	public InventoryScreen inventoryMenu;
 	public CharacterScreen characterMenu;
+	public GameObject commonElements;
 
 	bool open;
 	public bool Open { get { return open; } }
@@ -17,6 +18,7 @@ public class MenuManager : MonoBehaviour {
 		currentScreen = inventoryMenu;
 		inventoryMenu.Close();
 		characterMenu.Close();
+		commonElements.SetActive(false);
 		open = false;
 	}
 	
@@ -27,13 +29,17 @@ public class MenuManager : MonoBehaviour {
 
 	public void OpenMenus()
 	{
+		GameController.Instance.Pause();
 		currentScreen.Open();
+		commonElements.SetActive(true);
 		open = true;
 	}
 
 	public void CloseMenus()
 	{
+		GameController.Instance.Unpause();
 		currentScreen.Close();
+		commonElements.SetActive(false);
 		open = false;
 	}
 

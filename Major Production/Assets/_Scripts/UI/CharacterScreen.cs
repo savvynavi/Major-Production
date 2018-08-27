@@ -16,6 +16,10 @@ public class CharacterScreen : MenuScreen {
 	[SerializeField] Text mindText;
 	[SerializeField] Text dexText;
 	[SerializeField] Text agiText;
+	[SerializeField] Text hpText;
+	[SerializeField] Text mpText;
+
+	// TODO health and mana bar
 
 	//HACK 
 	[SerializeField] Text displayText;
@@ -59,6 +63,9 @@ public class CharacterScreen : MenuScreen {
 		mindText.text = currentChar.Mind.ToString();
 		dexText.text = currentChar.Dex.ToString();
 		agiText.text = currentChar.Agi.ToString();
+
+		hpText.text = string.Format("HP {0:0.}/{1:0.}", currentChar.Hp, currentChar.hpStat);
+		mpText.text = string.Format("MP {0:0.}/{1:0.}", currentChar.Mp,currentChar.mpStat);
 	}
 
 	// Use this for initialization

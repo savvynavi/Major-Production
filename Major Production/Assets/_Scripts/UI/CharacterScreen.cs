@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
+//TODO AAA URGENT make equipped items update on dropping
 public class CharacterScreen : MenuScreen {
 
 	[SerializeField] Dropdown characterDropdown;
@@ -26,7 +27,7 @@ public class CharacterScreen : MenuScreen {
 	// TODO health and mana bar
 
 	//HACK 
-	[SerializeField] Text displayText;
+	[SerializeField] EquipmentBox equipmentBox;
 
 	// TODO maybe make itempanel its own class so behaviour can be reused?
 	[SerializeField] GameObject ItemBoxPrefab;
@@ -65,6 +66,7 @@ public class CharacterScreen : MenuScreen {
 	{
 		// TODO based on dropdown value pick character
 		currentChar = characters[characterDropdown.value];
+		equipmentBox.character = currentChar;
 		DisplayCharacter();
 
 	}
@@ -72,8 +74,7 @@ public class CharacterScreen : MenuScreen {
 	public void DisplayCharacter(RPGItems.Item newItem = null)
 	{
 		//TODO if newItem is not null, calculate changes and show those
-
-		displayText.text = JsonUtility.ToJson(currentChar, true);
+		
 		speedText.text = string.Format("Speed {0:00.}", currentChar.Speed);
 		strText.text = string.Format("Strength {0:00.}", currentChar.Str);
 		defText.text = string.Format("Defence {0:00.}", currentChar.Dex);

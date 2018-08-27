@@ -17,8 +17,6 @@ public class ItemBox : MonoBehaviour, IDragTarget
 	public Item ContainedItem { get{ return item; } set{SetItem(value);} }
 
 
-	
-
 	void SetItem(RPGItems.Item _item)
 	{
 		item = _item;

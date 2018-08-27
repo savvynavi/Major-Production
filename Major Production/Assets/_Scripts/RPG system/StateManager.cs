@@ -319,8 +319,7 @@ namespace RPGsys {
 					if(info.player.target != null) {
 						//turn player towards target
 						info.player.transform.LookAt(info.player.target.transform);
-						camMovement.SetTransforms(info);
-						camMovement.LookAtAttacker();
+						camMovement.LookAtAttacker(info.player);
 						yield return new WaitForSeconds(0.5f);
 
 
@@ -336,12 +335,22 @@ namespace RPGsys {
 							} else {
 								GroupAttack(info, enemies, storeTargets);
 							}
+
+							//change camera to group shot of target here
+							camMovement.LookAtGroup(storeTargets);
+
 						}else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
 							info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
 							string name = info.ability.anim.ToString();
 							info.player.GetComponent<Animator>().Play(name);
 
-							camMovement.LookAtTarget();
+							//if same team, use facecam, else single out enemy target
+							if(info.player.tag == info.player.target.tag) {
+								camMovement.LookAtAttacker(info.player.target.GetComponent<Character>());
+							} else {
+								camMovement.LookAtTarget(info.player, info.player.target.GetComponent<Character>());
+
+							}
 
 							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
 							//if player character, will allow them to go back to isle anim 
@@ -353,7 +362,8 @@ namespace RPGsys {
 							storeTargets = null;
 						}
 
-						camMovement.Reset();
+						yield return new WaitForSeconds(3);
+
 
 
 						//reset player rotation
@@ -362,6 +372,19 @@ namespace RPGsys {
 						//waits for attack anim to finish before spinning character back towards front
 						yield return new WaitForSeconds(info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length - info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime);
 						info.player.transform.rotation = Quaternion.Slerp(info.player.transform.rotation, originalRotation, speed);
+						camMovement.Reset();
+
+						//foreach(Character chara in characters) {
+						//	if(chara != info.player) {
+						//		chara.gameObject.SetActive(true);
+						//	}
+						//}
+
+						//foreach(Character chara in enemies) {
+						//	if(chara != info.player.target.GetComponent<Character>()) {
+						//		chara.gameObject.SetActive(true);
+						//	}
+						//}
 					}
 				}
 

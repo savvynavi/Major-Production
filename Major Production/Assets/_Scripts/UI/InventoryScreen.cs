@@ -59,10 +59,21 @@ public class InventoryScreen : MenuScreen{
 		{
 			GameObject.Destroy(child.gameObject);
 		}
-		foreach (RPGsys.Character c in GameController.Instance.playerTeam.GetComponentsInChildren<RPGsys.Character>(true))
+		foreach (RPGsys.Character c in GameController.Instance.Characters)
 		{
 			GameObject obj = Instantiate(CharacterBoxPrefab, characterPanel);
 			obj.GetComponent<CharacterBox>().ContainedCharacter = c;
+		}
+	}
+
+	public void UnequipAllItemsFromAll()
+	{
+		foreach (RPGsys.Character character in GameController.Instance.Characters)
+		{
+			foreach (RPGItems.Item item in new List<RPGItems.Item>(character.Equipment))
+			{
+				GameController.Instance.inventory.Unequip(item, character);
+			}
 		}
 	}
 }

@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour {
 	public RPGItems.InventoryManager inventory;
 	[SerializeField] MenuManager menus;
 
+	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
+
 	private void Awake()
 	{
 		if (Instance == null)

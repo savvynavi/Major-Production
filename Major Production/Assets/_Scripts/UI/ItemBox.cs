@@ -8,7 +8,7 @@ using RPGItems;
 // Represents an item in the inventory screen. Contains draggable elements which can be used to apply
 // the item to things
 // May change around, making putting more item logic in the item itself?
-public class ItemBox : MonoBehaviour, IDragTarget
+public class ItemBox : DragTarget
 {
 
 	[SerializeField] Text inventoryText;
@@ -28,23 +28,14 @@ public class ItemBox : MonoBehaviour, IDragTarget
 		draggable.container = this.transform;
 		draggable.itemBox = this;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	private void OnDestroy()
 	{
 		GameObject.Destroy(draggable.gameObject);
 	}
 
-	public void Hover(Draggable dragged)
-	{
-		// TODO some effect
-	}
 
-	public bool Drop(Draggable dragged)
+	public override bool Drop(Draggable dragged)
 	{
 		// If item from another itembox, swap items
 		DraggableItem draggedItem = (DraggableItem)dragged;
@@ -71,5 +62,15 @@ public class ItemBox : MonoBehaviour, IDragTarget
 		{
 			return false;
 		}
+	}
+
+	protected override void OnHoverEnter(Draggable dragged)
+	{
+		//TODO
+	}
+
+	protected override void OnHoverLeave()
+	{
+		//TODO
 	}
 }

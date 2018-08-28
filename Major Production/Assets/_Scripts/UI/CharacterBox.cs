@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
-public class CharacterBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IPointerExitHandler {
+public class CharacterBox : DragTarget, IPointerEnterHandler, IPointerExitHandler {
 
 	[SerializeField] Text nameText;
 	Character character;
 	
 	public Character ContainedCharacter { get { return character; } set { SetCharacter(value); } }
 
-	public bool Drop(Draggable dragged)
+	public override bool Drop(Draggable dragged)
 	{
 		DraggableItem item = (DraggableItem)dragged;
 		if(item != null)
@@ -27,10 +27,6 @@ public class CharacterBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IP
 		}
 	}
 
-	public void Hover(Draggable dragged)
-	{
-		//TODO
-	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
@@ -42,19 +38,21 @@ public class CharacterBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IP
 		Debug.Log("Pointer exited");
 	}
 
+	protected override void OnHoverEnter(Draggable dragged)
+	{
+		//TODO
+	}
+
+	protected override void OnHoverLeave()
+	{
+		//TODO
+	}
+
 	void SetCharacter(Character c)
 	{
 		character = c;
 		nameText.text = character.name;
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

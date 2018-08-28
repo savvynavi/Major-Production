@@ -5,12 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
-public class EquipmentBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IPointerExitHandler
+public class EquipmentBox : DragTarget, IPointerEnterHandler, IPointerExitHandler
 {
 	// TODO make items draggable from this back to inventory
 	public Character character;
 
-	public bool Drop(Draggable dragged)
+
+	public override bool Drop(Draggable dragged)
 	{
 		DraggableItem item = (DraggableItem)dragged;
 		if (item != null)
@@ -25,11 +26,6 @@ public class EquipmentBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IP
 		}
 	}
 
-	public void Hover(Draggable dragged)
-	{
-		//TODO make character screen show change from item
-	}
-
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		Debug.Log("Pointer entered");
@@ -38,6 +34,16 @@ public class EquipmentBox : MonoBehaviour, IDragTarget, IPointerEnterHandler, IP
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		Debug.Log("Pointer exited");
+	}
+
+	protected override void OnHoverEnter(Draggable dragged)
+	{
+		//TODO
+	}
+
+	protected override void OnHoverLeave()
+	{
+		//TODO
 	}
 
 	// Use this for initialization

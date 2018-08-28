@@ -44,6 +44,7 @@ namespace RPGsys {
 
 		public override void Remove(Character target) {
 			ResetStats(target);
+			//target.currentEffects.Remove(Buff);
 			base.Remove(target);
 		}
 

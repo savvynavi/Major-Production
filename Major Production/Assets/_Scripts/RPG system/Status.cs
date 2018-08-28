@@ -42,7 +42,7 @@ namespace RPGsys{
 		//reduces time by 1 turn each time it's called
 		virtual public void UpdateEffect(Character chara) {
 			timer--;
-			if(particles != null && (timer < particles.main.startLifetime.constant || chara.Hp <= 0)) {
+			if(particles != null && (timer < particles.main.startLifetime.constant || chara.Hp <= 0) && partInst != null) {
 				partInst.GetComponent<ParticleSystem>().Stop();
 			}
 			if(material != null && (timer < 1 || chara.Hp <= 0)) {
@@ -56,6 +56,7 @@ namespace RPGsys{
 
 		public virtual void Remove(Character target){
 			Destroy(partInst);
+			target.gameObject.GetComponentInChildren<Renderer>().material = originalMaterial;
 		}
 
 		public virtual void EquipApply(Character target, RPGItems.Item item) {

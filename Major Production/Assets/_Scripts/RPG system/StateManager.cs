@@ -107,6 +107,16 @@ namespace RPGsys {
                 characters[i].transform.rotation = playerPositions[i].rotation;
             }
 
+			List<Character> tmp = new List<Character>();
+			//when battle reentered, forces any dead characters to act like it
+			foreach(Character chara in characters) {
+				Debug.Log(chara.name + "'s HP: " + chara.Hp);
+				if(chara.Hp <= 0) {
+					tmp.Add(chara);
+					Death(chara, tmp);
+				}
+			}
+
 			//shows enemy ui
 			foreach(Character enemy in enemies) {
                 enemy.GetComponent<EnemyUI>().enemyUISetup(uiCanvas);
@@ -144,8 +154,6 @@ namespace RPGsys {
 			if(!BattleOver()) {
 				yield return GameLoop();
 			}
-
-			Debug.Log("peope are dead now");
 
 			if(BattleOver() == true) {
 
@@ -222,7 +230,6 @@ namespace RPGsys {
 				if(currentPlayer == previousPlayer) {
 					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
 					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
-					//turnBehaviour.MovesThisRound.RemoveAt(turnBehaviour.MovesThisRound.Count - 1);
 					i = previousPlayer - 1;
 
 				} else {
@@ -327,10 +334,6 @@ namespace RPGsys {
 
 
 						//does damage/animations
-
-						////ADD CAMERA MOVEMENT HERE!!!(DIFFERENTIATE BETWEEN GROUP AND SINGLE ATTACKS FOR NOW, ADD IN DISTANCE/CLOSE ATTACKS LATER)
-
-
 						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Group) {
 						
 							if(info.player.target.tag == "Player") {
@@ -364,6 +367,7 @@ namespace RPGsys {
 							storeTargets = null;
 						}
 
+						////turns off any characters not involved with the current fight
 						//foreach(Character chara in characters) {
 						//	if(chara != info.player && chara != info.player.target.GetComponent) {
 						//		chara.gameObject.SetActive(false);
@@ -375,7 +379,7 @@ namespace RPGsys {
 						//		enem.gameObject.SetActive(false);
 						//	}
 						//}
-
+						//waiting for attacks to be done before changing camera back, MAGIC NUMBER SET TO BETTER TIMER FOR SNAPPIER COMBAT
 						yield return new WaitForSeconds(3);
 
 
@@ -386,8 +390,11 @@ namespace RPGsys {
 						//waits for attack anim to finish before spinning character back towards front
 						yield return new WaitForSeconds(info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length - info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime);
 						info.player.transform.rotation = Quaternion.Slerp(info.player.transform.rotation, originalRotation, speed);
+
+						//resets the camera back to the main camera
 						camMovement.Reset();
 
+						////turns all characters back on
 						//foreach(Character chara in characters) {
 						//	if(chara != info.player || chara != info.player.target) {
 						//		chara.gameObject.SetActive(true);
@@ -444,7 +451,7 @@ namespace RPGsys {
 			yield return new WaitForSeconds(0.5f);
 		}
 
-		public void Death(Character attackerTarget, List<Character> targets) {
+		public void Death(Character attackerTarget, List<Character> targets = null) {
 			//if no list given, do 1 target, else loop over all targets
 			if(targets != null) {
 				foreach(Character target in targets) {

@@ -15,11 +15,11 @@ public class EquipmentSlot : ItemBox {
 	public override bool Drop(Draggable dragged)
 	{
 		// If item from another itembox, swap items
-		// TODO either swap within equipment, or 
 
 		DraggableItem draggedItem = (DraggableItem)dragged;
 		if (draggedItem != null && draggedItem.itemBox != this)
 		{
+			// TODO like with InventorySlot, check types and act accordingly
 			List<Item> inventory = GameController.Instance.inventory.playerInventory;
 			ItemBox theirBox = draggedItem.itemBox;
 			Item theirItem = theirBox.ContainedItem;

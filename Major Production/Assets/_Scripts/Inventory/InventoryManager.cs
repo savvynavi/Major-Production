@@ -27,9 +27,16 @@ namespace RPGItems {
 			OnInventoryChanged.Invoke();
 		}
 
-		//add item to the inventory
-		public void Add(Item item) {
-			playerInventory.Add(item);
+		//add item to the inventory. index parameter can be used to insert instead
+		public void Add(Item item, int index = -1) {
+			if (index < 0 || index >= playerInventory.Count)
+			{
+				playerInventory.Add(item);
+			}
+			else
+			{
+				playerInventory.Insert(index, item);
+			}
 			OnInventoryChanged.Invoke();
 		}
 
@@ -78,14 +85,14 @@ namespace RPGItems {
 		}
 
 
-		public void Unequip(Item item, RPGsys.Character character) {
+		public void Unequip(Item item, RPGsys.Character character, int index = -1) {
 			if(character.Equipment.Count() > 0) {
 				foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
 					buff.EquipRemove(character, item);
 					character.Equipment.Remove(item);
 				}
 
-				Add(item);	// Using class Add method so InventoryChanged event fires
+				Add(item, index);	// Using class Add method so InventoryChanged event fires
 
 				Debug.Log("defence of bard after removal: " + character.Def);
 			} else {

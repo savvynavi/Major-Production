@@ -53,6 +53,7 @@ namespace RPGItems {
 		public void SortByName() {
 			List<Item> sortedList = playerInventory.OrderBy(o => o.name).ToList();
 			playerInventory = sortedList;
+			OnInventoryChanged.Invoke();
 		}
 
 
@@ -84,9 +85,7 @@ namespace RPGItems {
 					character.Equipment.Remove(item);
 				}
 
-
-
-				playerInventory.Add(item);
+				Add(item);	// Using class Add method so InventoryChanged event fires
 
 				Debug.Log("defence of bard after removal: " + character.Def);
 			} else {

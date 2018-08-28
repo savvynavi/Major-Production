@@ -37,6 +37,7 @@ public class CharacterScreen : MenuScreen {
 	{
 		gameObject.SetActive(false);
 		GameController.Instance.inventory.OnInventoryChanged.RemoveListener(UpdateItems);
+		GameController.Instance.inventory.OnInventoryChanged.RemoveListener(UpdateEquipment);
 		//todo
 	}
 
@@ -45,6 +46,7 @@ public class CharacterScreen : MenuScreen {
 		gameObject.SetActive(true);
 		PopulateDropdownOptions();
 		GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateItems);
+		GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateEquipment);
 		SelectCharacter();
 		UpdateItems();
 	}
@@ -93,12 +95,7 @@ public class CharacterScreen : MenuScreen {
 		}
 		AbilitiesText.text = abilityList.ToString();
 
-		StringBuilder equipmentList = new StringBuilder();
-		foreach (RPGItems.Item item in currentChar.Equipment)
-		{
-			equipmentList.Append(item.Name + '\n');
-		}
-		EquipmentText.text = equipmentList.ToString();
+		UpdateEquipment();
 	}
 
 	// Use this for initialization
@@ -124,6 +121,16 @@ public class CharacterScreen : MenuScreen {
 			box.ContainedItem = item;
 			box.draggable.dragArea = this.transform;
 		}
+	}
+
+	public void UpdateEquipment()
+	{
+		StringBuilder equipmentList = new StringBuilder();
+		foreach (RPGItems.Item item in currentChar.Equipment)
+		{
+			equipmentList.Append(item.Name + '\n');
+		}
+		EquipmentText.text = equipmentList.ToString();
 	}
 
 	//HACK

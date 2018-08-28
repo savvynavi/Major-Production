@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour {
     public Transform playerTeam;
     public Transform enemyTeam; // Transform containing enemies to move into battle scene
 
-	RPGsys.StateManager stateManager;
+	public RPGsys.StateManager stateManager;
 
 	private void Awake()
 	{
@@ -27,6 +27,8 @@ public class BattleManager : MonoBehaviour {
 		GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 	
+	public RPGsys.StateManager GetStateManager() { return stateManager; }
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -47,7 +49,7 @@ public class BattleManager : MonoBehaviour {
 		//TODO end of fight effects, cleanup, etc
 
 		//finds the statemanager, loops over characters, removing effects
-		stateManager = FindObjectOfType<RPGsys.StateManager>();
+		//stateManager = FindObjectOfType<RPGsys.StateManager>();
 
 		foreach(RPGsys.Character chara in stateManager.characters) {
 			foreach(RPGsys.Buff buff in chara.currentEffects) {
@@ -56,7 +58,8 @@ public class BattleManager : MonoBehaviour {
 		}
 
 		playerTeam.gameObject.SetActive(false);
-        
+
+		stateManager = null;
         SceneLoader.Instance.EndBattle();
     }
 }

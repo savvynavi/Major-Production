@@ -8,7 +8,6 @@ namespace RPGsys {
 	[RequireComponent(typeof(Character))]
 	public abstract class EnemyBehaviour : MonoBehaviour {
 		protected Character chara = null;
-		protected TurnBehaviour turnBehav = null;
 
 		public Character GetChara{
 			get { return chara; }
@@ -16,7 +15,11 @@ namespace RPGsys {
 			
 		protected void AwakeInit() {
 			chara = GetComponent<Character>();
-			turnBehav = FindObjectOfType<TurnBehaviour>();
+		}
+
+		//returns the turn behaviour that is stored in the state manager attached to the battle manager
+		protected TurnBehaviour GetTurnBehaviour() {
+			return BattleManager.Instance.GetStateManager().GetTurnBehaviour();
 		}
 
         public abstract void AddAttack(List<Character> targets, List<Character> allies);
@@ -28,7 +31,7 @@ namespace RPGsys {
             chara.target = target.gameObject;
             int powerIndex = Random.Range(0, chara.classInfo.classPowers.Count);
             Powers powers = chara.classInfo.classPowers[powerIndex];
-            turnBehav.turnAddAttackEnemy(powers, chara);
+            GetTurnBehaviour().turnAddAttackEnemy(powers, chara);
         }
     }
 

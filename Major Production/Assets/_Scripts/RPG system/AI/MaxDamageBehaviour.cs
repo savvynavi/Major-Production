@@ -28,7 +28,7 @@ namespace RPGsys
 				}
 			}
             chara.target = bestTarget.gameObject;
-            turnBehav.turnAddAttackEnemy(bestPower, chara);
+			GetTurnBehaviour().turnAddAttackEnemy(bestPower, chara);
         }
     }
 }

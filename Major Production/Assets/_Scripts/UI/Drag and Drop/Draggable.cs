@@ -8,7 +8,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
 	public Transform container;
 	public Transform dragArea;
-	protected bool dragging;
+	public bool dragging { get; protected set; }
 	protected Vector3 originalPos;
 
 	public virtual void OnBeginDrag(PointerEventData eventData)
@@ -26,16 +26,6 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (dragging)
 		{
 			transform.position = eventData.position;
-
-			// Followng doesn't work. Check in DragTarget instead
-			foreach (DragTarget target in GetDragTargetsUnderMouse())
-			{
-				// Hover over each target until one says it's consuming the hover
-				if (target.Hover(this))
-				{
-					break;
-				}
-			}
 		}
 	}
 
@@ -58,7 +48,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		}
 	}
 
-	public List<DragTarget> GetDragTargetsUnderMouse()
+	public static List<DragTarget> GetDragTargetsUnderMouse()
 	{
 		List<DragTarget> targets = new List<DragTarget>();
 		foreach(GameObject obj in GetObjectsUnderMouse())
@@ -72,7 +62,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		return targets;
 	}
 
-	public List<GameObject> GetObjectsUnderMouse()
+	public static List<GameObject> GetObjectsUnderMouse()
 	{
 		List<RaycastResult> hitObjects = new List<RaycastResult>();
 		PointerEventData pointer = new PointerEventData(EventSystem.current);

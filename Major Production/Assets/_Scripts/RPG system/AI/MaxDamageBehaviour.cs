@@ -6,6 +6,11 @@ namespace RPGsys
 {
     public class MaxDamageBehaviour : EnemyBehaviour
     {
+        private void Awake()
+        {
+            AwakeInit();
+        }
+
         public override void AddAttack(List<Character> targets, List<Character> allies)
         {
             float maxDamage = float.MinValue;

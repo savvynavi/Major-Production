@@ -125,8 +125,11 @@ namespace RPGsys {
 
             for (int i = 0; i < enemyPositions.Count; ++i)
             {
-                enemies[i].transform.position = enemyPositions[i].position;
-                enemies[i].transform.rotation = enemyPositions[i].rotation;
+                if (i < enemies.Count)
+                {
+                    enemies[i].transform.position = enemyPositions[i].position;
+                    enemies[i].transform.rotation = enemyPositions[i].rotation;
+                }
             }
 
 

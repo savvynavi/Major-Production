@@ -9,17 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
-  m_Name: Firebolt
+  m_Name: Arcane Dart
   m_EditorClassIdentifier: 
   manaCost: 5
-  damage: 20
-  dmgType: 3
+  damage: 100
+  dmgType: 2
   statType: 3
-  areaOfEffect: 1
+  areaOfEffect: 0
   anim: 0
-  powName: Firebolt
-  description: Fire that burns
-  duration: 2
-  currentEffects:
-  - {fileID: 11400000, guid: 8cc3bba3102417644b834fca70cf071f, type: 2}
-  - {fileID: 11400000, guid: bc0874f2ec93f754ba57729f8b42a413, type: 2}
+  powName: Arcane Dart
+  description: 'Blasts an enemy with a magic projectile '
+  duration: 0
+  currentEffects: []

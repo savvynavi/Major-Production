@@ -1313,33 +1313,52 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114730928756164742, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1050874238}
-    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.5275052
-      objectReference: {fileID: 0}
-    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.03137571
-      objectReference: {fileID: 0}
-    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.84875894
-      objectReference: {fileID: 0}
-    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.019032257
-      objectReference: {fileID: 0}
     - target: {fileID: 114973842767682344, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
         type: 2}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1050874238}
-    - target: {fileID: 114044060177748888, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 617563174}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: menuPos
+      value: 
+      objectReference: {fileID: 788928674}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: namePos
+      value: 
+      objectReference: {fileID: 1547119391}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: hpPosition
+      value: 
+      objectReference: {fileID: 326332281}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: mpPosition
+      value: 
+      objectReference: {fileID: 1421811562}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: hpTextPos
+      value: 
+      objectReference: {fileID: 1571981735}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: mpTextPos
+      value: 
+      objectReference: {fileID: 1490130591}
+    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: hoverTxtPos
+      value: 
+      objectReference: {fileID: 1490130591}
+    - target: {fileID: 114797365855069034, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
         type: 2}
       propertyPath: selector
       value: 
@@ -1384,97 +1403,87 @@ Prefab:
       propertyPath: hoverTxtPos
       value: 
       objectReference: {fileID: 1707366888}
+    - target: {fileID: 114044060177748888, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: selector
+      value: 
+      objectReference: {fileID: 875702927}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 617563174}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: menuPos
+      value: 
+      objectReference: {fileID: 788928674}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: namePos
+      value: 
+      objectReference: {fileID: 1547119391}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: hpPosition
+      value: 
+      objectReference: {fileID: 326332281}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: mpPosition
+      value: 
+      objectReference: {fileID: 1421811562}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: hpTextPos
+      value: 
+      objectReference: {fileID: 1571981735}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: mpTextPos
+      value: 
+      objectReference: {fileID: 1490130591}
+    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+        type: 2}
+      propertyPath: hoverTxtPos
+      value: 
+      objectReference: {fileID: 1490130591}
     - target: {fileID: 114594722006752054, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
         type: 2}
       propertyPath: selector
       value: 
       objectReference: {fileID: 875702927}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+    - target: {fileID: 114293032116943468, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
         type: 2}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 617563174}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: menuPos
-      value: 
-      objectReference: {fileID: 788928674}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: namePos
-      value: 
-      objectReference: {fileID: 1547119391}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: hpPosition
-      value: 
-      objectReference: {fileID: 326332281}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: mpPosition
-      value: 
-      objectReference: {fileID: 1421811562}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: hpTextPos
-      value: 
-      objectReference: {fileID: 1571981735}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: mpTextPos
-      value: 
-      objectReference: {fileID: 1490130591}
-    - target: {fileID: 114166747046565052, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: hoverTxtPos
-      value: 
-      objectReference: {fileID: 1490130591}
-    - target: {fileID: 114797365855069034, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: selector
-      value: 
-      objectReference: {fileID: 875702927}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+      objectReference: {fileID: 1050874238}
+    - target: {fileID: 114730928756164742, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
         type: 2}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 617563174}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: menuPos
-      value: 
-      objectReference: {fileID: 788928674}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: namePos
-      value: 
-      objectReference: {fileID: 1547119391}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: hpPosition
-      value: 
-      objectReference: {fileID: 326332281}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: mpPosition
-      value: 
-      objectReference: {fileID: 1421811562}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: hpTextPos
-      value: 
-      objectReference: {fileID: 1571981735}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: mpTextPos
-      value: 
-      objectReference: {fileID: 1490130591}
-    - target: {fileID: 114026707179067496, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
-        type: 2}
-      propertyPath: hoverTxtPos
-      value: 
-      objectReference: {fileID: 1490130591}
-    - target: {fileID: 1343518867748850, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      objectReference: {fileID: 1050874238}
+    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.5275052
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.03137571
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.84875894
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.019032257
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802250407667576, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115304294837528, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1577,6 +1586,7 @@ MonoBehaviour:
   enemyPositions:
   - {fileID: 1692587554}
   - {fileID: 751786703}
+  - {fileID: 0}
   camera: {fileID: 0}
 --- !u!4 &875702931
 Transform:

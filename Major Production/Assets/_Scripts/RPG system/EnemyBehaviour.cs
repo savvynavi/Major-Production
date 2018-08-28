@@ -14,7 +14,7 @@ namespace RPGsys {
 			get { return chara; }
 		}
 			
-		protected void Awake() {
+		protected void AwakeInit() {
 			chara = GetComponent<Character>();
 			turnBehav = FindObjectOfType<TurnBehaviour>();
 		}

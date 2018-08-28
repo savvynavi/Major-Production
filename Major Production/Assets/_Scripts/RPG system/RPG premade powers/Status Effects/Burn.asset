@@ -9,14 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
-  m_Name: Healthy
+  m_Name: Burn
   m_EditorClassIdentifier: 
-  particles: {fileID: 198769905699046852, guid: 17126112d273f3948900f928c1216ba2,
-    type: 2}
+  particles: {fileID: 0}
   material: {fileID: 0}
   equipable: 0
   timer: 0
   StatusEffects:
-    effect: 2
+    effect: 1
     statBuff: 5
-    amount: 200
+    amount: 500

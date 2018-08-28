@@ -15,31 +15,17 @@ public class InventorySlot : ItemBox {
 			int myIndex = inventory.IndexOf(ContainedItem);
 			Item theirItem = draggedItem.itemBox.ContainedItem;
 
-			InventorySlot theirInvSlot = (InventorySlot)draggedItem.itemBox;
-			EquipmentSlot theirEquipSlot = (EquipmentSlot)draggedItem.itemBox;
-
-			if (theirInvSlot != null)
+			if (draggedItem.itemBox is InventorySlot)
 			{
 				// If from inventory, swap positions
-				int theirIndex = inventory.IndexOf(draggedItem.itemBox.ContainedItem);
-				if (myIndex >= 0 && theirIndex >= 0)
-				{
-					theirInvSlot.ContainedItem = ContainedItem;
-					inventory[theirIndex] = ContainedItem;
-					ContainedItem = theirItem;
-					inventory[myIndex] = theirItem;
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			} else if (theirEquipSlot != null)
+				InventorySlot theirSlot = (InventorySlot)draggedItem.itemBox;
+				return GameController.Instance.inventory.SwapItems(ContainedItem, theirItem);
+			} else if (draggedItem.itemBox is EquipmentSlot)
 			{
+				EquipmentSlot theirSlot = (EquipmentSlot)draggedItem.itemBox;
 				// If from equipment, unequip item and insert before this
-				GameController.Instance.inventory.Unequip(theirItem, theirEquipSlot.character, myIndex);
+				return GameController.Instance.inventory.Unequip(theirItem, theirSlot.character, myIndex);
 				// TODO need to make an InventoryBox class so you can just drop it in with an empty inventory
-				return true;
 			} else
 			{
 				return false;

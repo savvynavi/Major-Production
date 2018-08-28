@@ -30,12 +30,10 @@ public class CharacterBox : DragTarget, IPointerEnterHandler, IPointerExitHandle
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		Debug.Log("Pointer entered");
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		Debug.Log("Pointer exited");
 	}
 
 	protected override void OnHoverEnter(Draggable dragged)

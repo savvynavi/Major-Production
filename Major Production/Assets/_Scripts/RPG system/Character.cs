@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using RPGItems;
 
 namespace RPGsys{
 	public class Character : MonoBehaviour{
@@ -116,6 +117,32 @@ namespace RPGsys{
 					deadEffect.Remove(this);
 					currentEffects.Remove(deadEffect);
 				}
+			}
+		}
+
+		public bool UseItem(Item item)
+		{
+			//TODO check if item usable?
+			item.Effect.Apply(this, item);
+			if(item.Type == Item.ItemType.Equipable)
+			{
+				Equipment.Add(item);
+			}
+			return true;
+		}
+
+		public bool Unequip(Item item) {
+			if (Equipment.Remove(item))
+			{
+				foreach(Buff buff in item.Effect.currentEffects)
+				{
+					buff.EquipRemove(this, item);
+				}
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 	}

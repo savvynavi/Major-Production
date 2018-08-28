@@ -133,7 +133,7 @@ public class CharacterScreen : MenuScreen {
 		}
 		foreach (RPGItems.Item item in currentChar.Equipment)
 		{
-			GameObject obj = Instantiate(ItemBoxPrefab, equipmentPanel);
+			GameObject obj = Instantiate(equipmentSlotPrefab, equipmentPanel);
 			EquipmentSlot box = obj.GetComponent<EquipmentSlot>();
 			box.ContainedItem = item;
 			box.draggable.dragArea = this.transform;

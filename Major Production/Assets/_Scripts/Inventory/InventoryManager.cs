@@ -46,6 +46,39 @@ namespace RPGItems {
 			OnInventoryChanged.Invoke();
 		}
 
+		//Removes item from the inventory and puts another in its place
+		public bool Replace(Item inventoryItem, Item incomingItem)
+		{
+			int itemIndex = playerInventory.IndexOf(inventoryItem);
+			if (itemIndex >= 0 && incomingItem != null)
+			{
+				playerInventory[itemIndex] = incomingItem;
+				OnInventoryChanged.Invoke();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		// Swaps the position of two items in the inventory
+		public bool SwapItems(Item first, Item second)
+		{
+			int firstIndex = playerInventory.IndexOf(first);
+			int secondIndex = playerInventory.IndexOf(second);
+			if(firstIndex >= 0 && secondIndex >= 0 && firstIndex != secondIndex)
+			{
+				playerInventory[firstIndex] = second;
+				playerInventory[secondIndex] = first;
+				OnInventoryChanged.Invoke();
+				return true;
+			} else
+			{
+				return false;
+			}
+		}
+
 		public void DiscardStack(Item item) {
 			//playerInventory.RemoveAll(playerInventory[] == item);
 		}
@@ -66,37 +99,36 @@ namespace RPGItems {
 
 		//yeah this whole sectoion is bad but works, refactor later (changes in basically all base stat/buff class)
 		//either use a potion or equip an item
-		public void Use(Item item, RPGsys.Character character) {
+		public bool Use(Item item, RPGsys.Character character) {
 			if(item != null && character != null && playerInventory.IndexOf(item) >= 0) {
 				Debug.Log("defence of bard Before adding: " + character.Def);
 				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
 
-				item.Effect.Apply(character, item);
-
-				if(item.Type == Item.ItemType.Equipable) {
-					character.Equipment.Add(item);
+				if (character.UseItem(item))
+				{
+					Discard(item);
+					return true;
+				} else
+				{
+					return false;
 				}
-
-				Discard(item);
-				Debug.Log("defence of bard after adding: " + character.Def);
 			} else {
 				Debug.Log("Item not found");
+				return false;
 			}
 		}
 
 
-		public void Unequip(Item item, RPGsys.Character character, int index = -1) {
-			if(character.Equipment.Count() > 0) {
-				foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
-					buff.EquipRemove(character, item);
-					character.Equipment.Remove(item);
-				}
-
-				Add(item, index);	// Using class Add method so InventoryChanged event fires
-
-				Debug.Log("defence of bard after removal: " + character.Def);
-			} else {
-				Debug.Log("nothing to remove");
+		public bool Unequip(Item item, RPGsys.Character character, int index = -1) {
+			if (character.Unequip(item))
+			{
+				Add(item, index);
+				return true;
+			}
+			else
+			{
+				Debug.Log("Item not found");
+				return false;
 			}
 
 		}

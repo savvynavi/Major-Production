@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 522130555}
   m_Layer: 0
   m_Name: faceCam
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1594,7 +1594,10 @@ MonoBehaviour:
   cameraMAIN: {fileID: 1911145743}
   cameraFace: {fileID: 522130554}
   cameraAttack: {fileID: 995771366}
+  players: {fileID: 44824290}
+  enemies: {fileID: 1304693336}
   faceOffset: 3
+  attackOffset: 5
 --- !u!224 &879831867 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
@@ -2288,7 +2291,7 @@ GameObject:
   - component: {fileID: 995771367}
   m_Layer: 0
   m_Name: attackCamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

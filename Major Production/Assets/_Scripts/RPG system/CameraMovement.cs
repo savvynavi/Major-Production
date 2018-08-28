@@ -9,6 +9,7 @@ namespace RPGsys {
 		public GameObject cameraAttack;
 
 		public float faceOffset;
+		public float attackOffset;
 
 		Transform originalCameraTransform;
 		Transform attackingCamAngle;
@@ -62,21 +63,23 @@ namespace RPGsys {
 			cameraFace.SetActive(false);
 			cameraAttack.SetActive(true);
 
-			faceOffset = Mathf.Abs(faceOffset);
+			attackOffset = Mathf.Abs(attackOffset);
 
 			if(targets[0].tag == "Enemy") {
-				faceOffset *= -1;
+				attackOffset *= -1;
 			}
 
-			float xPositions = 0;
+			//get average position vector of group
+			List<Vector3> positions = new List<Vector3>();
 			foreach(Character chara in targets) {
-				xPositions += chara.transform.position.x;
+				positions.Add(chara.transform.position);
 			}
 
-			float averagePosition = xPositions / targets.Count;
+			Vector3 meanPos = AveragePosition(positions);
 
-			cameraAttack.transform.position = new Vector3(averagePosition - faceOffset, averagePosition + targets[0].GetComponent<CapsuleCollider>().height, targets[0].transform.position.z);
-			cameraAttack.transform.LookAt(targets[0].transform);
+			//set the camera to look at the group from the front from average position
+			cameraAttack.transform.position = new Vector3(meanPos.x + attackOffset, targets[0].GetComponent<CapsuleCollider>().height, meanPos.z);
+			cameraAttack.transform.LookAt(meanPos);
 		}
 
 		//sets camera back to the main scene camera
@@ -85,6 +88,20 @@ namespace RPGsys {
 			cameraMAIN.SetActive(true);
 			cameraFace.SetActive(false);
 			cameraAttack.SetActive(false);
+		}
+
+		//returns the averave position vector of given list of positions
+		private Vector3 AveragePosition(List<Vector3> positions) {
+			if(positions.Count == 0) {
+				return Vector3.zero;
+			}
+
+			Vector3 meanVector = Vector3.zero;
+			foreach(Vector3 pos in positions) {
+				meanVector += pos;
+			}
+
+			return (meanVector / positions.Count);
 		}
 	}
 }

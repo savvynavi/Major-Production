@@ -38,9 +38,12 @@ namespace RPGsys {
 
 		CameraMovement camMovement;
 
+		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
+
 		// Use this for initialization
 		void Start() {
 			BattleManager battleManager = BattleManager.Instance;
+			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
 
@@ -349,7 +352,6 @@ namespace RPGsys {
 								camMovement.LookAtAttacker(info.player.target.GetComponent<Character>());
 							} else {
 								camMovement.LookAtTarget(info.player, info.player.target.GetComponent<Character>());
-
 							}
 
 							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
@@ -361,6 +363,18 @@ namespace RPGsys {
 						} else {
 							storeTargets = null;
 						}
+
+						//foreach(Character chara in characters) {
+						//	if(chara != info.player && chara != info.player.target.GetComponent) {
+						//		chara.gameObject.SetActive(false);
+						//	}
+						//}
+
+						//foreach(Character enem in enemies) {
+						//	if(enem != info.player && enem != info.player.target) {
+						//		enem.gameObject.SetActive(false);
+						//	}
+						//}
 
 						yield return new WaitForSeconds(3);
 
@@ -375,14 +389,14 @@ namespace RPGsys {
 						camMovement.Reset();
 
 						//foreach(Character chara in characters) {
-						//	if(chara != info.player) {
+						//	if(chara != info.player || chara != info.player.target) {
 						//		chara.gameObject.SetActive(true);
 						//	}
 						//}
 
-						//foreach(Character chara in enemies) {
-						//	if(chara != info.player.target.GetComponent<Character>()) {
-						//		chara.gameObject.SetActive(true);
+						//foreach(Character enem in enemies) {
+						//	if(enem != info.player || enem != info.player.target) {
+						//		enem.gameObject.SetActive(true);
 						//	}
 						//}
 					}

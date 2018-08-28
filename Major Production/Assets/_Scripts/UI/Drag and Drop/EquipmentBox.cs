@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
-public class EquipmentBox : DragTarget, IPointerEnterHandler, IPointerExitHandler
+public class EquipmentBox : DragTarget
 {
 	// TODO make items draggable from this back to inventory
 	public Character character;
@@ -26,31 +26,27 @@ public class EquipmentBox : DragTarget, IPointerEnterHandler, IPointerExitHandle
 		}
 	}
 
-	public void OnPointerEnter(PointerEventData eventData)
-	{
-	}
-
-	public void OnPointerExit(PointerEventData eventData)
-	{
-	}
-
 	protected override void OnHoverEnter(Draggable dragged)
 	{
 		//TODO
+		if(dragged is DraggableItem)
+		{
+			DraggableItem di = (DraggableItem)dragged;
+			if(di.itemBox is InventorySlot)
+			{
+				CharacterScreen.StatChangeData statChangeData = new CharacterScreen.StatChangeData();
+				statChangeData.ItemToUse = di.itemBox.ContainedItem;
+				statChangeData.ApplyItemEffects(di.itemBox.ContainedItem);
+				//HACK
+				GetComponentInParent<CharacterScreen>().DisplayCharacter(statChangeData);
+			}
+		}
 	}
 
 	protected override void OnHoverLeave()
 	{
 		//TODO
-	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		//HACK
+		GetComponentInParent<CharacterScreen>().DisplayCharacter();
 	}
 }

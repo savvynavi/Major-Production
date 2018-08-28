@@ -3,9 +3,80 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using RPGsys;
 
-//TODO AAA URGENT make equipped items update on dropping
 public class CharacterScreen : MenuScreen {
+
+	public class StatChangeData
+	{
+		public RPGItems.Item ItemToUse = null;
+		public RPGItems.Item ItemToRemove = null;
+		// HACK maybe make this a map?
+		public float speedChange = 0;
+		public float strChange = 0;
+		public float defChange = 0;
+		public float intChange = 0;
+		public float mindChange = 0;
+		public float dexChange = 0;
+		public float agiChange = 0;
+		public float hpChange = 0;
+		public float mpChange = 0;
+
+		public void ApplyItemEffects(RPGItems.Item item, bool removing = false)
+		{
+			float multiplier = removing ? -1 : 1;
+			foreach (RPGsys.Status buff in item.Effect.currentEffects)
+			{
+				//HACK
+				if(buff is RPGsys.Buff)
+				{
+					RPGsys.Buff b = (RPGsys.Buff)buff;
+					RPGStats.Stats tgtStat = b.StatusEffects.statBuff;
+					float amount = b.StatusEffects.amount * multiplier;
+					switch (b.StatusEffects.effect)
+					{
+						case Status.StatusEffectType.Heal:
+							//HACK change tgtStat to hp?
+						case Status.StatusEffectType.Buff:
+							break;
+						case Status.StatusEffectType.Debuff:
+							amount *= -1;
+							break;
+					}
+					switch (tgtStat)
+					{
+						case RPGStats.Stats.Agi:
+							agiChange += amount;
+							break;
+						case RPGStats.Stats.Def:
+							defChange += amount;
+							break;
+						case RPGStats.Stats.Dex:
+							dexChange += amount;
+							break;
+						case RPGStats.Stats.Hp:
+							hpChange += amount;
+							break;
+						case RPGStats.Stats.Int:
+							intChange += amount;
+							break;
+						case RPGStats.Stats.Mind:
+							mindChange += amount;
+							break;
+						case RPGStats.Stats.Mp:
+							mpChange += amount;
+							break;
+						case RPGStats.Stats.Speed:
+							speedChange += amount;
+							break;
+						case RPGStats.Stats.Str:
+							strChange += amount;
+							break;
+					}
+				}
+			}
+		}
+	}
 
 	[SerializeField] Dropdown characterDropdown;
 	List<RPGsys.Character> characters;
@@ -75,20 +146,39 @@ public class CharacterScreen : MenuScreen {
 
 	}
 
-	public void DisplayCharacter(RPGItems.Item newItem = null)
+	public void DisplayCharacter(StatChangeData changeData = null)
 	{
 		//TODO if newItem is not null, calculate changes and show those
-		
-		speedText.text = string.Format("Speed {0:00.}", currentChar.Speed);
-		strText.text = string.Format("Strength {0:00.}", currentChar.Str);
-		defText.text = string.Format("Defence {0:00.}", currentChar.Dex);
-		intText.text = string.Format("Intelligence {0:00.}", currentChar.Int);
-		mindText.text = string.Format("Mind {0:00.}", currentChar.Mind);
-		dexText.text = string.Format("Dexterity {0:00.}", currentChar.Dex);
-		agiText.text = string.Format("Agility {0:00.}", currentChar.Agi);
+		if (changeData == null)
+		{
 
-		hpText.text = string.Format("HP {0:0.}/{1:0.}", currentChar.Hp, currentChar.hpStat);
-		mpText.text = string.Format("MP {0:0.}/{1:0.}", currentChar.Mp, currentChar.mpStat);
+			speedText.text = string.Format("Speed {0:00.}", currentChar.Speed);
+			strText.text = string.Format("Strength {0:00.}", currentChar.Str);
+			defText.text = string.Format("Defence {0:00.}", currentChar.Dex);
+			intText.text = string.Format("Intelligence {0:00.}", currentChar.Int);
+			mindText.text = string.Format("Mind {0:00.}", currentChar.Mind);
+			dexText.text = string.Format("Dexterity {0:00.}", currentChar.Dex);
+			agiText.text = string.Format("Agility {0:00.}", currentChar.Agi);
+
+			hpText.text = string.Format("HP {0:0.}/{1:0.}", currentChar.Hp, currentChar.hpStat);
+			mpText.text = string.Format("MP {0:0.}/{1:0.}", currentChar.Mp, currentChar.mpStat);
+
+		}else
+		{
+			// HACK probably should have some kind of StatDisplay class
+			// In that class would just show stat normally if no change, alter colour, etc, which would be annoying to do here
+			speedText.text = string.Format("Speed {0:00.} ({1:00.})", currentChar.Speed, currentChar.Speed + changeData.speedChange);
+			strText.text = string.Format("Strength {0:00.} ({1:00.})", currentChar.Str, currentChar.Str+changeData.strChange);
+			defText.text = string.Format("Defence {0:00.} ({1:00.})", currentChar.Dex, currentChar.Dex + changeData.defChange);
+			intText.text = string.Format("Intelligence {0:00.} ({1:00.})", currentChar.Int, currentChar.Int + changeData.intChange);
+			mindText.text = string.Format("Mind {0:00.} ({1:00.})", currentChar.Mind, currentChar.Mind + changeData.mindChange);
+			dexText.text = string.Format("Dexterity {0:00.} ({1:00.})", currentChar.Dex, currentChar.Dex + changeData.dexChange);
+			agiText.text = string.Format("Agility {0:00.} ({1:00.})", currentChar.Agi, currentChar.Agi + changeData.agiChange);
+
+			// Figure out how these should be shown
+			hpText.text = string.Format("HP {0:0.}/{1:0.}", currentChar.Hp, currentChar.hpStat);
+			mpText.text = string.Format("MP {0:0.}/{1:0.}", currentChar.Mp, currentChar.mpStat);
+		}
 
 		StringBuilder abilityList = new StringBuilder();
 		foreach (RPGsys.Powers ability in currentChar.classInfo.classPowers)

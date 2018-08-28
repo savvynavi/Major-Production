@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
-public class CharacterBox : DragTarget, IPointerEnterHandler, IPointerExitHandler {
+public class CharacterBox : DragTarget {
 
 	[SerializeField] Text nameText;
 	Character character;
@@ -27,14 +27,6 @@ public class CharacterBox : DragTarget, IPointerEnterHandler, IPointerExitHandle
 		}
 	}
 
-
-	public void OnPointerEnter(PointerEventData eventData)
-	{
-	}
-
-	public void OnPointerExit(PointerEventData eventData)
-	{
-	}
 
 	protected override void OnHoverEnter(Draggable dragged)
 	{

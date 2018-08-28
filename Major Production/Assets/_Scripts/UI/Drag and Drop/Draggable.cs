@@ -26,6 +26,8 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (dragging)
 		{
 			transform.position = eventData.position;
+
+			// Followng doesn't work. Check in DragTarget instead
 			foreach (DragTarget target in GetDragTargetsUnderMouse())
 			{
 				// Hover over each target until one says it's consuming the hover
@@ -34,9 +36,7 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 					break;
 				}
 			}
-			eventData.Use();
 		}
-		// TODO check for dragtarget hovered over
 	}
 
 	public virtual void OnEndDrag(PointerEventData eventData)
@@ -55,7 +55,6 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 			transform.position = originalPos;
 			GetComponent<Image>().raycastTarget = true;
 			transform.SetParent(container.transform);
-			eventData.Use();
 		}
 	}
 

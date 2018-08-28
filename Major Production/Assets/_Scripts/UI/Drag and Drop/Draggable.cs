@@ -26,10 +26,13 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (dragging)
 		{
 			transform.position = eventData.position;
-			DragTarget target = GetDragTargetUnderMouse();
-			if(target != null)
+			foreach (DragTarget target in GetDragTargetsUnderMouse())
 			{
-				target.Hover(this);
+				// Hover over each target until one says it's consuming the hover
+				if (target.Hover(this))
+				{
+					break;
+				}
 			}
 			eventData.Use();
 		}
@@ -41,10 +44,12 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (dragging)
 		{
 			dragging = false;
-			DragTarget target = GetDragTargetUnderMouse();
-			if (target != null)
+			foreach (DragTarget target in GetDragTargetsUnderMouse())
 			{
-				target.Drop(this);
+				if (target.Drop(this))
+				{
+					break;
+				}
 			}
 
 			transform.position = originalPos;
@@ -54,17 +59,18 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		}
 	}
 
-	public DragTarget GetDragTargetUnderMouse()
+	public List<DragTarget> GetDragTargetsUnderMouse()
 	{
+		List<DragTarget> targets = new List<DragTarget>();
 		foreach(GameObject obj in GetObjectsUnderMouse())
 		{
 			DragTarget target = obj.GetComponent<DragTarget>();
 			if(target != null)
 			{
-				return target;
+				targets.Add(target);
 			}
 		}
-		return null;
+		return targets;
 	}
 
 	public List<GameObject> GetObjectsUnderMouse()

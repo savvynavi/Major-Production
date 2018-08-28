@@ -47,7 +47,7 @@ public class InventoryScreen : MenuScreen{
 		foreach (RPGItems.Item item in GameController.Instance.inventory.playerInventory)
 		{
 			GameObject obj = Instantiate(ItemBoxPrefab, itemPanel);
-			ItemBox box = obj.GetComponent<ItemBox>();
+			InventorySlot box = obj.GetComponent<InventorySlot>();
 			box.ContainedItem = item;
 			box.draggable.dragArea = this.transform;
 		}

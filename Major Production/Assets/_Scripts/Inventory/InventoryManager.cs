@@ -60,7 +60,7 @@ namespace RPGItems {
 		//yeah this whole sectoion is bad but works, refactor later (changes in basically all base stat/buff class)
 		//either use a potion or equip an item
 		public void Use(Item item, RPGsys.Character character) {
-			if(item != null && character != null && playerInventory.Count() > 0) {
+			if(item != null && character != null && playerInventory.IndexOf(item) >= 0) {
 				Debug.Log("defence of bard Before adding: " + character.Def);
 				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
 
@@ -73,7 +73,7 @@ namespace RPGItems {
 				Discard(item);
 				Debug.Log("defence of bard after adding: " + character.Def);
 			} else {
-				Debug.Log("Inventory empty");
+				Debug.Log("Item not found");
 			}
 		}
 

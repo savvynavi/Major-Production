@@ -2,42 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using RPGsys;
 using RPGItems;
 
-// Represents an item in the inventory screen. Contains draggable elements which can be used to apply
-// the item to things
-// May change around, making putting more item logic in the item itself?
-public class ItemBox : DragTarget
-{
 
-	[SerializeField] Text inventoryText;
-	Item item;
-	public DraggableItem draggable;
-	public Item ContainedItem { get{ return item; } set{SetItem(value);} }
+public class EquipmentSlot : ItemBox {
 
+	public Character character;
 
-	void SetItem(RPGItems.Item _item)
-	{
-		item = _item;
-		inventoryText.text = item.Name;
-	}
-
-	// Use this for initialization
-	void Start () {
-		draggable.container = this.transform;
-		draggable.itemBox = this;
-	}
-
-	private void OnDestroy()
-	{
-		GameObject.Destroy(draggable.gameObject);
-	}
-
+	// TODO make slot have specific type of item it can be
 
 	public override bool Drop(Draggable dragged)
 	{
 		// If item from another itembox, swap items
+		// TODO either swap within equipment, or 
+
 		DraggableItem draggedItem = (DraggableItem)dragged;
 		if (draggedItem != null && draggedItem.itemBox != this)
 		{
@@ -46,7 +25,7 @@ public class ItemBox : DragTarget
 			Item theirItem = theirBox.ContainedItem;
 			int myIndex = inventory.IndexOf(ContainedItem);
 			int theirIndex = inventory.IndexOf(draggedItem.itemBox.ContainedItem);
-			if(myIndex >= 0 && theirIndex >= 0)
+			if (myIndex >= 0 && theirIndex >= 0)
 			{
 				theirBox.ContainedItem = ContainedItem;
 				inventory[theirIndex] = ContainedItem;
@@ -58,7 +37,8 @@ public class ItemBox : DragTarget
 			{
 				return false;
 			}
-		} else
+		}
+		else
 		{
 			return false;
 		}

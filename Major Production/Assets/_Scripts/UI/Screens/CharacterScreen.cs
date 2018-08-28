@@ -22,12 +22,14 @@ public class CharacterScreen : MenuScreen {
 	[SerializeField] Text hpText;
 	[SerializeField] Text mpText;
 	[SerializeField] Text AbilitiesText;
-	[SerializeField] Text EquipmentText; //HACK
+	//[SerializeField] Text EquipmentText; //HACK
 
 	// TODO health and mana bar
 
 	//HACK 
 	[SerializeField] EquipmentBox equipmentBox;
+	[SerializeField] RectTransform equipmentPanel;
+	[SerializeField] GameObject equipmentSlotPrefab;
 
 	// TODO maybe make itempanel its own class so behaviour can be reused?
 	[SerializeField] GameObject ItemBoxPrefab;
@@ -38,13 +40,13 @@ public class CharacterScreen : MenuScreen {
 		gameObject.SetActive(false);
 		GameController.Instance.inventory.OnInventoryChanged.RemoveListener(UpdateItems);
 		GameController.Instance.inventory.OnInventoryChanged.RemoveListener(UpdateEquipment);
-		//todo
 	}
 
 	public override void Open()
 	{
 		gameObject.SetActive(true);
 		PopulateDropdownOptions();
+		// TODO instead of these, have the change trigger a Dirty flag and do it at update
 		GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateItems);
 		GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateEquipment);
 		SelectCharacter();
@@ -117,7 +119,7 @@ public class CharacterScreen : MenuScreen {
 		foreach (RPGItems.Item item in GameController.Instance.inventory.playerInventory)
 		{
 			GameObject obj = Instantiate(ItemBoxPrefab, itemPanel);
-			ItemBox box = obj.GetComponent<ItemBox>();
+			InventorySlot box = obj.GetComponent<InventorySlot>();
 			box.ContainedItem = item;
 			box.draggable.dragArea = this.transform;
 		}
@@ -125,12 +127,18 @@ public class CharacterScreen : MenuScreen {
 
 	public void UpdateEquipment()
 	{
-		StringBuilder equipmentList = new StringBuilder();
+		foreach(Transform child in equipmentPanel)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
 		foreach (RPGItems.Item item in currentChar.Equipment)
 		{
-			equipmentList.Append(item.Name + '\n');
+			GameObject obj = Instantiate(ItemBoxPrefab, equipmentPanel);
+			EquipmentSlot box = obj.GetComponent<EquipmentSlot>();
+			box.ContainedItem = item;
+			box.draggable.dragArea = this.transform;
+			box.character = currentChar;
 		}
-		EquipmentText.text = equipmentList.ToString();
 	}
 
 	//HACK

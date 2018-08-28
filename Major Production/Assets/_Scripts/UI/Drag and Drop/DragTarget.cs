@@ -11,7 +11,7 @@ public abstract class DragTarget : MonoBehaviour
 	bool hoverFlag = false;
 
 	//TODO add arguments
-	public void Hover(Draggable dragged)
+	public bool Hover(Draggable dragged)
 	{
 		if (!hovering)
 		{
@@ -19,6 +19,12 @@ public abstract class DragTarget : MonoBehaviour
 		}
 		hovering = true;
 		hoverFlag = true;
+		return ConsumeHover(dragged);
+	}
+
+	protected virtual bool ConsumeHover(Draggable dragged)
+	{
+		return true;
 	}
 
 	protected void Update()

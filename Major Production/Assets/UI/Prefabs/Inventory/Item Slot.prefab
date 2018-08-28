@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 224719796578370430}
   - component: {fileID: 222085024967608558}
   - component: {fileID: 114803936698581124}
-  - component: {fileID: 114602654882857606}
+  - component: {fileID: 114382270258816392}
   m_Layer: 5
   m_Name: Item Box
   m_TagString: Untagged
@@ -104,7 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 0}
   dragArea: {fileID: 0}
---- !u!114 &114602654882857606
+  itemBox: {fileID: 0}
+--- !u!114 &114382270258816392
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -112,7 +113,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1335953626687890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b554e58fe6677aa45867d9a576160bb3, type: 3}
+  m_Script: {fileID: 11500000, guid: de91ac85eeca0f640bb2b3b499053fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryText: {fileID: 114726250409498314}
@@ -229,7 +230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 783.8367, y: 48.09102}
   m_SizeDelta: {x: 180, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224922939623044960

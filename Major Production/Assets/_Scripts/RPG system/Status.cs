@@ -78,7 +78,7 @@ namespace RPGsys{
 				partInst.transform.parent = target.transform;
 				partInst.transform.localPosition = Vector3.zero;
 			}
-			//makes a copy of the material
+			//makes a copy of the materialFIX THIS OR REMOVE AND REPLACE WITH SHADERS
 			if(material != null) {
 				matInst = Instantiate(material);
 				target.GetComponentInChildren<Renderer>().material.EnableKeyword("_METALLICGLOSSMAP");

@@ -9,32 +9,30 @@ namespace RPGsys {
 	public class StateManager : MonoBehaviour {
 		public bool confirmMoves = false;
 		public bool redoTurn = false;
-		WaitForSeconds endWait;
 		public List<Character> characters;
+		public float speed;
+		public Button MainMenu;
+		public Button Quit;
+		public GameObject selector;
+
+		public ButtonBehaviourObjects buttonBehaviourObjects;
+		public GameObject uiCanvas; //HACK
+
+		[SerializeField] List<Transform> playerPositions;
+		[SerializeField] List<Transform> enemyPositions;
+		[SerializeField] Camera camera;
+
+		int rand;
+		List<Character> deadCharactersREVIVE;
 		List<Character> enemies;
 		TurnBehaviour turnBehaviour;
 		EnemyBehaviour[] enemyBehav;
-		int rand;
 		Quaternion originalRotation;
 
 		GameObject GameOverUI;
 		GameObject GameOverTextLose;
 		GameObject GameOverTextWin;
 		MoveConfirmMenu confirmMenu;
-
-		public float speed;
-		public Button MainMenu;
-		public Button Quit;
-		public GameObject selector;
-		public float startDelay;
-		public float endDelay;
-		
-        public ButtonBehaviourObjects buttonBehaviourObjects;
-        public GameObject uiCanvas; //HACK
-
-        [SerializeField] List<Transform> playerPositions;
-        [SerializeField] List<Transform> enemyPositions;
-        [SerializeField] Camera camera;
 
 		CameraMovement camMovement;
 
@@ -53,7 +51,6 @@ namespace RPGsys {
                 camera = Camera.main;
             }
 
-			endWait = new WaitForSeconds(endDelay);
 			characters = new List<Character>();
 			enemies = new List<Character>();
 
@@ -179,6 +176,7 @@ namespace RPGsys {
 			yield return new WaitForEndOfFrame();
 			redoTurn = false;
 			confirmMoves = false;
+			//REMOVE ANY INSTANCE OF THIS GARBAGE, REDO DEATH CHECK WITH A BOOL OR SOMETHING
 			List<Character> deadCharacters = new List<Character>();
 			//if dead, remove from list
 			foreach(Character chara in characters) {
@@ -201,6 +199,7 @@ namespace RPGsys {
 			}
 
 			//loop through characters and wait until input to move to next one
+			////ADD IN PLAYER SELECT CODE HERE
 			for(int i = 0; i < characters.Count; i++) {
 				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();
 				foreach(Character chara2 in characters) {
@@ -476,7 +475,10 @@ namespace RPGsys {
 						if(target.gameObject.tag == "Enemy") {
 							target.GetComponent<EnemyUI>().HideUI();
 							target.GetComponent<Collider>().enabled = false;
-
+						}
+						//if it's a player it is added to the deadCharacter list, will be used for revives in battle
+						if(target.gameObject.tag == "Player") {
+							deadCharactersREVIVE.Add(target);
 						}
 					}
 				}

@@ -120,6 +120,7 @@ namespace RPGsys{
 			}
 		}
 
+		// Uses or equips item and applies its effects. Returns false if not usable.
 		public bool UseItem(Item item)
 		{
 			//TODO check if item usable?
@@ -131,6 +132,7 @@ namespace RPGsys{
 			return true;
 		}
 
+		// Removes item from equipment and unapplies its effects. Returns false if item not equipped
 		public bool Unequip(Item item) {
 			if (Equipment.Remove(item))
 			{

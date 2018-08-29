@@ -8,6 +8,6 @@ namespace RPG.UI
 {
 	public class DraggableItem : Draggable
 	{
-		public ItemBox itemBox;
+		public ItemBox itemBox;	// Box being dragged from
 	}
 }

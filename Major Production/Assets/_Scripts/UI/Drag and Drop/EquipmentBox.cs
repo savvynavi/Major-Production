@@ -6,11 +6,12 @@ using UnityEngine.UI;
 using RPGsys;
 
 namespace RPG.UI{
+	// Represents equipment list of a character
 	public class EquipmentBox : DragTarget
 	{
 		public Character character;
 
-
+		// Uses item on character
 		public override bool Drop(Draggable dragged)
 		{
 			DraggableItem item = (DraggableItem)dragged;
@@ -28,7 +29,7 @@ namespace RPG.UI{
 
 		protected override void OnHoverEnter(Draggable dragged)
 		{
-			//TODO
+			// Shows changes from equipping item
 			if(dragged is DraggableItem)
 			{
 				DraggableItem di = (DraggableItem)dragged;

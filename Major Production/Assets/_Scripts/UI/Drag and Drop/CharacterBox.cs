@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using RPGsys;
 
 namespace RPG.UI {
+	// Dragtarget representing a character
 	public class CharacterBox : DragTarget
 	{
 
@@ -14,6 +15,7 @@ namespace RPG.UI {
 
 		public Character ContainedCharacter { get { return character; } set { SetCharacter(value); } }
 
+		// If item dropped, uses it on character
 		public override bool Drop(Draggable dragged)
 		{
 			DraggableItem item = (DraggableItem)dragged;
@@ -32,7 +34,7 @@ namespace RPG.UI {
 
 		protected override void OnHoverEnter(Draggable dragged)
 		{
-			//TODO
+			//TODO popup showing effect?
 		}
 
 		protected override void OnHoverLeave()

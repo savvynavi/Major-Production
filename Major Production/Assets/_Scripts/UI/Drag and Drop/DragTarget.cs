@@ -7,12 +7,14 @@ using UnityEngine.EventSystems;
 
 namespace RPG.UI
 {
+	// Base class which can have draggables hovered over or dropped onto it
 	public abstract class DragTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		bool hovering = false;
 
 		//TODO add arguments
 
+		// maybe doesn't work now pointer enter used?
 		public virtual bool ConsumeHover(Draggable dragged)
 		{
 			return true;
@@ -26,18 +28,16 @@ namespace RPG.UI
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{
-			Debug.Log("pointer enters");
-			// TODO check if draggable being dragged is under pointer, if so it's starting hover
 			Draggable dragged = Draggable.CurrentDragged;
 			if (dragged != null && dragged.gameObject != this.gameObject)
 			{
 				// maybe should also remember dragged object? Not sure how that case would happen though
 				hovering = true;
 				OnHoverEnter(dragged);
-				// TODO figure out if this the drag? Or is the draggable being above enough?
 				if (ConsumeHover(dragged))
 				{
 					eventData.Use();
+					// TODO figure out if this works or is needed
 				}
 			}
 		}

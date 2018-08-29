@@ -6,21 +6,30 @@ using UnityEngine.EventSystems;
 
 namespace RPG.UI
 {
-	public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+	// Component allowing an element to be dragged and dropped onto drag targets
+	[RequireComponent(typeof(CanvasGroup))]
+	public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
-		public Transform container;
-		public Transform dragArea;
+		public Transform container;	// Original parent of draggable, will be moved back to it on release
+		public Transform dragArea;	// Area in which it can be dragged
 		public bool dragging { get; protected set; }
 		protected Vector3 originalPos;
 
-		public static Draggable CurrentDragged = null;
+		public static Draggable CurrentDragged = null;  // The Draggable currently being dragged, or null if not dragging
+
+		CanvasGroup cg;
+
+		private void Awake()
+		{
+			cg = GetComponent<CanvasGroup>();
+		}
 
 		public virtual void OnBeginDrag(PointerEventData eventData)
 		{
 			dragging = true;
 			CurrentDragged = this;
 			originalPos = transform.position;
-			GetComponent<CanvasGroup>().blocksRaycasts = false;
+			cg.blocksRaycasts = false;
 			transform.SetParent(dragArea);
 			transform.SetAsLastSibling();   // Draw on top
 			eventData.Use();
@@ -31,11 +40,6 @@ namespace RPG.UI
 			if (dragging)
 			{
 				transform.position = eventData.position;
-			}
-
-			foreach (DragTarget target in GetDragTargetsUnderMouse())
-			{
-
 			}
 		}
 
@@ -56,7 +60,7 @@ namespace RPG.UI
 				}
 
 				transform.position = originalPos;
-				GetComponent<CanvasGroup>().blocksRaycasts = true;
+				cg.blocksRaycasts = true;
 				transform.SetParent(container.transform);
 			}
 		}

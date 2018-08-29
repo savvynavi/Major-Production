@@ -143,18 +143,18 @@ public class CharacterScreen : MenuScreen {
 		currentChar = characters[characterDropdown.value];
 		equipmentBox.character = currentChar;
 		DisplayCharacter();
-
+		UpdateEquipment();
 	}
 
 	public void DisplayCharacter(StatChangeData changeData = null)
 	{
-		//TODO if newItem is not null, calculate changes and show those
+		// TODO just make this set it as dirty and update next update?
 		if (changeData == null)
 		{
 
 			speedText.text = string.Format("Speed {0:00.}", currentChar.Speed);
 			strText.text = string.Format("Strength {0:00.}", currentChar.Str);
-			defText.text = string.Format("Defence {0:00.}", currentChar.Dex);
+			defText.text = string.Format("Defence {0:00.}", currentChar.Def);
 			intText.text = string.Format("Intelligence {0:00.}", currentChar.Int);
 			mindText.text = string.Format("Mind {0:00.}", currentChar.Mind);
 			dexText.text = string.Format("Dexterity {0:00.}", currentChar.Dex);
@@ -169,7 +169,7 @@ public class CharacterScreen : MenuScreen {
 			// In that class would just show stat normally if no change, alter colour, etc, which would be annoying to do here
 			speedText.text = string.Format("Speed {0:00.} ({1:00.})", currentChar.Speed, currentChar.Speed + changeData.speedChange);
 			strText.text = string.Format("Strength {0:00.} ({1:00.})", currentChar.Str, currentChar.Str+changeData.strChange);
-			defText.text = string.Format("Defence {0:00.} ({1:00.})", currentChar.Dex, currentChar.Dex + changeData.defChange);
+			defText.text = string.Format("Defence {0:00.} ({1:00.})", currentChar.Def, currentChar.Def + changeData.defChange);
 			intText.text = string.Format("Intelligence {0:00.} ({1:00.})", currentChar.Int, currentChar.Int + changeData.intChange);
 			mindText.text = string.Format("Mind {0:00.} ({1:00.})", currentChar.Mind, currentChar.Mind + changeData.mindChange);
 			dexText.text = string.Format("Dexterity {0:00.} ({1:00.})", currentChar.Dex, currentChar.Dex + changeData.dexChange);
@@ -186,8 +186,6 @@ public class CharacterScreen : MenuScreen {
 			abilityList.Append(ability.powName + '\n');
 		}
 		AbilitiesText.text = abilityList.ToString();
-
-		UpdateEquipment();
 	}
 
 	// Use this for initialization

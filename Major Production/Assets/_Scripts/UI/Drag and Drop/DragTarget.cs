@@ -5,13 +5,13 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class DragTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IEndDragHandler
+public abstract class DragTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	bool hovering = false;
 
 	//TODO add arguments
 
-	protected virtual bool ConsumeHover(Draggable dragged)
+	public virtual bool ConsumeHover(Draggable dragged)
 	{
 		return true;
 	}
@@ -24,29 +24,23 @@ public abstract class DragTarget : MonoBehaviour, IPointerEnterHandler, IPointer
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
+		Debug.Log("pointer enters");
 		// TODO check if draggable being dragged is under pointer, if so it's starting hover
-		foreach(GameObject obj in Draggable.GetObjectsUnderMouse())
+		Draggable dragged = Draggable.CurrentDragged;
+		if(dragged != null && dragged.gameObject != this.gameObject)
 		{
-			Draggable dragged = obj.GetComponent<Draggable>();
-			if(obj != this.gameObject && dragged != null && dragged.dragging)
+			// maybe should also remember dragged object? Not sure how that case would happen though
+			hovering = true;
+			OnHoverEnter(dragged);
+			// TODO figure out if this the drag? Or is the draggable being above enough?
+			if (ConsumeHover(dragged))
 			{
-				if (!hovering)
-				{
-					// maybe should also remember dragged object? Not sure how that case would happen though
-					hovering = true;
-					OnHoverEnter(dragged);
-					// TODO figure out if this the drag? Or is the draggable being above enough?
-					if (ConsumeHover(dragged))
-					{
-						eventData.Use();
-					}
-				}
-				break;
+				eventData.Use();
 			}
 		}
 	}
 
-	public void OnPointerExit(PointerEventData eventData)
+	public void DragReleased()
 	{
 		if (hovering)
 		{
@@ -55,7 +49,7 @@ public abstract class DragTarget : MonoBehaviour, IPointerEnterHandler, IPointer
 		}
 	}
 
-	public void OnEndDrag(PointerEventData eventData)
+	public void OnPointerExit(PointerEventData eventData)
 	{
 		if (hovering)
 		{

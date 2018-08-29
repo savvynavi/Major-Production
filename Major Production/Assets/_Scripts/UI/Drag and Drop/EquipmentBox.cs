@@ -7,7 +7,6 @@ using RPGsys;
 
 public class EquipmentBox : DragTarget
 {
-	// TODO make items draggable from this back to inventory
 	public Character character;
 
 
@@ -45,8 +44,6 @@ public class EquipmentBox : DragTarget
 
 	protected override void OnHoverLeave()
 	{
-		//TODO
-		//HACK
 		GetComponentInParent<CharacterScreen>().DisplayCharacter();
 	}
 }

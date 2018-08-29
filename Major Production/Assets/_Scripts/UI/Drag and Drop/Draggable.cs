@@ -11,11 +11,14 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public bool dragging { get; protected set; }
 	protected Vector3 originalPos;
 
+	public static Draggable CurrentDragged = null;
+
 	public virtual void OnBeginDrag(PointerEventData eventData)
 	{
 		dragging = true;
+		CurrentDragged = this;
 		originalPos = transform.position;
-		GetComponent<Image>().raycastTarget = false;
+		GetComponent<CanvasGroup>().blocksRaycasts = false;
 		transform.SetParent(dragArea);
 		transform.SetAsLastSibling();   // Draw on top
 		eventData.Use();
@@ -27,6 +30,11 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		{
 			transform.position = eventData.position;
 		}
+
+		foreach(DragTarget target in GetDragTargetsUnderMouse())
+		{
+
+		}
 	}
 
 	public virtual void OnEndDrag(PointerEventData eventData)
@@ -34,16 +42,19 @@ public abstract class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (dragging)
 		{
 			dragging = false;
+			CurrentDragged = null;
+			bool dropped = false;
 			foreach (DragTarget target in GetDragTargetsUnderMouse())
 			{
-				if (target.Drop(this))
+				if (!dropped)
 				{
-					break;
+					dropped = target.Drop(this);
 				}
+				target.DragReleased();
 			}
 
 			transform.position = originalPos;
-			GetComponent<Image>().raycastTarget = true;
+			GetComponent<CanvasGroup>().blocksRaycasts = true;
 			transform.SetParent(container.transform);
 		}
 	}

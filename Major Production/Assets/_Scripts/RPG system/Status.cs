@@ -17,7 +17,8 @@ namespace RPGsys{
 		public enum StatusEffectType {
 			Buff,
 			Debuff,
-			Heal
+			Heal,
+			DamageOverTime
 		}
 
 		public enum StatusEffectTarget {
@@ -37,6 +38,7 @@ namespace RPGsys{
 			public RPGStats.Stats statBuff;
 			public float amount;
 		}
+
 		public float timer;
 
 		//reduces time by 1 turn each time it's called
@@ -56,7 +58,9 @@ namespace RPGsys{
 
 		public virtual void Remove(Character target){
 			Destroy(partInst);
-			target.gameObject.GetComponentInChildren<Renderer>().material = originalMaterial;
+			if(material != null) {
+				target.gameObject.GetComponentInChildren<Renderer>().material = originalMaterial;
+			}
 		}
 
 		public virtual void EquipApply(Character target, RPGItems.Item item) {

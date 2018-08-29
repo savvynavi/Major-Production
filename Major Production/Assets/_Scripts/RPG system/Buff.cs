@@ -48,27 +48,40 @@ namespace RPGsys {
 			base.Remove(target);
 		}
 
+		public override void UpdateEffect(Character chara) {
+			//if damage over time, ticks down that stat
+			if(StatusEffects.effect == StatusEffectType.DamageOverTime) {
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, chara);
+				chara.CharaStats[tmp] -= StatusEffects.amount;
+			}
+			base.UpdateEffect(chara);
+		}
+
 		void SetStats(Character target) {
 
 			//RPGStats.Stats tmp = 0;
 			switch(StatusEffects.effect) {
 			case StatusEffectType.Buff: {
-					//target.Str += StatusEffects.amount;
-					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-					target.CharaStats[tmp] += StatusEffects.amount;
-					break;
-				}
+				//target.Str += StatusEffects.amount;
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+				target.CharaStats[tmp] += StatusEffects.amount;
+				break;
+			}
 			case StatusEffectType.Debuff: {
-					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-					target.CharaStats[tmp] -= StatusEffects.amount;
-					break;
-				}
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+				target.CharaStats[tmp] -= StatusEffects.amount;
+				break;
+			}
 			case StatusEffectType.Heal: {
-					target.Hp += StatusEffects.amount;
-					break;
+				//caps HP to the max so you can't overheal
+				target.Hp += StatusEffects.amount;
+				if(target.Hp > target.hpStat) {
+					target.Hp = target.hpStat;
 				}
+				break;
+			}
 			default:
-				Debug.Log("error");
+				Debug.Log("No case for this status type");
 				break;
 			}
 		}
@@ -77,18 +90,17 @@ namespace RPGsys {
 			//does effect here, fix later(not sustainable)
 			switch(StatusEffects.effect) {
 			case StatusEffectType.Buff: {
-					//target.Str += StatusEffects.amount;
-					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-					target.CharaStats[tmp] -= StatusEffects.amount;
-					break;
-				}
+				//target.Str += StatusEffects.amount;
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+				target.CharaStats[tmp] -= StatusEffects.amount;
+				break;
+			}
 			case StatusEffectType.Debuff: {
-					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-					target.CharaStats[tmp] += StatusEffects.amount;
-					break;
-				}
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+				target.CharaStats[tmp] += StatusEffects.amount;
+				break;
+			}
 			default:
-				Debug.Log("error");
 				break;
 			}
 		}

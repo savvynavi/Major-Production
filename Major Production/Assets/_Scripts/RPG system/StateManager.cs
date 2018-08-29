@@ -117,6 +117,13 @@ namespace RPGsys {
 				}
 			}
 
+			//moving enemies into position
+			for(int i = 0; i < enemyPositions.Count; ++i) {
+				enemies[i].transform.position = enemyPositions[i].position;
+				enemies[i].transform.rotation = enemyPositions[i].rotation;
+			}
+
+
 			//shows enemy ui
 			foreach(Character enemy in enemies) {
                 enemy.GetComponent<EnemyUI>().enemyUISetup(uiCanvas);
@@ -124,13 +131,6 @@ namespace RPGsys {
 			foreach(Character enemy in enemies) {
 				enemy.GetComponent<EnemyUI>().ShowUI();
 			}
-
-            for (int i = 0; i < enemyPositions.Count; ++i)
-            {
-                enemies[i].transform.position = enemyPositions[i].position;
-                enemies[i].transform.rotation = enemyPositions[i].rotation;
-            }
-
 
             turnBehaviour.Setup(characters, enemies);
 			confirmMenu.Setup();
@@ -209,8 +209,10 @@ namespace RPGsys {
 				characters[i].GetComponent<TargetSelection>().enabled = true;
 
 				if(characters[i].target != null) {
+					selector.gameObject.SetActive(true);
 					selector.transform.position = characters[i].target.transform.position;
-
+				} else {
+					selector.gameObject.SetActive(false);
 				}
 
 
@@ -308,8 +310,16 @@ namespace RPGsys {
 				originalRotation = info.player.transform.rotation;
 				List<Character> storeTargets = new List<Character>();
 
+				info.player.Timer();
+				//died due to effect SET UP BETTER DEATH CHECK SYSTEM THIS IS GETTING SILLY
+				if(info.player.Hp <= 0) {
+					List<Character> tmp = new List<Character>();
+					tmp.Add(info.player);
+					Death(info.player, tmp);
+				}
+
 				if(info.player.Hp > 0) {
-					info.player.Timer();
+					
 					if(info.player.target == null) {
 						rand = Random.Range(0, enemies.Count);
 						info.player.target = enemies[rand].gameObject;

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222725883943935438}
   - component: {fileID: 114066490145899002}
   - component: {fileID: 114103739804404880}
+  - component: {fileID: 225862108296225452}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -252,3 +253,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225862108296225452
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181112752648598}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

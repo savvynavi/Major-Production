@@ -2,57 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuManager : MonoBehaviour {
-
-	public InventoryScreen inventoryMenu;
-	public CharacterScreen characterMenu;
-	public GameObject commonElements;
-
-	bool open;
-	public bool Open { get { return open; } }
-
-	MenuScreen currentScreen;
-
-	// Use this for initialization
-	void Start () {
-		currentScreen = inventoryMenu;
-		inventoryMenu.Close();
-		characterMenu.Close();
-		commonElements.SetActive(false);
-		open = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public void OpenMenus()
+namespace RPG.UI
+{
+	public class MenuManager : MonoBehaviour
 	{
-		GameController.Instance.Pause();
-		currentScreen.Open();
-		commonElements.SetActive(true);
-		open = true;
-	}
 
-	public void CloseMenus()
-	{
-		GameController.Instance.Unpause();
-		currentScreen.Close();
-		commonElements.SetActive(false);
-		open = false;
-	}
+		public InventoryScreen inventoryMenu;
+		public CharacterScreen characterMenu;
+		public GameObject commonElements;
 
-	public void SwitchMenu(MenuScreen newScreen)
-	{
-		if(newScreen != currentScreen)
+		bool open;
+		public bool Open { get { return open; } }
+
+		MenuScreen currentScreen;
+
+		// Use this for initialization
+		void Start()
 		{
-			if (open)
+			currentScreen = inventoryMenu;
+			inventoryMenu.Close();
+			characterMenu.Close();
+			commonElements.SetActive(false);
+			open = false;
+		}
+
+		// Update is called once per frame
+		void Update()
+		{
+
+		}
+
+		public void OpenMenus()
+		{
+			GameController.Instance.Pause();
+			currentScreen.Open();
+			commonElements.SetActive(true);
+			open = true;
+		}
+
+		public void CloseMenus()
+		{
+			GameController.Instance.Unpause();
+			currentScreen.Close();
+			commonElements.SetActive(false);
+			open = false;
+		}
+
+		public void SwitchMenu(MenuScreen newScreen)
+		{
+			if (newScreen != currentScreen)
 			{
-				currentScreen.Close();
-				newScreen.Open();
+				if (open)
+				{
+					currentScreen.Close();
+					newScreen.Open();
+				}
+				currentScreen = newScreen;
 			}
-			currentScreen = newScreen;
 		}
 	}
 }

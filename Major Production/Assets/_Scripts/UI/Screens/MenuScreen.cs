@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MenuScreen : MonoBehaviour {
+namespace RPG.UI
+{
+	public abstract class MenuScreen : MonoBehaviour
+	{
 
-	public abstract void Open();
-	public abstract void Close();
+		public abstract void Open();
+		public abstract void Close();
+	}
 }

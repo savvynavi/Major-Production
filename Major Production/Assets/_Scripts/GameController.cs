@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RPG.UI;
 
 
 // TODO have some OnStateChange function/event (ie to allow menu to close itself)
@@ -56,7 +57,6 @@ public class GameController : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Tab) && state == EGameStates.Overworld)
 		{
-			//HACK
 			if (menus.Open)
 			{
 				menus.CloseMenus();

@@ -5,45 +5,47 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
-public class EquipmentBox : DragTarget
-{
-	public Character character;
-
-
-	public override bool Drop(Draggable dragged)
+namespace RPG.UI{
+	public class EquipmentBox : DragTarget
 	{
-		DraggableItem item = (DraggableItem)dragged;
-		if (item != null)
-		{
-			// TODO check item is usable?
-			GameController.Instance.inventory.Use(item.itemBox.ContainedItem, character);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+		public Character character;
 
-	protected override void OnHoverEnter(Draggable dragged)
-	{
-		//TODO
-		if(dragged is DraggableItem)
+
+		public override bool Drop(Draggable dragged)
 		{
-			DraggableItem di = (DraggableItem)dragged;
-			if(di.itemBox is InventorySlot)
+			DraggableItem item = (DraggableItem)dragged;
+			if (item != null)
 			{
-				CharacterScreen.StatChangeData statChangeData = new CharacterScreen.StatChangeData();
-				statChangeData.ItemToUse = di.itemBox.ContainedItem;
-				statChangeData.ApplyItemEffects(di.itemBox.ContainedItem);
-				//HACK
-				GetComponentInParent<CharacterScreen>().DisplayCharacter(statChangeData);
+				// TODO check item is usable?
+				GameController.Instance.inventory.Use(item.itemBox.ContainedItem, character);
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
-	}
 
-	protected override void OnHoverLeave()
-	{
-		GetComponentInParent<CharacterScreen>().DisplayCharacter();
+		protected override void OnHoverEnter(Draggable dragged)
+		{
+			//TODO
+			if(dragged is DraggableItem)
+			{
+				DraggableItem di = (DraggableItem)dragged;
+				if(di.itemBox is InventorySlot)
+				{
+					CharacterScreen.StatChangeData statChangeData = new CharacterScreen.StatChangeData();
+					statChangeData.ItemToUse = di.itemBox.ContainedItem;
+					statChangeData.ApplyItemEffects(di.itemBox.ContainedItem);
+					//HACK
+					GetComponentInParent<CharacterScreen>().DisplayCharacter(statChangeData);
+				}
+			}
+		}
+
+		protected override void OnHoverLeave()
+		{
+			GetComponentInParent<CharacterScreen>().DisplayCharacter();
+		}
 	}
 }

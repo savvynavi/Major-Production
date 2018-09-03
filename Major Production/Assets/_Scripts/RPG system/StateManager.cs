@@ -9,34 +9,29 @@ namespace RPGsys {
 	public class StateManager : MonoBehaviour {
 		public bool confirmMoves = false;
 		public bool redoTurn = false;
-		WaitForSeconds endWait;
 		public List<Character> characters;
-		List<Character> enemies;
-		TurnBehaviour turnBehaviour;
-		EnemyBehaviour[] enemyBehav;
-		int rand;
-		Quaternion originalRotation;
-
-		GameObject GameOverUI;
-		GameObject GameOverTextLose;
-		GameObject GameOverTextWin;
-		MoveConfirmMenu confirmMenu;
-
 		public float speed;
 		public Button MainMenu;
 		public Button Quit;
 		public GameObject selector;
-		public float startDelay;
-		public float endDelay;
-		
-        public ButtonBehaviourObjects buttonBehaviourObjects;
-        public GameObject uiCanvas; //HACK
+		public ButtonBehaviourObjects buttonBehaviourObjects;
+		public GameObject uiCanvas; //HACK
 
-        [SerializeField] List<Transform> playerPositions;
+		int rand;
+		List<Character> enemies;
+		List<Character> deadCharactersREVIVE;
+		TurnBehaviour turnBehaviour;
+		EnemyBehaviour[] enemyBehav;
+		Quaternion originalRotation;
+		GameObject GameOverUI;
+		GameObject GameOverTextLose;
+		GameObject GameOverTextWin;
+		MoveConfirmMenu confirmMenu;
+		CameraMovement camMovement;
+
+		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
         [SerializeField] Camera camera;
-
-		CameraMovement camMovement;
 
 		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
 
@@ -62,7 +57,6 @@ namespace RPGsys {
                 camera = Camera.main;
             }
 
-			endWait = new WaitForSeconds(endDelay);
 			characters = new List<Character>();
 			enemies = new List<Character>();
 
@@ -116,6 +110,22 @@ namespace RPGsys {
                 characters[i].transform.rotation = playerPositions[i].rotation;
             }
 
+			List<Character> tmp = new List<Character>();
+			//when battle reentered, forces any dead characters to act like it
+			foreach(Character chara in characters) {
+				Debug.Log(chara.name + "'s HP: " + chara.Hp);
+				if(chara.Hp <= 0) {
+					tmp.Add(chara);
+					Death(chara, tmp);
+				}
+			}
+
+			//moving enemies into position
+			for(int i = 0; i < enemyPositions.Count; ++i) {
+				enemies[i].transform.position = enemyPositions[i].position;
+				enemies[i].transform.rotation = enemyPositions[i].rotation;
+			}
+
 			//shows enemy ui
 			foreach(Character enemy in enemies) {
                 enemy.GetComponent<EnemyUI>().enemyUISetup(uiCanvas);
@@ -123,12 +133,6 @@ namespace RPGsys {
 			foreach(Character enemy in enemies) {
 				enemy.GetComponent<EnemyUI>().ShowUI();
 			}
-
-            for (int i = 0; i < enemyPositions.Count; ++i)
-            {
-                enemies[i].transform.position = enemyPositions[i].position;
-                enemies[i].transform.rotation = enemyPositions[i].rotation;
-            }
 
 
             turnBehaviour.Setup(characters, enemies);
@@ -180,6 +184,7 @@ namespace RPGsys {
 			yield return new WaitForEndOfFrame();
 			redoTurn = false;
 			confirmMoves = false;
+			//REMOVE ANY INSTANCE OF THIS GARBAGE, REDO DEATH CHECK WITH A BOOL OR SOMETHING
 			List<Character> deadCharacters = new List<Character>();
 			//if dead, remove from list
 			foreach(Character chara in characters) {
@@ -209,6 +214,7 @@ namespace RPGsys {
 				}
 				characters[i].GetComponent<TargetSelection>().enabled = true;
 
+				//selector only visible if the target isn't null
 				if(characters[i].target != null) {
 					selector.gameObject.SetActive(true);
 					selector.transform.position = characters[i].target.transform.position;
@@ -311,8 +317,15 @@ namespace RPGsys {
 				originalRotation = info.player.transform.rotation;
 				List<Character> storeTargets = new List<Character>();
 
+				info.player.Timer();
+				//died due to effect SET UP BETTER DEATH CHECK SYSTEM THIS IS GETTING SILLY
+				if(info.player.Hp <= 0) {
+					List<Character> tmp = new List<Character>();
+					tmp.Add(info.player);
+					Death(info.player, tmp);
+				}
+
 				if(info.player.Hp > 0) {
-					info.player.Timer();
 					if(info.player.target == null) {
 						rand = Random.Range(0, enemies.Count);
 						info.player.target = enemies[rand].gameObject;
@@ -349,12 +362,14 @@ namespace RPGsys {
 							camMovement.LookAtGroup(storeTargets);
 
 						}else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
+
 							//if same team, use facecam, else single out enemy target
 							if(info.player.tag == info.player.target.tag) {
 								camMovement.LookAtAttacker(info.player.target.GetComponent<Character>());
 							} else {
 								camMovement.LookAtTarget(info.player, info.player.target.GetComponent<Character>());
 							}
+
 
 							info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
 							string name = info.ability.anim.ToString();
@@ -384,7 +399,7 @@ namespace RPGsys {
 						//	}
 						//}
 
-						yield return new WaitForSeconds(3);
+						yield return new WaitForSeconds(1.5f);
 
 
 
@@ -468,6 +483,10 @@ namespace RPGsys {
 							target.GetComponent<EnemyUI>().HideUI();
 							target.GetComponent<Collider>().enabled = false;
 
+						}
+						//if it's a player it is added to the deadCharacter list, will be used for revives in battle
+						if(target.gameObject.tag == "Player") {
+							deadCharactersREVIVE.Add(target);
 						}
 					}
 				}

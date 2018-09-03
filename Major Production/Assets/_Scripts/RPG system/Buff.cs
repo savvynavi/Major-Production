@@ -47,6 +47,15 @@ namespace RPGsys {
 			base.Remove(target);
 		}
 
+		public override void UpdateEffect(Character chara) {
+			//if damage over time, ticks down that stat
+			if(StatusEffects.effect == StatusEffectType.DamageOverTime) {
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, chara);
+				chara.CharaStats[tmp] -= StatusEffects.amount;
+			}
+			base.UpdateEffect(chara);
+		}
+
 		void SetStats(Character target) {
 
 			//RPGStats.Stats tmp = 0;

@@ -44,12 +44,23 @@ namespace RPG.UI
 
 		protected override void OnHoverEnter(Draggable dragged)
 		{
-			//TODO
+			//If dragging equipment out, show effect from its removal
+			if (dragged is DraggableItem)
+			{
+				DraggableItem di = (DraggableItem)dragged;
+				if (di.itemBox is EquipmentSlot)
+				{
+					StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
+					statChangeData.ItemToUse = di.itemBox.ContainedItem;
+					statChangeData.ApplyItemEffects(di.itemBox.ContainedItem, true);
+					GetComponentInParent<CharacterScreen>().DisplayCharacter(statChangeData);
+				}
+			}
 		}
 
 		protected override void OnHoverLeave()
 		{
-			//TODO
+			GetComponentInParent<CharacterScreen>().DisplayCharacter();
 		}
 	}
 }

@@ -28,6 +28,34 @@ namespace RPGsys{
 		//dictionary stuff
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();
 
+		// Returns the base stat value for a given stat
+		public float BaseStat(RPGStats.Stats stat)
+		{
+			switch (stat)
+			{
+				case RPGStats.Stats.Speed:
+					return speedStat;
+				case RPGStats.Stats.Str:
+					return strStat;
+				case RPGStats.Stats.Def:
+					return defStat;
+				case RPGStats.Stats.Int:
+					return intStat;
+				case RPGStats.Stats.Mind:
+					return mindStat;
+				case RPGStats.Stats.Hp:
+					return hpStat;
+				case RPGStats.Stats.Mp:
+					return mpStat;
+				case RPGStats.Stats.Dex:
+					return dexStat;
+				case RPGStats.Stats.Agi:
+					return agiStat;
+				default:
+					return -1;
+			}
+		}
+
 		public float Speed{
 			get { return CharaStats[RPGStats.Stats.Speed]; }
 			set { CharaStats[RPGStats.Stats.Speed] = value; }

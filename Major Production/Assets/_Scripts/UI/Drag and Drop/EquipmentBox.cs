@@ -35,7 +35,7 @@ namespace RPG.UI{
 				DraggableItem di = (DraggableItem)dragged;
 				if(di.itemBox is InventorySlot)
 				{
-					CharacterScreen.StatChangeData statChangeData = new CharacterScreen.StatChangeData();
+					StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
 					statChangeData.ItemToUse = di.itemBox.ContainedItem;
 					statChangeData.ApplyItemEffects(di.itemBox.ContainedItem);
 					//HACK

@@ -87,12 +87,28 @@ namespace RPG.UI {
 
 		protected override void OnHoverEnter(Draggable dragged)
 		{
-			//TODO
+			// Shows stat changes from removing this item and adding another
+			if(dragged is DraggableItem)
+			{
+				DraggableItem di = (DraggableItem)dragged;
+				if (di.itemBox is InventorySlot)
+				{
+					StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
+					statChangeData.ItemToUse = di.itemBox.ContainedItem;
+					statChangeData.ApplyItemEffects(di.itemBox.ContainedItem);
+					// remove this item
+					statChangeData.ApplyItemEffects(ContainedItem, true);
+
+					GetComponentInParent<CharacterScreen>().DisplayCharacter(statChangeData);
+				}
+			}
 		}
 
 		protected override void OnHoverLeave()
 		{
-			//TODO
+			// This causes a bug where the change isn't displayed for the box around it
+			// will not fix for now, since we're changing how equipment works
+			GetComponentInParent<CharacterScreen>().DisplayCharacter();
 		}
 	}
 }

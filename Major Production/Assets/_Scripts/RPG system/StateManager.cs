@@ -42,7 +42,16 @@ namespace RPGsys {
 
 		// Use this for initialization
 		void Start() {
-			BattleManager battleManager = BattleManager.Instance;
+
+            //turn on feedback scripts
+            FloatingTextController.DamageEnemy();
+            FloatingTextController.DamageAlly();
+            FloatingTextController.Miss();
+            FloatingTextController.HealEnemy();
+            FloatingTextController.HealAlly();
+
+
+            BattleManager battleManager = BattleManager.Instance;
 			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
@@ -322,8 +331,8 @@ namespace RPGsys {
 					if(info.player.target != null) {
 						//turn player towards target
 						info.player.transform.LookAt(info.player.target.transform);
-						camMovement.LookAtAttacker(info.player);
-						yield return new WaitForSeconds(0.5f);
+						//camMovement.LookAtAttacker(info.player);
+						//yield return new WaitForSeconds(0.5f);
 
 
 						//does damage/animations
@@ -340,7 +349,7 @@ namespace RPGsys {
 							}
 
 							//change camera to group shot of target here
-							camMovement.LookAtGroup(storeTargets);
+							//camMovement.LookAtGroup(storeTargets);
 
 						}else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
 							info.ability.Apply(info.player, info.player.target.GetComponent<Character>());
@@ -348,11 +357,11 @@ namespace RPGsys {
 							info.player.GetComponent<Animator>().Play(name);
 
 							//if same team, use facecam, else single out enemy target
-							if(info.player.tag == info.player.target.tag) {
-								camMovement.LookAtAttacker(info.player.target.GetComponent<Character>());
-							} else {
-								camMovement.LookAtTarget(info.player, info.player.target.GetComponent<Character>());
-							}
+							//if(info.player.tag == info.player.target.tag) {
+							//	camMovement.LookAtAttacker(info.player.target.GetComponent<Character>());
+							//} else {
+							//	camMovement.LookAtTarget(info.player, info.player.target.GetComponent<Character>());
+							//}
 
 							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
 							//if player character, will allow them to go back to isle anim 
@@ -376,7 +385,7 @@ namespace RPGsys {
 						//	}
 						//}
 
-						yield return new WaitForSeconds(3);
+						//yield return new WaitForSeconds(3);
 
 
 
@@ -386,7 +395,7 @@ namespace RPGsys {
 						//waits for attack anim to finish before spinning character back towards front
 						yield return new WaitForSeconds(info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length - info.player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime);
 						info.player.transform.rotation = Quaternion.Slerp(info.player.transform.rotation, originalRotation, speed);
-						camMovement.Reset();
+						//camMovement.Reset();
 
 						//foreach(Character chara in characters) {
 						//	if(chara != info.player || chara != info.player.target) {

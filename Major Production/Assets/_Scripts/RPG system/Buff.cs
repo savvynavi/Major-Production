@@ -44,17 +44,7 @@ namespace RPGsys {
 
 		public override void Remove(Character target) {
 			ResetStats(target);
-			//target.currentEffects.Remove(Buff);
 			base.Remove(target);
-		}
-
-		public override void UpdateEffect(Character chara) {
-			//if damage over time, ticks down that stat
-			if(StatusEffects.effect == StatusEffectType.DamageOverTime) {
-				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, chara);
-				chara.CharaStats[tmp] -= StatusEffects.amount;
-			}
-			base.UpdateEffect(chara);
 		}
 
 		void SetStats(Character target) {
@@ -62,26 +52,28 @@ namespace RPGsys {
 			//RPGStats.Stats tmp = 0;
 			switch(StatusEffects.effect) {
 			case StatusEffectType.Buff: {
-				//target.Str += StatusEffects.amount;
-				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-				target.CharaStats[tmp] += StatusEffects.amount;
-				break;
-			}
-			case StatusEffectType.Debuff: {
-				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-				target.CharaStats[tmp] -= StatusEffects.amount;
-				break;
-			}
-			case StatusEffectType.Heal: {
-				//caps HP to the max so you can't overheal
-				target.Hp += StatusEffects.amount;
-				if(target.Hp > target.hpStat) {
-					target.Hp = target.hpStat;
+					//target.Str += StatusEffects.amount;
+					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+					target.CharaStats[tmp] += StatusEffects.amount;
+					break;
 				}
-				break;
-			}
+			case StatusEffectType.Debuff: {
+					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+					target.CharaStats[tmp] -= StatusEffects.amount;
+					break;
+				}
+			case StatusEffectType.Heal: {
+					target.Hp += StatusEffects.amount;
+                        GetScreenLoc tempLoc = new GetScreenLoc();
+                        Vector2 location = tempLoc.getScreenPos(target.transform);
+                        if (target.tag == "Enemy")
+                            FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
+                        else if (target.tag == "Player")
+                            FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
+                        break;
+				}
 			default:
-				Debug.Log("No case for this status type");
+				Debug.Log("error");
 				break;
 			}
 		}
@@ -90,17 +82,18 @@ namespace RPGsys {
 			//does effect here, fix later(not sustainable)
 			switch(StatusEffects.effect) {
 			case StatusEffectType.Buff: {
-				//target.Str += StatusEffects.amount;
-				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-				target.CharaStats[tmp] -= StatusEffects.amount;
-				break;
-			}
+					//target.Str += StatusEffects.amount;
+					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+					target.CharaStats[tmp] -= StatusEffects.amount;
+					break;
+				}
 			case StatusEffectType.Debuff: {
-				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
-				target.CharaStats[tmp] += StatusEffects.amount;
-				break;
-			}
+					RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, target);
+					target.CharaStats[tmp] += StatusEffects.amount;
+					break;
+				}
 			default:
+				Debug.Log("error");
 				break;
 			}
 		}

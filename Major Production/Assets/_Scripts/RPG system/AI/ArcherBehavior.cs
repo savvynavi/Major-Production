@@ -10,6 +10,11 @@ namespace RPGsys
         [SerializeField] string arrowName;      //hack
         bool loaded;
 
+        private void Awake()
+        {
+            AwakeInit();
+        }
+
         // Use this for initialization
         void Start()
         {

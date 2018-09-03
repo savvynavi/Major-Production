@@ -6,6 +6,11 @@ namespace RPGsys
 {
     public class RandomBehaviour : EnemyBehaviour
     {
+        private void Awake()
+        {
+            AwakeInit();
+        }
+
         public override void AddAttack(List<Character> targets, List<Character> allies)
         {
             int targetIndex = Random.Range(0, targets.Count);

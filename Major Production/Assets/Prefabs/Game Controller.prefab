@@ -2241,7 +2241,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114000783882032348}
-          m_ObjectArgumentAssemblyTypeName: MenuScreen, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: RPG.UI.MenuScreen, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2315,7 +2315,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224742052067352494}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2487,7 +2487,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114698704594078082}
-          m_ObjectArgumentAssemblyTypeName: MenuScreen, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: RPG.UI.MenuScreen, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3000,7 +3000,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114561868627474354}
   m_HandleRect: {fileID: 224280858817771226}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3046,8 +3046,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114349019994147408}
   m_HandleRect: {fileID: 224419437974126744}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3323,8 +3323,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114636588183570312}
   m_HandleRect: {fileID: 224178803653040838}
   m_Direction: 2
-  m_Value: 0.9999998
-  m_Size: 0.45346665
+  m_Value: 1
+  m_Size: 0.45346668
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3441,7 +3441,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224641182760016254}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3739,7 +3739,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224668538785669576}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.52336675
+  m_Size: 0.5233668
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5040,7 +5040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -10, y: -52}
+  m_AnchoredPosition: {x: -71, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224309180296884450
@@ -5296,7 +5296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000068821446}
+  m_AnchoredPosition: {x: 0, y: 0.000012371566}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224433188530732606
@@ -5411,7 +5411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000019404684}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0.000019404684}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224512947970806374
@@ -5792,7 +5792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 61, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224745851482391522
@@ -6093,7 +6093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000019404684}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0.00003479421}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224979399343760840

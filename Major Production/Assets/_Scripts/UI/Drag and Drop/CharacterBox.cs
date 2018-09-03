@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using RPGsys;
 
 namespace RPG.UI {
-	// Dragtarget representing a character
+	// Dragtarget representing a character in the Inventory menu
+	// Items dragged onto it uses the item on the character
 	public class CharacterBox : DragTarget
 	{
 

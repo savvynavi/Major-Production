@@ -77,13 +77,17 @@ namespace RPGsys {
 						if(target.Hp > target.hpStat) {
 							target.Hp = target.hpStat;
 						}
-						GetScreenLoc tempLoc = new GetScreenLoc();
-                        Vector2 location = tempLoc.getScreenPos(target.transform);
-                        if (target.tag == "Enemy")
-                            FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
-                        else if (target.tag == "Player")
-                            FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
-                        break;
+						//HACK check if in battle so it doesn't try making effect when using potion in inventory
+						if (GameController.Instance.state == GameController.EGameStates.Battle)
+						{
+							GetScreenLoc tempLoc = new GetScreenLoc();
+							Vector2 location = tempLoc.getScreenPos(target.transform);
+							if (target.tag == "Enemy")
+								FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
+							else if (target.tag == "Player")
+								FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
+						}
+						break;
 				}
 			default:
 				Debug.Log("error");

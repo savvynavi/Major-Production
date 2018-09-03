@@ -1652,19 +1652,19 @@ Prefab:
       objectReference: {fileID: 1490130591}
     - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.5275052
+      value: 0.52750516
       objectReference: {fileID: 0}
     - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.03137571
+      value: 0.031375706
       objectReference: {fileID: 0}
     - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.84875894
+      value: 0.8487588
       objectReference: {fileID: 0}
     - target: {fileID: 4081327920940264, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.019032257
+      value: 0.019032255
       objectReference: {fileID: 0}
     - target: {fileID: 114897254959389626, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
         type: 2}
@@ -1683,6 +1683,10 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: d656e7c7e541e3e4c9e293ed89dbefc5,
         type: 2}
+    - target: {fileID: 1343518867748850, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b4f1c4de0a7d8df48af5b2fe805db4ee, type: 2}
   m_IsPrefabParent: 0
@@ -1762,8 +1766,6 @@ MonoBehaviour:
   MainMenu: {fileID: 879831869}
   Quit: {fileID: 1152843596}
   selector: {fileID: 1500619447144818, guid: 6710e4fa39a8c0442bfe3f6962e3dae2, type: 2}
-  startDelay: 5
-  endDelay: 5
   buttonBehaviourObjects:
     canvas: {fileID: 617563174}
     menuPos: {fileID: 788928674}

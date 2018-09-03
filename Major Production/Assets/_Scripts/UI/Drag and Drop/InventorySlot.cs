@@ -42,25 +42,29 @@ namespace RPG.UI
 			}
 		}
 
-		protected override void OnHoverEnter(Draggable dragged)
-		{
+		protected override void OnHoverEnter(Draggable dragged) {
 			//If dragging equipment out, show effect from its removal
-			if (dragged is DraggableItem)
-			{
-				DraggableItem di = (DraggableItem)dragged;
-				if (di.itemBox is EquipmentSlot)
-				{
-					StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
-					statChangeData.ItemToUse = di.itemBox.ContainedItem;
-					statChangeData.ApplyItemEffects(di.itemBox.ContainedItem, true);
-					GetComponentInParent<CharacterScreen>().DisplayCharacter(statChangeData);
+			//HACK checking if in character screen
+			CharacterScreen screen = GetComponentInParent<CharacterScreen>();
+			if(screen != null) {
+				if(dragged is DraggableItem) {
+					DraggableItem di = (DraggableItem)dragged;
+					if(di.itemBox is EquipmentSlot) {
+						StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
+						statChangeData.ItemToUse = di.itemBox.ContainedItem;
+						statChangeData.ApplyItemEffects(di.itemBox.ContainedItem, true);
+						screen.DisplayCharacter(statChangeData);
+					}
 				}
 			}
 		}
 
-		protected override void OnHoverLeave()
-		{
-			GetComponentInParent<CharacterScreen>().DisplayCharacter();
+		protected override void OnHoverLeave() {
+			// reset character display if in character screen
+			CharacterScreen screen = GetComponentInParent<CharacterScreen>();
+			if(screen != null) {
+				screen.DisplayCharacter();
+			}
 		}
 	}
 }

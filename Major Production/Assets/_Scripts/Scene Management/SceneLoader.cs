@@ -18,6 +18,8 @@ public class SceneLoader : MonoBehaviour {
 
 	public Dictionary<string, Dictionary<string, string>> persistentSceneData;
 
+	public int EntrypointIndex { get; private set; }
+
 	private void Awake()
 	{
 		if(Instance == null)
@@ -28,8 +30,14 @@ public class SceneLoader : MonoBehaviour {
 			Destroy(gameObject);
 		}
 		GameObject.DontDestroyOnLoad(this.gameObject);
-		persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
 		worldScene = SceneManager.GetActiveScene();
+		Init();
+	}
+
+	public void Init()
+	{
+		persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
+		EntrypointIndex = -1;
 	}
 
 	// Use this for initialization
@@ -56,8 +64,9 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, int entrypointIndex = -1)
     {
+		EntrypointIndex = entrypointIndex;
         StartCoroutine(AsyncSceneLoad(sceneName));
     }
 
@@ -79,6 +88,8 @@ public class SceneLoader : MonoBehaviour {
 		yield return new WaitUntil(() => { return loadOp.isDone; });
 		battleScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(battleScene);
+		GameController.Instance.state = GameController.EGameStates.Battle;
+
 		//TODO maybe some event/function called here letting battle initialize itself?
 		Debug.Log(battleScene.name);
 	}
@@ -108,5 +119,6 @@ public class SceneLoader : MonoBehaviour {
 
 		SetSceneObjectActive(battleScene, false);
         SceneManager.UnloadSceneAsync(battleScene);
-    }
+		GameController.Instance.state = GameController.EGameStates.Overworld;
+	}
 }

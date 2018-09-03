@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RPG.UI;
+
+
+// TODO have some OnStateChange function/event (ie to allow menu to close itself)
 public class GameController : MonoBehaviour {
 
+	public enum EGameStates{
+		Menu,
+		Overworld,
+		Battle
+	}
+
 	public static GameController Instance = null;
+
+	public EGameStates state;		// HACK make private, use a field and ChangeState function for access
 
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
 	[SerializeField] GameObject initialPlayerTeam;
 	[SerializeField] List<RPGItems.Item> initialInventory;
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
+	[SerializeField] MenuManager menus;
+
+	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
 
 	private void Awake()
 	{
@@ -23,6 +38,8 @@ public class GameController : MonoBehaviour {
 		}
 		DontDestroyOnLoad(gameObject);
 		inventory = GetComponent<RPGItems.InventoryManager>();
+		menus = GetComponentInChildren<MenuManager>(true);
+		state = EGameStates.Menu;	//HACK assumes game starts at main menu!
 	}
 	
 	// Use this for initialization
@@ -35,7 +52,18 @@ public class GameController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			//HACK for now, until we put in a proper pause menu
-			SceneManager.LoadScene("Main Menu");
+			QuitToTitle();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Tab) && state == EGameStates.Overworld)
+		{
+			if (menus.Open)
+			{
+				menus.CloseMenus();
+			} else
+			{
+				menus.OpenMenus();
+			}
 		}
 	}
 
@@ -49,9 +77,26 @@ public class GameController : MonoBehaviour {
 		playerTeam.SetActive(false);
 		BattleManager.Instance.playerTeam = playerTeam.transform;
 
+		SceneLoader.Instance.Init();
 		inventory.Initialize(initialInventory);
 
-		// HACK should call Init on SceneLoader instead?
-		SceneLoader.Instance.persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
+		state = EGameStates.Overworld;
+	}
+
+	public void Pause()
+	{
+		Time.timeScale = 0;
+	}
+
+	public void Unpause()
+	{
+		Time.timeScale = 1;
+	}
+
+	public void QuitToTitle()
+	{
+		SceneManager.LoadScene("Main Menu");
+		menus.CloseMenus();
+		state = EGameStates.Menu;
 	}
 }

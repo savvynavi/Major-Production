@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPGItems {
 	//add safety list==null stuff 
 	public class InventoryManager : MonoBehaviour {
 		public List<Item> playerInventory;
+
+		public UnityEvent OnInventoryChanged;
 
 		private void Awake() {
 			for(int i = 0; i < playerInventory.Count(); i++) {
@@ -21,18 +24,59 @@ namespace RPGItems {
 			{
 				playerInventory.Add(Instantiate(item));
 			}
+			OnInventoryChanged.Invoke();
 		}
 
-		//add item to the inventory
-		public void Add(Item item) {
-			playerInventory.Add(item);
-			SortByName();
+		//add item to the inventory. index parameter can be used to insert instead
+		public void Add(Item item, int index = -1) {
+			if (index < 0 || index >= playerInventory.Count)
+			{
+				playerInventory.Add(item);
+			}
+			else
+			{
+				playerInventory.Insert(index, item);
+			}
+			OnInventoryChanged.Invoke();
 		}
 
 		//remove idem from the inventory
 		public void Discard(Item item) {
 			playerInventory.Remove(item);
-			SortByName();
+			OnInventoryChanged.Invoke();
+		}
+
+		//Removes item from the inventory and puts another in its place
+		public bool Replace(Item inventoryItem, Item incomingItem)
+		{
+			int itemIndex = playerInventory.IndexOf(inventoryItem);
+			if (itemIndex >= 0 && incomingItem != null)
+			{
+				playerInventory[itemIndex] = incomingItem;
+				OnInventoryChanged.Invoke();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		// Swaps the position of two items in the inventory
+		public bool SwapItems(Item first, Item second)
+		{
+			int firstIndex = playerInventory.IndexOf(first);
+			int secondIndex = playerInventory.IndexOf(second);
+			if(firstIndex >= 0 && secondIndex >= 0 && firstIndex != secondIndex)
+			{
+				playerInventory[firstIndex] = second;
+				playerInventory[secondIndex] = first;
+				OnInventoryChanged.Invoke();
+				return true;
+			} else
+			{
+				return false;
+			}
 		}
 
 		public void DiscardStack(Item item) {
@@ -42,51 +86,49 @@ namespace RPGItems {
 		//delete entire inventory
 		public void Clear() {
 			playerInventory.Clear();
+			OnInventoryChanged.Invoke();
 		}
 
 		//sort the inventory by name
 		public void SortByName() {
 			List<Item> sortedList = playerInventory.OrderBy(o => o.name).ToList();
 			playerInventory = sortedList;
+			OnInventoryChanged.Invoke();
 		}
 
 
 		//yeah this whole sectoion is bad but works, refactor later (changes in basically all base stat/buff class)
 		//either use a potion or equip an item
-		public void Use(Item item, RPGsys.Character character) {
-			if(item != null && character != null && playerInventory.Count() > 0) {
+		public bool Use(Item item, RPGsys.Character character) {
+			if(item != null && character != null && playerInventory.IndexOf(item) >= 0) {
 				Debug.Log("defence of bard Before adding: " + character.Def);
 				//if the item can be eaten, uses it and then discards from list, if equipable moves it to character list
 
-				item.Effect.Apply(character, item);
-
-				if(item.Type == Item.ItemType.Equipable) {
-					character.Equipment.Add(item);
+				if (character.UseItem(item))
+				{
+					Discard(item);
+					return true;
+				} else
+				{
+					return false;
 				}
-
-				Discard(item);
-				Debug.Log("defence of bard after adding: " + character.Def);
 			} else {
-				Debug.Log("Inventory empty");
+				Debug.Log("Item not found");
+				return false;
 			}
 		}
 
 
-		public void Unequip(Item item, RPGsys.Character character) {
-			if(character.Equipment.Count() > 0) {
-				foreach(RPGsys.Buff buff in item.Effect.currentEffects) {
-					buff.EquipRemove(character, item);
-					character.Equipment.Remove(item);
-				}
-
-
-
-				playerInventory.Add(item);
-
-				Debug.Log("defence of bard after removal: " + character.Def);
-				SortByName();
-			} else {
-				Debug.Log("nothing to remove");
+		public bool Unequip(Item item, RPGsys.Character character, int index = -1) {
+			if (character.Unequip(item))
+			{
+				Add(item, index);
+				return true;
+			}
+			else
+			{
+				Debug.Log("Item not found");
+				return false;
 			}
 
 		}

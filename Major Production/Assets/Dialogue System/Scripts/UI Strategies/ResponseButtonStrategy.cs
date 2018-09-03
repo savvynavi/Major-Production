@@ -66,6 +66,7 @@ namespace Dialogue
             portraitImage.sprite = uiManager.manager.GetCurrentActor().Portrait;
 
             // Dialogue panel
+			// TODO parse entry text and evaluate result
             dialogueText.text = entry.Text;
 
             uiManager.manager.cutsceneManager.DoCutsceneEvents(entry.cutsceneEvents);
@@ -89,6 +90,7 @@ namespace Dialogue
                 buttonPos.y = numResponses * -(buttonTransform.rect.height + buttonSpacing);
                 buttonTransform.anchoredPosition = buttonPos;
 
+				// TODO parse response text and evaluate result
                 buttonText.text = response.Text;
 
                 buttonScript.onClick.AddListener(() => uiManager.manager.ResponseSelected(ID));

@@ -20,6 +20,7 @@ namespace RPGsys {
 		int rand;
 		List<Character> enemies;
 		List<Character> deadCharactersREVIVE;
+		List<Character> storeTargets;
 		TurnBehaviour turnBehaviour;
 		EnemyBehaviour[] enemyBehav;
 		Quaternion originalRotation;
@@ -52,8 +53,9 @@ namespace RPGsys {
 			confirmMenu = GetComponent<MoveConfirmMenu>();
 
 			camMovement = GetComponent<CameraMovement>();
+			storeTargets = new List<Character>();
 
-            if(camera == null){
+			if(camera == null){
                 camera = Camera.main;
             }
 
@@ -315,7 +317,7 @@ namespace RPGsys {
 			//each loop is a players turn
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
 				originalRotation = info.player.transform.rotation;
-				List<Character> storeTargets = new List<Character>();
+				
 
 				info.player.Timer();
 				//died due to effect SET UP BETTER DEATH CHECK SYSTEM THIS IS GETTING SILLY
@@ -351,17 +353,22 @@ namespace RPGsys {
 
 						//does damage/animations
 						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Group) {
-						
+
+							if(info.player.target.tag == "Player") {
+								AddToStoredList(characters);
+							} else {
+								AddToStoredList(enemies);
+							}
+							camMovement.LookAtGroup(storeTargets);
+
 							if(info.player.target.tag == "Player") {
 								GroupAttack(info, characters, storeTargets);
 							} else {
 								GroupAttack(info, enemies, storeTargets);
 							}
 
-							//change camera to group shot of target here
-							camMovement.LookAtGroup(storeTargets);
 
-						}else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
+						} else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
 
 							//if same team, use facecam, else single out enemy target
 							if(info.player.tag == info.player.target.tag) {
@@ -512,13 +519,19 @@ namespace RPGsys {
 			return false;
 		}
 
+		public void AddToStoredList(List<Character> targets) {
+			foreach(Character chara in targets) {
+				storeTargets.Add(chara);
+			}
+		}
+
 		public void GroupAttack(TurnBehaviour.TurnInfo info, List<Character> targets, List<Character> storeTargets) {
 			foreach(Character chara in targets) {
 				info.ability.Apply(info.player, chara);
 				string name = info.ability.anim.ToString();
 				info.player.GetComponent<Animator>().Play(name);
 				chara.GetComponent<Animator>().Play("TAKE_DAMAGE");
-				storeTargets.Add(chara);
+				//storeTargets.Add(chara);
 			}
 
 			//if player character, will allow them to go back to isle anim 

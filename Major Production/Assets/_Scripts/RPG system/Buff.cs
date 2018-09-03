@@ -63,8 +63,12 @@ namespace RPGsys {
 					break;
 				}
 			case StatusEffectType.Heal: {
-					target.Hp += StatusEffects.amount;
-                        GetScreenLoc tempLoc = new GetScreenLoc();
+						//caps HP to the max so you can't overheal
+						target.Hp += StatusEffects.amount;
+						if(target.Hp > target.hpStat) {
+							target.Hp = target.hpStat;
+						}
+						GetScreenLoc tempLoc = new GetScreenLoc();
                         Vector2 location = tempLoc.getScreenPos(target.transform);
                         if (target.tag == "Enemy")
                             FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);

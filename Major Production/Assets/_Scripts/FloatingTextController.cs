@@ -69,11 +69,15 @@ public class FloatingTextController : MonoBehaviour {
         }
         // clone the game object, make it a sibling of the prefab
         GameObject go = Instantiate(prefab.gameObject);
-        go.transform.parent = prefab.transform.parent;
+		//go.transform.parent = prefab.transform.parent;
+		go.transform.SetParent(prefab.transform.parent);
         go.SetActive(true);
         FloatingText instance = go.GetComponent<FloatingText>();
 
-        Vector2 screenPosition = new Vector2(location.x + Random.Range(-.1f,.1f), location.y + Random.Range(-.1f, .1f));
+		Vector2 randOffset = new Vector2(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+		Vector2 screenPosition = new Vector2(location.x, location.y) + randOffset;
+
+
 
         instance.transform.SetParent(canvas.transform, false);
         instance.transform.position = screenPosition;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RPG.Save;
+using Newtonsoft.Json.Linq;
 
 // TODO figure out if this needs to call anything on loading/unloading scenes
 
@@ -9,7 +11,7 @@ using UnityEngine.SceneManagement;
 /// This class manages loading and unloading scenes. It also stores data for PersistentObjects
 /// in scenes
 /// </summary>
-public class SceneLoader : MonoBehaviour {
+public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public static SceneLoader Instance = null;
 
@@ -120,5 +122,21 @@ public class SceneLoader : MonoBehaviour {
 		SetSceneObjectActive(battleScene, false);
         SceneManager.UnloadSceneAsync(battleScene);
 		GameController.Instance.state = GameController.EGameStates.Overworld;
+	}
+
+	public JObject Save()
+	{
+		return new JObject(
+			new JProperty("scene", worldScene.name),
+			new JProperty("entrypointIndex", EntrypointIndex),
+			new JProperty("sceneData", new JObject(persistentSceneData)));
+		// TODO check this works correctly
+	}
+
+	public void Load(JObject data)
+	{
+		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, string>>>();
+		EntrypointIndex = (int)data["entrypointIndex"];
+		LoadScene((string)data["scene"]);
 	}
 }

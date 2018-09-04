@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RPG.UI;
-
+using RPG.Save;
+using Newtonsoft.Json.Linq;
 
 // TODO have some OnStateChange function/event (ie to allow menu to close itself)
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour, ISaveable {
 
 	public enum EGameStates{
 		Menu,
@@ -102,5 +103,21 @@ public class GameController : MonoBehaviour {
 		SceneManager.LoadScene("Main Menu");
 		menus.CloseMenus();
 		state = EGameStates.Menu;
+	}
+
+	// TODO something that calls Save, and serialized the JObject to a file
+
+	public JObject Save()
+	{
+		// TODO save characters, inventory, sceneloader
+		throw new System.NotImplementedException();
+	}
+
+	public void Load(JObject data)
+	{
+		// TODO load characters, inventory, sceneloader
+
+		throw new System.NotImplementedException();
+		state = EGameStates.Overworld;
 	}
 }

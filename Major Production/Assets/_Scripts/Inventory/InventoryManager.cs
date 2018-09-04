@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using RPG.Save;
+using Newtonsoft.Json.Linq;
 
 namespace RPGItems {
 	//add safety list==null stuff 
-	public class InventoryManager : MonoBehaviour {
+	public class InventoryManager : MonoBehaviour, ISaveable {
 		public List<Item> playerInventory;
 
 		public UnityEvent OnInventoryChanged;
@@ -131,6 +133,24 @@ namespace RPGItems {
 				return false;
 			}
 
+		}
+
+		public JObject Save()
+		{
+			JObject saveData = new JObject(
+				new JProperty("playerInventory",
+					new JArray(from i in playerInventory
+							   select i.name)));
+			throw new System.NotImplementedException();
+		}
+
+		public void Load(JObject data)
+		{
+			foreach(JToken i in data["playerInventory"])
+			{
+				playerInventory.Add(Factory<Item>.Instantiate((string)i));
+			}
+			OnInventoryChanged.Invoke();
 		}
 	}
 }

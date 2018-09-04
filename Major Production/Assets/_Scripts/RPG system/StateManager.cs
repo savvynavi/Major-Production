@@ -100,6 +100,7 @@ namespace RPGsys {
 
             enemies.AddRange(battleManager.enemyTeam.GetComponentsInChildren<Character>(true));
 
+			//////andrew code
 			foreach(Character chara in characters) {
 				chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
                 chara.GetComponent<TargetSelection>().Init(this.gameObject, camera);
@@ -111,6 +112,7 @@ namespace RPGsys {
                 characters[i].transform.position = playerPositions[i].position;
                 characters[i].transform.rotation = playerPositions[i].rotation;
             }
+			//////
 
 			List<Character> tmp = new List<Character>();
 			//when battle reentered, forces any dead characters to act like it

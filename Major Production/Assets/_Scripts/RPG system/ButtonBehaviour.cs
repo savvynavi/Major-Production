@@ -88,7 +88,7 @@ namespace RPGsys {
 			CharacterMaxMP = GetComponent<Character>().mpStat;
 		}
 
-		public void Setup(ButtonBehaviourObjects bboRefs) {
+		public void Setup(Button button, Text text, Image hpBar, Image mpBar, Image panel) {
 			int count = 0;
 			playerActivated = false;
 			charaName = transform.name;

@@ -1971,6 +1971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTeam: {fileID: 0}
   enemyTeam: {fileID: 0}
+  stateManager: {fileID: 0}
 --- !u!114 &114207453139317956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4474,7 +4475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  initialPlayerTeam: {fileID: 1115304294837528, guid: b4f1c4de0a7d8df48af5b2fe805db4ee,
+  initialPlayerTeam: {fileID: 1401026969454220, guid: f83b93bf2f542ef4e8c1b1f4f74dae5c,
     type: 2}
   initialInventory:
   - {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
@@ -5863,7 +5864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 8.004997}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224687831868438652

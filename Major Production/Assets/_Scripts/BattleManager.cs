@@ -51,10 +51,23 @@ public class BattleManager : MonoBehaviour {
 		//finds the statemanager, loops over characters, removing effects
 		//stateManager = FindObjectOfType<RPGsys.StateManager>();
 
+
+		List<RPGsys.Buff> deadlist = new List<RPGsys.Buff>();
 		foreach(RPGsys.Character chara in stateManager.characters) {
 			foreach(RPGsys.Buff buff in chara.currentEffects) {
-				buff.Remove(chara);
+				if(buff.equipable == RPGsys.Status.Equipable.False) {
+					//chara.currentEffects.Remove(buff);
+					deadlist.Add(buff);
+					buff.Remove(chara);
+				}
 			}
+			if(deadlist.Count > 0) {
+				foreach(RPGsys.Buff buff in deadlist) {
+					chara.currentEffects.Remove(buff);
+				}
+				deadlist.Clear();
+			}
+
 		}
 
 		playerTeam.gameObject.SetActive(false);

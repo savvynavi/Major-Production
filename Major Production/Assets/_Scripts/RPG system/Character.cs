@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using RPGItems;
 
 namespace RPGsys{
 	public class Character : MonoBehaviour{
@@ -27,6 +28,34 @@ namespace RPGsys{
 
 		//dictionary stuff
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();
+
+		// Returns the base stat value for a given stat
+		public float BaseStat(RPGStats.Stats stat)
+		{
+			switch (stat)
+			{
+				case RPGStats.Stats.Speed:
+					return speedStat;
+				case RPGStats.Stats.Str:
+					return strStat;
+				case RPGStats.Stats.Def:
+					return defStat;
+				case RPGStats.Stats.Int:
+					return intStat;
+				case RPGStats.Stats.Mind:
+					return mindStat;
+				case RPGStats.Stats.Hp:
+					return hpStat;
+				case RPGStats.Stats.Mp:
+					return mpStat;
+				case RPGStats.Stats.Dex:
+					return dexStat;
+				case RPGStats.Stats.Agi:
+					return agiStat;
+				default:
+					return -1;
+			}
+		}
 
 		public float Speed{
 			get { return CharaStats[RPGStats.Stats.Speed]; }
@@ -117,6 +146,34 @@ namespace RPGsys{
 					deadEffect.Remove(this);
 					currentEffects.Remove(deadEffect);
 				}
+			}
+		}
+
+		// Uses or equips item and applies its effects. Returns false if not usable.
+		public bool UseItem(Item item)
+		{
+			//TODO check if item usable?
+			item.Effect.Apply(this, item);
+			if(item.Type == Item.ItemType.Equipable)
+			{
+				Equipment.Add(item);
+			}
+			return true;
+		}
+
+		// Removes item from equipment and unapplies its effects. Returns false if item not equipped
+		public bool Unequip(Item item) {
+			if (Equipment.Remove(item))
+			{
+				foreach(Buff buff in item.Effect.currentEffects)
+				{
+					buff.EquipRemove(this, item);
+				}
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 	}

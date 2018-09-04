@@ -15,11 +15,13 @@ namespace RPGsys {
 		Transform attackingCamAngle;
 		Transform defendingCamAngle;
 
+		public Camera CurrentCamera { get; private set; }
+
 		// Use this for initialization
 		void Start() {
 			cameraAttack.SetActive(false);
 			cameraFace.SetActive(false);
-
+			CurrentCamera = cameraMAIN.GetComponent<Camera>();
 		}
 
 		//looks at given characters front
@@ -27,6 +29,8 @@ namespace RPGsys {
 			cameraMAIN.SetActive(false);
 			cameraAttack.SetActive(false);
 			cameraFace.SetActive(true);
+
+			CurrentCamera = cameraFace.GetComponent<Camera>();
 
 			cameraFace.transform.position = new Vector3(0, 0, 0);
 			cameraFace.transform.SetParent(attacker.transform);
@@ -49,6 +53,9 @@ namespace RPGsys {
 			cameraFace.SetActive(false);
 			cameraAttack.SetActive(true);
 
+			CurrentCamera = cameraAttack.GetComponent<Camera>();
+
+
 			CapsuleCollider tmp = attacker.GetComponent<CapsuleCollider>();
 
 			//cameraAttack.transform.SetParent(attacker.transform);
@@ -62,6 +69,9 @@ namespace RPGsys {
 			cameraMAIN.SetActive(false);
 			cameraFace.SetActive(false);
 			cameraAttack.SetActive(true);
+
+			CurrentCamera = cameraAttack.GetComponent<Camera>();
+
 
 			attackOffset = Mathf.Abs(attackOffset);
 
@@ -88,6 +98,9 @@ namespace RPGsys {
 			cameraMAIN.SetActive(true);
 			cameraFace.SetActive(false);
 			cameraAttack.SetActive(false);
+
+			CurrentCamera = cameraMAIN.GetComponent<Camera>();
+
 		}
 
 		//returns the averave position vector of given list of positions

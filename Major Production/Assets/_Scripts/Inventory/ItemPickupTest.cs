@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemPickupTest : MonoBehaviour {
 
 	public RPGItems.Item item;
-	public RPGItems.InventoryManager manager;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +14,7 @@ public class ItemPickupTest : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 		if(item != null) {
-			manager.Add(item);
+			GameController.Instance.inventory.Add(item);
 			item = null;
 			Debug.Log("collision!");
 		}

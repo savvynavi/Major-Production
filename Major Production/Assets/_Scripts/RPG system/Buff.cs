@@ -47,6 +47,15 @@ namespace RPGsys {
 			base.Remove(target);
 		}
 
+		public override void UpdateEffect(Character chara) {
+			//if damage over time, ticks down that stat
+			if(StatusEffects.effect == StatusEffectType.DamageOverTime) {
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, chara);
+				chara.CharaStats[tmp] -= StatusEffects.amount;
+			}
+			base.UpdateEffect(chara);
+		}
+
 		void SetStats(Character target) {
 
 			//RPGStats.Stats tmp = 0;
@@ -63,14 +72,22 @@ namespace RPGsys {
 					break;
 				}
 			case StatusEffectType.Heal: {
-					target.Hp += StatusEffects.amount;
-                        GetScreenLoc tempLoc = new GetScreenLoc();
-                        Vector2 location = tempLoc.getScreenPos(target.transform);
-                        if (target.tag == "Enemy")
-                            FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
-                        else if (target.tag == "Player")
-                            FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
-                        break;
+						//caps HP to the max so you can't overheal
+						target.Hp += StatusEffects.amount;
+						if(target.Hp > target.hpStat) {
+							target.Hp = target.hpStat;
+						}
+						//HACK check if in battle so it doesn't try making effect when using potion in inventory
+						if (GameController.Instance.state == GameController.EGameStates.Battle)
+						{
+							GetScreenLoc tempLoc = new GetScreenLoc();
+							Vector2 location = tempLoc.getScreenPos(target.transform);
+							if (target.tag == "Enemy")
+								FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
+							else if (target.tag == "Player")
+								FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
+						}
+						break;
 				}
 			default:
 				Debug.Log("error");

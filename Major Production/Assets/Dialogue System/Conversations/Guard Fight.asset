@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
+  m_Name: Guard Fight
+  m_EditorClassIdentifier: 
+  nextID: 5
+  startingID: 0
+  Entries:
+  - ID: 0
+    Title: 
+    speakerIndex: 0
+    Text: Oi, you! I'm the {SPEAKER.name}.
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 358, y: 93}
+  - ID: 1
+    Title: 
+    speakerIndex: 0
+    Text: What are you doing in here, {Player.name}?
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses:
+    - Text: choice1
+      OnChosen: []
+      Prerequisite: {fileID: 0}
+      transitions:
+        transitions:
+        - transition:
+            TargetID: 2
+          condition: {fileID: 0}
+      Position: {x: 222, y: 238}
+    - Text: choice2
+      OnChosen: []
+      Prerequisite: {fileID: 0}
+      transitions:
+        transitions:
+        - transition:
+            TargetID: 2
+          condition: {fileID: 0}
+      Position: {x: 418, y: 246}
+    - Text: choice3
+      OnChosen: []
+      Prerequisite: {fileID: 0}
+      transitions:
+        transitions:
+        - transition:
+            TargetID: 2
+          condition: {fileID: 0}
+      Position: {x: 610, y: 253}
+    position: {x: 361, y: 153}
+  - ID: 2
+    Title: 
+    speakerIndex: 0
+    Text: Time to Fight!
+    OnEnter: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 4
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 414, y: 337}
+  - ID: 3
+    Title: 
+    speakerIndex: 0
+    Text: Yaaargh
+    OnEnter: []
+    cutsceneEvents:
+    - target: OrcGuard
+      animation: DEAD
+      layer: -1
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 398, y: 453}
+  - ID: 4
+    Title: 
+    speakerIndex: 1
+    Text: Take that!
+    OnEnter:
+    - description: Start battle
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: b651dcdae8fee9f4795a9b9273a7b9c0, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 3
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 408, y: 397}
+  Speakers:
+  - OrcGuard
+  - Player

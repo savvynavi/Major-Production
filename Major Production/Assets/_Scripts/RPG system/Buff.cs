@@ -7,6 +7,7 @@ namespace RPGsys {
 	public class Buff : Status {
 		public StatusEffect StatusEffects;
 
+
 		public override void Apply(Character target, float duration) {
 			if(target != null) {
 				Buff tmp = Instantiate(this);
@@ -19,9 +20,40 @@ namespace RPGsys {
 			}
 		}
 
+		public override void EquipApply(Character target, RPGItems.Item item) {
+
+			if(target != null && item != null) {
+				item.Initialize(target);
+				foreach(Status buff in item.buffInstances) {
+					target.currentEffects.Add(buff);
+					SetStats(target);
+				}
+			}
+		}
+
+		public override void EquipRemove(Character target, RPGItems.Item item) {
+			foreach(Status buff in item.buffInstances) {
+				//ResetStats(target);
+				buff.UpdateEffect(target);
+				target.currentEffects.Remove(buff);
+
+			}
+
+			item.DeleteInstances(target);
+		}
+
 		public override void Remove(Character target) {
 			ResetStats(target);
 			base.Remove(target);
+		}
+
+		public override void UpdateEffect(Character chara) {
+			//if damage over time, ticks down that stat
+			if(StatusEffects.effect == StatusEffectType.DamageOverTime) {
+				RPGStats.Stats tmp = FindStatModified(StatusEffects.statBuff, chara);
+				chara.CharaStats[tmp] -= StatusEffects.amount;
+			}
+			base.UpdateEffect(chara);
 		}
 
 		void SetStats(Character target) {
@@ -40,8 +72,22 @@ namespace RPGsys {
 					break;
 				}
 			case StatusEffectType.Heal: {
-					target.Hp += StatusEffects.amount;
-					break;
+						//caps HP to the max so you can't overheal
+						target.Hp += StatusEffects.amount;
+						if(target.Hp > target.hpStat) {
+							target.Hp = target.hpStat;
+						}
+						//HACK check if in battle so it doesn't try making effect when using potion in inventory
+						if (GameController.Instance.state == GameController.EGameStates.Battle)
+						{
+							GetScreenLoc tempLoc = new GetScreenLoc();
+							Vector2 location = tempLoc.getScreenPos(target.transform);
+							if (target.tag == "Enemy")
+								FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
+							else if (target.tag == "Player")
+								FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
+						}
+						break;
 				}
 			default:
 				Debug.Log("error");

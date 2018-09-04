@@ -11,12 +11,14 @@ namespace RPGsys{
 		protected GameObject partInst;
 		protected Material matInst;
 		bool particleRunning;
+		public Equipable equipable;
 
 		//public Animation anim;
 		public enum StatusEffectType {
 			Buff,
 			Debuff,
-			Heal
+			Heal,
+			DamageOverTime
 		}
 
 		public enum StatusEffectTarget {
@@ -25,18 +27,24 @@ namespace RPGsys{
 			Group
 		}
 
+		public enum Equipable {
+			False,
+			True
+		}
+
 		[System.Serializable]
 		public struct StatusEffect {
 			public StatusEffectType effect;
 			public RPGStats.Stats statBuff;
 			public float amount;
 		}
+
 		public float timer;
 
 		//reduces time by 1 turn each time it's called
 		virtual public void UpdateEffect(Character chara) {
 			timer--;
-			if(particles != null && (timer < particles.main.startLifetime.constant || chara.Hp <= 0)) {
+			if(particles != null && (timer < particles.main.startLifetime.constant || chara.Hp <= 0) && partInst != null) {
 				partInst.GetComponent<ParticleSystem>().Stop();
 			}
 			if(material != null && (timer < 1 || chara.Hp <= 0)) {
@@ -50,6 +58,17 @@ namespace RPGsys{
 
 		public virtual void Remove(Character target){
 			Destroy(partInst);
+			if(material != null) {
+				target.gameObject.GetComponentInChildren<Renderer>().material = originalMaterial;
+			}
+		}
+
+		public virtual void EquipApply(Character target, RPGItems.Item item) {
+
+		}
+
+		public virtual void EquipRemove(Character target, RPGItems.Item item) {
+
 		}
 
 		public void Clone(Character target){
@@ -59,7 +78,7 @@ namespace RPGsys{
 				partInst.transform.parent = target.transform;
 				partInst.transform.localPosition = Vector3.zero;
 			}
-			//makes a copy of the material
+			//makes a copy of the materialFIX THIS OR REMOVE AND REPLACE WITH SHADERS
 			if(material != null) {
 				matInst = Instantiate(material);
 				target.GetComponentInChildren<Renderer>().material.EnableKeyword("_METALLICGLOSSMAP");

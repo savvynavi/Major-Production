@@ -26,7 +26,8 @@ namespace Dialogue
             DialogueActor actor = uiManager.manager.GetCurrentActor();
             dialogueBox.SetTitle(actor.Name);
             dialogueBox.SetPortrait(actor.Portrait);
-            dialogueBox.SetDialogue(entry.Text);
+			string dialogueText = MarkupToken.EvaluateTokens(MarkupParser.Dialogue.Parse(entry.Text).Value, uiManager.manager);
+			dialogueBox.SetDialogue(dialogueText);
             uiManager.manager.cutsceneManager.DoCutsceneEvents(entry.cutsceneEvents);
         }
 
@@ -34,7 +35,8 @@ namespace Dialogue
         {
             if (possible)
             {
-                dialogueBox.AddButton(response.Text, () => uiManager.manager.ResponseSelected(ID));
+				string responseText = MarkupToken.EvaluateTokens(MarkupParser.Dialogue.Parse(response.Text).Value, uiManager.manager);
+				dialogueBox.AddButton(responseText, () => uiManager.manager.ResponseSelected(ID));
                 ++responseCount;
             }
         }

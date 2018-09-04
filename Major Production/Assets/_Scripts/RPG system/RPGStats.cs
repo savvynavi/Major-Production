@@ -35,7 +35,26 @@ namespace RPGsys
 			Head,
 			Torso,
 			Legs,
-			Hand
+			Hand,
+			Weapon
 		}
+
+		static Dictionary<Stats, string> StatNames = new Dictionary<Stats, string> {
+			{ Stats.Speed, "Speed"},
+			{Stats.Str, "Strength" },
+			{Stats.Def, "Defence" },
+			{Stats.Int, "Intelligence" },
+			{Stats.Mind, "Mind" },
+			{Stats.Hp, "HP" },
+			{Stats.Mp, "MP" },
+			{Stats.Dex, "Dexterity" },
+			{Stats.Agi, "Agility" }
+		};
+
+		public static string GetStatName(Stats stat)
+		{
+			return StatNames[stat];
+		}
+
 	}
 }

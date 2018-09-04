@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace Dialogue
 {
+	public enum EPronouns
+	{
+		He,
+		She,
+		It,
+		They
+	}
+
     public class DialogueActor : MonoBehaviour
     {
         public string Name;
@@ -11,5 +19,87 @@ namespace Dialogue
         public Sprite Portrait;
 
         public FieldManager fields;
-    }
+
+		public EPronouns pronoun;
+
+		public string HeShe
+		{
+			get
+			{
+				switch (pronoun)
+				{
+					case EPronouns.He:
+						return "he";
+					case EPronouns.She:
+						return "she";
+					case EPronouns.It:
+						return "it";
+					case EPronouns.They:
+						return "they";
+					default:
+						return "(error: pronoun not found)";
+				}
+			}
+		}
+
+		public string HimHer
+		{
+			get
+			{
+				switch (pronoun)
+				{
+					case EPronouns.He:
+						return "him";
+					case EPronouns.She:
+						return "her";
+					case EPronouns.It:
+						return "it";
+					case EPronouns.They:
+						return "them";
+					default:
+						return "(error: pronoun not found)";
+				}
+			}
+		}
+
+		public string HisHer
+		{
+			get
+			{
+				switch (pronoun)
+				{
+					case EPronouns.He:
+						return "his";
+					case EPronouns.She:
+						return "her";
+					case EPronouns.It:
+						return "its";
+					case EPronouns.They:
+						return "their";
+					default:
+						return "(error: pronoun not found)";
+				}
+			}
+		}
+
+		public string HisHers
+		{
+			get
+			{
+				switch (pronoun)
+				{
+					case EPronouns.He:
+						return "his";
+					case EPronouns.She:
+						return "hers";
+					case EPronouns.It:
+						return "its";
+					case EPronouns.They:
+						return "theirs";
+					default:
+						return "(error: pronoun not found)";
+				}
+			}
+		}
+	}
 }

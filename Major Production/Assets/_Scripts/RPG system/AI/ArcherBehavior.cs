@@ -10,6 +10,11 @@ namespace RPGsys
         [SerializeField] string arrowName;      //hack
         bool loaded;
 
+        private void Awake()
+        {
+            AwakeInit();
+        }
+
         // Use this for initialization
         void Start()
         {
@@ -33,11 +38,11 @@ namespace RPGsys
                 chara.target = target.gameObject;
                 if (loaded)
                 {
-                    turnBehav.turnAddAttackEnemy(arrowPower, chara);
+                    GetTurnBehaviour().turnAddAttackEnemy(arrowPower, chara);
                     loaded = false;
                 } else
                 {
-                    turnBehav.turnAddAttackEnemy(reloadPower, chara);
+                    GetTurnBehaviour().turnAddAttackEnemy(reloadPower, chara);
                     loaded = true;
                 }
             }

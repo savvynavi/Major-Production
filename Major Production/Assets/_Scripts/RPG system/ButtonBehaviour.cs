@@ -94,22 +94,22 @@ namespace RPGsys {
 			charaName = transform.name;
 
 
-            canvas = bboRefs.canvas;
-            menuPos = bboRefs.menuPos;
-            namePos = bboRefs.namePos;
+			canvas = bboRefs.canvas;
+			menuPos = bboRefs.menuPos;
+			namePos = bboRefs.namePos;
 
-            hpPosition = bboRefs.hpPosition;
-            mpPosition = bboRefs.mpPosition;
-            hpTextPos = bboRefs.hpTextPos;
-            mpTextPos = bboRefs.mpTextPos;
-            hoverTxtPos = bboRefs.hoverTxtPos;
+			hpPosition = bboRefs.hpPosition;
+			mpPosition = bboRefs.mpPosition;
+			hpTextPos = bboRefs.hpTextPos;
+			mpTextPos = bboRefs.mpTextPos;
+			hoverTxtPos = bboRefs.hoverTxtPos;
 
-        //setting up menu items in correct positions	
+			//setting up menu items in correct positions	
 
-        //CHEKC IF INSTANTIATING DIFFERENTLY WILL SAVE SETUP TIME//
+			//CHEKC IF INSTANTIATING DIFFERENTLY WILL SAVE SETUP TIME//
 
-        //menu bg
-            menuBackground = Instantiate(menuBG.gameObject);
+			//menu bg
+			menuBackground = Instantiate(menuBG.gameObject);
 			menuBackground.transform.SetParent(canvas.transform, false);
 			menuBackground.transform.position = menuPos.transform.position;
 

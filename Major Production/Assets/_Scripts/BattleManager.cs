@@ -2,23 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO figure out lifecycle
-
+/// <summary>
+/// Starts and ends battles, holding the player and enemy teams 
+/// </summary>
 public class BattleManager : MonoBehaviour {
+
+	public static BattleManager Instance;
 
     public Transform playerTeam;
     public Transform enemyTeam; // Transform containing enemies to move into battle scene
-    SceneLoader loader;
 
-	RPGsys.StateManager stateManager;
+	public RPGsys.StateManager stateManager;
 
-	// Use this for initialization
-	void Start () {
-        loader = FindObjectOfType<SceneLoader>();
-
-		//find state manager so we have access to character list
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
+		GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 	
+	public RPGsys.StateManager GetStateManager() { return stateManager; }
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -30,7 +40,7 @@ public class BattleManager : MonoBehaviour {
 
 		// TODO any other setup for team
 
-		loader.LoadScene(sceneName);
+		SceneLoader.Instance.LoadBattle(sceneName);
 
 	}
 
@@ -39,16 +49,30 @@ public class BattleManager : MonoBehaviour {
 		//TODO end of fight effects, cleanup, etc
 
 		//finds the statemanager, loops over characters, removing effects
-		stateManager = FindObjectOfType<RPGsys.StateManager>();
+		//stateManager = FindObjectOfType<RPGsys.StateManager>();
 
+
+		List<RPGsys.Buff> deadlist = new List<RPGsys.Buff>();
 		foreach(RPGsys.Character chara in stateManager.characters) {
 			foreach(RPGsys.Buff buff in chara.currentEffects) {
-				buff.Remove(chara);
+				if(buff.equipable == RPGsys.Status.Equipable.False) {
+					//chara.currentEffects.Remove(buff);
+					deadlist.Add(buff);
+					buff.Remove(chara);
+				}
 			}
+			if(deadlist.Count > 0) {
+				foreach(RPGsys.Buff buff in deadlist) {
+					chara.currentEffects.Remove(buff);
+				}
+				deadlist.Clear();
+			}
+
 		}
 
 		playerTeam.gameObject.SetActive(false);
-        
-        loader.EndScene();
+
+		stateManager = null;
+        SceneLoader.Instance.EndBattle();
     }
 }

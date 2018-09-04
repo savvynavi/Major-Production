@@ -6,6 +6,7 @@ public class DungeonEntrance : MonoBehaviour {
 
     SceneLoader loader;
     [SerializeField] string dungeonScene;
+	[SerializeField] int entryPoint = -1;
     bool triggered = false;
 
 	// Use this for initialization
@@ -27,7 +28,7 @@ public class DungeonEntrance : MonoBehaviour {
     {
         if (!triggered && other.CompareTag("Player"))
         {
-            loader.LoadScene(dungeonScene);
+            loader.LoadScene(dungeonScene, entryPoint);
             triggered = true;
         }
     }

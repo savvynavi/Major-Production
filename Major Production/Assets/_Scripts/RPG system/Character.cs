@@ -4,9 +4,12 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using RPGItems;
+using RPG.Save;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RPGsys{
-	public class Character : MonoBehaviour{
+	public class Character : MonoBehaviour, ISaveable{
 		//base stats
 		public float speedStat;
 		public float strStat;
@@ -104,6 +107,11 @@ namespace RPGsys{
 		//stores a list of equipables, mainly the rings
 		public List<RPGItems.Item> Equipment;
 
+		void OnEnable()
+		{
+			Debug.Log(name + " enabled");
+		}
+
 		void Awake(){
 			Speed = speedStat;
 			Str = strStat;
@@ -114,6 +122,7 @@ namespace RPGsys{
 			Mp = mpStat;
 			Dex = dexStat;
 			Agi = agiStat;
+
 
 
 			classInfo = Instantiate(classInfo);
@@ -175,6 +184,16 @@ namespace RPGsys{
 			{
 				return false;
 			}
+		}
+
+		JObject ISaveable.Save()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Load(JObject data)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

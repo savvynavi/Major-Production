@@ -33,10 +33,14 @@ namespace RPG.Save
 			T source = Find(name);
 			if(source != null)
 			{
-				instance = Object.Instantiate(source);
-				instance.name = name;
+				instance = Utility.InstantiateSameName(source);
 			}
 			return instance;
+		}
+
+		public static string TrimCloned(string name)
+		{
+			return name.Replace(" (Clone)", string.Empty);
 		}
 	}
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using RPG.Save;
+using Newtonsoft.Json.Linq;
 
 namespace RPGItems {
 
@@ -42,6 +43,5 @@ namespace RPGItems {
 
 			buffInstances.Clear();
 		}
-
 	}
 }

@@ -125,9 +125,9 @@ namespace RPGsys{
 
 
 
-			classInfo = Instantiate(classInfo);
+			classInfo = Utility.InstantiateSameName(classInfo);
 			for(int i = 0; i < classInfo.classPowers.Count(); i++) {
-				classInfo.classPowers[i] = Instantiate(classInfo.classPowers[i]);
+				classInfo.classPowers[i] = Utility.InstantiateSameName(classInfo.classPowers[i]);
 			}
 
 			anim = GetComponent<Animator>();
@@ -188,12 +188,37 @@ namespace RPGsys{
 
 		JObject ISaveable.Save()
 		{
-			throw new System.NotImplementedException();
+			// Not saving base stats on assumption they won't change
+			// Will have to do so if that changes
+
+			// Not saving effects either because only equipment effects persist out of battle
+			// Again this may change
+
+			JObject saveData = new JObject(
+				new JProperty("name", name),
+				new JProperty("weapon", Weapon != null ? Weapon.name : ""),
+				new JProperty("equipment",
+					new JArray(from i in Equipment
+							   select i.name)));
+			return saveData;
 		}
 
 		public void Load(JObject data)
 		{
-			throw new System.NotImplementedException();
+			string weaponName = (string)data["weapon"];
+			if (string.IsNullOrEmpty(weaponName))
+			{
+				Weapon = null;
+			}
+			else
+			{
+				Weapon = Factory<Item>.Instantiate(weaponName);
+			}
+
+			foreach(JToken i in data["equipment"])
+			{
+				UseItem(Factory<Item>.Instantiate((string)i));
+			}
 		}
 	}
 }

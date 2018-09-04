@@ -95,6 +95,10 @@ public class GameController : MonoBehaviour {
 
 	public void QuitToTitle()
 	{
+		if(state == EGameStates.Battle)
+		{
+			playerTeam.SetActive(false);
+		}
 		SceneManager.LoadScene("Main Menu");
 		menus.CloseMenus();
 		state = EGameStates.Menu;

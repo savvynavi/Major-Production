@@ -29,6 +29,7 @@ namespace RPGsys {
 		GameObject GameOverTextWin;
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
+		BattleUIController battleUIController;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -46,8 +47,7 @@ namespace RPGsys {
             FloatingTextController.HealEnemy();
             FloatingTextController.HealAlly();
 
-
-            BattleManager battleManager = BattleManager.Instance;
+			BattleManager battleManager = BattleManager.Instance;
 			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
@@ -96,13 +96,15 @@ namespace RPGsys {
 			//sort player list based on their choiceOrder number(so you can make it that the closest one to the screen picks first ect)
 			List<Character> sortedList = characters.OrderBy(o => o.ChoiceOrder).ToList();
 			characters = sortedList;
-            //TODO place characters in scene positions based on this order (ie List<Transform> playerPositions and List<Transform> enemyPositions)
+			battleUIController = GetComponent<BattleUIController>();
+			battleUIController.UISetup(characters);
+			//TODO place characters in scene positions based on this order (ie List<Transform> playerPositions and List<Transform> enemyPositions)
 
-            enemies.AddRange(battleManager.enemyTeam.GetComponentsInChildren<Character>(true));
+			enemies.AddRange(battleManager.enemyTeam.GetComponentsInChildren<Character>(true));
 
 			//////andrew code
 			foreach(Character chara in characters) {
-				chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
+				//chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
                 chara.GetComponent<TargetSelection>().Init(this.gameObject, camera);
             }
 
@@ -139,7 +141,8 @@ namespace RPGsys {
 			}
 
 
-            turnBehaviour.Setup(characters, enemies);
+
+			turnBehaviour.Setup(characters, enemies);
 			confirmMenu.Setup();
 
 			//starting game loops

@@ -35,24 +35,12 @@ namespace RPGsys {
 		public bool playerActivated;
 		public bool undoMove = false;
 		public List<Button> buttons;
-		public Button button;
-		public Text font;
-		public GameObject canvas;
-		public Transform menuPos;
-		public Image menuBG;
-        GameObject menuBackground;
-		public Transform namePos;
 
-		public Image hpImage;
-		public Image mpImage;
-		public Transform hpPosition;
-		public Transform mpPosition;
-		public Transform hpTextPos;
-		public Transform mpTextPos;
-		public Image hpBackground;
+		Canvas canvas;
 
 		public Transform hoverTxtPos;
 
+		GameObject bgPanel;
 		Text charaNameText;
 		Image hp;
 		Image mp;
@@ -70,10 +58,10 @@ namespace RPGsys {
 
 		private void Start() {
 
-			hp.type = Image.Type.Filled;
-			hp.fillMethod = Image.FillMethod.Horizontal;
-			mp.type = Image.Type.Filled;
-			mp.fillMethod = Image.FillMethod.Horizontal;
+			//hp.type = Image.Type.Filled;
+			//hp.fillMethod = Image.FillMethod.Horizontal;
+			//mp.type = Image.Type.Filled;
+			//mp.fillMethod = Image.FillMethod.Horizontal;
 
 			CharacterCurrentHP = GetComponent<Character>().Hp;
 			CharacterMaxHP = GetComponent<Character>().hpStat;
@@ -88,77 +76,60 @@ namespace RPGsys {
 			CharacterMaxMP = GetComponent<Character>().mpStat;
 		}
 
-		public void Setup(Button button, Text text, Image hpBar, Image mpBar, Image panel) {
+		public void Setup(ButtonBehaviourObjects bboRefs, Button button, Text text, Image hpBar, Image mpBar, Image panel, Canvas canvasUI) {
 			int count = 0;
 			playerActivated = false;
 			charaName = transform.name;
 
+			canvas = canvasUI;
+			bgPanel = panel.gameObject;
 
-			canvas = bboRefs.canvas;
-			menuPos = bboRefs.menuPos;
-			namePos = bboRefs.namePos;
 
-			hpPosition = bboRefs.hpPosition;
-			mpPosition = bboRefs.mpPosition;
-			hpTextPos = bboRefs.hpTextPos;
-			mpTextPos = bboRefs.mpTextPos;
+			//canvas = bboRefs.canvas;
+			//menuPos = bboRefs.menuPos;
+			//namePos = bboRefs.namePos;
+
+			//hpPosition = bboRefs.hpPosition;
+			//mpPosition = bboRefs.mpPosition;
+			//hpTextPos = bboRefs.hpTextPos;
+			//mpTextPos = bboRefs.mpTextPos;
 			hoverTxtPos = bboRefs.hoverTxtPos;
 
-			//setting up menu items in correct positions	
-
-			//CHEKC IF INSTANTIATING DIFFERENTLY WILL SAVE SETUP TIME//
-
-			//menu bg
-			menuBackground = Instantiate(menuBG.gameObject);
-			menuBackground.transform.SetParent(canvas.transform, false);
-			menuBackground.transform.position = menuPos.transform.position;
-
-			//hp/mp bars/bg
-			GameObject tmpbg1 = Instantiate(hpBackground.gameObject);
-			hpBg = tmpbg1.GetComponent<Image>();
-			hpBg.transform.SetParent(canvas.transform, false);
-			hpBg.transform.position = hpPosition.transform.position;
-
-			GameObject tmpHp = Instantiate(hpImage.gameObject);
+			GameObject tmpHp = Instantiate(hpBar.gameObject);
 			hp = tmpHp.GetComponent<Image>();
 			hp.transform.SetParent(canvas.transform, false);
-			hp.transform.position = hpPosition.transform.position;
+			hp.transform.position = hpBar.transform.position;
 
-			GameObject tmpbg2 = Instantiate(hpBackground.gameObject);
-			mpBg = tmpbg2.GetComponent<Image>();
-			mpBg.transform.SetParent(canvas.transform, false);
-			mpBg.transform.position = mpPosition.transform.position;
-
-			GameObject tmpMp = Instantiate(mpImage.gameObject);
+			GameObject tmpMp = Instantiate(mpBar.gameObject);
 			mp = tmpMp.GetComponent<Image>();
 			mp.transform.SetParent(canvas.transform, false);
-			mp.transform.position = mpPosition.transform.position;
+			mp.transform.position = mpBar.transform.position;
 
-			//hp/mp text
-			GameObject tmpHpTxt = Instantiate(font.gameObject);
-			hpTxt = tmpHpTxt.GetComponent<Text>();
-			hpTxt.transform.SetParent(canvas.transform, false);
-			hpTxt.transform.position = hpTextPos.transform.position;
-			hpTxt.text = CharacterCurrentHP.ToString() +  "/" + CharacterMaxHP.ToString();
+			////hp/mp text
+			//GameObject tmpHpTxt = Instantiate(font.gameObject);
+			//hpTxt = tmpHpTxt.GetComponent<Text>();
+			//hpTxt.transform.SetParent(canvas.transform, false);
+			//hpTxt.transform.position = hpTextPos.transform.position;
+			//hpTxt.text = CharacterCurrentHP.ToString() +  "/" + CharacterMaxHP.ToString();
 
-			GameObject tmpMpTxt = Instantiate(font.gameObject);
-			mpTxt = tmpMpTxt.GetComponent<Text>();
-			mpTxt.transform.SetParent(canvas.transform, false);
-			mpTxt.transform.position = mpTextPos.transform.position;
-			mpTxt.text = CharacterCurrentMP.ToString() + "/" + CharacterMaxHP.ToString();
+			//GameObject tmpMpTxt = Instantiate(font.gameObject);
+			//mpTxt = tmpMpTxt.GetComponent<Text>();
+			//mpTxt.transform.SetParent(canvas.transform, false);
+			//mpTxt.transform.position = mpTextPos.transform.position;
+			//mpTxt.text = CharacterCurrentMP.ToString() + "/" + CharacterMaxHP.ToString();
 
 			//player name
-			GameObject tmpTxt = Instantiate(font.gameObject);
+			GameObject tmpTxt = Instantiate(text.gameObject);
 			charaNameText = tmpTxt.GetComponent<Text>();
 			charaNameText.transform.SetParent(canvas.transform, false);
-			charaNameText.transform.position = namePos.transform.position;
+			charaNameText.transform.position = text.transform.position;
 			charaNameText.text = transform.GetComponent<Character>().name;
 
 			//setting up each power with a button
 			foreach(Powers pow in powerList) {
 				GameObject go = Instantiate(button.gameObject);
                 Button buttonInstance = go.GetComponent<Button>();
-				go.transform.SetParent(menuBackground.transform, false);
+				go.transform.SetParent(bgPanel.transform, false);
 				go.name = pow.powName + "(" + (count + 1) + ")";
 				go.GetComponentInChildren<Text>().text = pow.powName;
 				buttons.Add(buttonInstance);
@@ -170,7 +141,7 @@ namespace RPGsys {
 
 			//back button setup
 			if(transform.GetComponent<Character>().ChoiceOrder != 1) {
-				GameObject tmp = Instantiate(button.gameObject, menuBackground.transform);
+				GameObject tmp = Instantiate(button.gameObject, bgPanel.transform);
 
 				goBackBtn = tmp.GetComponent<Button>();
 				//goBackBtn.transform.SetParent(menuBG.transform, false);
@@ -216,7 +187,7 @@ namespace RPGsys {
 		}
 
 		public void ShowButtons() {
-			menuBackground.SetActive(true);
+			bgPanel.SetActive(true);
 			charaNameText.gameObject.SetActive(true);
 			hp.gameObject.SetActive(true);
 			float hpScale = Mathf.Clamp01(CharacterCurrentHP / CharacterMaxHP);
@@ -241,7 +212,7 @@ namespace RPGsys {
 		}
 
 		public void HideButtons() {
-			menuBackground.SetActive(false);
+			bgPanel.SetActive(false);
 			charaNameText.gameObject.SetActive(false);
 			hp.gameObject.SetActive(false);
 			mp.gameObject.SetActive(false);

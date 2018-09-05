@@ -112,7 +112,8 @@ public class GameController : MonoBehaviour, ISaveable {
 	// TODO saving to specific file
 	public void SaveGame()
 	{
-		File.WriteAllText("savegame.json", Save().ToString());
+		// TODO use a coroutine or other asynchronous operation to do this
+		File.WriteAllText(Application.persistentDataPath +  "/savegame.json", Save().ToString());
 	}
 
 	public JObject Save()

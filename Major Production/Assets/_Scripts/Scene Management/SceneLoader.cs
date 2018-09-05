@@ -129,8 +129,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		return new JObject(
 			new JProperty("scene", worldScene.name),
 			new JProperty("entrypointIndex", EntrypointIndex),
-			new JProperty("sceneData", new JObject(persistentSceneData)));
-		// TODO check this works correctly
+			new JProperty("sceneData", JObject.FromObject(persistentSceneData)));
 	}
 
 	public void Load(JObject data)

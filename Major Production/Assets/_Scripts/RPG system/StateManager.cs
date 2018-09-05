@@ -32,7 +32,7 @@ namespace RPGsys {
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
-        [SerializeField] Camera camera;
+        [SerializeField] new Camera camera;
 
 		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
 

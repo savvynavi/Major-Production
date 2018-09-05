@@ -125,9 +125,9 @@ namespace RPGsys{
 
 
 
-			classInfo = Utility.InstantiateSameName(classInfo);
+			classInfo = Instantiate(classInfo);
 			for(int i = 0; i < classInfo.classPowers.Count(); i++) {
-				classInfo.classPowers[i] = Utility.InstantiateSameName(classInfo.classPowers[i]);
+				classInfo.classPowers[i] = Instantiate(classInfo.classPowers[i]);
 			}
 
 			anim = GetComponent<Animator>();
@@ -186,7 +186,7 @@ namespace RPGsys{
 			}
 		}
 
-		JObject ISaveable.Save()
+		public JObject Save()
 		{
 			// Not saving base stats on assumption they won't change
 			// Will have to do so if that changes
@@ -198,10 +198,10 @@ namespace RPGsys{
 				new JProperty("name", name),
 				new JProperty("hp", Hp),
 				new JProperty("mp", Mp),
-				new JProperty("weapon", Weapon != null ? Weapon.name : ""),
+				new JProperty("weapon", Weapon != null ? Utility.TrimCloned(Weapon.name) : ""),
 				new JProperty("equipment",
 					new JArray(from i in Equipment
-							   select i.name)));
+							   select Utility.TrimCloned(i.name))));
 			return saveData;
 		}
 
@@ -214,13 +214,13 @@ namespace RPGsys{
 			}
 			else
 			{
-				Weapon = Factory<Item>.Instantiate(weaponName);
+				Weapon = Factory<Item>.CreateInstance(weaponName);
 			}
 
 			// TODO test this works (equip item, save, load and check still equipped)
 			foreach(JToken i in data["equipment"])
 			{
-				UseItem(Factory<Item>.Instantiate((string)i));
+				UseItem(Factory<Item>.CreateInstance((string)i));
 			}
 
 			Hp = (float)data["hp"];

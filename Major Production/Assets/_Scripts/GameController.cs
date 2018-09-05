@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json.Linq;
+using RPGsys;
 using RPG.UI;
 using RPG.Save;
-using Newtonsoft.Json.Linq;
+
 
 // TODO have some OnStateChange function/event (ie to allow menu to close itself)
 public class GameController : MonoBehaviour, ISaveable {
@@ -105,12 +109,27 @@ public class GameController : MonoBehaviour, ISaveable {
 		state = EGameStates.Menu;
 	}
 
-	// TODO something that calls Save, and serialized the JObject to a file
+	// TODO saving to specific file
+	public void SaveGame()
+	{
+		File.WriteAllText("savegame.json", Save().ToString());
+	}
 
 	public JObject Save()
 	{
 		// TODO save characters, inventory, sceneloader
-		throw new System.NotImplementedException();
+		// TODO error handling (just put in try/catch block and dump error somewhere?)
+		List<Character> team = new List<Character>(playerTeam.GetComponentsInChildren<Character>(true));
+		JArray CharacterSave = new JArray(from c in team
+										  select c.Save());
+
+		JObject InventorySave = inventory.Save();
+		JObject SceneSave = SceneLoader.Instance.Save();
+
+		return new JObject(
+			new JProperty("playerTeam", CharacterSave),
+			new JProperty("inventory", InventorySave),
+			new JProperty("scene", SceneSave));
 	}
 
 	public void Load(JObject data)

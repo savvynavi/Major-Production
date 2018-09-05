@@ -27,20 +27,15 @@ namespace RPG.Save
 			return value;
 		}
 
-		public static T Instantiate(string name)
+		public static T CreateInstance(string name)
 		{
 			T instance = null;
 			T source = Find(name);
 			if(source != null)
 			{
-				instance = Utility.InstantiateSameName(source);
+				instance = Object.Instantiate(source);
 			}
 			return instance;
-		}
-
-		public static string TrimCloned(string name)
-		{
-			return name.Replace(" (Clone)", string.Empty);
 		}
 	}
 }

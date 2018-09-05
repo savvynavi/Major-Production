@@ -38,4 +38,9 @@ public class Utility  {
 		clone.name = original.name;
 		return clone;
 	}
+
+	public static string TrimCloned(string name)
+	{
+		return name.Replace("(Clone)", string.Empty);
+	}
 }

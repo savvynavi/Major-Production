@@ -137,18 +137,17 @@ namespace RPGItems {
 
 		public JObject Save()
 		{
-			JObject saveData = new JObject(
+			return new JObject(
 				new JProperty("playerInventory",
 					new JArray(from i in playerInventory
-							   select i.name)));
-			throw new System.NotImplementedException();
+							   select Utility.TrimCloned(i.name))));
 		}
 
 		public void Load(JObject data)
 		{
 			foreach(JToken i in data["playerInventory"])
 			{
-				playerInventory.Add(Factory<Item>.Instantiate((string)i));
+				playerInventory.Add(Factory<Item>.CreateInstance((string)i));
 			}
 			OnInventoryChanged.Invoke();
 		}

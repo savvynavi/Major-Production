@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using RPG.Save;
 using Newtonsoft.Json.Linq;
 
-// TODO figure out if this needs to call anything on loading/unloading scenes
+// TODO Saving/Loading puts character back at entrypoint. Maybe think about having specific point to put character instead?
 
 /// <summary>
 /// This class manages loading and unloading scenes. It also stores data for PersistentObjects

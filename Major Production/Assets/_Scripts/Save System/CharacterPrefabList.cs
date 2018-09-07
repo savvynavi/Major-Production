@@ -13,6 +13,7 @@ namespace RPG.Save
 
 		private void OnEnable()
 		{
+            // This doesn't always go off? Figure out why (editor only loads it once?)
 			foreach(Character c in characters)
 			{
 				Factory<Character>.Register(c);

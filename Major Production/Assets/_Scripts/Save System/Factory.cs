@@ -8,14 +8,19 @@ namespace RPG.Save
 	{
 		static Dictionary<string, T> objects = new Dictionary<string, T>();
 
+        static Factory()
+        {
+            Factory<T>.objects = new Dictionary<string, T>();
+        }
+
 		// Call from OnEnable of class to register on loading assets
 		public static void Register(T obj)
 		{
 			if(obj.name != "" && !obj.name.EndsWith("(Clone)"))
 			{
-				if (!objects.ContainsKey(obj.name))
+				if (!Factory<T>.objects.ContainsKey(obj.name))
 				{
-					objects[obj.name] = obj;
+					Factory<T>.objects[obj.name] = obj;
 				}
 			}
 		}
@@ -23,7 +28,7 @@ namespace RPG.Save
 		public static T Find(string name)
 		{
 			T value = null;
-			objects.TryGetValue(name, out value);
+			Factory<T>.objects.TryGetValue(name, out value);
 			return value;
 		}
 

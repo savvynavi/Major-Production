@@ -145,6 +145,7 @@ namespace RPGItems {
 
 		public void Load(JObject data)
 		{
+            playerInventory.Clear();
 			foreach(JToken i in data["playerInventory"])
 			{
 				playerInventory.Add(Factory<Item>.CreateInstance((string)i));

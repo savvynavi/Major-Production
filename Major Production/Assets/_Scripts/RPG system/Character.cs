@@ -195,7 +195,7 @@ namespace RPGsys{
 			// Again this may change
 
 			JObject saveData = new JObject(
-				new JProperty("name", name),
+				new JProperty("name", Utility.TrimCloned(name)),
 				new JProperty("hp", Hp),
 				new JProperty("mp", Mp),
 				new JProperty("weapon", Weapon != null ? Utility.TrimCloned(Weapon.name) : ""),
@@ -207,6 +207,9 @@ namespace RPGsys{
 
 		public void Load(JObject data)
 		{
+            name = (string)data["name"];
+            // HACK character names should be their own field, not the object's name
+
 			string weaponName = (string)data["weapon"];
 			if (string.IsNullOrEmpty(weaponName))
 			{

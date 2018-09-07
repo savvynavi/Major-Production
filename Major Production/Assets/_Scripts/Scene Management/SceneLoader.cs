@@ -135,7 +135,6 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	public void Load(JObject data)
 	{
 		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, string>>>();
-		EntrypointIndex = (int)data["entrypointIndex"];
-		LoadScene((string)data["scene"]);
+		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
 	}
 }

@@ -113,8 +113,18 @@ public class GameController : MonoBehaviour, ISaveable {
 	public void SaveGame()
 	{
 		// TODO use a coroutine or other asynchronous operation to do this
+        // TODO error for writing to file
 		File.WriteAllText(Application.persistentDataPath +  "/savegame.json", Save().ToString());
 	}
+
+    // TODO loading from specific file
+    public void LoadGame()
+    {
+        // TODO first check that file exists
+        // TODO error handling (could read from file? Parsed as JSON? JToken is a JObject?
+        JObject saveData = (JObject)JToken.Parse(File.ReadAllText(Application.persistentDataPath + "/savegame.json"));
+        Load(saveData);
+    }
 
 	public JObject Save()
 	{
@@ -135,9 +145,17 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void Load(JObject data)
 	{
-		// TODO load characters, inventory, sceneloader
-
-		throw new System.NotImplementedException();
+        if(playerTeam != null)
+        {
+            GameObject.Destroy(playerTeam);
+        }
+        //HACK should probably check that JTokens are correct type before attemting to cast
+        playerTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
+        playerTeam.transform.SetParent(this.transform);
+        playerTeam.SetActive(false);
+        playerTeam.name = "Player Team";
+        inventory.Load((JObject)data["inventory"]);
+        SceneLoader.Instance.Load((JObject)data["scene"]);
 		state = EGameStates.Overworld;
 	}
 }

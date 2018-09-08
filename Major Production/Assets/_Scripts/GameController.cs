@@ -154,6 +154,9 @@ public class GameController : MonoBehaviour, ISaveable {
         playerTeam.transform.SetParent(this.transform);
         playerTeam.SetActive(false);
         playerTeam.name = "Player Team";
+
+        BattleManager.Instance.playerTeam = playerTeam.transform;
+
         inventory.Load((JObject)data["inventory"]);
         SceneLoader.Instance.Load((JObject)data["scene"]);
 		state = EGameStates.Overworld;

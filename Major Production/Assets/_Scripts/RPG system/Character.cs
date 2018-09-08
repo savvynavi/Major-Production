@@ -163,6 +163,7 @@ namespace RPGsys{
 		{
 			//TODO check if item usable?
 			item.Effect.Apply(this, item);
+            // Is this calling the wrong thing or forgetting to set equipable?
 			if(item.Type == Item.ItemType.Equipable)
 			{
 				Equipment.Add(item);

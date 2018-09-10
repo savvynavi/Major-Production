@@ -143,7 +143,7 @@ namespace RPGsys {
 
 
 			turnBehaviour.Setup(characters, enemies);
-			confirmMenu.Setup();
+			//confirmMenu.Setup();
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -257,11 +257,11 @@ namespace RPGsys {
 		}
 
 		public IEnumerator LockInMoves() {
-			confirmMenu.ShowMenu();
+			battleUIController.moveConfirmMenu.ShowMenu();
 			while(confirmMoves != true) {
 				yield return null;
 			}
-			confirmMenu.HideMenu();
+			battleUIController.moveConfirmMenu.HideMenu();
 			if(redoTurn == true) {
 				turnBehaviour.MovesThisRound.Clear();
 				turnBehaviour.ResetTurnNumber();

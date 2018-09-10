@@ -44,6 +44,8 @@ namespace RPGsys {
 		Text charaNameText;
 		Image hp;
 		Image mp;
+		Image portrait;
+		Image hpMpContainer;
 		Image hpBg;
 		Image mpBg;
 		Text hpTxt;
@@ -58,10 +60,10 @@ namespace RPGsys {
 
 		private void Start() {
 
-			//hp.type = Image.Type.Filled;
-			//hp.fillMethod = Image.FillMethod.Horizontal;
-			//mp.type = Image.Type.Filled;
-			//mp.fillMethod = Image.FillMethod.Horizontal;
+			hp.type = Image.Type.Filled;
+			hp.fillMethod = Image.FillMethod.Radial180;
+			mp.type = Image.Type.Filled;
+			mp.fillMethod = Image.FillMethod.Radial180;
 
 			CharacterCurrentHP = GetComponent<Character>().Hp;
 			CharacterMaxHP = GetComponent<Character>().hpStat;
@@ -76,25 +78,23 @@ namespace RPGsys {
 			CharacterMaxMP = GetComponent<Character>().mpStat;
 		}
 
-		public void Setup(ButtonBehaviourObjects bboRefs, Button button, Text text, Image hpBar, Image mpBar, Image panel, Canvas canvasUI) {
+		public void Setup(ButtonBehaviourObjects bboRefs, Button button, Text text, Image hpBar, Image mpBar, Image panel, Image charaPortrait, Image container, Canvas canvasUI) {
 			int count = 0;
 			playerActivated = false;
 			charaName = transform.name;
 
 			canvas = canvasUI;
 			bgPanel = panel.gameObject;
-
-
-			//canvas = bboRefs.canvas;
-			//menuPos = bboRefs.menuPos;
-			//namePos = bboRefs.namePos;
-
-			//hpPosition = bboRefs.hpPosition;
-			//mpPosition = bboRefs.mpPosition;
-			//hpTextPos = bboRefs.hpTextPos;
-			//mpTextPos = bboRefs.mpTextPos;
+			//portrait = charaPortrait;
 			hoverTxtPos = bboRefs.hoverTxtPos;
 
+			GameObject tmpPortrait = Instantiate(charaPortrait.gameObject);
+			portrait = tmpPortrait.GetComponent<Image>();
+			portrait.transform.SetParent(canvas.transform, false);
+			portrait.transform.position = charaPortrait.transform.position;
+			portrait.sprite = transform.gameObject.GetComponent<Character>().Portrait;
+
+			//setting up hp/mp and the container
 			GameObject tmpHp = Instantiate(hpBar.gameObject);
 			hp = tmpHp.GetComponent<Image>();
 			hp.transform.SetParent(canvas.transform, false);
@@ -105,18 +105,10 @@ namespace RPGsys {
 			mp.transform.SetParent(canvas.transform, false);
 			mp.transform.position = mpBar.transform.position;
 
-			////hp/mp text
-			//GameObject tmpHpTxt = Instantiate(font.gameObject);
-			//hpTxt = tmpHpTxt.GetComponent<Text>();
-			//hpTxt.transform.SetParent(canvas.transform, false);
-			//hpTxt.transform.position = hpTextPos.transform.position;
-			//hpTxt.text = CharacterCurrentHP.ToString() +  "/" + CharacterMaxHP.ToString();
-
-			//GameObject tmpMpTxt = Instantiate(font.gameObject);
-			//mpTxt = tmpMpTxt.GetComponent<Text>();
-			//mpTxt.transform.SetParent(canvas.transform, false);
-			//mpTxt.transform.position = mpTextPos.transform.position;
-			//mpTxt.text = CharacterCurrentMP.ToString() + "/" + CharacterMaxHP.ToString();
+			GameObject tmpContainer = Instantiate(container.gameObject);
+			hpMpContainer = tmpContainer.GetComponent<Image>();
+			hpMpContainer.transform.SetParent(canvas.transform, false);
+			hpMpContainer.transform.position = container.transform.position;
 
 			//player name
 			GameObject tmpTxt = Instantiate(text.gameObject);
@@ -135,7 +127,7 @@ namespace RPGsys {
 				buttons.Add(buttonInstance);
 
 				//setup for hover textbox, set to inactive 
-				HoverButtonSetup(pow, buttonInstance);
+				//HoverButtonSetup(pow, buttonInstance);
 				count++;
 			}
 
@@ -144,7 +136,7 @@ namespace RPGsys {
 				GameObject tmp = Instantiate(button.gameObject, bgPanel.transform);
 
 				goBackBtn = tmp.GetComponent<Button>();
-				//goBackBtn.transform.SetParent(menuBG.transform, false);
+				goBackBtn.transform.SetParent(bgPanel.transform, false);
 				goBackBtn.name = "UNDO";
 				goBackBtn.GetComponentInChildren<Text>().text = "UNDO";
 				goBackBtn.onClick.AddListener(() => HandleClickBack());
@@ -175,17 +167,6 @@ namespace RPGsys {
 			HideButtons();
 		}
 
-		public void HoverButtonSetup(Powers pow, Button btn) {
-			GameObject hoverTxt = Instantiate(hpTxt.gameObject);
-			HoverText = hoverTxt.GetComponent<Text>();
-			HoverText.transform.SetParent(canvas.transform, false);
-			pow.Description = pow.description + "\nDamage: " + (pow.damage) + "\nUses: " + pow.statType + "\nMana Cost: " + pow.manaCost.ToString();
-			btn.GetComponent<HoverTextStorage>().btnDescription = pow.description + "\nDamage: " + (pow.damage) + "\nUses: " + pow.statType + "\nMana Cost: " + pow.manaCost.ToString();
-			HoverText.name = pow.powName + "hovertext";
-			HoverText.gameObject.SetActive(false);
-			HoverText.gameObject.transform.position = hoverTxtPos.position;
-		}
-
 		public void ShowButtons() {
 			bgPanel.SetActive(true);
 			charaNameText.gameObject.SetActive(true);
@@ -197,12 +178,17 @@ namespace RPGsys {
 			float mpScale = Mathf.Clamp01(CharacterCurrentMP / CharacterMaxMP);
 			mp.fillAmount = mpScale;
 
-			mpBg.gameObject.SetActive(true);
-			hpBg.gameObject.SetActive(true);
-			hpTxt.gameObject.SetActive(true);
-			hpTxt.text = CharacterCurrentHP.ToString() + "/" + CharacterMaxHP.ToString();
-			mpTxt.gameObject.SetActive(true);
-			mpTxt.text = CharacterCurrentMP.ToString() + "/" + CharacterMaxMP.ToString();
+			portrait.gameObject.SetActive(true);
+			hpMpContainer.gameObject.SetActive(true);
+			if(goBackBtn != null) {
+				goBackBtn.gameObject.SetActive(true);
+			}
+			//mpBg.gameObject.SetActive(true);
+			//hpBg.gameObject.SetActive(true);
+			//hpTxt.gameObject.SetActive(true);
+			//hpTxt.text = CharacterCurrentHP.ToString() + "/" + CharacterMaxHP.ToString();
+			//mpTxt.gameObject.SetActive(true);
+			//mpTxt.text = CharacterCurrentMP.ToString() + "/" + CharacterMaxMP.ToString();
 
 
 			foreach(Button btn in buttons) {
@@ -216,11 +202,16 @@ namespace RPGsys {
 			charaNameText.gameObject.SetActive(false);
 			hp.gameObject.SetActive(false);
 			mp.gameObject.SetActive(false);
-			mpBg.gameObject.SetActive(false);
-			hpBg.gameObject.SetActive(false);
-			hpTxt.gameObject.SetActive(false);
-			mpTxt.gameObject.SetActive(false);
-			HoverText.gameObject.SetActive(false);
+			portrait.gameObject.SetActive(false);
+			hpMpContainer.gameObject.SetActive(false);
+			if(goBackBtn != null) {
+				goBackBtn.gameObject.SetActive(false);
+			}
+			//mpBg.gameObject.SetActive(false);
+			//hpBg.gameObject.SetActive(false);
+			//hpTxt.gameObject.SetActive(false);
+			//mpTxt.gameObject.SetActive(false);
+			//HoverText.gameObject.SetActive(false);
 
 			foreach(Button btn in buttons) {
 				btn.gameObject.SetActive(false);
@@ -248,17 +239,17 @@ namespace RPGsys {
 
 		//use to have button info pop up on screen/clear
 		public void OnPointerEnter(BaseEventData data, int index) {
-			HoverText.gameObject.SetActive(true);
-			for(int i = 0; i < buttons.Count; i++) {
-				if(buttons[index].GetComponentInChildren<Text>().text == powerList[i].powName) {
-					string tmp = buttons[index].GetComponent<HoverTextStorage>().btnDescription;
-					HoverText.text = buttons[index].GetComponent<HoverTextStorage>().btnDescription;
-				}
-			}
+			//HoverText.gameObject.SetActive(true);
+			//for(int i = 0; i < buttons.Count; i++) {
+			//	if(buttons[index].GetComponentInChildren<Text>().text == powerList[i].powName) {
+			//		string tmp = buttons[index].GetComponent<HoverTextStorage>().btnDescription;
+			//		HoverText.text = buttons[index].GetComponent<HoverTextStorage>().btnDescription;
+			//	}
+			//}
 		}
 
 		public void OnPointerExit(BaseEventData data, int index) {
-			HoverText.gameObject.SetActive(false);
+			//HoverText.gameObject.SetActive(false);
 		}
 
         public void CleanUp()

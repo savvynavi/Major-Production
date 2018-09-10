@@ -16,18 +16,18 @@ namespace RPGsys {
 		public ButtonBehaviourObjects buttonBehaviourObjects;
 
 		Image ButtonPanel;
+		Image Portrait;
+		Image Container;
 		Text NameText;
 		List<ButtonBehaviour> btnBehaviours;
+		public MoveConfirmMenu moveConfirmMenu { get; private set; }
 		StateManager stateManager;
 
-		private void Start() {
-			//MenuLayout.SetActive(false);
-
+		private void Awake() {
 			//grab all the buttonBehaviours and store in a list
-
 			btnBehaviours = new List<ButtonBehaviour>();
-			
-			//UISetup();
+			stateManager = GetComponent<StateManager>();
+			moveConfirmMenu = GetComponent<MoveConfirmMenu>();
 		}
 
 		public void Instantiate() {
@@ -49,25 +49,32 @@ namespace RPGsys {
 			GameObject tmp = null;
 			foreach(Transform child in children) {
 				if(child.name == "ButtonPanel") {
-					tmp = child.gameObject;
+					ButtonPanel = child.gameObject.GetComponent<Image>();
 				}
-			}
-			ButtonPanel = tmp.GetComponent<Image>();
-
-			foreach(Transform child in children) {
+				if(child.name == "Portrait") {
+					Portrait = child.gameObject.GetComponent<Image>();
+				}
+				if(child.name == "MP/MP Container") {
+					Container = child.gameObject.GetComponent<Image>();
+				}
 				if(child.name == "Name") {
-					tmp = child.gameObject;
+					NameText = child.gameObject.GetComponent<Text>();
 				}
 			}
-			NameText = tmp.GetComponent<Text>();
-
 
 			foreach(ButtonBehaviour btnBehav in btnBehaviours) {
-				btnBehav.Setup(buttonBehaviourObjects, button, NameText, Healthbar, Magicbar, ButtonPanel, canvas);
+				btnBehav.Setup(buttonBehaviourObjects, button, NameText, Healthbar, Magicbar, ButtonPanel, Portrait, Container, canvas);
 			}
+
+			moveConfirmMenu.Setup(button, ButtonPanel, canvas);
+
+			//turning all unneeded assets off once passed into the button behaviours
+			Healthbar.gameObject.SetActive(false);
+			Magicbar.gameObject.SetActive(false);
+			Portrait.gameObject.SetActive(false);
+			NameText.gameObject.SetActive(false);
+			ButtonPanel.gameObject.SetActive(false);
 		}
-
-
 	}
 
 }

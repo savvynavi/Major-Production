@@ -24,7 +24,7 @@ namespace RPGsys{
 		public Animator anim;
 
 		public int ChoiceOrder;
-		public Image Portrait;
+		public Sprite Portrait;
 
 		//dictionary stuff
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();

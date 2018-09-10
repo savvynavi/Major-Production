@@ -152,5 +152,11 @@ namespace RPGItems {
 			}
 			OnInventoryChanged.Invoke();
 		}
+
+		public static bool DataValid(JObject data)
+		{
+			// TODO check object has JArray in playerInventory, and each member is a string matching an item
+			throw new System.NotImplementedException();
+		}
 	}
 }

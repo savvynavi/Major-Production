@@ -137,4 +137,30 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, string>>>();
 		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
 	}
+
+	public static bool DataValid(JObject data)
+	{
+		JToken nameToken;
+		JToken entrypointToken;
+		JToken sceneDataToken;
+		if(data.TryGetValue("scene",out nameToken) &&
+			data.TryGetValue("entrypointIndex",out entrypointToken) &&
+			data.TryGetValue("sceneData",out sceneDataToken))
+		{
+			if(nameToken.Type == JTokenType.String &&
+				entrypointToken.Type == JTokenType.String &&
+				sceneDataToken.Type == JTokenType.Object)
+			{
+				return true;
+			} else
+			{
+				return false;
+			}
+
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

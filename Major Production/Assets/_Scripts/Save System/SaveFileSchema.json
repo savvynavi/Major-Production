@@ -1,0 +1,27 @@
+{
+	"$schema": "http://json-schema.org/schema#"
+	"definitions":{
+		"character" : {
+			"type": "object",
+			"properties": {
+				"name": {"type": "string"},
+				"hp": {"type": "number"},
+				"mp": {"type": "number"},
+				"weapon": {"type": "string"},
+				"equipment": {
+					"type": "array",
+					"items": { "type": "string"}
+				}		
+			}
+		},
+		"inventoryData" : {
+			"type": "object",
+			"properties": {
+				"playerInventory": {
+					"type": "array",
+					"items"
+				}
+			}
+		}
+	}
+}

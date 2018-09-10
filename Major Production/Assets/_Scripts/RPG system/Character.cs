@@ -230,5 +230,10 @@ namespace RPGsys{
 			Hp = (float)data["hp"];
 			Mp = (float)data["mp"];
 		}
+
+		public static bool DataValid(JObject data)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

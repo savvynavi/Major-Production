@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour, ISaveable {
 	public static GameController Instance = null;
 
 	public EGameStates state;		// HACK make private, use a field and ChangeState function for access
+	public bool Paused { get; private set; }
 
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
 	[SerializeField] GameObject initialPlayerTeam;
@@ -29,8 +30,10 @@ public class GameController : MonoBehaviour, ISaveable {
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
 	[SerializeField] MenuManager menus;
+	public CharacterPrefabList prefabList; // Might be needed to force its loading? should test in build with and without
 
 	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
+	
 
 	private void Awake()
 	{
@@ -44,6 +47,7 @@ public class GameController : MonoBehaviour, ISaveable {
 		DontDestroyOnLoad(gameObject);
 		inventory = GetComponent<RPGItems.InventoryManager>();
 		menus = GetComponentInChildren<MenuManager>(true);
+		Paused = false;
 		state = EGameStates.Menu;	//HACK assumes game starts at main menu!
 	}
 	
@@ -91,11 +95,13 @@ public class GameController : MonoBehaviour, ISaveable {
 	public void Pause()
 	{
 		Time.timeScale = 0;
+		Paused = true;
 	}
 
 	public void Unpause()
 	{
 		Time.timeScale = 1;
+		Paused = false;
 	}
 
 	public void QuitToTitle()
@@ -113,17 +119,51 @@ public class GameController : MonoBehaviour, ISaveable {
 	public void SaveGame()
 	{
 		// TODO use a coroutine or other asynchronous operation to do this
-        // TODO error for writing to file
-		File.WriteAllText(Application.persistentDataPath +  "/savegame.json", Save().ToString());
+		// TODO error for writing to file
+		string saveData = Save().ToString();
+		try {
+			File.WriteAllText(Application.persistentDataPath + "/savegame.json", saveData);
+		}
+		catch (IOException exception)
+		{
+			// probably need to do more than this when passing in a save file
+			Debug.LogWarning("Save game exception:" + exception.Message);
+		} catch (System.Security.SecurityException exception)
+		{
+			Debug.LogWarning("No permission to access save file:" + exception.Message);
+		}
 	}
 
     // TODO loading from specific file
     public void LoadGame()
     {
-        // TODO first check that file exists
-        // TODO error handling (could read from file? Parsed as JSON? JToken is a JObject?
-        JObject saveData = (JObject)JToken.Parse(File.ReadAllText(Application.persistentDataPath + "/savegame.json"));
-        Load(saveData);
+		// TODO first check that file exists
+		// TODO error handling (could read from file? Parsed as JSON? JToken is a JObject?
+		JObject saveData = null;
+		try
+		{
+			saveData = JObject.Parse(File.ReadAllText(Application.persistentDataPath + "/savegame.json"));
+		}
+		catch (FileNotFoundException exception)
+		{
+			// should probably check for file existing before enabling button too?
+			Debug.LogWarning("Load file not found: " + exception.Message);
+			return;
+		} catch (IOException exception)
+		{
+			Debug.LogWarning("Load file IO Exception: " + exception.Message);
+			return;
+		}
+		catch (System.Security.SecurityException exception)
+		{
+			Debug.LogWarning("No permission to access save file:" + exception.Message);
+			return;
+		} catch (Newtonsoft.Json.JsonReaderException exception)
+		{
+			Debug.LogWarning("Save file not valid JSON: "+exception.Message);
+			return;
+		}
+		Load(saveData);
     }
 
 	public JObject Save()
@@ -145,20 +185,65 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void Load(JObject data)
 	{
-        if(playerTeam != null)
-        {
-            GameObject.Destroy(playerTeam);
-        }
-        //HACK should probably check that JTokens are correct type before attemting to cast
-        playerTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
-        playerTeam.transform.SetParent(this.transform);
-        playerTeam.SetActive(false);
-        playerTeam.name = "Player Team";
+        // Going to check data is valid before loading
+		// Maybe instead, save current status as a backup?
 
-        BattleManager.Instance.playerTeam = playerTeam.transform;
+        //HACK should probably check that JTokens are correct type before attemting to cast
+        GameObject loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
+        loadedTeam.transform.SetParent(this.transform);
+        loadedTeam.SetActive(false);
+        loadedTeam.name = "Player Team";
+		if (playerTeam != null)
+		{
+			GameObject.Destroy(playerTeam);
+		}
+		playerTeam = loadedTeam;
+
+		BattleManager.Instance.playerTeam = playerTeam.transform;
 
         inventory.Load((JObject)data["inventory"]);
         SceneLoader.Instance.Load((JObject)data["scene"]);
+
+		menus.CloseMenus();
+
 		state = EGameStates.Overworld;
+	}
+
+	public static bool DataValid(JObject data)
+	{
+		JToken team;
+		JToken inventorySave;
+		JToken sceneSave;
+		if(data.TryGetValue("playerTeam", out team) && team is JArray && team.HasValues)
+		{
+			foreach(JToken child in (JArray)team)
+			{
+				if(child is JObject && Character.DataValid((JObject) child))
+				{
+					continue;
+				} else
+				{
+					return false;
+				}
+			}
+		} else
+		{
+			return false;
+		}
+		if(data.TryGetValue("inventory", out inventorySave) && inventorySave is JObject)
+		{
+			if (!RPGItems.InventoryManager.DataValid((JObject)inventorySave))
+			{
+				return false;
+			}
+		}
+		if(data.TryGetValue("scene", out sceneSave) && sceneSave is JObject)
+		{
+			if(!SceneLoader.DataValid((JObject)sceneSave))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

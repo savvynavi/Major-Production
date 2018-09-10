@@ -109,7 +109,6 @@ namespace RPGsys{
 
 		void OnEnable()
 		{
-			Debug.Log(name + " enabled");
 		}
 
 		void Awake(){

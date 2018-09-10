@@ -1,7 +1,8 @@
 {
-	"$schema": "http://json-schema.org/schema#"
+	"$schema": "http://json-schema.org/schema#",
+	"$id": "https://github.com/savvynavi/Major-Production/tree/master/Major%20Production/Assets/_Scripts/Save%20System/SaveFileSchema",
 	"definitions":{
-		"character" : {
+		"Character" : {
 			"type": "object",
 			"properties": {
 				"name": {"type": "string"},
@@ -12,16 +13,45 @@
 					"type": "array",
 					"items": { "type": "string"}
 				}		
-			}
+			},
+			"required": ["name","hp","mp","weapon","equipment"]
 		},
-		"inventoryData" : {
+		"InventoryManager" : {
 			"type": "object",
 			"properties": {
 				"playerInventory": {
 					"type": "array",
-					"items"
+					"items": {"type": "string"}
 				}
-			}
+			},
+			"required": ["playerInventory"]
+		},
+		"SceneLoader": {
+			"type": "object",
+			"properties": {
+				"scene": {"type":"string"},
+				"entrypointIndex": {"type":"number"},
+				"sceneData": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"required": ["scene","entrypointIndex","sceneData"]
 		}
-	}
+	},
+	"type": "object",
+	"properties": {
+		"playerTeam": {
+			"type": "array",
+			"items": {"$ref": "#/definitions/Character"}
+		},
+		"inventory": {"$ref": "#/definitions/InventoryManager"},
+		"scene": {"$ref": "#/definitions/SceneLoader"}
+	},
+	"required": ["playerTeam","inventory","scene"]
 }

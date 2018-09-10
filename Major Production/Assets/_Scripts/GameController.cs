@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using RPGsys;
 using RPG.UI;
 using RPG.Save;
@@ -32,6 +33,10 @@ public class GameController : MonoBehaviour, ISaveable {
 	[SerializeField] MenuManager menus;
 	public CharacterPrefabList prefabList; // Might be needed to force its loading? should test in build with and without
 
+	[Header("Save System")]
+	[SerializeField] TextAsset saveSchemaFile;
+	JSchema saveSchema;
+
 	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
 	
 
@@ -43,12 +48,15 @@ public class GameController : MonoBehaviour, ISaveable {
 		} else if (Instance != this)
 		{
 			GameObject.Destroy(gameObject);
+			return;
 		}
 		DontDestroyOnLoad(gameObject);
 		inventory = GetComponent<RPGItems.InventoryManager>();
 		menus = GetComponentInChildren<MenuManager>(true);
 		Paused = false;
-		state = EGameStates.Menu;	//HACK assumes game starts at main menu!
+		state = EGameStates.Menu;   //HACK assumes game starts at main menu!
+
+		saveSchema = JSchema.Parse(saveSchemaFile.text);
 	}
 	
 	// Use this for initialization
@@ -185,30 +193,43 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void Load(JObject data)
 	{
-        // Going to check data is valid before loading
+		// Going to check data is valid before loading
 		// Maybe instead, save current status as a backup?
-
-        //HACK should probably check that JTokens are correct type before attemting to cast
-        GameObject loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
-        loadedTeam.transform.SetParent(this.transform);
-        loadedTeam.SetActive(false);
-        loadedTeam.name = "Player Team";
-		if (playerTeam != null)
+		IList<string> validationErrors;
+		if (data.IsValid(saveSchema, out validationErrors))
 		{
-			GameObject.Destroy(playerTeam);
+
+			//HACK should probably check that JTokens are correct type before attemting to cast
+			GameObject loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
+			loadedTeam.transform.SetParent(this.transform);
+			loadedTeam.SetActive(false);
+			loadedTeam.name = "Player Team";
+			if (playerTeam != null)
+			{
+				GameObject.Destroy(playerTeam);
+			}
+			playerTeam = loadedTeam;
+
+			BattleManager.Instance.playerTeam = playerTeam.transform;
+
+			inventory.Load((JObject)data["inventory"]);
+			SceneLoader.Instance.Load((JObject)data["scene"]);
+
+			menus.CloseMenus();
+
+			state = EGameStates.Overworld;
+		} else
+		{
+			Debug.LogWarning("Save File had invalid json");
+			foreach(string error in validationErrors)
+			{
+				Debug.LogWarning(error);
+			}
+			// might do more?
 		}
-		playerTeam = loadedTeam;
-
-		BattleManager.Instance.playerTeam = playerTeam.transform;
-
-        inventory.Load((JObject)data["inventory"]);
-        SceneLoader.Instance.Load((JObject)data["scene"]);
-
-		menus.CloseMenus();
-
-		state = EGameStates.Overworld;
 	}
 
+	// might not use this
 	public static bool DataValid(JObject data)
 	{
 		JToken team;

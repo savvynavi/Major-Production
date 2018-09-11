@@ -140,8 +140,6 @@ namespace RPGsys {
 				enemy.GetComponent<EnemyUI>().ShowUI();
 			}
 
-
-
 			turnBehaviour.Setup(characters, enemies);
 			//confirmMenu.Setup();
 
@@ -151,7 +149,6 @@ namespace RPGsys {
 
 		//while at least 1 player is alive, will loop the gamestates starting with the player
 		private IEnumerator GameLoop() {
-
 
 			yield return PlayerTurn();
 			while(confirmMoves == false){

@@ -42,15 +42,10 @@ namespace RPGsys {
 
 		GameObject bgPanel;
 		Text charaNameText;
-		Image hp;
-		Image mp;
-		Image portrait;
-		Image hpMpContainer;
-		Image hpBg;
-		Image mpBg;
 		Text hpTxt;
 		Text mpTxt;
 		Button goBackBtn;
+		CharacterUI characterUI;
 
 
 		private void Awake() {
@@ -59,12 +54,6 @@ namespace RPGsys {
 		}
 
 		private void Start() {
-
-			hp.type = Image.Type.Filled;
-			hp.fillMethod = Image.FillMethod.Radial180;
-			mp.type = Image.Type.Filled;
-			mp.fillMethod = Image.FillMethod.Radial180;
-
 			CharacterCurrentHP = GetComponent<Character>().Hp;
 			CharacterMaxHP = GetComponent<Character>().hpStat;
 			CharacterCurrentMP = GetComponent<Character>().Mp;
@@ -78,37 +67,20 @@ namespace RPGsys {
 			CharacterMaxMP = GetComponent<Character>().mpStat;
 		}
 
-		public void Setup(ButtonBehaviourObjects bboRefs, Button button, Text text, Image hpBar, Image mpBar, Image panel, Image charaPortrait, Image container, Canvas canvasUI) {
+		public void Setup(ButtonBehaviourObjects bboRefs, Button button, Text text,Image panel,List<CharacterUI> charaUIs, Canvas canvasUI) {
 			int count = 0;
 			playerActivated = false;
 			charaName = transform.name;
 
 			canvas = canvasUI;
 			bgPanel = panel.gameObject;
-			//portrait = charaPortrait;
+			for(int i = 0; i < charaUIs.Count; i++) {
+				if(charaUIs[i].name == transform.GetComponent<Character>().name) {
+					characterUI = charaUIs[i];
+				}
+			}
+
 			hoverTxtPos = bboRefs.hoverTxtPos;
-
-			GameObject tmpPortrait = Instantiate(charaPortrait.gameObject);
-			portrait = tmpPortrait.GetComponent<Image>();
-			portrait.transform.SetParent(canvas.transform, false);
-			portrait.transform.position = charaPortrait.transform.position;
-			portrait.sprite = transform.gameObject.GetComponent<Character>().Portrait;
-
-			//setting up hp/mp and the container
-			GameObject tmpHp = Instantiate(hpBar.gameObject);
-			hp = tmpHp.GetComponent<Image>();
-			hp.transform.SetParent(canvas.transform, false);
-			hp.transform.position = hpBar.transform.position;
-
-			GameObject tmpMp = Instantiate(mpBar.gameObject);
-			mp = tmpMp.GetComponent<Image>();
-			mp.transform.SetParent(canvas.transform, false);
-			mp.transform.position = mpBar.transform.position;
-
-			GameObject tmpContainer = Instantiate(container.gameObject);
-			hpMpContainer = tmpContainer.GetComponent<Image>();
-			hpMpContainer.transform.SetParent(canvas.transform, false);
-			hpMpContainer.transform.position = container.transform.position;
 
 			//player name
 			GameObject tmpTxt = Instantiate(text.gameObject);
@@ -170,26 +142,12 @@ namespace RPGsys {
 		public void ShowButtons() {
 			bgPanel.SetActive(true);
 			charaNameText.gameObject.SetActive(true);
-			hp.gameObject.SetActive(true);
-			float hpScale = Mathf.Clamp01(CharacterCurrentHP / CharacterMaxHP);
-			hp.fillAmount = hpScale;
-
-			mp.gameObject.SetActive(true);
-			float mpScale = Mathf.Clamp01(CharacterCurrentMP / CharacterMaxMP);
-			mp.fillAmount = mpScale;
-
-			portrait.gameObject.SetActive(true);
-			hpMpContainer.gameObject.SetActive(true);
+			if(characterUI != null) {
+				characterUI.gameObject.SetActive(true);
+			}
 			if(goBackBtn != null) {
 				goBackBtn.gameObject.SetActive(true);
 			}
-			//mpBg.gameObject.SetActive(true);
-			//hpBg.gameObject.SetActive(true);
-			//hpTxt.gameObject.SetActive(true);
-			//hpTxt.text = CharacterCurrentHP.ToString() + "/" + CharacterMaxHP.ToString();
-			//mpTxt.gameObject.SetActive(true);
-			//mpTxt.text = CharacterCurrentMP.ToString() + "/" + CharacterMaxMP.ToString();
-
 
 			foreach(Button btn in buttons) {
 				playerActivated = false;
@@ -200,18 +158,13 @@ namespace RPGsys {
 		public void HideButtons() {
 			bgPanel.SetActive(false);
 			charaNameText.gameObject.SetActive(false);
-			hp.gameObject.SetActive(false);
-			mp.gameObject.SetActive(false);
-			portrait.gameObject.SetActive(false);
-			hpMpContainer.gameObject.SetActive(false);
+			if(characterUI != null) {
+				characterUI.gameObject.SetActive(false);
+			}
 			if(goBackBtn != null) {
 				goBackBtn.gameObject.SetActive(false);
 			}
-			//mpBg.gameObject.SetActive(false);
-			//hpBg.gameObject.SetActive(false);
-			//hpTxt.gameObject.SetActive(false);
-			//mpTxt.gameObject.SetActive(false);
-			//HoverText.gameObject.SetActive(false);
+
 
 			foreach(Button btn in buttons) {
 				btn.gameObject.SetActive(false);
@@ -232,7 +185,6 @@ namespace RPGsys {
 
 		//when UNDO button clicked, will return player to previous character turn screen
 		public void HandleClickBack() {
-			//playerActivated = true;
 			FindObjectOfType<TurnBehaviour>().RemoveAttack();
 			undoMove = true;
 		}

@@ -14,6 +14,8 @@ namespace RPGsys {
 		public Image Magicbar;
 		//REMOVE ONCE BBOBJ BECOME OBSOLETE 
 		public ButtonBehaviourObjects buttonBehaviourObjects;
+		public CharacterListUI FloatingStats;
+		public CharacterListUI MenuHp;
 
 		Image ButtonPanel;
 		Image Portrait;
@@ -23,6 +25,7 @@ namespace RPGsys {
 		public MoveConfirmMenu moveConfirmMenu { get; private set; }
 		StateManager stateManager;
 
+
 		private void Awake() {
 			//grab all the buttonBehaviours and store in a list
 			btnBehaviours = new List<ButtonBehaviour>();
@@ -30,15 +33,8 @@ namespace RPGsys {
 			moveConfirmMenu = GetComponent<MoveConfirmMenu>();
 		}
 
-		public void Instantiate() {
-			//if() {
-
-			//}
-		}
-
 		public void UISetup(List<Character> characters) {
-
-			
+			//storing buttons for each characterERROR OVERSTEPPING ARRAY
 			foreach(Character chara in characters) {
 				ButtonBehaviour btnTmp = chara.GetComponent<ButtonBehaviour>();
 				btnBehaviours.Add(btnTmp);
@@ -46,7 +42,6 @@ namespace RPGsys {
 
 			//finds the button panel, change later to be less eeh
 			Transform[] children = MenuLayout.transform.GetComponentsInChildren<Transform>();
-			GameObject tmp = null;
 			foreach(Transform child in children) {
 				if(child.name == "ButtonPanel") {
 					ButtonPanel = child.gameObject.GetComponent<Image>();
@@ -62,16 +57,16 @@ namespace RPGsys {
 				}
 			}
 
-			foreach(ButtonBehaviour btnBehav in btnBehaviours) {
-				btnBehav.Setup(buttonBehaviourObjects, button, NameText, Healthbar, Magicbar, ButtonPanel, Portrait, Container, canvas);
-			}
+		//	for(int i = 0; i < characters.Count; i++) {
+				foreach(ButtonBehaviour btnBehav in btnBehaviours) {
+					btnBehav.Setup(buttonBehaviourObjects, button, NameText, ButtonPanel, MenuHp.uis, canvas);
+				}
+
+			//}
 
 			moveConfirmMenu.Setup(button, ButtonPanel, canvas);
 
 			//turning all unneeded assets off once passed into the button behaviours
-			Healthbar.gameObject.SetActive(false);
-			Magicbar.gameObject.SetActive(false);
-			Portrait.gameObject.SetActive(false);
 			NameText.gameObject.SetActive(false);
 			ButtonPanel.gameObject.SetActive(false);
 		}

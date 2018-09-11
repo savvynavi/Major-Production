@@ -411,7 +411,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363153689}
---- !u!1001 &641849675
+--- !u!1001 &422435486
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -462,6 +462,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 224742052067352494, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 224742052067352494, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
@@ -473,7 +478,7 @@ Prefab:
     - target: {fileID: 224668538785669576, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.47663313
+      value: 0.4766331
       objectReference: {fileID: 0}
     - target: {fileID: 224668538785669576, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
@@ -483,37 +488,32 @@ Prefab:
     - target: {fileID: 224668538785669576, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0.9999999
+      value: 0.99999976
       objectReference: {fileID: 0}
     - target: {fileID: 224280858817771226, guid: 93ef5f84537426147aa84cacfd81d252,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224280858817771226, guid: 93ef5f84537426147aa84cacfd81d252,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224641182760016254, guid: 93ef5f84537426147aa84cacfd81d252,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.00000011920929
-      objectReference: {fileID: 0}
-    - target: {fileID: 224641182760016254, guid: 93ef5f84537426147aa84cacfd81d252,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224641182760016254, guid: 93ef5f84537426147aa84cacfd81d252,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224419437974126744, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.00000017881393
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 224280858817771226, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224280858817771226, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224641182760016254, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224641182760016254, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.00000020345053
       objectReference: {fileID: 0}
     - target: {fileID: 224419437974126744, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
@@ -528,7 +528,7 @@ Prefab:
     - target: {fileID: 224178803653040838, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.5465334
+      value: 0.54653335
       objectReference: {fileID: 0}
     - target: {fileID: 224178803653040838, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
@@ -543,7 +543,7 @@ Prefab:
     - target: {fileID: 224421674823494026, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000010197848
+      value: 0.07249997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 93ef5f84537426147aa84cacfd81d252, type: 2}

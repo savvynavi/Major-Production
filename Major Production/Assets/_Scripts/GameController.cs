@@ -125,12 +125,12 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void SaveGame()
 	{
-		saveManager.SaveToFile(Application.persistentDataPath + "/savegame.json");
+		StartCoroutine(saveManager.SaveToFile(Application.persistentDataPath + "/savegame.json"));
 	}
 
 	public void LoadGame()
 	{
-		saveManager.LoadFromFile(Application.persistentDataPath + "/savegame.json");
+		StartCoroutine(saveManager.LoadFromFile(Application.persistentDataPath + "/savegame.json"));
 	}
 
 

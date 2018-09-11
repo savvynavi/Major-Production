@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void QuitToTitle()
 	{
-		if(state == EGameStates.Battle)
+		if(state == EGameStates.Battle && playerTeam != null)
 		{
 			playerTeam.SetActive(false);
 		}
@@ -205,39 +205,59 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void Load(JObject data)
 	{
-		// Going to check data is valid before loading
-		// Maybe instead, save current status as a backup?
-		IList<string> validationErrors;
-		if (data.IsValid(saveSchema, out validationErrors))
-		{
+		GameObject loadedTeam = null;
 
-			//HACK should probably check that JTokens are correct type before attemting to cast
-			GameObject loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
-			loadedTeam.transform.SetParent(this.transform);
-			loadedTeam.SetActive(false);
-			loadedTeam.name = "Player Team";
+		menus.CloseMenus();
+
+		try
+		{
+			IList<string> validationErrors;
+			if (data.IsValid(saveSchema, out validationErrors))
+			{
+
+				//HACK should probably check that JTokens are correct type before attemting to cast
+				loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
+				loadedTeam.transform.SetParent(this.transform);
+				loadedTeam.SetActive(false);
+				loadedTeam.name = "Player Team";
+				if (playerTeam != null)
+				{
+					GameObject.Destroy(playerTeam);
+				}
+				playerTeam = loadedTeam;
+
+				BattleManager.Instance.playerTeam = playerTeam.transform;
+
+				inventory.Load((JObject)data["inventory"]);
+				SceneLoader.Instance.Load((JObject)data["scene"]);
+
+				state = EGameStates.Overworld;
+			}
+			else
+			{
+				Debug.LogWarning("Save File had invalid json");
+				foreach (string error in validationErrors)
+				{
+					Debug.LogWarning(error);
+				}
+				// might do more?
+			}
+		}catch(System.Exception e)
+		{
+			if(loadedTeam != null)
+			{
+				GameObject.Destroy(loadedTeam);
+			}
 			if (playerTeam != null)
 			{
 				GameObject.Destroy(playerTeam);
+				playerTeam = null;
 			}
-			playerTeam = loadedTeam;
-
-			BattleManager.Instance.playerTeam = playerTeam.transform;
-
-			inventory.Load((JObject)data["inventory"]);
-			SceneLoader.Instance.Load((JObject)data["scene"]);
-
-			menus.CloseMenus();
-
+			BattleManager.Instance.playerTeam = null;
+			inventory.Clear();
 			state = EGameStates.Overworld;
-		} else
-		{
-			Debug.LogWarning("Save File had invalid json");
-			foreach(string error in validationErrors)
-			{
-				Debug.LogWarning(error);
-			}
-			// might do more?
+			SceneManager.LoadScene("Main Menu");
+			Debug.LogWarning("Exception on loading file: " + e.Message);
 		}
 	}
 

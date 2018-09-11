@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using RPG.Save;
 using Newtonsoft.Json.Linq;
 
@@ -13,6 +14,15 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class SceneLoader : MonoBehaviour, ISaveable {
 
+	public enum ELoaderState
+	{
+		Idle,
+		StartGame,
+		SceneLoad,
+		StartBattle,
+		EndBattle
+	}
+
 	public static SceneLoader Instance = null;
 
 	Scene worldScene;
@@ -21,6 +31,13 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	public Dictionary<string, Dictionary<string, string>> persistentSceneData;
 
 	public int EntrypointIndex { get; private set; }
+
+	public ELoaderState State { get; private set; }
+
+	[Header("Loading Events")]
+	public StringEvent OnStartLoading;
+	public FloatEvent OnLoadProgress;
+	public UnityEvent OnLoadDone;
 
 	private void Awake()
 	{
@@ -33,6 +50,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		}
 		GameObject.DontDestroyOnLoad(this.gameObject);
 		worldScene = SceneManager.GetActiveScene();
+		State = ELoaderState.Idle;
 		Init();
 	}
 
@@ -68,6 +86,13 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
     public void LoadScene(string sceneName, int entrypointIndex = -1)
     {
+		if(GameController.Instance.state == GameController.EGameStates.Menu)
+		{
+			State = ELoaderState.StartGame;
+		} else
+		{
+			State = ELoaderState.SceneLoad;
+		}
 		EntrypointIndex = entrypointIndex;
         StartCoroutine(AsyncSceneLoad(sceneName));
     }
@@ -75,6 +100,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	// Loads a battle scene, suspending the current WorldScene
     public void LoadBattle(string sceneName)
 	{
+		State = ELoaderState.StartBattle;
 		StartCoroutine(AsyncBattleLoad(sceneName));
 	}
 
@@ -82,39 +108,51 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	{
 		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		loadOp.allowSceneActivation = false;
+		OnStartLoading.Invoke(sceneName);
 		// TODO do battle loading effects
-		yield return new WaitUntil(() => { return loadOp.progress >= 0.9f; });
+		while(loadOp.progress < 0.9f)
+		{
+			OnLoadProgress.Invoke(loadOp.progress);
+			yield return new WaitForEndOfFrame();
+		}
 		// Deactivate objects in world scene
 		SetSceneObjectActive(worldScene, false);
 		loadOp.allowSceneActivation = true;
 		yield return new WaitUntil(() => { return loadOp.isDone; });
+		OnLoadDone.Invoke();
 		battleScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(battleScene);
 		GameController.Instance.state = GameController.EGameStates.Battle;
 
 		//TODO maybe some event/function called here letting battle initialize itself?
 		Debug.Log(battleScene.name);
+		State = ELoaderState.Idle;
 	}
 
 	IEnumerator AsyncSceneLoad(string sceneName)
 	{
 		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+		OnStartLoading.Invoke(sceneName);
 		//TODO tell last scene's SceneController it's ending so it can save changes?
 		// TODO scene loading effects (maybe full load scene?)
-		yield return new WaitUntil(() =>
+		while (!loadOp.isDone)
 		{
-			return loadOp.isDone;
-		});
+			OnLoadProgress.Invoke(loadOp.progress);
+			yield return new WaitForEndOfFrame();
+		}
+		OnLoadDone.Invoke();
 		Scene newScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(newScene);
 		// TODO find newScene's SceneController, pass through info needed for initialization
 		worldScene = newScene;
 		Debug.Log(newScene.name);
+		State = ELoaderState.Idle;
 	}
 
 	// Unloads the BattleScene and reactivates the current World scene
 	public void EndBattle()
     {
+		State = ELoaderState.EndBattle;
 		SetSceneObjectActive(worldScene, true);
         SceneManager.SetActiveScene(worldScene);
 		// TODO may need to tell scene it was just reactivated?
@@ -122,6 +160,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		SetSceneObjectActive(battleScene, false);
         SceneManager.UnloadSceneAsync(battleScene);
 		GameController.Instance.state = GameController.EGameStates.Overworld;
+		State = ELoaderState.Idle;
 	}
 
 	public JObject Save()

@@ -34,8 +34,8 @@ public class GameController : MonoBehaviour, ISaveable {
 	public CharacterPrefabList prefabList; // Might be needed to force its loading? should test in build with and without
 
 	[Header("Save System")]
-	[SerializeField] TextAsset saveSchemaFile;
-	JSchema saveSchema;
+	[SerializeField]
+	SaveManager saveManager;
 
 	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
 	
@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour, ISaveable {
 		Paused = false;
 		state = EGameStates.Menu;   //HACK assumes game starts at main menu!
 
-		saveSchema = JSchema.Parse(saveSchemaFile.text);
+		saveManager.Init();
 	}
 	
 	// Use this for initialization
@@ -125,64 +125,13 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void SaveGame()
 	{
-		SaveToFile(Application.persistentDataPath + "/savegame.json");
+		saveManager.SaveToFile(Application.persistentDataPath + "/savegame.json");
 	}
 
 	public void LoadGame()
 	{
-		LoadFromFile(Application.persistentDataPath + "/savegame.json");
+		saveManager.LoadFromFile(Application.persistentDataPath + "/savegame.json");
 	}
-
-	// TODO saving to specific file
-	public void SaveToFile(string filepath)
-	{
-		// TODO use a coroutine or other asynchronous operation to do this
-		// TODO error for writing to file
-		string saveData = Save().ToString();
-		try {
-			File.WriteAllText(filepath, saveData);
-		}
-		catch (IOException exception)
-		{
-			// probably need to do more than this when passing in a save file
-			Debug.LogWarning("Save game exception:" + exception.Message);
-		} catch (System.Security.SecurityException exception)
-		{
-			Debug.LogWarning("No permission to access save file:" + exception.Message);
-		}
-	}
-
-    // TODO loading from specific file
-    public void LoadFromFile(string filepath)
-    {
-		// TODO first check that file exists
-		// TODO error handling (could read from file? Parsed as JSON? JToken is a JObject?
-		JObject saveData = null;
-		try
-		{
-			saveData = JObject.Parse(File.ReadAllText(filepath));
-		}
-		catch (FileNotFoundException exception)
-		{
-			// should probably check for file existing before enabling button too?
-			Debug.LogWarning("Load file not found: " + exception.Message);
-			return;
-		} catch (IOException exception)
-		{
-			Debug.LogWarning("Load file IO Exception: " + exception.Message);
-			return;
-		}
-		catch (System.Security.SecurityException exception)
-		{
-			Debug.LogWarning("No permission to access save file:" + exception.Message);
-			return;
-		} catch (Newtonsoft.Json.JsonReaderException exception)
-		{
-			Debug.LogWarning("Save file not valid JSON: "+exception.Message);
-			return;
-		}
-		Load(saveData);
-    }
 
 
 
@@ -211,37 +160,24 @@ public class GameController : MonoBehaviour, ISaveable {
 
 		try
 		{
-			IList<string> validationErrors;
-			if (data.IsValid(saveSchema, out validationErrors))
+			//HACK should probably check that JTokens are correct type before attemting to cast
+			loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
+			loadedTeam.transform.SetParent(this.transform);
+			loadedTeam.SetActive(false);
+			loadedTeam.name = "Player Team";
+			if (playerTeam != null)
 			{
-
-				//HACK should probably check that JTokens are correct type before attemting to cast
-				loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
-				loadedTeam.transform.SetParent(this.transform);
-				loadedTeam.SetActive(false);
-				loadedTeam.name = "Player Team";
-				if (playerTeam != null)
-				{
-					GameObject.Destroy(playerTeam);
-				}
-				playerTeam = loadedTeam;
-
-				BattleManager.Instance.playerTeam = playerTeam.transform;
-
-				inventory.Load((JObject)data["inventory"]);
-				SceneLoader.Instance.Load((JObject)data["scene"]);
-
-				state = EGameStates.Overworld;
+				GameObject.Destroy(playerTeam);
 			}
-			else
-			{
-				Debug.LogWarning("Save File had invalid json");
-				foreach (string error in validationErrors)
-				{
-					Debug.LogWarning(error);
-				}
-				// might do more?
-			}
+			playerTeam = loadedTeam;
+
+			BattleManager.Instance.playerTeam = playerTeam.transform;
+
+			inventory.Load((JObject)data["inventory"]);
+			SceneLoader.Instance.Load((JObject)data["scene"]);
+
+			state = EGameStates.Overworld;
+			
 		}catch(System.Exception e)
 		{
 			if(loadedTeam != null)

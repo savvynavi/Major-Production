@@ -123,14 +123,24 @@ public class GameController : MonoBehaviour, ISaveable {
 		state = EGameStates.Menu;
 	}
 
-	// TODO saving to specific file
 	public void SaveGame()
+	{
+		SaveToFile(Application.persistentDataPath + "/savegame.json");
+	}
+
+	public void LoadGame()
+	{
+		LoadFromFile(Application.persistentDataPath + "/savegame.json");
+	}
+
+	// TODO saving to specific file
+	public void SaveToFile(string filepath)
 	{
 		// TODO use a coroutine or other asynchronous operation to do this
 		// TODO error for writing to file
 		string saveData = Save().ToString();
 		try {
-			File.WriteAllText(Application.persistentDataPath + "/savegame.json", saveData);
+			File.WriteAllText(filepath, saveData);
 		}
 		catch (IOException exception)
 		{
@@ -143,14 +153,14 @@ public class GameController : MonoBehaviour, ISaveable {
 	}
 
     // TODO loading from specific file
-    public void LoadGame()
+    public void LoadFromFile(string filepath)
     {
 		// TODO first check that file exists
 		// TODO error handling (could read from file? Parsed as JSON? JToken is a JObject?
 		JObject saveData = null;
 		try
 		{
-			saveData = JObject.Parse(File.ReadAllText(Application.persistentDataPath + "/savegame.json"));
+			saveData = JObject.Parse(File.ReadAllText(filepath));
 		}
 		catch (FileNotFoundException exception)
 		{
@@ -173,6 +183,8 @@ public class GameController : MonoBehaviour, ISaveable {
 		}
 		Load(saveData);
     }
+
+
 
 	public JObject Save()
 	{

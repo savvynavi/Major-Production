@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: BasicMagicAura
+  m_Shader: {fileID: 4800000, guid: b17790f1aa56aa14a9cbc8f6a7a5bb54, type: 3}
+  m_ShaderKeywords: RADIAL_FLOW TEXTURE_FLOW
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AdditiveTex:
+        m_Texture: {fileID: 2800000, guid: 3a5a96df060a5cf4a9cc0c59e13486b7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BorderMaskTex:
+        m_Texture: {fileID: 2800000, guid: b08a9f3b6ad31694498b9f45689fba9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowMapTex:
+        m_Texture: {fileID: 2800000, guid: d63174441f6baaa41aa114b6cd12b222, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 75cdef7015ab77e4984c2267bb74c504, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AngularSpeed: 0.1
+    - _DirectionalFlow: 0
+    - _FlowSpeed: 0.5
+    - _LerpSpeed: 0.35
+    - _RadialFlow: 1
+    - _TextureFlow: 1
+    m_Colors:
+    - _CenterPosition: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Color1: {r: 1, g: 0.6544118, b: 0.84746456, a: 1}
+    - _Color2: {r: 0.3241377, g: 0, b: 1, a: 1}
+    - _FlowDirection: {r: 10, g: 10, b: 0, a: 0}

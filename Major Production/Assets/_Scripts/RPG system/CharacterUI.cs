@@ -12,6 +12,7 @@ namespace RPGsys {
 		public Text nameTag;
 		public Image HPBar;
 		public Image MPBar;
+		public bool FloatingMenu;
 
 		public GameObject GetContainer{ get; private set; }
 
@@ -19,12 +20,24 @@ namespace RPGsys {
 		public void SetCharacter(Character ch) {
 
 			character = ch;
+			if(character != null) {
+				if(Portrait != null) {
+					Portrait.sprite = character.Portrait;
+				}
+				if(nameTag != null) {
+					nameTag.text = character.name;
+				}
 
-			if(Portrait != null) {
-				Portrait.sprite = character.Portrait;
-			}
-			if(nameTag != null) {
-				nameTag.text = character.name;
+				//snaps the hp bar to current hp
+
+				if(HPBar != null) {
+					HPBar.fillAmount = character.Hp / character.hpStat;
+				}
+				if(MPBar != null) {
+					HPBar.fillAmount = character.Mp / character.mpStat;
+				}
+			} else {
+				//todo clear info if no character
 			}
 		}
 
@@ -34,10 +47,13 @@ namespace RPGsys {
 
 			if(character != null) {
 				if(HPBar != null) {
-					HPBar.fillAmount = character.Hp / character.hpStat;
+					float hp = character.Hp / character.hpStat;
+					// animate towards the true value of the character's hp
+					HPBar.fillAmount = Mathf.MoveTowards(HPBar.fillAmount, hp, Time.deltaTime);
 				}
 				if(MPBar != null) {
-					HPBar.fillAmount = character.Mp / character.mpStat;
+					float mp = character.Mp / character.mpStat;
+					MPBar.fillAmount = Mathf.MoveTowards(HPBar.fillAmount, mp, Time.deltaTime);
 				}
 			}
 		}

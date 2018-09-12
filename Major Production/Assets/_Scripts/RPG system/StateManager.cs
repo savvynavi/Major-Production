@@ -210,6 +210,9 @@ namespace RPGsys {
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
 
+
+			////TODO set it up so that right clicking characters sets them as active/deactivates current active character (will let player chooose turn order)
+			////ALSO make it so it doesn't auto-move onto the next round when all moves are set(replace lockin moves menu with a thing that waits until a done button is pressed(if no move selected do random one as test))
 			//loop through characters and wait until input to move to next one
 			for(int i = 0; i < characters.Count; i++) {
 				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();

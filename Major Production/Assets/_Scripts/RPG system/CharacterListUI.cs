@@ -10,22 +10,26 @@ namespace RPGsys
 		public CharacterUI prefab;
 		public List<CharacterUI> uis;
 
-		// Use this for initialization
-		void Start() {
-
-		}
-
 		// Update is called once per frame
 		void Update() {
 			// make the uis if we havent done so yet, after the manager has called Start()
 			if(uis.Count == 0) {
 				uis = new List<CharacterUI>();
-				for(int i=0; i< manager.characters.Count; i++) {
-					GameObject go =Instantiate(prefab.gameObject, transform);
-					uis[i] = go.GetComponent<CharacterUI>();
-					uis[i].SetCharacter(manager.characters[i]);
+				if(prefab.GetComponent<CharacterUI>().FloatingMenu == true) {
+					for(int i = 0; i < manager.characters.Count; i++) {
+						GameObject go = Instantiate(prefab.gameObject, transform);
+						CharacterUI tmp = go.GetComponent<CharacterUI>();
+						uis.Add(tmp);
+						tmp.SetCharacter(manager.characters[i]);
+					}
+				} else {
+					//creates only 1 for the menu
+					GameObject go = Instantiate(prefab.gameObject, transform);
+					CharacterUI tmp = go.GetComponent<CharacterUI>();
+					uis.Add(tmp);
+					tmp.SetCharacter(manager.characters[0]);
 				}
-
+				
 			}
 		}
 	}

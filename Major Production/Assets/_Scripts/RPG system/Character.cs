@@ -25,6 +25,8 @@ namespace RPGsys{
 
 		public int ChoiceOrder;
 		public Sprite Portrait;
+		//is true when that player is setting moves
+		public bool ActivePlayer { get; set; }
 
 		//dictionary stuff
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();

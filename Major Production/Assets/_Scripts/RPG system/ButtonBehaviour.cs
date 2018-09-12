@@ -74,11 +74,6 @@ namespace RPGsys {
 
 			canvas = canvasUI;
 			bgPanel = panel.gameObject;
-			for(int i = 0; i < charaUIs.Count; i++) {
-				if(charaUIs[i].name == transform.GetComponent<Character>().name) {
-					characterUI = charaUIs[i];
-				}
-			}
 
 			hoverTxtPos = bboRefs.hoverTxtPos;
 
@@ -142,9 +137,7 @@ namespace RPGsys {
 		public void ShowButtons() {
 			bgPanel.SetActive(true);
 			charaNameText.gameObject.SetActive(true);
-			if(characterUI != null) {
-				characterUI.gameObject.SetActive(true);
-			}
+
 			if(goBackBtn != null) {
 				goBackBtn.gameObject.SetActive(true);
 			}
@@ -158,9 +151,7 @@ namespace RPGsys {
 		public void HideButtons() {
 			bgPanel.SetActive(false);
 			charaNameText.gameObject.SetActive(false);
-			if(characterUI != null) {
-				characterUI.gameObject.SetActive(false);
-			}
+
 			if(goBackBtn != null) {
 				goBackBtn.gameObject.SetActive(false);
 			}

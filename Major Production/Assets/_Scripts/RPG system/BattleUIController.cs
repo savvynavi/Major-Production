@@ -34,7 +34,7 @@ namespace RPGsys {
 		}
 
 		public void UISetup(List<Character> characters) {
-			//storing buttons for each characterERROR OVERSTEPPING ARRAY
+			//storing buttons for each character
 			foreach(Character chara in characters) {
 				ButtonBehaviour btnTmp = chara.GetComponent<ButtonBehaviour>();
 				btnBehaviours.Add(btnTmp);
@@ -57,12 +57,9 @@ namespace RPGsys {
 				}
 			}
 
-		//	for(int i = 0; i < characters.Count; i++) {
-				foreach(ButtonBehaviour btnBehav in btnBehaviours) {
-					btnBehav.Setup(buttonBehaviourObjects, button, NameText, ButtonPanel, MenuHp.uis, canvas);
-				}
-
-			//}
+			foreach(ButtonBehaviour btnBehav in btnBehaviours) {
+				btnBehav.Setup(buttonBehaviourObjects, button, NameText, ButtonPanel, MenuHp.uis, canvas);
+			}
 
 			moveConfirmMenu.Setup(button, ButtonPanel, canvas);
 

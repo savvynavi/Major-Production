@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -15,6 +16,7 @@ namespace RPG.Save
 	[Serializable]
 	public class SaveManager
 	{
+		// Asynchronously saves data to file
 		public class SaveOperation : ThreadOperation
 		{
 			private string _filepath;
@@ -46,6 +48,7 @@ namespace RPG.Save
 			}
 		}
 
+		// Asynchronously loads data from file and parses it as a JObject
 		public class LoadOperation : ThreadOperation
 		{
 			private string _filepath;
@@ -108,6 +111,11 @@ namespace RPG.Save
 
 		[SerializeField] TextAsset saveSchemaFile;
 		JSchema saveSchema;
+		// Events for UI to subscribe to
+		public UnityEvent OnStartSave;
+		public UnityEvent OnFinishSave;
+		public UnityEvent OnStartLoad;
+		public UnityEvent OnFinishLoad;
 
 		SaveManager()
 		{
@@ -116,7 +124,7 @@ namespace RPG.Save
 
 		public void Init()
 		{
-			// todo move out to a coroutine?
+			// This takes some time but it's on startup so no problem
 			saveSchema = JSchema.Parse(saveSchemaFile.text);
 		}
 
@@ -125,20 +133,9 @@ namespace RPG.Save
 			SaveOperation saveOp;
 			string saveData = GameController.Instance.Save().ToString();
 			saveOp = new SaveOperation(filepath, saveData);
+			OnStartSave.Invoke();
 			yield return new WaitUntil(() => saveOp.IsDone);
-			//try
-			//{
-			//	File.WriteAllText(filepath, saveData);
-			//}
-			//catch (IOException exception)
-			//{
-			//	// probably need to do more than this when passing in a save file
-			//	Debug.LogWarning("Save game exception:" + exception.Message);
-			//}
-			//catch (System.Security.SecurityException exception)
-			//{
-			//	Debug.LogWarning("No permission to access save file:" + exception.Message);
-			//}
+			OnFinishSave.Invoke();
 		}
 
 
@@ -147,54 +144,14 @@ namespace RPG.Save
 		{
 			LoadOperation loadOp;
 			loadOp = new LoadOperation(filepath, saveSchema);
+			OnStartLoad.Invoke();
 			yield return new WaitUntil(() => loadOp.IsDone);
 			Debug.Log(loadOp.ToString());
 			if (loadOp.data != null)
 			{
 				GameController.Instance.Load(loadOp.data);
 			}
-
-			//JObject saveData = null;
-			//try
-			//{
-			//	saveData = JObject.Parse(File.ReadAllText(filepath));
-			//}
-			//catch (FileNotFoundException exception)
-			//{
-			//	// should probably check for file existing before enabling button too?
-			//	Debug.LogWarning("Load file not found: " + exception.Message);
-			//	return;
-			//}
-			//catch (IOException exception)
-			//{
-			//	Debug.LogWarning("Load file IO Exception: " + exception.Message);
-			//	return;
-			//}
-			//catch (System.Security.SecurityException exception)
-			//{
-			//	Debug.LogWarning("No permission to access save file:" + exception.Message);
-			//	return;
-			//}
-			//catch (Newtonsoft.Json.JsonReaderException exception)
-			//{
-			//	Debug.LogWarning("Save file not valid JSON: " + exception.Message);
-			//	return;
-			//}
-
-			//IList<string> validationErrors;
-			//if (saveData.IsValid(saveSchema, out validationErrors))
-			//{
-			//	GameController.Instance.Load(saveData);
-			//}
-			//else
-			//{
-			//	Debug.LogWarning("Save File had invalid json");
-			//	foreach (string error in validationErrors)
-			//	{
-			//		Debug.LogWarning(error);
-			//	}
-			//	// might do more?
-			//}
+			OnFinishLoad.Invoke();
 		}
 	}
 }

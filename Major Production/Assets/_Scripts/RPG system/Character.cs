@@ -220,7 +220,6 @@ namespace RPGsys{
 				Weapon = Factory<Item>.CreateInstance(weaponName);
 			}
 
-			// TODO test this works (equip item, save, load and check still equipped)
 			foreach(JToken i in data["equipment"])
 			{
 				UseItem(Factory<Item>.CreateInstance((string)i));

@@ -134,11 +134,10 @@ public class GameController : MonoBehaviour, ISaveable {
 	}
 
 
-
+	// This is the top level save for the game, building a JObject containing the save 
+	// objects for everything in the game that needs saving
 	public JObject Save()
 	{
-		// TODO save characters, inventory, sceneloader
-		// TODO error handling (just put in try/catch block and dump error somewhere?)
 		List<Character> team = new List<Character>(playerTeam.GetComponentsInChildren<Character>(true));
 		JArray CharacterSave = new JArray(from c in team
 										  select c.Save());
@@ -152,6 +151,9 @@ public class GameController : MonoBehaviour, ISaveable {
 			new JProperty("scene", SceneSave));
 	}
 
+	// This loads the JObject into everything needed for the game
+	// It doesn't check validity, this is done by the SaveManager
+	// in the LoadOperation worker object
 	public void Load(JObject data)
 	{
 		GameObject loadedTeam = null;
@@ -160,7 +162,6 @@ public class GameController : MonoBehaviour, ISaveable {
 
 		try
 		{
-			//HACK should probably check that JTokens are correct type before attemting to cast
 			loadedTeam = CharacterFactory.CreatePlayerTeam((JArray)data["playerTeam"]);
 			loadedTeam.transform.SetParent(this.transform);
 			loadedTeam.SetActive(false);
@@ -180,6 +181,7 @@ public class GameController : MonoBehaviour, ISaveable {
 			
 		}catch(System.Exception e)
 		{
+			// If something goes wrong, reset everything and go back to main menu
 			if(loadedTeam != null)
 			{
 				GameObject.Destroy(loadedTeam);
@@ -191,48 +193,10 @@ public class GameController : MonoBehaviour, ISaveable {
 			}
 			BattleManager.Instance.playerTeam = null;
 			inventory.Clear();
-			state = EGameStates.Overworld;
+			state = EGameStates.Menu;
 			SceneManager.LoadScene("Main Menu");
+			// HACK would be better to show an error to the player
 			Debug.LogWarning("Exception on loading file: " + e.Message);
 		}
-	}
-
-	// might not use this
-	public static bool DataValid(JObject data)
-	{
-		JToken team;
-		JToken inventorySave;
-		JToken sceneSave;
-		if(data.TryGetValue("playerTeam", out team) && team is JArray && team.HasValues)
-		{
-			foreach(JToken child in (JArray)team)
-			{
-				if(child is JObject && Character.DataValid((JObject) child))
-				{
-					continue;
-				} else
-				{
-					return false;
-				}
-			}
-		} else
-		{
-			return false;
-		}
-		if(data.TryGetValue("inventory", out inventorySave) && inventorySave is JObject)
-		{
-			if (!RPGItems.InventoryManager.DataValid((JObject)inventorySave))
-			{
-				return false;
-			}
-		}
-		if(data.TryGetValue("scene", out sceneSave) && sceneSave is JObject)
-		{
-			if(!SceneLoader.DataValid((JObject)sceneSave))
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 }

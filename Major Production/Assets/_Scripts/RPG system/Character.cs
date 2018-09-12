@@ -60,6 +60,43 @@ namespace RPGsys{
 			}
 		}
 
+		public void SetBaseStat(RPGStats.Stats stat, float value)
+		{
+			switch (stat)
+			{
+				case RPGStats.Stats.Speed:
+					speedStat = value;
+					break;
+				case RPGStats.Stats.Str:
+					strStat = value;
+					break;
+				case RPGStats.Stats.Def:
+					defStat = value;
+					break;
+				case RPGStats.Stats.Int:
+					intStat = value;
+					break;
+				case RPGStats.Stats.Mind:
+					mindStat = value;
+					break;
+				case RPGStats.Stats.Hp:
+					hpStat = value;
+					break;
+				case RPGStats.Stats.Mp:
+					mpStat = value;
+					break;
+				case RPGStats.Stats.Dex:
+					dexStat = value;
+					break;
+				case RPGStats.Stats.Agi:
+					agiStat = value;
+					break;
+				default:
+					throw new System.ArgumentOutOfRangeException();
+					break;
+			}
+		}
+
 		public float Speed{
 			get { return CharaStats[RPGStats.Stats.Speed]; }
 			set { CharaStats[RPGStats.Stats.Speed] = value; }
@@ -157,6 +194,7 @@ namespace RPGsys{
 			}
 		}
 
+		#region Items
 		// Uses or equips item and applies its effects. Returns false if not usable.
 		public bool UseItem(Item item)
 		{
@@ -185,6 +223,9 @@ namespace RPGsys{
 				return false;
 			}
 		}
+		#endregion
+
+		#region ISaveable Implementation
 
 		public JObject Save()
 		{
@@ -229,9 +270,21 @@ namespace RPGsys{
 			Mp = (float)data["mp"];
 		}
 
-		public static bool DataValid(JObject data)
+		#endregion
+
+		#region Level Up
+
+		public void ApplyStatChange(Dictionary<RPGStats.Stats, float> StatChanges)
 		{
-			throw new System.NotImplementedException();
+			foreach(KeyValuePair<RPGStats.Stats, float> statValue in StatChanges)
+			{
+				float newBaseValue = BaseStat(statValue.Key) + statValue.Value;
+				SetBaseStat(statValue.Key, newBaseValue);
+
+				CharaStats[statValue.Key] += statValue.Value;
+			}
 		}
+
+		#endregion
 	}
 }

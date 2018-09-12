@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPGsys;
+using Newtonsoft.Json.Linq;
 
 namespace RPG.XP
 {
@@ -22,14 +23,23 @@ namespace RPG.XP
 	}
 
 	[RequireComponent(typeof(Character))]
-	public class Experience : MonoBehaviour
+	public class Experience : MonoBehaviour, Save.ISaveable
 	{
+		public Character character { get; private set; }
 
 		[SerializeField] List<Level> levels;
+
+		[SerializeField] int characterLevel;
+		// NOTE: characterLevel and levels index are offset.
+		// going from level 1 to level 2 uses levels[0]
+
+		// probably will replace setter with something that applies level changes
+		public int CharacterLevel { get { return characterLevel; } set { characterLevel = value; } }
 
 		// Use this for initialization
 		void Awake()
 		{
+			character = GetComponent<Character>();
 			foreach(Level l in levels)
 			{
 				l.Init();
@@ -40,6 +50,21 @@ namespace RPG.XP
 		void Update()
 		{
 
+		}
+
+		private void ApplyLevelUp(Level level)
+		{
+			character.ApplyStatChange(level.StatChangeDict);
+		}
+
+		public JObject Save()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Load(JObject data)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

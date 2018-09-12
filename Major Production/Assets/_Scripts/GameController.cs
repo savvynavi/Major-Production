@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour, ISaveable {
 
 	public void QuitToTitle()
 	{
-		if(state == EGameStates.Battle && playerTeam != null)
+		if(playerTeam != null)
 		{
 			playerTeam.SetActive(false);
 		}

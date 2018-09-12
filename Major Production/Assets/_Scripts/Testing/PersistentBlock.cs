@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersistentBlock : PersistentObject {
 
 	public bool Triggered;
-	Renderer renderer;
+	new Renderer renderer;
 
 	public override void Load(string data)
 	{

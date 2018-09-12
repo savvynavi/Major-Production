@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace RPGsys {
 	[CreateAssetMenu(fileName = "StatusEffect", menuName = "RPG/StatusEffect", order = 2)]
 	public class Buff : Status {
 		public StatusEffect StatusEffects;
-
 
 		public override void Apply(Character target, float duration) {
 			if(target != null) {

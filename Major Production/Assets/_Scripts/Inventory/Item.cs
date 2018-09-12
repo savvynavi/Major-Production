@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using RPG.Save;
+using Newtonsoft.Json.Linq;
 
 namespace RPGItems {
 
@@ -21,9 +22,14 @@ namespace RPGItems {
 			Consumable,
 			Equipable
 		}
-		
-		//initializes an item and then stores all instances in a list so they can be accessed later
-		public void Initialize(RPGsys.Character target) {
+
+        private void OnEnable()
+        {
+            RPG.Save.Factory<Item>.Register(this);
+        }
+
+        //initializes an item and then stores all instances in a list so they can be accessed later
+        public void Initialize(RPGsys.Character target) {
 
 
 			foreach(RPGsys.Buff buff in Effect.currentEffects) {
@@ -42,6 +48,5 @@ namespace RPGItems {
 
 			buffInstances.Clear();
 		}
-
 	}
 }

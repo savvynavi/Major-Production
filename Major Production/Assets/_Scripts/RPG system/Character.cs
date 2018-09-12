@@ -4,9 +4,12 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using RPGItems;
+using RPG.Save;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RPGsys{
-	public class Character : MonoBehaviour{
+	public class Character : MonoBehaviour, ISaveable{
 		//base stats
 		public float speedStat;
 		public float strStat;
@@ -104,6 +107,10 @@ namespace RPGsys{
 		//stores a list of equipables, mainly the rings
 		public List<RPGItems.Item> Equipment;
 
+		void OnEnable()
+		{
+		}
+
 		void Awake(){
 			Speed = speedStat;
 			Str = strStat;
@@ -114,6 +121,7 @@ namespace RPGsys{
 			Mp = mpStat;
 			Dex = dexStat;
 			Agi = agiStat;
+
 
 
 			classInfo = Instantiate(classInfo);
@@ -154,6 +162,7 @@ namespace RPGsys{
 		{
 			//TODO check if item usable?
 			item.Effect.Apply(this, item);
+            // Is this calling the wrong thing or forgetting to set equipable?
 			if(item.Type == Item.ItemType.Equipable)
 			{
 				Equipment.Add(item);
@@ -175,6 +184,54 @@ namespace RPGsys{
 			{
 				return false;
 			}
+		}
+
+		public JObject Save()
+		{
+			// Not saving base stats on assumption they won't change
+			// Will have to do so if that changes
+
+			// Not saving effects either because only equipment effects persist out of battle
+			// Again this may change
+
+			JObject saveData = new JObject(
+				new JProperty("name", Utility.TrimCloned(name)),
+				new JProperty("hp", Hp),
+				new JProperty("mp", Mp),
+				new JProperty("weapon", Weapon != null ? Utility.TrimCloned(Weapon.name) : ""),
+				new JProperty("equipment",
+					new JArray(from i in Equipment
+							   select Utility.TrimCloned(i.name))));
+			return saveData;
+		}
+
+		public void Load(JObject data)
+		{
+            name = (string)data["name"];
+            // HACK character names should be their own field, not the object's name
+
+			string weaponName = (string)data["weapon"];
+			if (string.IsNullOrEmpty(weaponName))
+			{
+				Weapon = null;
+			}
+			else
+			{
+				Weapon = Factory<Item>.CreateInstance(weaponName);
+			}
+
+			foreach(JToken i in data["equipment"])
+			{
+				UseItem(Factory<Item>.CreateInstance((string)i));
+			}
+
+			Hp = (float)data["hp"];
+			Mp = (float)data["mp"];
+		}
+
+		public static bool DataValid(JObject data)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

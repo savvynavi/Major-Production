@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPGsys {
 	public class TargetSelection : MonoBehaviour {
-		Camera camera = null;
+		new Camera camera = null;
 		Ray ray;
 		Character target = null;
 

@@ -25,6 +25,7 @@ namespace RPGsys{
 		public List<RPGStats.DmgType> Strengths;
 		public List<RPGStats.DmgType> Weaknesses;
 		public Animator anim;
+		public RPG.XP.Experience experience { get; private set; }
 
 		public int ChoiceOrder;
 		public Image Portrait;
@@ -167,6 +168,7 @@ namespace RPGsys{
 			}
 
 			anim = GetComponent<Animator>();
+			experience = GetComponent<RPG.XP.Experience>();
 		}
 
 		//if timer less than zero, remove from effect list
@@ -243,6 +245,10 @@ namespace RPGsys{
 				new JProperty("equipment",
 					new JArray(from i in Equipment
 							   select Utility.TrimCloned(i.name))));
+			if(experience != null)
+			{
+				saveData.Add("experience", experience.Save());
+			}
 			return saveData;
 		}
 
@@ -250,6 +256,12 @@ namespace RPGsys{
 		{
             name = (string)data["name"];
             // HACK character names should be their own field, not the object's name
+
+			// Load experience first because maybe that will affect equipment legality?
+			if(experience != null)
+			{
+				experience.Load(data.Value<JObject>("experience"));
+			}
 
 			string weaponName = (string)data["weapon"];
 			if (string.IsNullOrEmpty(weaponName))

@@ -9,12 +9,13 @@
 				"hp": {"type": "number"},
 				"mp": {"type": "number"},
 				"weapon": {"type": "string"},
-				"equipment": {
-					"type": "array",
-					"items": { "type": "string"}
-				}		
+        "equipment": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "experience":  {"$ref":  "#/definitions/Experience" }
 			},
-			"required": ["name","hp","mp","weapon","equipment"]
+			"required": ["name","hp","mp","weapon","equipment","experience"]
 		},
 		"InventoryManager" : {
 			"type": "object",
@@ -42,6 +43,14 @@
 				}
 			},
 			"required": ["scene","entrypointIndex","sceneData"]
+		},
+		"Experience": {
+			"type": "object",
+      "properties": {
+        "characterLevel": { "type": "integer" },
+        "exp": { "type": "integer" }
+      },
+      "required": ["characterLevel","exp"]
 		}
 	},
 	"type": "object",

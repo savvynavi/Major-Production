@@ -18,6 +18,7 @@ namespace RPG.UI
 
 		//HACK might find different way to show this
 		[SerializeField] Text AbilitiesText;
+		[SerializeField] Text LevelText; //HACK
 
 		List<StatDisplay> statDisplays;
 
@@ -91,6 +92,7 @@ namespace RPG.UI
 				abilityList.Append(ability.powName + '\n');
 			}
 			AbilitiesText.text = abilityList.ToString();
+			LevelText.text = string.Format("Level {0}", CurrentChar.experience.CharacterLevel);
 		}
 
 		void Awake()
@@ -149,6 +151,7 @@ namespace RPG.UI
 		public void LevelUpCharacter()
 		{
 			CurrentChar.GetComponent<RPG.XP.Experience>().LevelUp();
+			DisplayCharacter();
 		}
 	}
 }

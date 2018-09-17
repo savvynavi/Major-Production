@@ -106,7 +106,7 @@ namespace RPGsys {
             }
 
             // place player team in set positions
-            for(int i = 0; i<playerPositions.Count; ++i)
+            for(int i = 0; i<playerPositions.Count && i < characters.Count; ++i)
             {
                 characters[i].transform.position = playerPositions[i].position;
                 characters[i].transform.rotation = playerPositions[i].rotation;

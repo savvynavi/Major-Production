@@ -39,15 +39,21 @@ namespace RPG.XP
 		// NOTE: characterLevel and levels index are offset.
 		// going from level 1 to level 2 uses levels[0]
 
+		[SerializeField] int exp;
+
 		// probably will replace setter with something that applies level changes
 		public int CharacterLevel { get { return characterLevel; }}
         public int MaxLevel { get { return levels.Count + 1; } }
+
+		// todo figure out setter method
+		public int Exp { get { return exp; } }
 
 		// Use this for initialization
 		void Awake()
 		{
 			character = GetComponent<Character>();
-           characterLevel = 1;
+			characterLevel = 1;
+			exp = 0;
 			foreach(Level l in levels)
 			{
 				l.Init();
@@ -75,7 +81,7 @@ namespace RPG.XP
 
         public void LevelUp(int newLevel)
         {
-            newLevel = Mathf.Max(newLevel, MaxLevel);
+            newLevel = Mathf.Min(newLevel, MaxLevel);
             while(characterLevel < newLevel)
             {
                 if (!LevelUp())
@@ -85,14 +91,21 @@ namespace RPG.XP
             }
         }
 
+		#region ISaveable Implementation
 		public JObject Save()
 		{
-			throw new NotImplementedException();
+			return new JObject(
+				new JProperty("characterLevel", characterLevel),
+				new JProperty("exp", exp));
 		}
 
 		public void Load(JObject data)
 		{
-			throw new NotImplementedException();
+			// This assumes the character is level 1, from the prefab
+			exp = data["exp"].Value<int>();
+			int level = data["characterLevel"].Value<int>();
+			LevelUp(level);
 		}
+		#endregion
 	}
 }

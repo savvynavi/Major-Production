@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 114723464454632098}
   - component: {fileID: 136725573150923212}
   - component: {fileID: 114449982427062270}
+  - component: {fileID: 114979560031451114}
   m_Layer: 0
   m_Name: Orc_Wolfrider
   m_TagString: Enemy
@@ -862,7 +863,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1362055367333410}
-  m_LocalRotation: {x: 0.52750516, y: 0.031375706, z: 0.8487588, w: 0.019032255}
+  m_LocalRotation: {x: 0.5275052, y: 0.03137571, z: 0.84875894, w: 0.019032257}
   m_LocalPosition: {x: -0.33738193, y: 0.000027808379, z: -0.066646256}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
@@ -1686,6 +1687,18 @@ MonoBehaviour:
   mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
   bg: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
   canvas: {fileID: 0}
+--- !u!114 &114979560031451114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1465640424020886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 40
 --- !u!136 &136725573150923212
 CapsuleCollider:
   m_ObjectHideFlags: 1

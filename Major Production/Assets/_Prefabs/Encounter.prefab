@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 114439789501495640}
   - component: {fileID: 114468806203928992}
   - component: {fileID: 114063473629464114}
+  - component: {fileID: 114426298733146884}
   m_Layer: 0
   m_Name: Orc_archer
   m_TagString: Enemy
@@ -872,6 +873,7 @@ GameObject:
   - component: {fileID: 114886401852352354}
   - component: {fileID: 114865567650916382}
   - component: {fileID: 114461831570290760}
+  - component: {fileID: 114136212817928068}
   m_Layer: 0
   m_Name: Orc_archer (1)
   m_TagString: Enemy
@@ -1701,6 +1703,7 @@ GameObject:
   - component: {fileID: 114679268787234260}
   - component: {fileID: 136222174219640350}
   - component: {fileID: 114143877563535816}
+  - component: {fileID: 114137567339278260}
   m_Layer: 0
   m_Name: Orc_Wolfrider
   m_TagString: Enemy
@@ -3784,7 +3787,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501811074845520}
-  m_LocalRotation: {x: 0.5275052, y: 0.03137571, z: 0.84875894, w: 0.019032257}
+  m_LocalRotation: {x: 0.52750516, y: 0.031375706, z: 0.8487588, w: 0.019032255}
   m_LocalPosition: {x: -0.33738193, y: 0.000027808379, z: -0.066646256}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
@@ -6738,6 +6741,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadName: Reloading
   arrowName: Arrows
+--- !u!114 &114136212817928068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1294422243353488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 15
+--- !u!114 &114137567339278260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582279766692812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 40
 --- !u!114 &114143877563535816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6749,6 +6776,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5daf5f8c7f2da3146a48efc7f1321805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114426298733146884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189626636009170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 15
 --- !u!114 &114439789501495640
 MonoBehaviour:
   m_ObjectHideFlags: 1

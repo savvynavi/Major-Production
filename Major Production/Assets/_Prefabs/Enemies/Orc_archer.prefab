@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 114881973506887672}
   - component: {fileID: 114339059846158056}
   - component: {fileID: 114163106852333460}
+  - component: {fileID: 114470252497700902}
   m_Layer: 0
   m_Name: Orc_archer
   m_TagString: Enemy
@@ -2586,6 +2587,18 @@ MonoBehaviour:
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
+--- !u!114 &114470252497700902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1086686746418390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 15
 --- !u!114 &114881973506887672
 MonoBehaviour:
   m_ObjectHideFlags: 1

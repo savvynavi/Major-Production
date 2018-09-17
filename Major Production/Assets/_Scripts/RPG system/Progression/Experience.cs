@@ -91,6 +91,20 @@ namespace RPG.XP
             }
         }
 
+		public void AddXp(int xp)
+		{
+			exp += xp;
+			Debug.Log(character.name + " new XP = " + exp);
+			// HACK figure out rule for XP to level, where to store that data, etc
+			// for now, just do 100xp to level up
+			while (exp >= 100)
+			{
+				exp -= 100;
+				LevelUp();
+				Debug.Log(character.name + " levelled up to L " + characterLevel + ", XP = " + exp);
+			}
+		}
+
 		#region ISaveable Implementation
 		public JObject Save()
 		{

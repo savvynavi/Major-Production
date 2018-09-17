@@ -20,6 +20,11 @@ namespace RPG.XP
 		{
 			StatChangeDict = StatChanges.ToDictionary();
 		}
+
+        public void ApplyLevelUp(Character character)
+        {
+            character.ApplyStatChange(StatChangeDict);
+        }
 	}
 
 	[RequireComponent(typeof(Character))]
@@ -29,17 +34,20 @@ namespace RPG.XP
 
 		[SerializeField] List<Level> levels;
 
+        // serialized so I can see what's happening
 		[SerializeField] int characterLevel;
 		// NOTE: characterLevel and levels index are offset.
 		// going from level 1 to level 2 uses levels[0]
 
 		// probably will replace setter with something that applies level changes
-		public int CharacterLevel { get { return characterLevel; } set { characterLevel = value; } }
+		public int CharacterLevel { get { return characterLevel; }}
+        public int MaxLevel { get { return levels.Count + 1; } }
 
 		// Use this for initialization
 		void Awake()
 		{
 			character = GetComponent<Character>();
+           characterLevel = 1;
 			foreach(Level l in levels)
 			{
 				l.Init();
@@ -52,10 +60,30 @@ namespace RPG.XP
 
 		}
 
-		private void ApplyLevelUp(Level level)
-		{
-			character.ApplyStatChange(level.StatChangeDict);
-		}
+        public bool LevelUp()
+        {
+            if (characterLevel < MaxLevel) {
+                levels[characterLevel - 1].ApplyLevelUp(character);
+                ++characterLevel;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void LevelUp(int newLevel)
+        {
+            newLevel = Mathf.Max(newLevel, MaxLevel);
+            while(characterLevel < newLevel)
+            {
+                if (!LevelUp())
+                {
+                    break;
+                }
+            }
+        }
 
 		public JObject Save()
 		{

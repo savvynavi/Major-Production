@@ -147,17 +147,14 @@ namespace RPGsys {
 		//while at least 1 player is alive, will loop the gamestates starting with the player
 		private IEnumerator GameLoop() {
 
-
-			yield return PlayerTurn();
-			while(confirmMoves == false){
-				yield return LockInMoves();
-			}
-			yield return EnemyTurn();
-			yield return ApplyMoves();
-
-			//checking if alive to keep looping
-			if(!BattleOver()) {
-				yield return GameLoop();
+			// loop while players alive
+			while(!BattleOver()){
+				yield return PlayerTurn();
+				while(confirmMoves == false){
+					yield return LockInMoves();
+				}
+				yield return EnemyTurn();
+				yield return ApplyMoves();
 			}
 
 			Debug.Log("peope are dead now");

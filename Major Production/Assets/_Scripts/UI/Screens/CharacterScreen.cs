@@ -148,8 +148,7 @@ namespace RPG.UI
 		//HACK for testing level up system
 		public void LevelUpCharacter()
 		{
-			// TODO call LevelUp on component
-			CurrentChar.GetComponent<RPG.XP.Experience>();
+			CurrentChar.GetComponent<RPG.XP.Experience>().LevelUp();
 		}
 	}
 }

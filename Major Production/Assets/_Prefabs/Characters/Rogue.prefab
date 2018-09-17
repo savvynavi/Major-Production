@@ -1047,6 +1047,7 @@ GameObject:
   - component: {fileID: 114086635045379272}
   - component: {fileID: 114135268970960196}
   - component: {fileID: 114194344478294352}
+  - component: {fileID: 114944666393507760}
   m_Layer: 0
   m_Name: Rogue
   m_TagString: Player
@@ -2186,6 +2187,63 @@ MonoBehaviour:
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
+--- !u!114 &114944666393507760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989843056731364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6bb32bd2d8aa14dbb8bceae534d7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - StatChanges:
+      keys: 0000000001000000030000000400000005000000060000000700000008000000
+      values:
+      - 3
+      - 15
+      - 5
+      - 10
+      - 150
+      - 10
+      - 4
+      - 3
+  - StatChanges:
+      keys: 0000000001000000030000000400000005000000060000000700000008000000
+      values:
+      - 3
+      - 15
+      - 5
+      - 10
+      - 150
+      - 10
+      - 4
+      - 3
+  - StatChanges:
+      keys: 0000000001000000030000000400000005000000060000000700000008000000
+      values:
+      - 3
+      - 15
+      - 5
+      - 10
+      - 150
+      - 10
+      - 4
+      - 3
+  - StatChanges:
+      keys: 0000000001000000030000000400000005000000060000000700000008000000
+      values:
+      - 3
+      - 15
+      - 5
+      - 10
+      - 150
+      - 10
+      - 4
+      - 3
+  characterLevel: 0
 --- !u!136 &136174869143321356
 CapsuleCollider:
   m_ObjectHideFlags: 1

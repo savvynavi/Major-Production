@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 114447761241486408}
   - component: {fileID: 114958592249267350}
   - component: {fileID: 114560024076502154}
+  - component: {fileID: 114653494107772878}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Player
@@ -1553,6 +1554,59 @@ MonoBehaviour:
   hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
     type: 2}
   hoverTxtPos: {fileID: 0}
+--- !u!114 &114653494107772878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1818827160022790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6bb32bd2d8aa14dbb8bceae534d7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - StatChanges:
+      keys: 00000000030000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 15
+      - 150
+      - 20
+      - 2
+      - 2
+  - StatChanges:
+      keys: 00000000030000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 15
+      - 150
+      - 20
+      - 2
+      - 2
+  - StatChanges:
+      keys: 00000000030000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 15
+      - 150
+      - 20
+      - 2
+      - 2
+  - StatChanges:
+      keys: 00000000030000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 15
+      - 150
+      - 20
+      - 2
+      - 2
+  characterLevel: 0
 --- !u!114 &114958592249267350
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1017,6 +1017,7 @@ GameObject:
   - component: {fileID: 114281946260384924}
   - component: {fileID: 114587627001518698}
   - component: {fileID: 114249493507640028}
+  - component: {fileID: 114844359389543830}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Player
@@ -2186,6 +2187,63 @@ MonoBehaviour:
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
+--- !u!114 &114844359389543830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936832124206094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6bb32bd2d8aa14dbb8bceae534d7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - StatChanges:
+      keys: 0000000001000000020000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 2
+      - 5
+      - 250
+      - 5
+      - 2
+      - 1
+  - StatChanges:
+      keys: 0000000001000000020000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 2
+      - 5
+      - 250
+      - 5
+      - 2
+      - 1
+  - StatChanges:
+      keys: 0000000001000000020000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 2
+      - 5
+      - 250
+      - 5
+      - 2
+      - 1
+  - StatChanges:
+      keys: 0000000001000000020000000400000005000000060000000700000008000000
+      values:
+      - 1
+      - 25
+      - 2
+      - 5
+      - 250
+      - 5
+      - 2
+      - 1
+  characterLevel: 0
 --- !u!136 &136918211210104812
 CapsuleCollider:
   m_ObjectHideFlags: 1

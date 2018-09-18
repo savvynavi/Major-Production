@@ -4,18 +4,22 @@
 	"definitions":{
 		"Character" : {
 			"type": "object",
-			"properties": {
-				"name": {"type": "string"},
-				"hp": {"type": "number"},
-				"mp": {"type": "number"},
-				"weapon": {"type": "string"},
+      "properties": {
+        "name": { "type": "string" },
+        "hp": { "type": "number" },
+        "mp": { "type": "number" },
+        "weapon": { "type": "string" },
         "equipment": {
           "type": "array",
           "items": { "type": "string" }
         },
+        "activePowers": {
+          "type": "array",
+          "items":  {"type": "string" }
+        },
         "experience":  {"$ref":  "#/definitions/Experience" }
 			},
-			"required": ["name","hp","mp","weapon","equipment","experience"]
+			"required": ["name","hp","mp","weapon","equipment","activePowers","experience"]
 		},
 		"InventoryManager" : {
 			"type": "object",

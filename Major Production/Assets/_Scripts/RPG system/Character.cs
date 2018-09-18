@@ -253,7 +253,10 @@ namespace RPGsys{
 				new JProperty("weapon", Weapon != null ? Utility.TrimCloned(Weapon.name) : ""),
 				new JProperty("equipment",
 					new JArray(from i in Equipment
-							   select Utility.TrimCloned(i.name))));
+							   select Utility.TrimCloned(i.name))),
+				new JProperty("activePowers",
+					new JArray(from p in activePowers
+							   select Utility.TrimCloned(p.name))));
 			if(experience != null)
 			{
 				saveData.Add("experience", experience.Save());
@@ -272,7 +275,25 @@ namespace RPGsys{
 				experience.Load(data.Value<JObject>("experience"));
 			}
 
+			activePowers.Clear();
 			// TODO set active powers
+			foreach(string powerName in data["activePowers"])
+			{
+				Powers activatedPower = classInfo.classPowers.Find(p => Utility.TrimCloned(p.name) == powerName);
+				if(activatedPower != null)
+				{
+					activePowers.Add(activatedPower);
+				} else
+				{
+					//maybe throw?
+					throw new System.ArgumentException("Power not found");
+				}
+			}
+			if(activePowers.Count < 1)
+			{
+				throw new System.ArgumentException("No active powers");
+				// maybe instead pick the first one?
+			}
 
 			string weaponName = (string)data["weapon"];
 			if (string.IsNullOrEmpty(weaponName))

@@ -89,7 +89,7 @@ namespace RPG.UI
 			StringBuilder abilityList = new StringBuilder();
 			foreach (RPGsys.Powers ability in CurrentChar.classInfo.classPowers)
 			{
-				abilityList.Append(ability.powName + '\n');
+				abilityList.Append(ability.powName + ", ");
 			}
 			AbilitiesText.text = abilityList.ToString();
 			LevelText.text = string.Format("Level {0}", CurrentChar.experience.CharacterLevel);

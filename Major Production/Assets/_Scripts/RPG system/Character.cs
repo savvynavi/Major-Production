@@ -320,7 +320,7 @@ namespace RPGsys{
 			{
 				Debug.LogWarning("Power " + power.powName + " could not be added as it already exists in list.");
 			}
-			Debug.Log("Current powers: " + (from p in classInfo.classPowers select p.powName + ", "));
+			Debug.Log("Current powers: " + (from p in classInfo.classPowers select p.powName).Aggregate((a, b) => a + ", " + b));
 		}
 
 		#endregion

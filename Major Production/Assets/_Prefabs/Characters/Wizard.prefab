@@ -1576,6 +1576,8 @@ MonoBehaviour:
       - 20
       - 2
       - 2
+    unlockedPowers:
+    - {fileID: 11400000, guid: a77345a18a3e5354a84d952b29a380da, type: 2}
   - StatChanges:
       keys: 00000000030000000400000005000000060000000700000008000000
       values:
@@ -1586,6 +1588,7 @@ MonoBehaviour:
       - 20
       - 2
       - 2
+    unlockedPowers: []
   - StatChanges:
       keys: 00000000030000000400000005000000060000000700000008000000
       values:
@@ -1596,6 +1599,7 @@ MonoBehaviour:
       - 20
       - 2
       - 2
+    unlockedPowers: []
   - StatChanges:
       keys: 00000000030000000400000005000000060000000700000008000000
       values:
@@ -1606,7 +1610,9 @@ MonoBehaviour:
       - 20
       - 2
       - 2
+    unlockedPowers: []
   characterLevel: 0
+  exp: 0
 --- !u!114 &114958592249267350
 MonoBehaviour:
   m_ObjectHideFlags: 1

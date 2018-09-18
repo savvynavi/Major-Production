@@ -58,10 +58,9 @@ Shader "Shader Forge/PolygonShield" {
                 float node_9259 = 0.0;
                 float4 node_6252 = _Time;
                 float node_5090 = sin((3.0*node_6252.a));
-                float4 node_1614 = _Time;
-                float node_5304 = (node_6252.r*_SpeedOfHexFlutter*o.vertexColor.a);
-                float node_8737_ang = node_1614.g;
-                float node_8737_spd = sin(node_5304);
+                float4 node_324 = _Time;
+                float node_8737_ang = node_324.g;
+                float node_8737_spd = sin((node_6252.r*_SpeedOfHexFlutter*o.vertexColor.a));
                 float node_8737_cos = cos(node_8737_spd*node_8737_ang);
                 float node_8737_sin = sin(node_8737_spd*node_8737_ang);
                 float2 node_8737_piv = float2(0.5,0.5);
@@ -129,10 +128,9 @@ Shader "Shader Forge/PolygonShield" {
                 float node_9259 = 0.0;
                 float4 node_6252 = _Time;
                 float node_5090 = sin((3.0*node_6252.a));
-                float4 node_3592 = _Time;
-                float node_5304 = (node_6252.r*_SpeedOfHexFlutter*o.vertexColor.a);
-                float node_8737_ang = node_3592.g;
-                float node_8737_spd = sin(node_5304);
+                float4 node_2368 = _Time;
+                float node_8737_ang = node_2368.g;
+                float node_8737_spd = sin((node_6252.r*_SpeedOfHexFlutter*o.vertexColor.a));
                 float node_8737_cos = cos(node_8737_spd*node_8737_ang);
                 float node_8737_sin = sin(node_8737_spd*node_8737_ang);
                 float2 node_8737_piv = float2(0.5,0.5);

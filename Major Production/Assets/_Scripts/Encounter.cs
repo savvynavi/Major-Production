@@ -20,5 +20,12 @@ namespace RPG
 			team.SetActive(false);
 			return team;
 		}
+
+		public static Encounter CreateEncounter(List<Character> enemies)
+		{
+			Encounter e = CreateInstance<Encounter>();
+			e.enemies = enemies;
+			return e;
+		}
 	}
 }

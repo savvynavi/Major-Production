@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
@@ -32,6 +33,9 @@ namespace RPGsys{
 
 		//dictionary stuff
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();
+
+		List<Powers> activePowers;	// maybe extract out to own class?
+		public ReadOnlyCollection<Powers> ActivePowers { get { return activePowers.AsReadOnly(); } }
 
 		// Returns the base stat value for a given stat
 		public float BaseStat(RPGStats.Stats stat)
@@ -167,6 +171,9 @@ namespace RPGsys{
 				classInfo.classPowers[i] = Instantiate(classInfo.classPowers[i]);
 			}
 
+			// TODO make sure no more than four
+			activePowers = new List<Powers>(classInfo.classPowers);
+
 			anim = GetComponent<Animator>();
 			experience = GetComponent<RPG.XP.Experience>();
 		}
@@ -237,6 +244,8 @@ namespace RPGsys{
 			// Not saving effects either because only equipment effects persist out of battle
 			// Again this may change
 
+			// TODO save active powers
+
 			JObject saveData = new JObject(
 				new JProperty("name", Utility.TrimCloned(name)),
 				new JProperty("hp", Hp),
@@ -262,6 +271,8 @@ namespace RPGsys{
 			{
 				experience.Load(data.Value<JObject>("experience"));
 			}
+
+			// TODO set active powers
 
 			string weaponName = (string)data["weapon"];
 			if (string.IsNullOrEmpty(weaponName))
@@ -300,8 +311,30 @@ namespace RPGsys{
 		public void AddPower(Powers power)
 		{
 			// TODO add power to list of available powers
+			// Check if power already in list
+			if (!classInfo.classPowers.Exists(p => p.Equals(power))){
+				// Add new instance of power to list
+				classInfo.classPowers.Add(Instantiate(power));
+			}
+			else
+			{
+				Debug.LogWarning("Power " + power.powName + " could not be added as it already exists in list.");
+			}
+			Debug.Log("Current powers: " + (from p in classInfo.classPowers select p.powName + ", "));
 		}
 
+		#endregion
+
+		#region Active Powers
+		public bool ActivatePower(Powers power)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public bool DeactivatePower(Powers power)
+		{
+			throw new System.NotImplementedException();
+		}
 		#endregion
 	}
 }

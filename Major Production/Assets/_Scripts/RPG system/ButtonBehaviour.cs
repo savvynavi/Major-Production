@@ -65,7 +65,7 @@ namespace RPGsys {
 
 		private void Awake() {
 			// TODO get ActiveAbilities instead
-			powerList = GetComponent<Character>().classInfo.classPowers;
+			powerList= new List<Powers>();
 			buttons = new List<Button>();
 		}
 
@@ -156,8 +156,8 @@ namespace RPGsys {
 			charaNameText.text = transform.GetComponent<Character>().name;
 
 			// Get power list again
-			// TODO get ActiveAbilities instead
-			powerList = GetComponent<Character>().classInfo.classPowers;
+			powerList.Clear();
+			powerList.AddRange(GetComponent<Character>().ActivePowers);
 			// HACK should just get character once and store as member
 
 			//setting up each power with a button

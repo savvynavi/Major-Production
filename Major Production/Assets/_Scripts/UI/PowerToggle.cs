@@ -36,58 +36,78 @@ namespace RPG.UI
 
 		public void SetContents(Character c, Powers p)
 		{
-			if (!c.classInfo.classPowers.Contains(p))
-			{
-				throw new System.ArgumentException("Power " + p.powName + " not found in character " + c.name);
-			}
 			character = c;
-			power = p;
-			buttonText.text = power.powName;
+			if (p != null)
+			{
+				if (!c.classInfo.classPowers.Contains(p))
+				{
+					throw new System.ArgumentException("Power " + p.powName + " not found in character " + c.name);
+				}
+				power = p;
+				buttonText.text = power.powName;
+			} else
+			{
+				power = null;
+				buttonText.text = "X";
+				buttonText.fontStyle = FontStyle.Normal;
+			}
 			RefreshState();
 		}
 
 		public void RefreshState()
 		{
-			isPowerOn = character.ActivePowers.Contains(power);
-			if (isPowerOn)
+			if (power != null)
 			{
-				buttonText.fontStyle = FontStyle.Bold;
-			} else
-			{
-				buttonText.fontStyle = FontStyle.Normal;
-			}
-			// HACK replace with a MaxActive thing?
-
-			button.interactable = true;
-			if(character.ActivePowers.Count == 4)
-			{
-				if (!isPowerOn)
-				{
-					button.interactable = false;
-				} 
-			} else if (character.ActivePowers.Count == 1)
-			{
+				isPowerOn = character.ActivePowers.Contains(power);
 				if (isPowerOn)
 				{
-					button.interactable = false;
+					buttonText.fontStyle = FontStyle.Bold;
 				}
+				else
+				{
+					buttonText.fontStyle = FontStyle.Normal;
+				}
+				// HACK replace with a MaxActive thing?
+
+				button.interactable = true;
+				if (character.ActivePowers.Count == 4)
+				{
+					if (!isPowerOn)
+					{
+						button.interactable = false;
+					}
+				}
+				else if (character.ActivePowers.Count == 1)
+				{
+					if (isPowerOn)
+					{
+						button.interactable = false;
+					}
+				}
+			} else
+			{
+				button.interactable = false;
+				isPowerOn = false;
 			}
 		}
 
 		void ToggleActive()
 		{
-			bool success;
-			if (isPowerOn)
-			{
-				success = character.DeactivatePower(power);
-			}
-			else
-			{
-				success = character.ActivatePower(power);
-			}
-			if (success)
-			{
-				// TODO tell parent to refresh state of all toggles
+			if (power != null) {
+				bool success;
+				if (isPowerOn)
+				{
+					success = character.DeactivatePower(power);
+				}
+				else
+				{
+					success = character.ActivatePower(power);
+				}
+				if (success)
+				{
+					// HACK
+					GetComponentInParent<CharacterScreen>().RefreshAllPowerToggles();
+				}
 			}
 		}
 	}

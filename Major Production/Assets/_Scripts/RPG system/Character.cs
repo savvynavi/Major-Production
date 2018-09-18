@@ -297,6 +297,11 @@ namespace RPGsys{
 			}
 		}
 
+		public void AddPower(Powers power)
+		{
+			// TODO add power to list of available powers
+		}
+
 		#endregion
 	}
 }

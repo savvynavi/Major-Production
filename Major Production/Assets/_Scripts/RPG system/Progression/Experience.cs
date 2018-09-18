@@ -16,6 +16,8 @@ namespace RPG.XP
 		[SerializeField] StatFloatDict StatChanges;
 		public Dictionary<RPGStats.Stats, float> StatChangeDict;
 
+		[SerializeField] List<Powers> unlockedPowers;
+
 		public void Init()
 		{
 			StatChangeDict = StatChanges.ToDictionary();
@@ -24,6 +26,10 @@ namespace RPG.XP
         public void ApplyLevelUp(Character character)
         {
             character.ApplyStatChange(StatChangeDict);
+			foreach(Powers power in unlockedPowers)
+			{
+				character.AddPower(power);
+			}
         }
 	}
 

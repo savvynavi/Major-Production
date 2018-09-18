@@ -6,6 +6,8 @@ public class EncounterController : MonoBehaviour {
 	public float Probability;
 	float mod;
 	float nextTimeEncounter;
+	[SerializeField] GameObject encounter;//HACK
+	[SerializeField] string battleScene;
 
 	// Use this for initialization
 	void Start () {
@@ -33,5 +35,12 @@ public class EncounterController : MonoBehaviour {
 
 	public float CurveRandomNumber(float rand, AnimationCurve curve){
 		return curve.Evaluate(rand);
+	}
+
+	protected void StartEncounter()
+	{
+		GameObject go = GameObject.Instantiate(encounter.gameObject);
+		go.SetActive(false);
+		BattleManager.Instance.StartBattle(battleScene, go.transform);
 	}
 }

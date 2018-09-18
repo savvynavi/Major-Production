@@ -328,12 +328,23 @@ namespace RPGsys{
 		#region Active Powers
 		public bool ActivatePower(Powers power)
 		{
-			throw new System.NotImplementedException();
+			// TODO check there aren't too many powers on
+			// Then, if power is in classInfo, and not in ActivePowers, add to ActivePowers
+			if(activePowers.Count < 4 &&	//HACK replace with MaxPowers or something
+				classInfo.classPowers.Contains(power) &&
+				!activePowers.Contains(power))
+			{
+				activePowers.Add(power);
+				return true;
+			} else
+			{
+				return false;
+			}
 		}
 
 		public bool DeactivatePower(Powers power)
 		{
-			throw new System.NotImplementedException();
+			return activePowers.Remove(power);
 		}
 		#endregion
 	}

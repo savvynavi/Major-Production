@@ -32,5 +32,10 @@ namespace RPGsys
 				
 			}
 		}
+
+		//updates the character info to given character (used for menu portrait)
+		public void UpdateInfo(Character chara) {
+			uis[0].SetCharacter(chara);
+		}
 	}
 }

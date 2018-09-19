@@ -34,7 +34,7 @@ namespace RPGsys {
 					HPBar.fillAmount = character.Hp / character.hpStat;
 				}
 				if(MPBar != null) {
-					HPBar.fillAmount = character.Mp / character.mpStat;
+					MPBar.fillAmount = character.Mp / character.mpStat;
 				}
 			} else {
 				//todo clear info if no character
@@ -42,8 +42,6 @@ namespace RPGsys {
 		}
 
 		void Update() {
-
-			//SetCharacter(character); // hack
 
 			if(character != null) {
 				if(HPBar != null) {

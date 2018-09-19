@@ -216,6 +216,9 @@ namespace RPGsys {
 			//loop through characters and wait until input to move to next one
 			for(int i = 0; i < characters.Count; i++) {
 				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();
+				//TODO change this to be active character
+				battleUIController.MenuHp.UpdateInfo(characters[i]);
+
 				foreach(Character chara2 in characters) {
 					chara2.GetComponent<TargetSelection>().enabled = false;
 				}

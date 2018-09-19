@@ -104,6 +104,7 @@ namespace RPGsys{
 			}
 		}
 
+		#region Stat Accessors
 		public float Speed{
 			get { return CharaStats[RPGStats.Stats.Speed]; }
 			set { CharaStats[RPGStats.Stats.Speed] = value; }
@@ -141,6 +142,7 @@ namespace RPGsys{
 			get { return CharaStats[RPGStats.Stats.Agi]; }
 			set { CharaStats[RPGStats.Stats.Agi] = value; }
 		}
+		#endregion
 		public GameObject target;
 
 		//Material material;
@@ -174,7 +176,8 @@ namespace RPGsys{
 			}
 
 			// TODO make sure no more than four
-			activePowers = new List<Powers>(classInfo.classPowers);
+			activePowers = new List<Powers>(classInfo.classPowers.Take(4));
+
 
 			anim = GetComponent<Animator>();
 			experience = GetComponent<RPG.XP.Experience>();

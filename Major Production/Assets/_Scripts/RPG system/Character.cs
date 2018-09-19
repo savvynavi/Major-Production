@@ -11,6 +11,8 @@ using Newtonsoft.Json.Linq;
 
 namespace RPGsys{
 	public class Character : MonoBehaviour, ISaveable{
+		public const int maxActivePowers = 4;
+
 		//base stats
 		public float speedStat;
 		public float strStat;
@@ -351,7 +353,7 @@ namespace RPGsys{
 		{
 			// TODO check there aren't too many powers on
 			// Then, if power is in classInfo, and not in ActivePowers, add to ActivePowers
-			if(activePowers.Count < 4 &&	//HACK replace with MaxPowers or something
+			if(activePowers.Count < Character.maxActivePowers &&
 				classInfo.classPowers.Contains(power) &&
 				!activePowers.Contains(power))
 			{

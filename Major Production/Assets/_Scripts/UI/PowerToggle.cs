@@ -67,10 +67,9 @@ namespace RPG.UI
 				{
 					buttonText.fontStyle = FontStyle.Normal;
 				}
-				// HACK replace with a MaxActive thing?
 
 				button.interactable = true;
-				if (character.ActivePowers.Count == 4)
+				if (character.ActivePowers.Count == Character.maxActivePowers)
 				{
 					if (!isPowerOn)
 					{

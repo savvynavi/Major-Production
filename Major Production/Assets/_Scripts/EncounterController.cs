@@ -40,8 +40,7 @@ public class EncounterController : MonoBehaviour {
 
 	protected void StartEncounter()
 	{
-		GameObject go = GameObject.Instantiate(encounter.gameObject);
-		go.SetActive(false);
+		GameObject go = encounter.InstantiateEnemyTeam();
 		BattleManager.Instance.StartBattle(battleScene, go.transform);
 	}
 }

@@ -94,6 +94,7 @@ namespace RPG.XP
             {
                 if (!LevelUp())
                 {
+					// Break from loop if LevelUp fails to increase level
                     break;
                 }
             }

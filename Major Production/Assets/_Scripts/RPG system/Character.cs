@@ -175,7 +175,7 @@ namespace RPGsys{
 				classInfo.classPowers[i] = Instantiate(classInfo.classPowers[i]);
 			}
 
-			// TODO make sure no more than four
+			// set first four class powers as active
 			activePowers = new List<Powers>(classInfo.classPowers.Take(4));
 
 
@@ -249,8 +249,6 @@ namespace RPGsys{
 			// Not saving effects either because only equipment effects persist out of battle
 			// Again this may change
 
-			// TODO save active powers
-
 			JObject saveData = new JObject(
 				new JProperty("name", Utility.TrimCloned(name)),
 				new JProperty("hp", Hp),
@@ -281,7 +279,8 @@ namespace RPGsys{
 			}
 
 			activePowers.Clear();
-			// TODO set active powers
+
+			// set active powers
 			foreach(string powerName in data["activePowers"])
 			{
 				Powers activatedPower = classInfo.classPowers.Find(p => Utility.TrimCloned(p.name) == powerName);
@@ -334,9 +333,9 @@ namespace RPGsys{
 			}
 		}
 
+		// add power to list of available powers
 		public void AddPower(Powers power)
 		{
-			// TODO add power to list of available powers
 			// Check if power already in list
 			if (!classInfo.classPowers.Exists(p => p.Equals(power))){
 				// Add new instance of power to list
@@ -354,7 +353,7 @@ namespace RPGsys{
 		#region Active Powers
 		public bool ActivatePower(Powers power)
 		{
-			// TODO check there aren't too many powers on
+			// Check there aren't too many powers on
 			// Then, if power is in classInfo, and not in ActivePowers, add to ActivePowers
 			if(activePowers.Count < Character.maxActivePowers &&
 				classInfo.classPowers.Contains(power) &&

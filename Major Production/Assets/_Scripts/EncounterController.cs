@@ -6,7 +6,8 @@ public class EncounterController : MonoBehaviour {
 	public float Probability;
 	float mod;
 	float nextTimeEncounter;
-	[SerializeField] GameObject encounter;//HACK
+
+	[SerializeField] RPG.Encounter encounter;
 	[SerializeField] string battleScene;
 
 	// Use this for initialization

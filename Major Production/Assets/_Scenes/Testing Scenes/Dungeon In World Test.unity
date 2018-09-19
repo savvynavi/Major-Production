@@ -1701,7 +1701,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 324897029}
-  m_LocalRotation: {x: 0.5275052, y: 0.03137571, z: 0.84875894, w: 0.019032257}
+  m_LocalRotation: {x: 0.52750516, y: 0.031375706, z: 0.8487588, w: 0.019032255}
   m_LocalPosition: {x: -0.33738193, y: 0.000027808379, z: -0.066646256}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
@@ -6165,7 +6165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1385111739
 Transform:
   m_ObjectHideFlags: 0
@@ -6191,7 +6191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleScene: Test Battle
-  enemies: {fileID: 1977569789824972, guid: 66e7424559f67524fbbf4aaa5f59839f, type: 2}
+  encounter: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
 --- !u!65 &1385111741
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6704,7 +6704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleScene: Test Battle
-  enemies: {fileID: 1977569789824972, guid: 66e7424559f67524fbbf4aaa5f59839f, type: 2}
+  encounter: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
 --- !u!65 &1566228737
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -106,7 +106,7 @@ namespace RPGsys {
             }
 
             // place player team in set positions
-            for(int i = 0; i<playerPositions.Count; ++i)
+            for(int i = 0; i<playerPositions.Count && i < characters.Count; ++i)
             {
                 characters[i].transform.position = playerPositions[i].position;
                 characters[i].transform.rotation = playerPositions[i].rotation;
@@ -171,8 +171,31 @@ namespace RPGsys {
 
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
+					// Do experience stuff
+					// HACK this is getting called 4 times, fix this or move elsewhere
+					int battleXP = 0;
+					foreach(Character enemy in enemies)
+					{
+						RPG.XP.XPSource xp = enemy.GetComponent<RPG.XP.XPSource>();
+						if(xp != null)
+						{
+							battleXP += xp.XP;
+						}
+					}
+
+					foreach(Character player in characters)
+					{
+						// maybe check character is alive?
+						if(player.experience != null)
+						{
+							player.experience.AddXp(battleXP);
+						}
+					}
+
 					GameOverTextWin.SetActive(true);
 				} else if(EnemyAlive() == true) {
+					// Do Game Over stuff
+
 					GameOverTextLose.SetActive(true);
 				}
 			}

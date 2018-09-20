@@ -168,5 +168,28 @@ namespace RPGsys {
 
 			return IncomingDmg;
 		}
+
+		// Checks powers are the same
+		// Currently just checks powName, maybe should check name instead?
+		public override bool Equals(object other)
+		{
+			if(other.GetType() == this.GetType())
+			{
+				Powers otherPower = other as Powers;
+				return otherPower.powName ==  this.powName;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = 1716941078;
+			hashCode = hashCode * -1521134295 + base.GetHashCode();
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(powName);
+			return hashCode;
+		}
 	}
 }

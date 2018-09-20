@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour, ISaveable {
 	public bool Paused { get; private set; }
 
 	// HACK maybe have initial values etc somewhere else? Like in serialized object?
-	[SerializeField] GameObject initialPlayerTeam;
+	[SerializeField] List<Character> initialPlayerTeam;
 	[SerializeField] List<RPGItems.Item> initialInventory;
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
@@ -90,7 +90,13 @@ public class GameController : MonoBehaviour, ISaveable {
 		{
 			GameObject.Destroy(playerTeam);
 		}
-		playerTeam = GameObject.Instantiate(initialPlayerTeam, this.transform);
+		playerTeam = new GameObject("Player Team");
+		playerTeam.transform.parent = this.transform;
+		foreach(Character prefab in initialPlayerTeam)
+		{
+			//GameObject.Instantiate(prefab, playerTeam.transform);
+			Utility.InstantiateSameName<Character>(prefab, playerTeam.transform);
+		}
 		playerTeam.SetActive(false);
 		BattleManager.Instance.playerTeam = playerTeam.transform;
 

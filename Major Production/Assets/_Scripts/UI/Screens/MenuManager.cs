@@ -15,6 +15,8 @@ namespace RPG.UI
 		bool open;
 		public bool Open { get { return open; } }
 
+		bool scrollMoving;
+
 		MenuScreen currentScreen;
 
 		// Use this for initialization
@@ -26,6 +28,7 @@ namespace RPG.UI
 			commonElements.SetActive(false);
 			scroll.gameObject.SetActive(false);
 			open = false;
+			scrollMoving = false;
 		}
 
 		// Update is called once per frame
@@ -36,23 +39,55 @@ namespace RPG.UI
 
 		public void OpenMenus()
 		{
+			if (!scrollMoving)
+			{
+				StartCoroutine(OpenMenuRoutine());
+			}
+		}
+
+		public void CloseMenus()
+		{
+			if (!scrollMoving)
+			{
+				StartCoroutine(CloseMenuRoutine());
+			}
+		}
+
+		public void CloseMenuImmediate()
+		{
+			StopAllCoroutines();
+			scrollMoving = false;
+			MenuCloseInternal();
+		}
+
+		private IEnumerator OpenMenuRoutine()
+		{
+			scrollMoving = true;
+			MenuOpenInternal();
+			scroll.SnapClosed();
+			yield return scroll.OpenScroll();
+			scrollMoving = false;
+		}
+
+		private IEnumerator CloseMenuRoutine()
+		{
+			scrollMoving = true;
+			yield return scroll.CloseScroll();
+			MenuCloseInternal();
+			scrollMoving = false;
+		}
+
+		private void MenuOpenInternal()
+		{
 			GameController.Instance.Pause();
 			currentScreen.Open();
 			commonElements.SetActive(true);
 			open = true;
 			scroll.gameObject.SetActive(true);
-			scroll.SnapClosed();
-			StartCoroutine(scroll.OpenScroll());
 		}
 
-		public void CloseMenus()
+		private void MenuCloseInternal()
 		{
-			StartCoroutine(CloseMenuRoutine());
-		}
-
-		private IEnumerator CloseMenuRoutine()
-		{
-			yield return scroll.CloseScroll();
 			currentScreen.Close();
 			scroll.gameObject.SetActive(false);
 			commonElements.SetActive(false);
@@ -66,14 +101,27 @@ namespace RPG.UI
 			{
 				if (open)
 				{
-					// TODO scroll wipe effect
-					currentScreen.Close();
-					newScreen.Open();
+					if (!scrollMoving)
+					{
+						StartCoroutine(SwitchMenuRoutine(newScreen));
+					}
 				}
-				currentScreen = newScreen;
+				else
+				{
+					currentScreen = newScreen;
+				}
 			}
 		}
 
-
+		private IEnumerator SwitchMenuRoutine(MenuScreen newScreen)
+		{
+			scrollMoving = true;
+			yield return scroll.CloseScroll(true);
+			currentScreen.Close();
+			newScreen.Open();
+			currentScreen = newScreen;
+			yield return scroll.OpenScroll();
+			scrollMoving = false;
+		}
 	}
 }

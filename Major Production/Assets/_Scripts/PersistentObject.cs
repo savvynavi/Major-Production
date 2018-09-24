@@ -20,6 +20,7 @@ public abstract class PersistentObject : MonoBehaviour {
 		controller.SaveObject(this);
 	}
 
+	// TODO consider making this return/take a JObject instead?
 	public string Serialize()
 	{
 		return JsonUtility.ToJson(this);

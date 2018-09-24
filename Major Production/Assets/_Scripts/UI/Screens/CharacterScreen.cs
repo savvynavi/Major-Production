@@ -17,7 +17,8 @@ namespace RPG.UI
 		public RPGsys.Character CurrentChar { get; private set; }
 
 		//HACK might find different way to show this
-		[SerializeField] Text AbilitiesText;
+		[SerializeField] List<PowerToggle> powerToggles;	// maybe use GetComponentsInChildren?
+		[SerializeField] Text LevelText; //HACK
 
 		List<StatDisplay> statDisplays;
 
@@ -85,13 +86,20 @@ namespace RPG.UI
 				stat.Display(changeData);
 			}
 
-			StringBuilder abilityList = new StringBuilder();
-			foreach (RPGsys.Powers ability in CurrentChar.classInfo.classPowers)
+			for (int i = 0; i < powerToggles.Count; ++i)
 			{
-				abilityList.Append(ability.powName + '\n');
+				if (i < CurrentChar.classInfo.classPowers.Count) {
+					powerToggles[i].SetContents(CurrentChar, CurrentChar.classInfo.classPowers[i]);
+				}
+				else
+				{
+					powerToggles[i].SetContents(CurrentChar, null);
+				}
 			}
-			AbilitiesText.text = abilityList.ToString();
+			LevelText.text = string.Format("Level {0}", CurrentChar.experience.CharacterLevel);
 		}
+
+
 
 		void Awake()
 		{
@@ -143,6 +151,21 @@ namespace RPG.UI
 				GameController.Instance.inventory.Unequip(item, CurrentChar);
 			}
 			SelectCharacter();
+		}
+
+		//HACK for testing level up system
+		public void LevelUpCharacter()
+		{
+			CurrentChar.GetComponent<RPG.XP.Experience>().LevelUp();
+			DisplayCharacter();
+		}
+
+		public void RefreshAllPowerToggles()
+		{
+			foreach(PowerToggle pt in powerToggles)
+			{
+				pt.RefreshState();
+			}
 		}
 	}
 }

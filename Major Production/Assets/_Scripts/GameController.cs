@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour, ISaveable {
 			playerTeam.SetActive(false);
 		}
 		SceneManager.LoadScene("Main Menu");
-		menus.CloseMenus();
+		menus.CloseMenuImmediate();
 		state = EGameStates.Menu;
 	}
 
@@ -164,7 +164,7 @@ public class GameController : MonoBehaviour, ISaveable {
 	{
 		GameObject loadedTeam = null;
 
-		menus.CloseMenus();
+		menus.CloseMenuImmediate();
 
 		try
 		{

@@ -10,6 +10,7 @@ namespace RPG.UI
 		public InventoryScreen inventoryMenu;
 		public CharacterScreen characterMenu;
 		public GameObject commonElements;
+		public Tooltip tooltip;
 
 		bool open;
 		public bool Open { get { return open; } }
@@ -23,6 +24,7 @@ namespace RPG.UI
 			inventoryMenu.Close();
 			characterMenu.Close();
 			commonElements.SetActive(false);
+			tooltip.gameObject.SetActive(false);
 			open = false;
 		}
 

@@ -27,7 +27,7 @@ namespace RPG.UI
 			inventoryMenu.Close();
 			characterMenu.Close();
 			commonElements.SetActive(false);
-			tooltip.gameObject.SetActive(false);
+			tooltip.enabled = false;
 			scroll.gameObject.SetActive(false);
 			open = false;
 			scrollMoving = false;
@@ -59,6 +59,7 @@ namespace RPG.UI
 		{
 			StopAllCoroutines();
 			scrollMoving = false;
+			tooltip.enabled = false;
 			MenuCloseInternal();
 		}
 
@@ -74,6 +75,7 @@ namespace RPG.UI
 		private IEnumerator CloseMenuRoutine()
 		{
 			scrollMoving = true;
+			tooltip.enabled = false;
 			yield return scroll.CloseScroll();
 			MenuCloseInternal();
 			scrollMoving = false;
@@ -86,6 +88,7 @@ namespace RPG.UI
 			commonElements.SetActive(true);
 			open = true;
 			scroll.gameObject.SetActive(true);
+			tooltip.enabled = true;
 		}
 
 		private void MenuCloseInternal()
@@ -93,7 +96,6 @@ namespace RPG.UI
 			currentScreen.Close();
 			scroll.gameObject.SetActive(false);
 			commonElements.SetActive(false);
-			tooltip.gameObject.SetActive(false);
 			open = false;
 			GameController.Instance.Unpause();
 		}
@@ -119,11 +121,13 @@ namespace RPG.UI
 		private IEnumerator SwitchMenuRoutine(MenuScreen newScreen)
 		{
 			scrollMoving = true;
+			tooltip.enabled = false;
 			yield return scroll.CloseScroll(true);
 			currentScreen.Close();
 			newScreen.Open();
 			currentScreen = newScreen;
 			yield return scroll.OpenScroll();
+			tooltip.enabled = true;
 			scrollMoving = false;
 		}
 	}

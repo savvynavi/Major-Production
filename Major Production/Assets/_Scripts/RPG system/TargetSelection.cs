@@ -15,8 +15,7 @@ namespace RPGsys {
 			camera = Camera.main;
 		}
 
-        public void Init(GameObject selector, Camera camera)
-        {
+        public void Init(GameObject selector, Camera camera){
             this.selector = selector;
             this.camera = camera;
         }

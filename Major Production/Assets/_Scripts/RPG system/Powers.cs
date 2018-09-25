@@ -24,17 +24,38 @@ namespace RPGsys {
 			ORC_AXE_2
 		};
 
-		public float manaCost;
-		public float damage;
-		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
-		public RPGStats.DmgType dmgType;
-		public RPGStats.Stats statType;
-		public AreaOfEffect areaOfEffect;
-		public AbilityAnim anim;
+		[Header("Power Details")]
 		public string powName;
 		public string description;
-		public float duration;
+		public float damage;
+
+		[Header("Damage Scale")]
+		public RPGStats.Stats statType;
+		//change dmgType to be physical magic or none
+		public RPGStats.DmgType dmgType;
+		//add in elemental type to attack (seperate out from dmgType)
+
+		[Header("Mana Cost")]
+		public float manaCost;
+		[Header("Area of Effect")]
+		public AreaOfEffect areaOfEffect;
+
+		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
+
+		//add editor tool for if buff applied
 		public List<Status> currentEffects;
+
+		public float duration;
+
+		//add if damage over time
+		//duration and damage here
+
+
+		//Merge some buff stuff over into this for ease of use
+		
+		public AbilityAnim anim;
+
+
 
 		public string Description {
 			get { return description; }

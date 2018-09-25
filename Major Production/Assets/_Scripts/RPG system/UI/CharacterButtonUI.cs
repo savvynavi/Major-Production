@@ -22,7 +22,7 @@ namespace RPGsys {
 			if(character != null) {
 				//if there is both a button and a backing panel, it loops over character and instantiates a button for each power
 				if(Button != null) {
-					foreach(Powers pow in character.classInfo.classPowers) {
+					foreach(Powers pow in character.ActivePowers) {
 						//call go = getComponent powerUI and that should do it
 						GameObject go = Instantiate(Button.gameObject);
 						go.transform.SetParent(transform);

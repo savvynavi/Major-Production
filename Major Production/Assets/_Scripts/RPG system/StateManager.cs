@@ -14,7 +14,6 @@ namespace RPGsys {
 		public Button MainMenu;
 		public Button Quit;
 		public GameObject selector;
-		public ButtonBehaviourObjects buttonBehaviourObjects;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
 
@@ -170,15 +169,6 @@ namespace RPGsys {
 			Debug.Log("peope are dead now");
 
 			if(BattleOver() == true) {
-
-                // Cleanup button behaviours
-                List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
-                BattleManager.Instance.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
-                foreach (ButtonBehaviour bb in buttonBehaviours)
-                {
-                    bb.CleanUp();
-                }
-
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					// Do experience stuff
@@ -488,13 +478,6 @@ namespace RPGsys {
 		}
 
 		public IEnumerator EndBattle() {
-			// Cleanup button behaviours
-			List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
-			BattleManager.Instance.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
-			foreach(ButtonBehaviour bb in buttonBehaviours) {
-				bb.CleanUp();
-			}
-
 			turnBehaviour.MovesThisRound.Clear();
 
 			foreach(Character chara in characters) {

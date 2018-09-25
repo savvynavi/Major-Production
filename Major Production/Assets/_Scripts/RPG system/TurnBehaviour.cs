@@ -27,7 +27,6 @@ namespace RPGsys {
 			AvailableEnemies = enemies;
 
 			//find better solution won't work w/ mult button
-			//button = FindObjectOfType<ButtonBehaviour>().GetComponent<ButtonBehaviour>();
 			numOfTurns = AvailablePlayers.Count;
 			numOfEnemyTurns = AvailableEnemies.Count;
 		}

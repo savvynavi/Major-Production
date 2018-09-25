@@ -1707,72 +1707,17 @@ Prefab:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1792913280812206, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.6402947
-      objectReference: {fileID: 0}
-    - target: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.6402947
-      objectReference: {fileID: 0}
-    - target: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.6402947
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792913280812206, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
       propertyPath: m_Name
       value: Quit
       objectReference: {fileID: 0}
-    - target: {fileID: 114655191158835610, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 224213361290058024, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.5675736
-      objectReference: {fileID: 0}
-    - target: {fileID: 224213361290058024, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.5675736
-      objectReference: {fileID: 0}
-    - target: {fileID: 224213361290058024, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.5675736
-      objectReference: {fileID: 0}
-    - target: {fileID: 114655191158835610, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
+    - target: {fileID: 114724823476349466, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
         type: 2}
       propertyPath: m_Text
-      value: End Fight
+      value: Quit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &950698352 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1792913280812206, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-    type: 2}
-  m_PrefabInternal: {fileID: 950698351}
---- !u!114 &950698353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 950698352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5feb5795fb0482a4abe338eeae1ef4f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &966785849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +1896,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1200979494
 MonoBehaviour:
@@ -2270,49 +2215,10 @@ Prefab:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1792913280812206, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.6402895
-      objectReference: {fileID: 0}
-    - target: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.6402897
-      objectReference: {fileID: 0}
-    - target: {fileID: 224193875636589226, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.6402897
-      objectReference: {fileID: 0}
-    - target: {fileID: 1792913280812206, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 114655191158835610, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 224213361290058024, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.5675736
-      objectReference: {fileID: 0}
-    - target: {fileID: 224213361290058024, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.5675736
-      objectReference: {fileID: 0}
-    - target: {fileID: 224213361290058024, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.5675736
-      objectReference: {fileID: 0}
-    - target: {fileID: 114655191158835610, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
+    - target: {fileID: 114724823476349466, guid: 22c396f2ea8024f4e87de412d8b9f3b8,
         type: 2}
       propertyPath: m_Text
       value: Main Menu

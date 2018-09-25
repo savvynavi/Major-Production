@@ -17,7 +17,10 @@ namespace RPGsys {
 				uis = new List<CharacterButtonUI>();
 				for(int i = 0; i < manager.characters.Count; i++) {
 					GameObject go = Instantiate(prefab.gameObject, transform);
+					
 					CharacterButtonUI tmp = go.GetComponent<CharacterButtonUI>();
+
+					(go.transform as RectTransform).anchoredPosition = Vector3.zero;
 					uis.Add(tmp);
 					tmp.SetButtons(manager.characters[i]);
 				}

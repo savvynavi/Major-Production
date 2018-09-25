@@ -135,8 +135,8 @@ namespace RPGsys {
 		}
 
 		public void ShowButtons() {
-			bgPanel.SetActive(true);
-			charaNameText.gameObject.SetActive(true);
+			//bgPanel.SetActive(true);
+			//charaNameText.gameObject.SetActive(true);
 
 			if(goBackBtn != null) {
 				goBackBtn.gameObject.SetActive(true);
@@ -149,8 +149,8 @@ namespace RPGsys {
 		}
 
 		public void HideButtons() {
-			bgPanel.SetActive(false);
-			charaNameText.gameObject.SetActive(false);
+			//bgPanel.SetActive(false);
+			//charaNameText.gameObject.SetActive(false);
 
 			if(goBackBtn != null) {
 				goBackBtn.gameObject.SetActive(false);

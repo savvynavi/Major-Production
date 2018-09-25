@@ -12,8 +12,7 @@ namespace RPGsys {
 		public GameObject MenuLayout;
 		public Image Healthbar;
 		public Image Magicbar;
-		//REMOVE ONCE BBOBJ BECOME OBSOLETE 
-		public ButtonBehaviourObjects buttonBehaviourObjects;
+
 		public CharacterListUI FloatingStats;
 		public CharacterListUI MenuHp;
 
@@ -21,25 +20,17 @@ namespace RPGsys {
 		Image Portrait;
 		Image Container;
 		Text NameText;
-		List<ButtonBehaviour> btnBehaviours;
 		public MoveConfirmMenu moveConfirmMenu { get; private set; }
 		StateManager stateManager;
 
 
 		private void Awake() {
 			//grab all the buttonBehaviours and store in a list
-			btnBehaviours = new List<ButtonBehaviour>();
 			stateManager = GetComponent<StateManager>();
 			moveConfirmMenu = GetComponent<MoveConfirmMenu>();
 		}
 
 		public void UISetup(List<Character> characters) {
-			//storing buttons for each character
-			foreach(Character chara in characters) {
-				ButtonBehaviour btnTmp = chara.GetComponent<ButtonBehaviour>();
-				btnBehaviours.Add(btnTmp);
-			}
-
 			//finds the button panel, change later to be less eeh
 			Transform[] children = MenuLayout.transform.GetComponentsInChildren<Transform>();
 			foreach(Transform child in children) {
@@ -55,10 +46,6 @@ namespace RPGsys {
 				if(child.name == "Name") {
 					NameText = child.gameObject.GetComponent<Text>();
 				}
-			}
-
-			foreach(ButtonBehaviour btnBehav in btnBehaviours) {
-				btnBehav.Setup(buttonBehaviourObjects, button, NameText, ButtonPanel, MenuHp.uis, canvas);
 			}
 
 			moveConfirmMenu.Setup(button, ButtonPanel, canvas);

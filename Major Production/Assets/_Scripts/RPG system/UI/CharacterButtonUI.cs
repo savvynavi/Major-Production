@@ -11,7 +11,9 @@ namespace RPGsys {
 		public PowersUI PowerUI;
 
 		public Button Button;
-		
+
+		Button goBackButton;
+		public bool UndoMove = false;
 		//public Image Panel;
 
 		public void SetButtons(Character chara) {
@@ -20,23 +22,45 @@ namespace RPGsys {
 			if(character != null) {
 				//if there is both a button and a backing panel, it loops over character and instantiates a button for each power
 				if(Button != null) {
-					int count = 1;
 					foreach(Powers pow in character.classInfo.classPowers) {
 						//call go = getComponent powerUI and that should do it
 						GameObject go = Instantiate(Button.gameObject);
+						go.transform.SetParent(transform);
+						go.transform.localScale = Vector3.one;
+
 						PowerUI = go.GetComponent<PowersUI>();
+						PowerUI.SetPower(pow, go, character);
+						go.name = PowerUI.Name.text + "(" + character.name + ")";
+					}
 
-						go.name = PowerUI.Name.text + "(" + count + ")";
-						go.GetComponentInChildren<Text>().text = PowerUI.Name.text;
+					//undo button setup
+					if(character.ChoiceOrder != 1) {
+						GameObject tmp = Instantiate(Button.gameObject);
+						goBackButton = tmp.GetComponent<Button>();
+						tmp.transform.SetParent(transform, false);
+						goBackButton.name = "UNDO";
+						goBackButton.GetComponentInChildren<Text>().text = "UNDO";
+						goBackButton.onClick.AddListener(() => HandleClickBack());
 
-						//Button buttonInstance = go.GetComponent<Button>();
-						////go.transform.SetParent(transform, false);
-						//go.name = pow.name + "(" + count + ")";
-						//go.GetComponentInChildren<Text>().text = pow.powName;
 					}
 				}
 			}
 
+			HidePowerButtons();
+		}
+
+		public void ShowPowerButtons() {
+			transform.gameObject.SetActive(true);
+			character.ActivePlayer = false;
+		}
+
+		public void HidePowerButtons() {
+			transform.gameObject.SetActive(false);
+		}
+
+		public void HandleClickBack() {
+			FindObjectOfType<TurnBehaviour>().RemoveAttack();
+			UndoMove = true;
 		}
 	}
 }

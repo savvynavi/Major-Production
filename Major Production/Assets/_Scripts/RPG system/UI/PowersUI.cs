@@ -12,17 +12,35 @@ namespace RPGsys {
 		public Image Icon;
 		public Text Name;
 
-		public void SetPower(Powers pow) {
-			power = pow;
+		public Button Btn;
 
-			if(power != null) {
+		public void SetPower(Powers pow, GameObject button, Character chara) {
+			power = pow;
+			character = chara;
+			Btn = button.GetComponent<Button>();
+			Name = button.GetComponentInChildren<Text>();
+
+			if(power != null && Btn != null) {
 				if(Icon != null) {
 					Icon.sprite = power.icon;
 				}
 				if(Name != null) {
 					Name.text = power.powName;
+					if(Btn.GetComponentInChildren<Text>().text != null) {
+						Debug.Log("button text not null");
+					}
 				}
+
+				//hooking up button to event
+				Btn.onClick.AddListener(() => HandleClick());
+				
 			}
+		}
+
+		public void HandleClick() {
+			Debug.Log("power button clicked: " + power.powName);
+			FindObjectOfType<TurnBehaviour>().TurnAddAttack(power, character);
+			character.ActivePlayer = true;
 		}
 
 	}

@@ -3155,7 +3155,6 @@ GameObject:
   - component: {fileID: 95254764514122016}
   - component: {fileID: 136657925384032078}
   - component: {fileID: 114446163386112780}
-  - component: {fileID: 114177872401107248}
   - component: {fileID: 114807927417132590}
   m_Layer: 0
   m_Name: Bard
@@ -3191,7 +3190,6 @@ GameObject:
   - component: {fileID: 136023344246515896}
   - component: {fileID: 114594722006752054}
   - component: {fileID: 114021056651734466}
-  - component: {fileID: 114166747046565052}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Player
@@ -3700,7 +3698,6 @@ GameObject:
   - component: {fileID: 136838344260942696}
   - component: {fileID: 114044060177748888}
   - component: {fileID: 114132633301154942}
-  - component: {fileID: 114289672767316426}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Player
@@ -5779,7 +5776,6 @@ GameObject:
   - component: {fileID: 95832179942116738}
   - component: {fileID: 136092810025666492}
   - component: {fileID: 114797365855069034}
-  - component: {fileID: 114026707179067496}
   - component: {fileID: 114896450533721380}
   m_Layer: 0
   m_Name: Rogue
@@ -14630,21 +14626,6 @@ MonoBehaviour:
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114026707179067496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1838915654141530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114044060177748888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14700,51 +14681,6 @@ MonoBehaviour:
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114166747046565052
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1470526585818616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  hoverTxtPos: {fileID: 0}
---- !u!114 &114177872401107248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1466749562911460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  hoverTxtPos: {fileID: 0}
---- !u!114 &114289672767316426
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1539038346799872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114293032116943468
 MonoBehaviour:
   m_ObjectHideFlags: 1

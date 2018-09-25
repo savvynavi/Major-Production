@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace RPGsys {
 	public class TurnBehaviour : MonoBehaviour {
-		ButtonBehaviour button = null;
-
 		public List<Powers> abilitiesThisRound;
 		public List<Character> AvailablePlayers;
 		public List<Character> AvailableEnemies;
@@ -29,7 +27,7 @@ namespace RPGsys {
 			AvailableEnemies = enemies;
 
 			//find better solution won't work w/ mult button
-			button = FindObjectOfType<ButtonBehaviour>().GetComponent<ButtonBehaviour>();
+			//button = FindObjectOfType<ButtonBehaviour>().GetComponent<ButtonBehaviour>();
 			numOfTurns = AvailablePlayers.Count;
 			numOfEnemyTurns = AvailableEnemies.Count;
 		}

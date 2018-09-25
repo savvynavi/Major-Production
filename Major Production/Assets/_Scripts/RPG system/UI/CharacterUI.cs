@@ -51,7 +51,7 @@ namespace RPGsys {
 				}
 				if(MPBar != null) {
 					float mp = character.Mp / character.mpStat;
-					MPBar.fillAmount = Mathf.MoveTowards(HPBar.fillAmount, mp, Time.deltaTime);
+					MPBar.fillAmount = Mathf.MoveTowards(MPBar.fillAmount, mp, Time.deltaTime);
 				}
 			}
 		}

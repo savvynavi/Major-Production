@@ -2139,6 +2139,8 @@ MonoBehaviour:
       - 25
       - 2
       - 2
+    unlockedPowers:
+    - {fileID: 11400000, guid: 496d54927bf1ac9478838651490e9dfa, type: 2}
   - StatChanges:
       keys: 0500000006000000000000000100000003000000040000000700000008000000
       values:
@@ -2150,6 +2152,8 @@ MonoBehaviour:
       - 25
       - 2
       - 2
+    unlockedPowers:
+    - {fileID: 11400000, guid: 6b427c06a1817bc4993a58c739064a3f, type: 2}
   - StatChanges:
       keys: 0500000006000000000000000100000003000000040000000700000008000000
       values:
@@ -2161,6 +2165,8 @@ MonoBehaviour:
       - 25
       - 2
       - 2
+    unlockedPowers:
+    - {fileID: 11400000, guid: 4bc6e6ec7b3d129479abb219a2d42e75, type: 2}
   - StatChanges:
       keys: 0500000006000000000000000100000003000000040000000700000008000000
       values:
@@ -2172,6 +2178,10 @@ MonoBehaviour:
       - 25
       - 2
       - 2
+    unlockedPowers:
+    - {fileID: 11400000, guid: c43181391fd312244a50a460c013149b, type: 2}
+  characterLevel: 0
+  exp: 0
 --- !u!114 &114422255365845076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2197,7 +2207,7 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 3
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}

@@ -2182,7 +2182,7 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 1
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: c6e94b1cbb1f95446bdceae49fa0d55d, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
@@ -2210,6 +2210,8 @@ MonoBehaviour:
       - 5
       - 2
       - 1
+    unlockedPowers:
+    - {fileID: 11400000, guid: 266ee33cf80a1cd47aa19983d0beadc8, type: 2}
   - StatChanges:
       keys: 0000000001000000020000000400000005000000060000000700000008000000
       values:
@@ -2221,6 +2223,8 @@ MonoBehaviour:
       - 5
       - 2
       - 1
+    unlockedPowers:
+    - {fileID: 11400000, guid: 534cfc1b1c9f474488edd395cae168c6, type: 2}
   - StatChanges:
       keys: 0000000001000000020000000400000005000000060000000700000008000000
       values:
@@ -2232,6 +2236,8 @@ MonoBehaviour:
       - 5
       - 2
       - 1
+    unlockedPowers:
+    - {fileID: 11400000, guid: 55624d86421598c47b95fc861f9fbddc, type: 2}
   - StatChanges:
       keys: 0000000001000000020000000400000005000000060000000700000008000000
       values:
@@ -2243,7 +2249,10 @@ MonoBehaviour:
       - 5
       - 2
       - 1
+    unlockedPowers:
+    - {fileID: 11400000, guid: ecbd5d69e43afff4cb626906363e74bd, type: 2}
   characterLevel: 0
+  exp: 0
 --- !u!136 &136918211210104812
 CapsuleCollider:
   m_ObjectHideFlags: 1

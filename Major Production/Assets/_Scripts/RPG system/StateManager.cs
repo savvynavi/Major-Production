@@ -34,7 +34,7 @@ namespace RPGsys {
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
-        [SerializeField] Camera camera;
+        [SerializeField] new Camera camera;
 
 		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
 
@@ -116,7 +116,7 @@ namespace RPGsys {
             }
 
             // place player team in set positions
-            for(int i = 0; i<playerPositions.Count; ++i)
+            for(int i = 0; i<playerPositions.Count && i < characters.Count; ++i)
             {
                 characters[i].transform.position = playerPositions[i].position;
                 characters[i].transform.rotation = playerPositions[i].rotation;
@@ -134,7 +134,7 @@ namespace RPGsys {
 			}
 
 			//moving enemies into position
-			for(int i = 0; i < enemyPositions.Count; ++i) {
+			for(int i = 0; i < enemyPositions.Count && i < enemies.Count; ++i) {
 				enemies[i].transform.position = enemyPositions[i].position;
 				enemies[i].transform.rotation = enemyPositions[i].rotation;
 			}
@@ -157,16 +157,14 @@ namespace RPGsys {
 		//while at least 1 player is alive, will loop the gamestates starting with the player
 		private IEnumerator GameLoop() {
 
-			yield return PlayerTurn();
-			while(confirmMoves == false){
-				yield return LockInMoves();
-			}
-			yield return EnemyTurn();
-			yield return ApplyMoves();
-
-			//checking if alive to keep looping
-			if(!BattleOver()) {
-				yield return GameLoop();
+			// loop while players alive
+			while(!BattleOver()){
+				yield return PlayerTurn();
+				while(confirmMoves == false){
+					yield return LockInMoves();
+				}
+				yield return EnemyTurn();
+				yield return ApplyMoves();
 			}
 
 			Debug.Log("peope are dead now");
@@ -183,8 +181,31 @@ namespace RPGsys {
 
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
+					// Do experience stuff
+					// HACK this is getting called 4 times, fix this or move elsewhere
+					int battleXP = 0;
+					foreach(Character enemy in enemies)
+					{
+						RPG.XP.XPSource xp = enemy.GetComponent<RPG.XP.XPSource>();
+						if(xp != null)
+						{
+							battleXP += xp.XP;
+						}
+					}
+
+					foreach(Character player in characters)
+					{
+						// maybe check character is alive?
+						if(player.experience != null)
+						{
+							player.experience.AddXp(battleXP);
+						}
+					}
+
 					GameOverTextWin.SetActive(true);
 				} else if(EnemyAlive() == true) {
+					// Do Game Over stuff
+
 					GameOverTextLose.SetActive(true);
 				}
 			}

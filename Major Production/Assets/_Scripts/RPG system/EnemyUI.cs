@@ -31,16 +31,16 @@ namespace RPGsys {
 			mp.fillMethod = Image.FillMethod.Horizontal;
 
 			CharacterCurrentHP = GetComponent<Character>().Hp;
-			CharacterMaxHP = GetComponent<Character>().hpStat;
+			CharacterMaxHP = GetComponent<Character>().BaseStat(RPGStats.Stats.Hp);
 			CharacterCurrentMP = GetComponent<Character>().Mp;
-			CharacterMaxMP = GetComponent<Character>().mpStat;
+			CharacterMaxMP = GetComponent<Character>().BaseStat(RPGStats.Stats.Mp);
 		}
 
 		private void Update() {
 			CharacterCurrentHP = GetComponent<Character>().Hp;
-			CharacterMaxHP = GetComponent<Character>().hpStat;
+			CharacterMaxHP = GetComponent<Character>().BaseStat(RPGStats.Stats.Hp);
 			CharacterCurrentMP = GetComponent<Character>().Mp;
-			CharacterMaxMP = GetComponent<Character>().mpStat;
+			CharacterMaxMP = GetComponent<Character>().BaseStat(RPGStats.Stats.Mp);
 
 			float hpScale = Mathf.Clamp01(CharacterCurrentHP / CharacterMaxHP);
 			//hp.transform.forward = Camera.main.transform.forward;

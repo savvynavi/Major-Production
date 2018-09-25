@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace RPGsys{
-	public class Status : ScriptableObject {
+	public abstract class Status : ScriptableObject {
 		Material originalMaterial;
 
 		public ParticleSystem particles;
@@ -40,6 +41,11 @@ namespace RPGsys{
 		}
 
 		public float timer;
+
+		private void OnEnable()
+		{
+			RPG.Save.Factory<Status>.Register(this);
+		}
 
 		//reduces time by 1 turn each time it's called
 		virtual public void UpdateEffect(Character chara) {

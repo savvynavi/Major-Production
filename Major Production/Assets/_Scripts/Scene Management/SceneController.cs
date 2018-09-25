@@ -16,6 +16,8 @@ public class SceneController : MonoBehaviour {
 	List<PersistentObject> persistentObjects;
 	string sceneKey;
 
+	public Controller player { get; private set; }
+
 	// Maybe identify by names instead of index?
 	[SerializeField] List<Transform> Entrypoints;
 
@@ -25,6 +27,7 @@ public class SceneController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		player = FindObjectOfType<Controller>();
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());
 		foreach(PersistentObject po in persistentObjects)
 		{
@@ -47,7 +50,6 @@ public class SceneController : MonoBehaviour {
 		if(entryIndex >=0 && entryIndex < Entrypoints.Count)
 		{
 			// HACK move player to indicated location
-			Controller player = FindObjectOfType<Controller>();
 			Transform entryPoint = Entrypoints[entryIndex];
 			player.transform.position = entryPoint.position;
 			player.transform.rotation = entryPoint.rotation;

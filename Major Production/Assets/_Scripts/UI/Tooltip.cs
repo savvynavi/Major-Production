@@ -70,10 +70,15 @@ public class Tooltip : MonoBehaviour {
 	ITooltipTarget GetTooltipUnderMouse()
 	{
 		ITooltipTarget result = null;
-		foreach(GameObject go in Utility.GetObjectsUnderMouse())
+		List<GameObject> hits = Utility.GetObjectsUnderMouse();
+		//if(hits.Count > 0)
+		//{
+		//	result = hits[0].GetComponent<ITooltipTarget>();
+		//}
+		foreach (GameObject go in hits)
 		{
 			result = go.GetComponent<ITooltipTarget>();
-			if(result != null)
+			if (result != null)
 			{
 				break;
 			}

@@ -31,7 +31,8 @@ namespace RPGsys {
 		}
 
 		public void UISetup(List<Character> characters) {
-			//finds the button panel, change later to be less eeh
+			// HACK finds the button panel, change later to be less eeh
+			// Maybe make a class for MenuBG that has these as fields?
 			Transform[] children = MenuLayout.transform.GetComponentsInChildren<Transform>();
 			foreach(Transform child in children) {
 				if(child.name == "ButtonPanel") {

@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour {
 
+	static int mousePadding = 15;
 	[SerializeField] Image tooltipBackground;
 	[SerializeField] Text tooltipText;
+	LayoutGroup layoutGroup;
 
 	// Use this for initialization
 	void Start () {
-		
+		layoutGroup = tooltipBackground.GetComponent<LayoutGroup>();
 	}
 	
 	// Update is called once per frame
@@ -45,11 +47,24 @@ public class Tooltip : MonoBehaviour {
 	private void SetTooltipPosition()
 	{
 		// TODO set pivot based on collision with sides, topleft as default?
-		// TODO move tooltip away from mouse so cursor doesn't cover it
-		Vector3 mousePos = Input.mousePosition;
+		
+		Vector2 mousePos = Input.mousePosition;
+		Vector2 tipSize = tooltipBackground.rectTransform.rect.size * tooltipBackground.canvas.scaleFactor;
+		Vector2 tipExpectedBound = mousePos + tipSize;	
+		Vector2 pivot = new Vector2(0,1);
+		if (mousePos.x > Screen.width / 2 && tipExpectedBound.x > Screen.width)
+		{
+			pivot.x = 1;
+		}
+		if(mousePos.y > Screen.height / 2 && tipExpectedBound.y > Screen.height)
+		{
+			pivot.y = 0;
+		}
+
+		layoutGroup.padding.left = (int)(mousePadding / tooltipBackground.canvas.scaleFactor);
+
+		tooltipBackground.rectTransform.pivot = pivot;
 		tooltipBackground.rectTransform.position = mousePos;
-		tooltipBackground.rectTransform.pivot = new Vector2(mousePos.x > Screen.width / 2 ? 1 : 0,
-					mousePos.y > Screen.height / 2 ? 1 : 0);
 	}
 
 	ITooltipTarget GetTooltipUnderMouse()

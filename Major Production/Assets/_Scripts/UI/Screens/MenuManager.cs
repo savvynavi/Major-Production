@@ -11,6 +11,7 @@ namespace RPG.UI
 		public CharacterScreen characterMenu;
 		public GameObject commonElements;
 		public ScrollMask scroll;
+		public Tooltip tooltip;
 
 		bool open;
 		public bool Open { get { return open; } }
@@ -26,6 +27,7 @@ namespace RPG.UI
 			inventoryMenu.Close();
 			characterMenu.Close();
 			commonElements.SetActive(false);
+			tooltip.gameObject.SetActive(false);
 			scroll.gameObject.SetActive(false);
 			open = false;
 			scrollMoving = false;
@@ -91,6 +93,7 @@ namespace RPG.UI
 			currentScreen.Close();
 			scroll.gameObject.SetActive(false);
 			commonElements.SetActive(false);
+			tooltip.gameObject.SetActive(false);
 			open = false;
 			GameController.Instance.Unpause();
 		}

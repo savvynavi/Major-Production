@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RPG.UI;
 
 namespace RPGsys {
 	public class CharacterUI : MonoBehaviour {

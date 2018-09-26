@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RPG.UI;
 
 //stores all info needed to create a single power, will be called by buttonUI and needs to be on the button prefab passed in there
 namespace RPGsys {

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface ITooltipTarget
+namespace RPG.UI
 {
-	string TooltipText { get; }
+	public interface ITooltipTarget
+	{
+		string TooltipText { get; }
+	}
 }

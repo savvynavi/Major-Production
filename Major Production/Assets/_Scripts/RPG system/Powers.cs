@@ -24,18 +24,27 @@ namespace RPGsys {
 			ORC_AXE_2
 		};
 
-		public Sprite icon;
-		public float manaCost;
-		public float damage;
-		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
-		public RPGStats.DmgType dmgType;
-		public RPGStats.Stats statType;
-		public AreaOfEffect areaOfEffect;
-		public AbilityAnim anim;
+		[Header("Power Details")]
 		public string powName;
 		public string description;
+		public Sprite icon;
+		public float damage;
+
+		[Header("Damage Scale")]
+		public RPGStats.DmgType dmgType;
+		public RPGStats.Stats statType;
+
+		[Header("Mana Cost")]
+		public float manaCost;
+
+		[Header("Area of Effect")]
+		public AreaOfEffect areaOfEffect;
+		[Header("Number of turns effects last")]
 		public float duration;
+		[Header("List of effects power does")]
 		public List<Status> currentEffects;
+
+		public AbilityAnim anim;
 
 		public string Description {
 			get { return description; }

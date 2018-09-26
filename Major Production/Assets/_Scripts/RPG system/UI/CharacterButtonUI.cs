@@ -38,6 +38,7 @@ namespace RPGsys {
 						GameObject tmp = Instantiate(Button.gameObject);
 						goBackButton = tmp.GetComponent<Button>();
 						tmp.transform.SetParent(transform, false);
+						tmp.transform.localScale = Vector3.one;
 						goBackButton.name = "UNDO";
 						goBackButton.GetComponentInChildren<Text>().text = "UNDO";
 						goBackButton.onClick.AddListener(() => HandleClickBack());

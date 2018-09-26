@@ -19,15 +19,6 @@ public class Tooltip : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ITooltipTarget target = GetTooltipUnderMouse();
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			System.Text.StringBuilder msg = new System.Text.StringBuilder();
-			foreach(GameObject go in Utility.GetObjectsUnderMouse())
-			{
-				msg.Append(go.ToString() + '\n');
-			}
-			Debug.Log(msg.ToString());
-		}
 		if (target != null)
 		{
 			string text = target.TooltipText;
@@ -39,6 +30,7 @@ public class Tooltip : MonoBehaviour {
 			{
 				tooltipBackground.gameObject.SetActive(true);
 				tooltipText.text = target.TooltipText;
+				LayoutRebuilder.MarkLayoutForRebuild(tooltipBackground.rectTransform);
 				SetTooltipPosition();
 			}
 		}

@@ -51,13 +51,14 @@ public class Tooltip : MonoBehaviour {
 		
 		Vector2 mousePos = Input.mousePosition;
 		Vector2 tipSize = tooltipBackground.rectTransform.rect.size * tooltipBackground.canvas.scaleFactor;
+		tipSize.y = tipSize.y * -1.0f;	// Since default y pivot is 1, subtract height
 		Vector2 tipExpectedBound = mousePos + tipSize;	
 		Vector2 pivot = new Vector2(0,1);
 		if (mousePos.x > Screen.width / 2 && tipExpectedBound.x > Screen.width)
 		{
 			pivot.x = 1;
 		}
-		if(mousePos.y > Screen.height / 2 && tipExpectedBound.y > Screen.height)
+		if(mousePos.y < Screen.height / 2 && tipExpectedBound.y < 0)	// if in bottom half of screen and expected to fall off bottom
 		{
 			pivot.y = 0;
 		}

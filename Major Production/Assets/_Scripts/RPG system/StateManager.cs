@@ -14,8 +14,8 @@ namespace RPGsys {
 		public Button MainMenu;
 		public Button Quit;
 		public GameObject selector;
-		public ButtonBehaviourObjects buttonBehaviourObjects;
 		public GameObject uiCanvas; //HACK
+		public CharacterButtonList characterButtonList;
 
 		int rand;
 		List<Character> enemies;
@@ -29,6 +29,7 @@ namespace RPGsys {
 		GameObject GameOverTextWin;
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
+		BattleUIController battleUIController;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -46,8 +47,7 @@ namespace RPGsys {
             FloatingTextController.HealEnemy();
             FloatingTextController.HealAlly();
 
-
-            BattleManager battleManager = BattleManager.Instance;
+			BattleManager battleManager = BattleManager.Instance;
 			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
@@ -96,12 +96,21 @@ namespace RPGsys {
 			//sort player list based on their choiceOrder number(so you can make it that the closest one to the screen picks first ect)
 			List<Character> sortedList = characters.OrderBy(o => o.ChoiceOrder).ToList();
 			characters = sortedList;
-            //TODO place characters in scene positions based on this order (ie List<Transform> playerPositions and List<Transform> enemyPositions)
-
-            enemies.AddRange(battleManager.enemyTeam.GetComponentsInChildren<Character>(true));
-
+			battleUIController = GetComponent<BattleUIController>();
+			battleUIController.UISetup(characters);
+			
+			//setting all characters to be inactive
 			foreach(Character chara in characters) {
-				chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
+				chara.ActivePlayer = false;
+			}
+
+			//TODO place characters in scene positions based on this order (ie List<Transform> playerPositions and List<Transform> enemyPositions)
+
+			enemies.AddRange(battleManager.enemyTeam.GetComponentsInChildren<Character>(true));
+
+			//////PLACES CHARACTERS TO PRE-SET LOCATIONS
+			foreach(Character chara in characters) {
+				//chara.GetComponent<ButtonBehaviour>().Setup(buttonBehaviourObjects);
                 chara.GetComponent<TargetSelection>().Init(this.gameObject, camera);
             }
 
@@ -111,6 +120,7 @@ namespace RPGsys {
                 characters[i].transform.position = playerPositions[i].position;
                 characters[i].transform.rotation = playerPositions[i].rotation;
             }
+			//////
 
 			List<Character> tmp = new List<Character>();
 			//when battle reentered, forces any dead characters to act like it
@@ -136,9 +146,8 @@ namespace RPGsys {
 				enemy.GetComponent<EnemyUI>().ShowUI();
 			}
 
-
-            turnBehaviour.Setup(characters, enemies);
-			confirmMenu.Setup();
+			turnBehaviour.Setup(characters, enemies);
+			//confirmMenu.Setup();
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -160,15 +169,6 @@ namespace RPGsys {
 			Debug.Log("peope are dead now");
 
 			if(BattleOver() == true) {
-
-                // Cleanup button behaviours
-                List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
-                BattleManager.Instance.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
-                foreach (ButtonBehaviour bb in buttonBehaviours)
-                {
-                    bb.CleanUp();
-                }
-
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					// Do experience stuff
@@ -228,9 +228,15 @@ namespace RPGsys {
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
 
+
+			////TODO set it up so that right clicking characters sets them as active/deactivates current active character (will let player chooose turn order)
+			////ALSO make it so it doesn't auto-move onto the next round when all moves are set(replace lockin moves menu with a thing that waits until a done button is pressed(if no move selected do random one as test))
 			//loop through characters and wait until input to move to next one
 			for(int i = 0; i < characters.Count; i++) {
-				characters[i].GetComponent<ButtonBehaviour>().ShowButtons();
+				characterButtonList.uis[i].ShowPowerButtons();
+				//TODO change this to be active character
+				battleUIController.MenuHp.UpdateInfo(characters[i]);
+
 				foreach(Character chara2 in characters) {
 					chara2.GetComponent<TargetSelection>().enabled = false;
 				}
@@ -246,11 +252,12 @@ namespace RPGsys {
 
 				int currentPlayer = i;
 				int previousPlayer = i - 1;
-				while(characters[currentPlayer].GetComponent<ButtonBehaviour>().playerActivated == false) {
-					//if undo button hit, sets current player to previous, sets undo to false
-					if(characters[currentPlayer].GetComponent<ButtonBehaviour>().undoMove == true) {
-						characters[currentPlayer].GetComponent<ButtonBehaviour>().undoMove = false;
-						characters[currentPlayer].GetComponent<ButtonBehaviour>().playerActivated = true;
+
+				//shows the current players buttons, will only move on currently if power selected or undo button pressed
+				while(characters[i].ActivePlayer == false) {
+					if(characterButtonList.uis[i].UndoMove == true) {
+						characterButtonList.uis[i].UndoMove = false;
+						characters[i].ActivePlayer = true;
 						currentPlayer = previousPlayer;
 					}
 					yield return null;
@@ -259,24 +266,23 @@ namespace RPGsys {
 				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
 				if(currentPlayer == previousPlayer) {
 					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
-					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
-					//turnBehaviour.MovesThisRound.RemoveAt(turnBehaviour.MovesThisRound.Count - 1);
+					characterButtonList.uis[i].HidePowerButtons();
 					i = previousPlayer - 1;
 
 				} else {
 					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
-					characters[i].GetComponent<ButtonBehaviour>().HideButtons();
+					characterButtonList.uis[i].HidePowerButtons();
 				}
 
 			}
 		}
 
 		public IEnumerator LockInMoves() {
-			confirmMenu.ShowMenu();
+			battleUIController.moveConfirmMenu.ShowMenu();
 			while(confirmMoves != true) {
 				yield return null;
 			}
-			confirmMenu.HideMenu();
+			battleUIController.moveConfirmMenu.HideMenu();
 			if(redoTurn == true) {
 				turnBehaviour.MovesThisRound.Clear();
 				turnBehaviour.ResetTurnNumber();
@@ -294,8 +300,8 @@ namespace RPGsys {
 				chara.GetComponent<TargetSelection>().enabled = false;
 			}
 
-			foreach(Character chara in characters) {
-				chara.GetComponent<ButtonBehaviour>().HideButtons();
+			for(int i = 0; i < characterButtonList.uis.Count; i++) {
+				characterButtonList.uis[i].HidePowerButtons();
 			}
 
 			List<Character> deadEnemies = new List<Character>();
@@ -472,13 +478,6 @@ namespace RPGsys {
 		}
 
 		public IEnumerator EndBattle() {
-			// Cleanup button behaviours
-			List<ButtonBehaviour> buttonBehaviours = new List<ButtonBehaviour>();
-			BattleManager.Instance.playerTeam.GetComponentsInChildren<RPGsys.ButtonBehaviour>(buttonBehaviours);
-			foreach(ButtonBehaviour bb in buttonBehaviours) {
-				bb.CleanUp();
-			}
-
 			turnBehaviour.MovesThisRound.Clear();
 
 			foreach(Character chara in characters) {

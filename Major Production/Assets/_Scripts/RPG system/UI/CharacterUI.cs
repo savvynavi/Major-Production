@@ -10,10 +10,8 @@ namespace RPGsys {
 
 		public Image Portrait;
 		public Text nameTag;
-		public Image HPBar;
-		public BarTooltipInfo HPTooltip;
-		public Image MPBar;
-		public BarTooltipInfo MPTooltip;
+		public MeterBar HPBar;
+		public MeterBar MPBar;
 		public bool FloatingMenu;
 
 		public GameObject GetContainer{ get; private set; }
@@ -33,12 +31,10 @@ namespace RPGsys {
 				//snaps the hp bar to current hp
 
 				if(HPBar != null) {
-					HPBar.fillAmount = character.Hp / character.hpStat;
-					HPTooltip.setValues(character.Hp, character.hpStat);
+					HPBar.Init(character.Hp, character.hpStat);
 				}
 				if(MPBar != null) {
-					MPBar.fillAmount = character.Mp / character.mpStat;
-					MPTooltip.setValues(character.Mp, character.mpStat);
+					MPBar.Init(character.Mp, character.mpStat);
 				}
 			} else {
 				//todo clear info if no character
@@ -48,17 +44,8 @@ namespace RPGsys {
 		void Update() {
 
 			if(character != null) {
-				if(HPBar != null) {
-					float hp = character.Hp / character.hpStat;
-					// animate towards the true value of the character's hp
-					HPBar.fillAmount = Mathf.MoveTowards(HPBar.fillAmount, hp, Time.deltaTime);
-					HPTooltip.setValues(character.Hp, character.hpStat);
-				}
-				if(MPBar != null) {
-					float mp = character.Mp / character.mpStat;
-					MPBar.fillAmount = Mathf.MoveTowards(MPBar.fillAmount, mp, Time.deltaTime);
-					MPTooltip.setValues(character.Mp, character.mpStat);
-				}
+				HPBar.setValues(character.Hp, character.hpStat);
+				MPBar.setValues(character.Mp, character.mpStat);
 			}
 		}
 	}

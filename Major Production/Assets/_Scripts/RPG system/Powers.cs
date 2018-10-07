@@ -24,6 +24,7 @@ namespace RPGsys {
 			ORC_AXE_2
 		};
 
+		public Sprite icon;
 		public float manaCost;
 		public float damage;
 		//possibly change this to a list to have multi-type abilities (eg, firebolt is both magic and fire type)
@@ -44,22 +45,55 @@ namespace RPGsys {
 		//applies damage to target based on character stats + power used
 		public void Apply(Character obj, Character target) {
 
-			if(obj.Mp - manaCost >= 0) {
+            
+
+            if (obj.Mp - manaCost >= 0) {
 				float rand = Random.Range(1, 100);
 				float MissRange = 10 + target.GetComponent<Character>().Agi - obj.GetComponent<Character>().Dex;
 				float IncomingDmg = 0;
 
-				//if the random number from 1-100 is less than the miss range, the attack hits
-				if(rand >= MissRange) {
-				IncomingDmg = CalculateDamage(obj, target);
-				//loops over current effects on this power, applies them to the target
-				for(int i = 0; i < currentEffects.Count; i++) {
-					currentEffects[i].Apply(target, duration);
-				}
-				}
+                //if the random number from 1-100 is less than the miss range, the attack hits
+                if (rand >= MissRange)
+                {
+                    IncomingDmg = CalculateDamage(obj, target);
+                    //loops over current effects on this power, applies them to the target
+                    for (int i = 0; i < currentEffects.Count; i++)
+                    {
+                        currentEffects[i].Apply(target, duration);
+                    }
+                }
 
-				target.Hp -= IncomingDmg;
+                //plays miss text if attack misses
+                else if (rand < MissRange)
+                {
+                    GetScreenLoc tempLoc = new GetScreenLoc();
+                    Vector2 location = tempLoc.getScreenPos(target.transform);
+                    FloatingTextController.CreateMissText(("Miss!").ToString(), location);
+                }
+
+
+                //plays damage ammount animations if damage is delt
+                if (IncomingDmg != 0)
+                {
+                    Debug.Log("Applying Damage");
+                    GetScreenLoc tempLoc = new GetScreenLoc();
+                    Vector2 location = tempLoc.getScreenPos(target.transform);
+                    if (target.tag == "Enemy")
+                        FloatingTextController.CreateDamageEnemyText((IncomingDmg).ToString(), location);
+                    else if (target.tag == "Player")
+                        FloatingTextController.CreateDamageAllyText((IncomingDmg).ToString(), location);
+                }
+
+                target.Hp -= IncomingDmg;
 				obj.Mp -= manaCost;
+			}
+		}
+
+		//used for potions/items
+		public void Apply(Character character, RPGItems.Item item) {
+			//loops over the items effects, adds to the character (duration = 0 is a one-off heal)
+			for(int i = 0; i < currentEffects.Count; i++) {
+				currentEffects[i].EquipApply(character, item);
 			}
 		}
 
@@ -129,9 +163,34 @@ namespace RPGsys {
 				
 				//get final damage output and subtract from target hp
 				IncomingDmg -= dmgReduction;
-			}
+
+               
+            }
 
 			return IncomingDmg;
+		}
+
+		// Checks powers are the same
+		// Currently just checks powName, maybe should check name instead?
+		public override bool Equals(object other)
+		{
+			if(other.GetType() == this.GetType())
+			{
+				Powers otherPower = other as Powers;
+				return otherPower.powName ==  this.powName;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = 1716941078;
+			hashCode = hashCode * -1521134295 + base.GetHashCode();
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(powName);
+			return hashCode;
 		}
 	}
 }

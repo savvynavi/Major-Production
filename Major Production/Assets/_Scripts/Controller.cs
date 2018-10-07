@@ -8,10 +8,10 @@ public class Controller : MonoBehaviour {
 	public float EncounterTimer; 
 
 	CharacterController characterController;
-	EncounterController encounters;
 	Animator anim;
 	Vector3 moveDir;
 
+	// TODO events for moving or not moving?
 
 	// Use this for initialization
 	void Start () {
@@ -19,8 +19,6 @@ public class Controller : MonoBehaviour {
 		characterController = GetComponent<CharacterController>();
 		anim = GetComponent<Animator>();
 		moveDir = Vector3.zero;
-
-		encounters = randCount.GetComponent<EncounterController>();
 	}
 	
 	//currently no isGrounded check

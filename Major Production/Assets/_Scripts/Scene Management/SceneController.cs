@@ -16,12 +16,18 @@ public class SceneController : MonoBehaviour {
 	List<PersistentObject> persistentObjects;
 	string sceneKey;
 
+	public Controller player { get; private set; }
+
+	// Maybe identify by names instead of index?
+	[SerializeField] List<Transform> Entrypoints;
+
 	private void Awake()
 	{
 	}
 
 	// Use this for initialization
 	void Start () {
+		player = FindObjectOfType<Controller>();
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());
 		foreach(PersistentObject po in persistentObjects)
 		{
@@ -37,6 +43,16 @@ public class SceneController : MonoBehaviour {
 		{
 			// If dictionary not found, create it
 			SceneLoader.Instance.persistentSceneData[sceneKey] = new Dictionary<string, string>();
+		}
+
+		// TODO move player to entrypoint set
+		int entryIndex = SceneLoader.Instance.EntrypointIndex;
+		if(entryIndex >=0 && entryIndex < Entrypoints.Count)
+		{
+			// HACK move player to indicated location
+			Transform entryPoint = Entrypoints[entryIndex];
+			player.transform.position = entryPoint.position;
+			player.transform.rotation = entryPoint.rotation;
 		}
 	}
 	

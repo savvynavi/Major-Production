@@ -12,6 +12,7 @@ namespace RPG.UI {
 		public Character character;
 
 		// TODO make slot have specific type of item it can be
+		// TODO override tooltip text so that empty slot says valid type?
 
 		public override bool Drop(Draggable dragged)
 		{

@@ -23,23 +23,22 @@ namespace RPG.UI
 		// Update is called once per frame
 		void Update()
 		{
+			bool hideTip = true;
+
 			ITooltipTarget target = GetTooltipUnderMouse();
-			if (target != null)
+			if (Draggable.CurrentDragged == null && target != null)
 			{
 				string text = target.TooltipText;
-				if (string.IsNullOrEmpty(text))
+				if (!string.IsNullOrEmpty(text))
 				{
-					tooltipBackground.gameObject.SetActive(false);
-				}
-				else
-				{
+					hideTip = false;
 					tooltipBackground.gameObject.SetActive(true);
 					tooltipText.text = target.TooltipText;
 					LayoutRebuilder.MarkLayoutForRebuild(tooltipBackground.rectTransform);
 					SetTooltipPosition();
 				}
 			}
-			else
+			if (hideTip)
 			{
 				tooltipBackground.gameObject.SetActive(false);
 			}

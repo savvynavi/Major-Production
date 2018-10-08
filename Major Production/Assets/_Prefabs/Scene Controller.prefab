@@ -68,6 +68,8 @@ MonoBehaviour:
   minEncounterTime: 30
   maxEncounterTime: 100
   nextTimeEncounter: 0
-  encounter: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
+  encounterList:
+  - Option: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
+    Weight: 1
   battleScene: Test Battle
   ticking: 0

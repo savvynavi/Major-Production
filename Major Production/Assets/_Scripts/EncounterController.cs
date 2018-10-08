@@ -17,7 +17,6 @@ namespace RPG {
 		[Tooltip("Chance of random encounter")] public float Probability;
 		public float minEncounterTime;
 		public float maxEncounterTime;
-		float mod;
 		[SerializeField] float nextTimeEncounter;   // so we can see it tick down
 		
 		[SerializeField] List<WeightedEncounter> encounterList;
@@ -28,15 +27,23 @@ namespace RPG {
 		public bool ticking;
 
 		// Use this for initialization
-		void Start() {
+		void Start()
+		{
 			SetRandomTime();
 			controller = GetComponent<SceneController>();
 			ticking = true;
+			Dialogue.DialogueManager dialogue = FindObjectOfType<Dialogue.DialogueManager>();
+			if (dialogue != null)
+			{
+				// might use enabling/disabling component instead?
+				dialogue.OnConversationStart.AddListener(() => this.ticking = false);
+				dialogue.OnConversationEnd.AddListener(() => this.ticking = true);
+			}
 		}
 
 		private void Update()
 		{
-			// TODO only tick down while player moving?
+			// only tick down while player moving
 			if (ticking && controller.player.IsMoving)
 			{
 				nextTimeEncounter -= Time.deltaTime;

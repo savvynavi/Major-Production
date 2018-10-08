@@ -6,7 +6,7 @@ public class Controller : MonoBehaviour {
 	public float speed;
 	public GameObject randCount;
 	public float EncounterTimer; 
-	public bool IsMoving { get { return characterController.velocity != Vector3.zero; } }
+	public bool IsMoving { get { return characterController.isGrounded && characterController.velocity != Vector3.zero; } }
 
 	CharacterController characterController;
 	Animator anim;

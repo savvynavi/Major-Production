@@ -210,7 +210,7 @@ Prefab:
     - target: {fileID: 224419437974126744, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.00000019868214
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 224419437974126744, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
@@ -240,7 +240,7 @@ Prefab:
     - target: {fileID: 224421674823494026, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000019848347
+      value: -0.000005398231
       objectReference: {fileID: 0}
     - target: {fileID: 224084123415598116, guid: 93ef5f84537426147aa84cacfd81d252,
         type: 2}
@@ -316,6 +316,26 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.x
       value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 224957652405179720, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000017984712
+      objectReference: {fileID: 0}
+    - target: {fileID: 224641182760016254, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224280858817771226, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224742052067352494, guid: 93ef5f84537426147aa84cacfd81d252,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 93ef5f84537426147aa84cacfd81d252, type: 2}
@@ -1111,6 +1131,14 @@ MonoBehaviour:
     - m_Text: Greybox Test
       m_Image: {fileID: 0}
     - m_Text: Overworld Test
+      m_Image: {fileID: 0}
+    - m_Text: Castle_Outside
+      m_Image: {fileID: 0}
+    - m_Text: Keep_FL1_Level
+      m_Image: {fileID: 0}
+    - m_Text: Town Greybox
+      m_Image: {fileID: 0}
+    - m_Text: Overworld Greybox
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

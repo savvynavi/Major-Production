@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 304179881}
   - component: {fileID: 304179880}
   - component: {fileID: 879831869}
+  - component: {fileID: 304179882}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -587,6 +588,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 304179879}
+--- !u!114 &304179882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 304179879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5feb5795fb0482a4abe338eeae1ef4f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &421720055 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114681548398198706, guid: 3ab16101ce69dd141b73e71049f62d58,
@@ -799,7 +811,7 @@ Prefab:
     - target: {fileID: 224302104892551620, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -43.3
       objectReference: {fileID: 0}
     - target: {fileID: 224122663300242660, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
@@ -819,7 +831,7 @@ Prefab:
     - target: {fileID: 224122663300242660, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -43.3
       objectReference: {fileID: 0}
     - target: {fileID: 224673493397394490, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
@@ -839,7 +851,7 @@ Prefab:
     - target: {fileID: 224673493397394490, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -43.3
       objectReference: {fileID: 0}
     - target: {fileID: 224848238594085948, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
@@ -859,7 +871,7 @@ Prefab:
     - target: {fileID: 224848238594085948, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -43.3
       objectReference: {fileID: 0}
     - target: {fileID: 224342086784933926, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
@@ -879,7 +891,7 @@ Prefab:
     - target: {fileID: 224342086784933926, guid: 3ab16101ce69dd141b73e71049f62d58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -43.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ab16101ce69dd141b73e71049f62d58, type: 2}
@@ -1804,6 +1816,7 @@ GameObject:
   - component: {fileID: 950698354}
   - component: {fileID: 950698353}
   - component: {fileID: 1152843596}
+  - component: {fileID: 950698355}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1846,6 +1859,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 950698352}
+--- !u!114 &950698355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950698352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5feb5795fb0482a4abe338eeae1ef4f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &966785849
 GameObject:
   m_ObjectHideFlags: 0

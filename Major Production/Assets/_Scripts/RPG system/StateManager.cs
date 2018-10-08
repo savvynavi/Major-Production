@@ -79,8 +79,6 @@ namespace RPGsys {
 
 			//game over menu stuff
 			GameOverUI = GameObject.Find("GameOverMenu");
-			MainMenu.onClick.AddListener(() => HandleClick(MainMenu));
-			Quit.onClick.AddListener(() => HandleClick(Quit));
 
 			GameOverTextLose = GameObject.Find("LoseText");
 			GameOverTextWin = GameObject.Find("WinText");
@@ -564,14 +562,6 @@ namespace RPGsys {
 				return true;
 			}
 			return false;
-		}
-
-		public void HandleClick(Button btn) {
-			if(btn.GetComponentInChildren<Text>().text == "Main Menu") {
-				SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-			}else if(btn.GetComponentInChildren<Text>().text == "Quit") {
-				Application.Quit();
-			}
 		}
 	}
 }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SmokeExplosion
+  m_Shader: {fileID: 4800000, guid: 9adb606c7028fef48aaaf2bef3f1f577, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaClipNoise:
+        m_Texture: {fileID: 2800000, guid: 75cdef7015ab77e4984c2267bb74c504, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DeformationNoise:
+        m_Texture: {fileID: 2800000, guid: 75cdef7015ab77e4984c2267bb74c504, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _DeformationMultiplier: 1
+    - _EmissionMultiiplier: 1
+    - _TessellationValue: 10
+    m_Colors:
+    - _EndColour: {r: 0.65397924, g: 0.7941176, b: 0.78831875, a: 1}
+    - _MiddleColour: {r: 0.376622, g: 0.39705884, b: 0.39621317, a: 1}
+    - _StartColour: {r: 0.35294116, g: 0.35294116, b: 0.35294116, a: 1}

@@ -14,13 +14,15 @@ namespace RPG {
 
 	[RequireComponent(typeof(SceneController))]
 	public class EncounterController : MonoBehaviour {
-		public float Probability;
+		[Tooltip("Chance of random encounter")] public float Probability;
 		public float minEncounterTime;
 		public float maxEncounterTime;
 		float mod;
 		[SerializeField] float nextTimeEncounter;   // so we can see it tick down
 		
 		[SerializeField] List<WeightedEncounter> encounterList;
+		[Tooltip("Modifier for last encounter")] public float repeatModifier = 1;
+		Encounter lastEncounter = null;
 		[SerializeField] string battleScene;
 		public SceneController controller { get; private set; }
 		public bool ticking;
@@ -68,15 +70,26 @@ namespace RPG {
 
 		protected void StartEncounter(Encounter e)
 		{
+			lastEncounter = e;
 			GameObject go = e.InstantiateEnemyTeam();
 			BattleManager.Instance.StartBattle(battleScene, go.transform);
 		}
 
 		protected Encounter SelectRandomEncounter()
 		{
-			float totalWeight = encounterList.Sum(o => o.Weight);
+			List<WeightedEncounter> modifiedList = new List<WeightedEncounter>(encounterList);
+			for(int i = 0; i < modifiedList.Count; ++i)
+			{
+				if (modifiedList[i].Option == lastEncounter)
+				{
+					WeightedEncounter modifiedEncounter = modifiedList[i];
+					modifiedEncounter.Weight = modifiedEncounter.Weight * repeatModifier;
+					modifiedList[i] = modifiedEncounter;
+				}
+			}
+			float totalWeight = modifiedList.Sum(o => o.Weight);
 			float value = UnityEngine.Random.Range(0, totalWeight);
-			foreach (WeightedEncounter e in encounterList)
+			foreach (WeightedEncounter e in modifiedList)
 			{
 				value -= e.Weight;
 				if (value <= 0)
@@ -85,7 +98,7 @@ namespace RPG {
 				}
 			}
 			// in case of rounding error, return last value
-			return encounterList.Last().Option;
+			return modifiedList.Last().Option;
 		}
 	}
 }

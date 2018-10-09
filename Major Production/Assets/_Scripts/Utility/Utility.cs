@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Utility  {
 
@@ -42,5 +43,19 @@ public class Utility  {
 	public static string TrimCloned(string name)
 	{
 		return name.Replace("(Clone)", string.Empty);
+	}
+
+	public static List<GameObject> GetObjectsUnderMouse()
+	{
+		List<RaycastResult> hitObjects = new List<RaycastResult>();
+		PointerEventData pointer = new PointerEventData(EventSystem.current);
+		pointer.position = Input.mousePosition;
+		EventSystem.current.RaycastAll(pointer, hitObjects);
+		List<GameObject> objects = new List<GameObject>();
+		foreach (RaycastResult result in hitObjects)
+		{
+			objects.Add(result.gameObject);
+		}
+		return objects;
 	}
 }

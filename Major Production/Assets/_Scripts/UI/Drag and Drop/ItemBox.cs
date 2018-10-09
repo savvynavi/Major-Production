@@ -9,7 +9,7 @@ namespace RPG.UI {
 	// Represents an item in the inventory screen. Contains draggable elements which can be used to apply
 	// the item to things
 	// May change around, making putting more item logic in the item itself?
-	public abstract class ItemBox : DragTarget
+	public abstract class ItemBox : DragTarget, ITooltipTarget
 	{
 
 		[SerializeField] Text inventoryText;
@@ -17,6 +17,19 @@ namespace RPG.UI {
 		public DraggableItem draggable;
 		public Item ContainedItem { get { return item; } set { SetItem(value); } }
 
+		public string TooltipText
+		{
+			get
+			{
+				if(item != null)
+				{
+					return item.Description;
+				} else
+				{
+					return null;
+				}
+			}
+		}
 
 		void SetItem(RPGItems.Item _item)
 		{

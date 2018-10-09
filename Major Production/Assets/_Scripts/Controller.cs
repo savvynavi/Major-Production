@@ -27,7 +27,7 @@ public class Controller : MonoBehaviour {
 		//basic blend tree stuff
 		float right = Input.GetAxis("Horizontal");
 		float forward = Input.GetAxis("Vertical");
-        anim.SetBool("isSprinting", Input.GetButton("Fire3"));
+        anim.SetBool("isSprinting", Input.GetButton("Sprint"));
 
 		Move(forward, right);
 	}

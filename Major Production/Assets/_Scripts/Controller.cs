@@ -46,4 +46,14 @@ public class Controller : MonoBehaviour {
 		anim.SetFloat("velX", Vector3.Dot(transform.right,move));
 		anim.SetFloat("velY", Vector3.Dot(transform.forward,move));
 	}
+
+	public void Freeze()
+	{
+		anim.enabled = false;
+	}
+
+	public void Unfreeze()
+	{
+		anim.enabled = true;
+	}
 }

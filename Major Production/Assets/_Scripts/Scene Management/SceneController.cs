@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Class placed in each scene, to correctly initialize player placement/persistent stuff
@@ -21,19 +22,25 @@ public class SceneController : MonoBehaviour {
 	// Maybe identify by names instead of index?
 	[SerializeField] List<Transform> Entrypoints;
 
-	private void Awake()
-	{
-	}
+	public UnityEvent OnBusyStart;
+	public UnityEvent OnBusyEnd;
+
+	public bool Busy { get; private set; }
+
 
 	// Use this for initialization
 	// This is given custom execution order before default time so 
 	// PersistentObjects are set before anything else initializes
 	void Start () {
 		player = FindObjectOfType<Controller>();
+
+		OnBusyStart.AddListener(player.Freeze);
+		OnBusyEnd.AddListener(player.Unfreeze);
+
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());
 		foreach(PersistentObject po in persistentObjects)
 		{
-			po.SetController(this);
+			po.controller = this;
 		}
 
 		// If this scene has dictionary, load from it
@@ -61,6 +68,17 @@ public class SceneController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void SetBusy()
+	{
+		OnBusyStart.Invoke();
+	}
+
+	public void ClearBusy()
+	{
+		Busy = false;
+		OnBusyEnd.Invoke();
 	}
 
 	// Saves PersistentObject to SceneLoader's dictionary

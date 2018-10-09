@@ -43,9 +43,8 @@ namespace RPG {
 
 		IEnumerator OpenChestRoutine(InteractionUser user)
 		{
-			// TODO figure out right way to pause stuff
-			// maybe something on SceneController
-			GameController.Instance.Pause();
+			// Suspend interactions
+			SceneLoader.Instance.currentSceneController.SetBusy();
 			user.CanInteract = false;
 
 			// TODO factor out dialogue stuff to some other class
@@ -69,14 +68,17 @@ namespace RPG {
 				dialogue.ClearButtons();
 				dialogue.AddButton("Exit", continueAction);
 				dialogue.RebuildLayout();
-				yield return new WaitWhile(waitP);
+
 				// Add items to inventory
-				foreach (RPGItems.Item item in contents) {
+				foreach (RPGItems.Item item in contents)
+				{
 					GameController.Instance.inventory.Add(Instantiate(item));
 				}
 				EmptyChest();
 				trigger.Triggered = true;
 				trigger.Save();
+
+				yield return new WaitWhile(waitP);
 			} else
 			{
 				dialogue.SetDialogue("The chest was empty");
@@ -89,7 +91,7 @@ namespace RPG {
 			dialogue.HideBox();
 
 			user.CanInteract = true;
-			GameController.Instance.Unpause();
+			SceneLoader.Instance.currentSceneController.ClearBusy();
 		}
 
 		string ContentsText()

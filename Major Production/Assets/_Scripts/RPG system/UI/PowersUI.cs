@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RPG.UI;
 
 //stores all info needed to create a single power, will be called by buttonUI and needs to be on the button prefab passed in there
 namespace RPGsys {
-	public class PowersUI : MonoBehaviour {
+	public class PowersUI : MonoBehaviour, ITooltipTarget {
 		public Character character;
 		public Powers power;
 
@@ -13,6 +14,20 @@ namespace RPGsys {
 		public Text Name;
 
 		public Button Btn;
+
+		public string TooltipText
+		{
+			get
+			{
+				if (power != null)
+				{
+					return power.description;
+				} else
+				{
+					return "";
+				}
+			}
+		}
 
 		public void SetPower(Powers pow, GameObject button, Character chara) {
 			power = pow;

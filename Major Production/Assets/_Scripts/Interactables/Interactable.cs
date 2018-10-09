@@ -9,7 +9,7 @@ namespace RPG
 	{
 		public string ActionDescription;
 
-		public abstract void Interact();
+		public abstract void Interact(InteractionUser user);
 
 		public abstract void Hilight();
 

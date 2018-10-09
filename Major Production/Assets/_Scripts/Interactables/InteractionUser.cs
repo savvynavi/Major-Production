@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG
 {
 	[RequireComponent(typeof(Collider))]
 	public class InteractionUser : MonoBehaviour
 	{
-		// TODO reference to UI element showing item action
+		// TODO figure out nicer way to hook these up?
+		public RectTransform ActionPopup;
+		public Text ActionText;
 
 		Interactable selected;
 
-		bool CanInteract = true;
+		public bool CanInteract = true;
 
 		// Use this for initialization
 		void Start()
 		{
-
+			ActionPopup.gameObject.SetActive(false);
 		}
 
 		// Update is called once per frame
@@ -26,24 +29,29 @@ namespace RPG
 				selected != null &&
 				Input.GetButtonDown("Interact"))
 			{
-				selected.Interact();
+				ActionPopup.gameObject.SetActive(false);
+				selected.Interact(this);
 			}
 		}
 
 		public void Select(Interactable interactable)
 		{
-			selected = interactable;
-			interactable.Hilight();
-			//TODO show UI thing
-			Debug.Log(interactable.ActionDescription + " selected");
-		}
+			if (CanInteract)
+			{
+				selected = interactable;
+				interactable.Hilight();
 
+				ActionPopup.gameObject.SetActive(true);
+				ActionText.text = interactable.ActionDescription;
+				LayoutRebuilder.MarkLayoutForRebuild(ActionPopup);
+			}
+		}
 		public void Unselect(Interactable interactable)
 		{
 			selected = null;
 			interactable.Unhilight();
-			// TODO hide UI thing
-			Debug.Log(interactable.ActionDescription + " unselected");
+
+			ActionPopup.gameObject.SetActive(false);
 		}
 	}
 }

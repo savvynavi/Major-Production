@@ -5,10 +5,13 @@ using UnityEngine;
 namespace RPG {
 	public class TreasureChest : Interactable {
 
-		public override void Interact()
+		[SerializeField]List<RPGItems.Item> contents;
+		[SerializeField] DialogueBox dialogue;
+		// TODO some image for treasure chest
+		// TODO saving treasure chest
+		public override void Interact(InteractionUser user)
 		{
-			// TODO open chest, show dialogue about getting reward
-			throw new System.NotImplementedException();
+			StartCoroutine(OpenChestRoutine(user));
 		}
 
 		public override void Hilight()
@@ -29,6 +32,67 @@ namespace RPG {
 		// Update is called once per frame
 		void Update() {
 
+		}
+
+		IEnumerator OpenChestRoutine(InteractionUser user)
+		{
+			// TODO figure out right way to pause stuff
+			// maybe something on SceneController
+			GameController.Instance.Pause();
+			user.CanInteract = false;
+
+			// TODO factor out dialogue stuff to some other class
+
+			// HACK this feels dirty
+			bool wait = true;
+			UnityEngine.Events.UnityAction continueAction = () => wait = false;
+			System.Func<bool> waitP = () => { return wait; };
+
+			dialogue.SetTitle("Treasure Chest");
+			dialogue.ClearButtons();
+			dialogue.AddButton("Next", continueAction);
+			// TODO show portrait
+			dialogue.ShowBox();
+			if (contents.Count > 0)
+			{
+				dialogue.SetDialogue("It was full of treasure!");
+				yield return new WaitWhile(waitP);
+				wait = true;
+				dialogue.SetDialogue("You found:\n" + ContentsText()); // TODO say what items were found
+				dialogue.ClearButtons();
+				dialogue.AddButton("Exit", continueAction);
+				dialogue.RebuildLayout();
+				yield return new WaitWhile(waitP);
+				// Add items to inventory
+				foreach (RPGItems.Item item in contents) {
+					GameController.Instance.inventory.Add(Instantiate(item));
+				}
+				contents.Clear();
+				// TODO turn off particle effect?
+			} else
+			{
+				dialogue.SetDialogue("The chest was empty");
+				dialogue.ClearButtons();
+				dialogue.AddButton("Exit", continueAction);
+				dialogue.RebuildLayout();
+				yield return new WaitWhile(waitP);
+			}
+			dialogue.ClearButtons();
+			dialogue.HideBox();
+
+			user.CanInteract = true;
+			GameController.Instance.Unpause();
+		}
+
+		string ContentsText()
+		{
+			System.Text.StringBuilder textBuilder = new System.Text.StringBuilder();
+			foreach(RPGItems.Item item in contents)
+			{
+				textBuilder.Append(item.Name);
+				textBuilder.Append('\n');
+			}
+			return textBuilder.ToString();
 		}
 	}
 }

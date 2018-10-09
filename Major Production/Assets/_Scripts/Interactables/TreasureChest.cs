@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG {
+	[RequireComponent(typeof(PersistentTrigger))]
 	public class TreasureChest : Interactable {
 
 		[SerializeField]List<RPGItems.Item> contents;
@@ -10,6 +11,7 @@ namespace RPG {
 		[SerializeField] Sprite treasureImage;
 		[SerializeField] ParticleSystem sparkleEffect;
 		[SerializeField] Light spotlight;
+		[SerializeField] PersistentTrigger trigger;
 		// TODO saving treasure chest
 		public override void Interact(InteractionUser user)
 		{
@@ -28,7 +30,10 @@ namespace RPG {
 
 		// Use this for initialization
 		void Start() {
-
+			if (trigger.Triggered)
+			{
+				EmptyChest();
+			}
 		}
 
 		// Update is called once per frame
@@ -70,6 +75,8 @@ namespace RPG {
 					GameController.Instance.inventory.Add(Instantiate(item));
 				}
 				EmptyChest();
+				trigger.Triggered = true;
+				trigger.Save();
 			} else
 			{
 				dialogue.SetDialogue("The chest was empty");

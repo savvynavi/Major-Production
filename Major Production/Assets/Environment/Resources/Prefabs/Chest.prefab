@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 33388818314585170}
   - component: {fileID: 114445831668819126}
   - component: {fileID: 65875080090670814}
+  - component: {fileID: 114054994930526212}
   m_Layer: 0
   m_Name: Interaction
   m_TagString: Untagged
@@ -997,6 +998,19 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114054994930526212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074141830608816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbb8f939e9b8c04d9e914c22f76dd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
+  Triggered: 0
 --- !u!114 &114445831668819126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1014,6 +1028,7 @@ MonoBehaviour:
   treasureImage: {fileID: 21300000, guid: 63e698edeb0df76448f068cb0a8f0090, type: 3}
   sparkleEffect: {fileID: 198770482790855052}
   spotlight: {fileID: 108063401589408276}
+  trigger: {fileID: 114054994930526212}
 --- !u!198 &198770482790855052
 ParticleSystem:
   m_ObjectHideFlags: 1

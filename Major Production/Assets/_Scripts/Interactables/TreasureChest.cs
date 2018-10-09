@@ -7,7 +7,9 @@ namespace RPG {
 
 		[SerializeField]List<RPGItems.Item> contents;
 		[SerializeField] DialogueBox dialogue;
-		// TODO some image for treasure chest
+		[SerializeField] Sprite treasureImage;
+		[SerializeField] ParticleSystem sparkleEffect;
+		[SerializeField] Light spotlight;
 		// TODO saving treasure chest
 		public override void Interact(InteractionUser user)
 		{
@@ -51,7 +53,7 @@ namespace RPG {
 			dialogue.SetTitle("Treasure Chest");
 			dialogue.ClearButtons();
 			dialogue.AddButton("Next", continueAction);
-			// TODO show portrait
+			dialogue.SetPortrait(treasureImage);
 			dialogue.ShowBox();
 			if (contents.Count > 0)
 			{
@@ -67,8 +69,7 @@ namespace RPG {
 				foreach (RPGItems.Item item in contents) {
 					GameController.Instance.inventory.Add(Instantiate(item));
 				}
-				contents.Clear();
-				// TODO turn off particle effect?
+				EmptyChest();
 			} else
 			{
 				dialogue.SetDialogue("The chest was empty");
@@ -93,6 +94,13 @@ namespace RPG {
 				textBuilder.Append('\n');
 			}
 			return textBuilder.ToString();
+		}
+
+		void EmptyChest()
+		{
+			contents.Clear();
+			sparkleEffect.Stop();
+			spotlight.enabled = false;
 		}
 	}
 }

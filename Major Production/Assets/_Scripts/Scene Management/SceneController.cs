@@ -26,6 +26,8 @@ public class SceneController : MonoBehaviour {
 	}
 
 	// Use this for initialization
+	// This is given custom execution order before default time so 
+	// PersistentObjects are set before anything else initializes
 	void Start () {
 		player = FindObjectOfType<Controller>();
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());

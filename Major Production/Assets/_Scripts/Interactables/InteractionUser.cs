@@ -25,7 +25,8 @@ namespace RPG
 		// Update is called once per frame
 		void Update()
 		{
-			if(CanInteract &&
+			if(!GameController.Instance.Paused &&
+				CanInteract &&
 				selected != null &&
 				Input.GetButtonDown("Interact"))
 			{

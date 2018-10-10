@@ -372,6 +372,12 @@ namespace RPGsys {
 
 					if(info.player.target != null) {
 						//turn player towards target
+
+						//check to see if self targeting powers are targeting self, if not set it to be so
+						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Self) {
+							info.player.target = info.player.gameObject;
+						}
+
 						info.player.transform.LookAt(info.player.target.transform);
 						camMovement.LookAtAttacker(info.player);
 						yield return new WaitForSeconds(0.5f);
@@ -394,7 +400,7 @@ namespace RPGsys {
 							}
 
 
-						} else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
+						} else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single || info.ability.areaOfEffect == Powers.AreaOfEffect.Self) {
 
 							//if same team, use facecam, else single out enemy target
 							if(info.player.tag == info.player.target.tag) {

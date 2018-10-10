@@ -10,7 +10,8 @@ namespace RPGsys {
 		//abilities can either target a group 1 person, no limits on friendly fire
 		public enum AreaOfEffect {
 			Single,
-			Group
+			Group,
+			Self
 		}
 
 		public enum AbilityAnim {
@@ -33,6 +34,7 @@ namespace RPGsys {
 		[Header("Damage Scale")]
 		public RPGStats.DmgType dmgType;
 		public RPGStats.Stats statType;
+		public float ScalePercentage;
 
 		[Header("Mana Cost")]
 		public float manaCost;
@@ -159,6 +161,8 @@ namespace RPGsys {
 			if(obj.Mp - manaCost >= 0) {
 				
 				Debug.Log("HIT TARGET");
+
+				attMod *= ScalePercentage;
 
 				//damage output
 				IncomingDmg = damage + attMod;

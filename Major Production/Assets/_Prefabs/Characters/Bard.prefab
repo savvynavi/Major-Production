@@ -263,7 +263,6 @@ GameObject:
   - component: {fileID: 95763209826309532}
   - component: {fileID: 136789803672445082}
   - component: {fileID: 114912260791375866}
-  - component: {fileID: 114534980016050980}
   - component: {fileID: 114422255365845076}
   - component: {fileID: 114202109921042634}
   m_Layer: 0
@@ -2212,35 +2211,6 @@ MonoBehaviour:
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114534980016050980
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1205975397311630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114912260791375866
 MonoBehaviour:
   m_ObjectHideFlags: 1

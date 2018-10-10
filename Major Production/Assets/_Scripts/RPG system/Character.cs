@@ -106,6 +106,16 @@ namespace RPGsys{
 			}
 		}
 
+		public Dictionary<RPGStats.Stats, float> CloneBaseStats()
+		{
+			Dictionary<RPGStats.Stats, float> statClone = new Dictionary<RPGStats.Stats, float>();
+			foreach(RPGStats.Stats stat in System.Enum.GetValues(typeof(RPGStats.Stats)))
+			{
+				statClone.Add(stat, BaseStat(stat));
+			}
+			return statClone;
+		}
+
 		#region Stat Accessors
 		public float Speed{
 			get { return CharaStats[RPGStats.Stats.Speed]; }

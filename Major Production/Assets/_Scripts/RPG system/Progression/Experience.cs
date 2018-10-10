@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPGsys;
 using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
 
 namespace RPG.XP
 {
@@ -17,6 +18,7 @@ namespace RPG.XP
 		public Dictionary<RPGStats.Stats, float> StatChangeDict;
 
 		[SerializeField] List<Powers> unlockedPowers;
+		public ReadOnlyCollection<Powers> UnlockedPowers { get { return unlockedPowers.AsReadOnly(); } }
 
 		public void Init()
 		{
@@ -40,6 +42,7 @@ namespace RPG.XP
 		public bool success { get; private set; }
 		public Level level;
 		public Dictionary<RPGStats.Stats, float> oldStats;
+		public int levelRank;
 
 		public LevelUpEvent()
 		{
@@ -132,6 +135,7 @@ namespace RPG.XP
 				LevelUpEvent currentEvent = LevelUp();
 				if (currentEvent)
 				{
+					currentEvent.levelRank = characterLevel;
 					levelEvents.Add(currentEvent);
 				}
 				else
@@ -159,6 +163,7 @@ namespace RPG.XP
 				LevelUpEvent levelEvent = LevelUp();
 				if (levelEvent)
 				{
+					levelEvent.levelRank = characterLevel;
 					xpEvent.levelUps.Add(levelEvent);
 				}
 				Debug.Log(character.name + " levelled up to L " + characterLevel + ", XP = " + exp);

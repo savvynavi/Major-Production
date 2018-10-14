@@ -10,9 +10,11 @@ namespace RPGsys{
 		public ParticleSystem particles;
 		public Material material;
 		public Shader shader;
+		public GameObject gObject;
 		protected GameObject partInst;
 		protected Material matInst;
 		protected Shader shaderInst;
+		protected GameObject gObjectInst;
 		protected List<Shader> charaShaders;
 		bool particleRunning;
 		public Equipable equipable;
@@ -67,6 +69,9 @@ namespace RPGsys{
 					}
 				}
 			}
+			if(gObject != null && (timer < 1 || chara.Hp <= 0)) {
+				Destroy(gObjectInst);
+			}
 		}
 
 		public virtual void Apply(Character target, float duration) {
@@ -116,6 +121,13 @@ namespace RPGsys{
 						shad.material.shader = shaderInst;
 					}
 				}
+			}
+
+			//spawns the gameobject instance at targets feet(meybe make localTransform param?)
+			if(gObject != null) {
+				gObjectInst = Instantiate(gObject);
+				gObjectInst.transform.parent = target.transform;
+				gObjectInst.transform.localPosition = Vector3.zero;
 			}
 		}
 	}

@@ -7,11 +7,25 @@ using RPGsys;
 namespace RPG.UI
 {
 	[RequireComponent(typeof(Button))]
-	public class PowerToggle : MonoBehaviour
+	public class PowerToggle : MonoBehaviour, ITooltipTarget
 	{
 		public Character character { get; private set; }
 		public Powers power { get; private set; }
 		public bool isPowerOn { get; private set; }
+
+		public string TooltipText
+		{
+			get
+			{
+				if(power != null)
+				{
+					return power.description;
+				} else
+				{
+					return null;
+				}
+			}
+		}
 
 		Button button;
 		Text buttonText;

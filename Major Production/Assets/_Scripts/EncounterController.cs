@@ -32,13 +32,10 @@ namespace RPG {
 			SetRandomTime();
 			controller = GetComponent<SceneController>();
 			ticking = true;
-			Dialogue.DialogueManager dialogue = FindObjectOfType<Dialogue.DialogueManager>();
-			if (dialogue != null)
-			{
-				// might use enabling/disabling component instead?
-				dialogue.OnConversationStart.AddListener(() => this.ticking = false);
-				dialogue.OnConversationEnd.AddListener(() => this.ticking = true);
-			}
+
+			// might use enabling/disabling component instead?
+			controller.OnBusyStart.AddListener(() => this.ticking = false);
+			controller.OnBusyEnd.AddListener(() => this.ticking = true);
 		}
 
 		private void Update()

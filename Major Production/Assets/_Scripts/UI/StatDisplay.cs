@@ -18,6 +18,12 @@ namespace RPG.UI
 
 			public void ApplyItemEffects(RPGItems.Item item, bool removing = false)
 			{
+				// Do nothing if passed null item
+				if(item == null)
+				{
+					return;
+				}
+
 				float multiplier = removing ? -1 : 1;
 				foreach (RPGsys.Status buff in item.Effect.currentEffects)
 				{

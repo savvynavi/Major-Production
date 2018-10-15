@@ -129,27 +129,27 @@ namespace RPG.UI
 
 		public void UpdateEquipment()
 		{
-			foreach (Transform child in equipmentPanel)
-			{
-				GameObject.Destroy(child.gameObject);
-			}
-			foreach (RPGItems.Item item in CurrentChar.Equipment)
-			{
-				GameObject obj = Instantiate(equipmentSlotPrefab, equipmentPanel);
-				EquipmentSlot box = obj.GetComponent<EquipmentSlot>();
-				box.ContainedItem = item;
-				box.draggable.dragArea = this.transform;
-				box.character = CurrentChar;
-			}
+			throw new System.NotImplementedException();
+			// TODO show weapon, both rings
+
+			//foreach (Transform child in equipmentPanel)
+			//{
+			//	GameObject.Destroy(child.gameObject);
+			//}
+			//foreach (RPGItems.Item item in CurrentChar.Equipment)
+			//{
+			//	GameObject obj = Instantiate(equipmentSlotPrefab, equipmentPanel);
+			//	EquipmentSlot box = obj.GetComponent<EquipmentSlot>();
+			//	box.ContainedItem = item;
+			//	box.draggable.dragArea = this.transform;
+			//	box.character = CurrentChar;
+			//}
 		}
 
 		//HACK
 		public void UnequipAllItems()
 		{
-			foreach (RPGItems.Item item in new List<RPGItems.Item>(CurrentChar.Equipment))
-			{
-				GameController.Instance.inventory.Unequip(item, CurrentChar);
-			}
+			CurrentChar.UnequipAll();
 			SelectCharacter();
 		}
 

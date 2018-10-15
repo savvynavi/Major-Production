@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RPGItems
 {
-	[CreateAssetMenu(fileName = "Consumable", menuName = "RPG/Equipment", order = 4)]
+	[CreateAssetMenu(fileName = "Consumable", menuName = "RPG/Consumable", order = 4)]
 
 	public class Consumable : Item
 	{

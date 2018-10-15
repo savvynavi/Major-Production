@@ -24,7 +24,8 @@ namespace RPGItems {
 				{
 					case EquipmentType.Weapon:
 						throw new System.NotImplementedException();
-						break;
+						// TODO remove previous weapon if exists
+						// TODO equip this weapon and apply it
 					case EquipmentType.Ring:
 						if (character.PlaceInEmptyRingSlot(this))
 						{
@@ -34,7 +35,6 @@ namespace RPGItems {
 						{
 							return false;
 						}
-						break;
 					default:
 						throw new System.NotImplementedException();
 				}
@@ -46,7 +46,24 @@ namespace RPGItems {
 		{
 			// TODO check if class matches
 			// TODO if ring check if slot available?
+			switch (equipmentType)
+			{
+				case EquipmentType.Weapon:
+					throw new System.NotImplementedException();
+				case EquipmentType.Ring:
+					return character.HasEmptyRingSlot();
+				default:
+					throw new System.NotImplementedException();
+			}
 			throw new System.NotImplementedException();
+		}
+
+		public void RemoveEffect(Character character)
+		{
+			foreach(Buff buff in Effect.currentEffects)
+			{
+				buff.EquipRemove(character, this);
+			}
 		}
 	}
 }

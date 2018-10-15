@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace RPGItems {
 	//add safety list==null stuff 
 	public class InventoryManager : MonoBehaviour, ISaveable {
-		public List<Item> playerInventory;
+		public List<Item> playerInventory = new List<Item>();
 
 		public UnityEvent OnInventoryChanged;
 
@@ -39,6 +39,12 @@ namespace RPGItems {
 			{
 				playerInventory.Insert(index, item);
 			}
+			OnInventoryChanged.Invoke();
+		}
+
+		public void AddRange(IEnumerable<Item> items)
+		{
+			playerInventory.AddRange(items);
 			OnInventoryChanged.Invoke();
 		}
 
@@ -121,19 +127,19 @@ namespace RPGItems {
 		}
 
 
-		public bool Unequip(Item item, RPGsys.Character character, int index = -1) {
-			if (character.Unequip(item))
-			{
-				Add(item, index);
-				return true;
-			}
-			else
-			{
-				Debug.Log("Item not found");
-				return false;
-			}
+		//public bool Unequip(Item item, RPGsys.Character character, int index = -1) {
+		//	if (character.Unequip(item))
+		//	{
+		//		Add(item, index);
+		//		return true;
+		//	}
+		//	else
+		//	{
+		//		Debug.Log("Item not found");
+		//		return false;
+		//	}
 
-		}
+		//}
 
 		public JObject Save()
 		{

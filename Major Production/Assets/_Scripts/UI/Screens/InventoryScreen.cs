@@ -75,10 +75,7 @@ namespace RPG.UI
 		{
 			foreach (RPGsys.Character character in GameController.Instance.Characters)
 			{
-				foreach (RPGItems.Item item in new List<RPGItems.Item>(character.Equipment))
-				{
-					GameController.Instance.inventory.Unequip(item, character);
-				}
+				character.UnequipAll();
 			}
 		}
 	}

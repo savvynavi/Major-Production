@@ -103,7 +103,6 @@ namespace RPGsys{
 					break;
 				default:
 					throw new System.ArgumentOutOfRangeException();
-					break;
 			}
 		}
 
@@ -220,19 +219,45 @@ namespace RPGsys{
 		}
 
 		// Removes item from equipment and unapplies its effects. Returns false if item not equipped
-		public bool Unequip(Item item) {
-			if (Equipment.Remove(item))
+		//public bool Unequip(Item item) {
+		//	if (Equipment.Remove(item))
+		//	{
+		//		foreach(Buff buff in item.Effect.currentEffects)
+		//		{
+		//			buff.EquipRemove(this, item);
+		//		}
+		//		return true;
+		//	}
+		//	else
+		//	{
+		//		return false;
+		//	}
+		//}
+
+		// Unequips all items and moves them into inventory
+		public void UnequipAll()
+		{
+			InventoryManager inventory = GameController.Instance.inventory;
+			List<Item> removed = new List<Item>();
+			if (Weapon != null)
 			{
-				foreach(Buff buff in item.Effect.currentEffects)
-				{
-					buff.EquipRemove(this, item);
-				}
-				return true;
+				Weapon.RemoveEffect(this);
+				removed.Add(Weapon);
+				Weapon = null;
 			}
-			else
+			if(ringL != null)
 			{
-				return false;
+				ringL.RemoveEffect(this);
+				removed.Add(ringL);
+				ringL = null;
 			}
+			if(ringR != null)
+			{
+				ringR.RemoveEffect(this);
+				removed.Add(ringR);
+				ringR = null;
+			}
+			inventory.AddRange(removed);
 		}
 
 		public bool HasEmptyRingSlot()

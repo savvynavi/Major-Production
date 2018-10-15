@@ -15,9 +15,9 @@ namespace RPG.UI
 		{
 			RPGsys.Character c = screen.CurrentChar;
 			StatDisplay.StatChangeData statChange = new StatDisplay.StatChangeData();
-			statChange.ApplyItemEffects(c.Weapon, true);
-			statChange.ApplyItemEffects(c.ringL, true);
-			statChange.ApplyItemEffects(c.ringR, true);
+			statChange.ApplyItemEffects(c.weapon.equippedItem, true);
+			statChange.ApplyItemEffects(c.ringL.equippedItem, true);
+			statChange.ApplyItemEffects(c.ringR.equippedItem, true);
 			screen.DisplayCharacter(statChange);
 		}
 

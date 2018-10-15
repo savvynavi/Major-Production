@@ -24,7 +24,7 @@ namespace RPG.UI
 
 		// TODO health and mana bar
 
-		//HACK 
+		//HACK make these WeaponSlot and RingSlots
 		[SerializeField] EquipmentBox equipmentBox;
 		[SerializeField] RectTransform equipmentPanel;
 		[SerializeField] GameObject equipmentSlotPrefab;

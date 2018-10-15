@@ -49,6 +49,7 @@ namespace RPGItems {
 			switch (equipmentType)
 			{
 				case EquipmentType.Weapon:
+					// TODO check if character's Weapon slot can equip
 					throw new System.NotImplementedException();
 				case EquipmentType.Ring:
 					return character.HasEmptyRingSlot();

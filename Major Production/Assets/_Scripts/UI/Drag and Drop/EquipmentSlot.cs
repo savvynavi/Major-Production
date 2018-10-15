@@ -6,6 +6,7 @@ using RPGsys;
 using RPGItems;
 
 namespace RPG.UI {
+	//TODO rename this class
 	public class EquipmentSlot : ItemBox
 	{
 

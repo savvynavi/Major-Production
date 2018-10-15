@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 namespace RPGsys{
 	public class Character : MonoBehaviour, ISaveable{
 		public const int maxActivePowers = 4;
+		public const int maxRingSlots = 2;
 
 		//base stats
 		public float speedStat;
@@ -151,9 +152,10 @@ namespace RPGsys{
 		public List<Status> currentEffects;
 
 		//stores the 1 weapon a character can wield
-		public RPGItems.Item Weapon;
-		//stores a list of equipables, mainly the rings
-		public List<RPGItems.Item> Equipment;
+		public RPGItems.Equipment Weapon;
+		//stores the character's rings
+		public RPGItems.Equipment ringL;
+		public RPGItems.Equipment ringR;
 
 		void OnEnable()
 		{
@@ -214,14 +216,7 @@ namespace RPGsys{
 		// Uses or equips item and applies its effects. Returns false if not usable.
 		public bool UseItem(Item item)
 		{
-			//TODO check if item usable?
-			item.Effect.Apply(this, item);
-            // Is this calling the wrong thing or forgetting to set equipable?
-			if(item.Type == Item.ItemType.Equipable)
-			{
-				Equipment.Add(item);
-			}
-			return true;
+			return item.Use(this);
 		}
 
 		// Removes item from equipment and unapplies its effects. Returns false if item not equipped
@@ -237,6 +232,34 @@ namespace RPGsys{
 			else
 			{
 				return false;
+			}
+		}
+
+		public bool HasEmptyRingSlot()
+		{
+			return ringL == null || ringR == null;
+		}
+
+		public bool PlaceInEmptyRingSlot(Equipment ring)
+		{
+			if(ring.equipmentType != Equipment.EquipmentType.Ring)
+			{
+				return false;
+			}
+			else
+			{
+				if(ringL == null)
+				{
+					ringL = ring;
+					return true;
+				} else if(ringR == null)
+				{
+					ringR = ring;
+					return true;
+				} else
+				{
+					return false;
+				}
 			}
 		}
 		#endregion
@@ -256,9 +279,8 @@ namespace RPGsys{
 				new JProperty("hp", Hp),
 				new JProperty("mp", Mp),
 				new JProperty("weapon", Weapon != null ? Utility.TrimCloned(Weapon.name) : ""),
-				new JProperty("equipment",
-					new JArray(from i in Equipment
-							   select Utility.TrimCloned(i.name))),
+				new JProperty("ringL", ringL != null ? Utility.TrimCloned(ringL.name) : ""),
+				new JProperty("ringR", ringR != null ? Utility.TrimCloned(ringR.name) : ""),
 				new JProperty("activePowers",
 					new JArray(from p in activePowers
 							   select Utility.TrimCloned(p.name))));
@@ -301,23 +323,24 @@ namespace RPGsys{
 				// maybe instead pick the first one?
 			}
 
-			string weaponName = (string)data["weapon"];
-			if (string.IsNullOrEmpty(weaponName))
-			{
-				Weapon = null;
-			}
-			else
-			{
-				Weapon = Factory<Item>.CreateInstance(weaponName);
-			}
-
-			foreach(JToken i in data["equipment"])
-			{
-				UseItem(Factory<Item>.CreateInstance((string)i));
-			}
-
+			Weapon = InstantiateAndApplyEquipment((string)data["weapon"]);
+			ringL = InstantiateAndApplyEquipment((string)data["ringL"]);
+			ringR = InstantiateAndApplyEquipment((string)data["ringR"]);
+			
 			Hp = (float)data["hp"];
 			Mp = (float)data["mp"];
+		}
+
+		private RPGItems.Equipment InstantiateAndApplyEquipment(string equipmentName)
+		{
+
+			RPGItems.Equipment instance = null;
+			if (!string.IsNullOrEmpty(equipmentName))
+			{
+				instance = (RPGItems.Equipment)Factory<Item>.CreateInstance(equipmentName);
+				instance.ApplyEffect(this);
+			}
+			return instance;
 		}
 
 		#endregion

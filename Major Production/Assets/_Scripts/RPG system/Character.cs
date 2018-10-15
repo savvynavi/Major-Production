@@ -24,7 +24,7 @@ namespace RPGsys{
 		public bool CanEquip(Equipment item)
 		{
 			// TODO also check correct class if weapon
-			return item.equipmentType == type;
+			return item != null && item.equipmentType == type;
 		}
 
 		// Equips item if allowed and slot is empty

@@ -9,73 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1832630248554758}
+  m_RootGameObject: {fileID: 1178610134454968}
   m_IsPrefabParent: 1
---- !u!1 &1761175104684784
+--- !u!1 &1178610134454968
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4404363284836672}
-  - component: {fileID: 33079329814724594}
-  - component: {fileID: 23951952727844562}
+  - component: {fileID: 4673932441516444}
+  - component: {fileID: 33116051486365612}
+  - component: {fileID: 23912651114780114}
+  - component: {fileID: 95120104676268596}
   m_Layer: 0
-  m_Name: Paintable Grass
+  m_Name: Tree_Tall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!1 &1832630248554758
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4861195110586944}
-  m_Layer: 0
-  m_Name: grass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &4404363284836672
+--- !u!4 &4673932441516444
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1761175104684784}
+  m_GameObject: {fileID: 1178610134454968}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.237, y: 0.438, z: 0}
-  m_LocalScale: {x: 1, y: 1.1650817, z: 1}
+  m_LocalPosition: {x: -0, y: 0.048474845, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4861195110586944}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4861195110586944
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1832630248554758}
-  m_LocalRotation: {x: -0, y: -0, z: -0.018516913, w: 0.99982864}
-  m_LocalPosition: {x: 101.37888, y: 50.08341, z: 66.643974}
-  m_LocalScale: {x: 1, y: 0.971367, z: 1}
-  m_Children:
-  - {fileID: 4404363284836672}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.1220002}
---- !u!23 &23951952727844562
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23912651114780114
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1761175104684784}
+  m_GameObject: {fileID: 1178610134454968}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,7 +56,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4765ceab2434add4092d000b23391ef2, type: 2}
+  - {fileID: 2100000, guid: e6795ae31ab7ee24886216723b945e6b, type: 2}
+  - {fileID: 2100000, guid: 911b118582ddacb4aad927f73c209dba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,10 +77,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33079329814724594
+--- !u!33 &33116051486365612
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1761175104684784}
-  m_Mesh: {fileID: 4300000, guid: 24560a6cfc7655b4e88c1fde43c2be9c, type: 3}
+  m_GameObject: {fileID: 1178610134454968}
+  m_Mesh: {fileID: 4300000, guid: 0447cc67be50cba409cdf3516f3a19f0, type: 3}
+--- !u!95 &95120104676268596
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178610134454968}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 0447cc67be50cba409cdf3516f3a19f0, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1

@@ -34,7 +34,15 @@ namespace RPG.UI {
 		void SetItem(RPGItems.Item _item)
 		{
 			item = _item;
-			inventoryText.text = item.Name;
+			if (item == null)
+			{
+				draggable.gameObject.SetActive(false);
+			}
+			else
+			{
+				draggable.gameObject.SetActive(true);
+				inventoryText.text = item.Name;
+			}
 		}
 
 		// Use this for initialization

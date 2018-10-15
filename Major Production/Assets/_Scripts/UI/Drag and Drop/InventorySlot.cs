@@ -24,9 +24,9 @@ namespace RPG.UI
 					InventorySlot theirSlot = (InventorySlot)draggedItem.itemBox;
 					return GameController.Instance.inventory.SwapItems(ContainedItem, theirItem);
 				}
-				else if (draggedItem.itemBox is EquipmentSlot)
+				else if (draggedItem.itemBox is EquipmentSlotUI)
 				{
-					EquipmentSlot theirSlot = (EquipmentSlot)draggedItem.itemBox;
+					EquipmentSlotUI theirSlot = (EquipmentSlotUI)draggedItem.itemBox;
 					throw new System.NotImplementedException();
 					// If from equipment, unequip item and insert before this
 
@@ -52,7 +52,7 @@ namespace RPG.UI
 			if(screen != null) {
 				if(dragged is DraggableItem) {
 					DraggableItem di = (DraggableItem)dragged;
-					if(di.itemBox is EquipmentSlot) {
+					if(di.itemBox is EquipmentSlotUI) {
 						StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
 						statChangeData.ItemToUse = di.itemBox.ContainedItem;
 						statChangeData.ApplyItemEffects(di.itemBox.ContainedItem, true);

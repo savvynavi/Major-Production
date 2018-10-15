@@ -25,8 +25,9 @@ namespace RPG.UI
 		// TODO health and mana bar
 
 		//HACK make these WeaponSlot and RingSlots
-		[SerializeField] EquipmentBox equipmentBox;
-		[SerializeField] RectTransform equipmentPanel;
+		[SerializeField] EquipmentSlotUI weaponSlot;
+		[SerializeField] EquipmentSlotUI ringLSlot;
+		[SerializeField] EquipmentSlotUI ringRSlot;
 		[SerializeField] GameObject equipmentSlotPrefab;
 
 		// TODO maybe make itempanel its own class so behaviour can be reused?
@@ -68,7 +69,6 @@ namespace RPG.UI
 		{
 			// TODO based on dropdown value pick character
 			CurrentChar = characters[characterDropdown.value];
-			equipmentBox.character = CurrentChar;
 			foreach (StatDisplay stat in statDisplays)
 			{
 				stat.character = CurrentChar;
@@ -129,21 +129,10 @@ namespace RPG.UI
 
 		public void UpdateEquipment()
 		{
-			throw new System.NotImplementedException();
 			// TODO show weapon, both rings
-
-			//foreach (Transform child in equipmentPanel)
-			//{
-			//	GameObject.Destroy(child.gameObject);
-			//}
-			//foreach (RPGItems.Item item in CurrentChar.Equipment)
-			//{
-			//	GameObject obj = Instantiate(equipmentSlotPrefab, equipmentPanel);
-			//	EquipmentSlot box = obj.GetComponent<EquipmentSlot>();
-			//	box.ContainedItem = item;
-			//	box.draggable.dragArea = this.transform;
-			//	box.character = CurrentChar;
-			//}
+			weaponSlot.SetEquipmentSlot(CurrentChar.weapon);
+			ringLSlot.SetEquipmentSlot(CurrentChar.ringL);
+			ringRSlot.SetEquipmentSlot(CurrentChar.ringR);
 		}
 
 		//HACK

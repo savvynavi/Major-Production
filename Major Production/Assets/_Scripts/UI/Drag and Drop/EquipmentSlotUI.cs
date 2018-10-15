@@ -7,10 +7,16 @@ using RPGItems;
 
 namespace RPG.UI {
 	//TODO rename this class
-	public class EquipmentSlot : ItemBox
+	public class EquipmentSlotUI : ItemBox
 	{
 
-		public Character character;
+		public EquipmentSlot equipmentSlot { get; private set; }
+		public void SetEquipmentSlot(EquipmentSlot slot)
+		{
+			equipmentSlot = slot;
+			ContainedItem = slot.equippedItem;
+		}
+		
 
 		// TODO make slot have specific type of item it can be
 		// TODO override tooltip text so that empty slot says valid type?

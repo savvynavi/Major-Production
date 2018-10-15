@@ -17,7 +17,7 @@ namespace RPG.UI {
 		public DraggableItem draggable;
 		public Item ContainedItem { get { return item; } set { SetItem(value); } }
 
-		public string TooltipText
+		public virtual string TooltipText
 		{
 			get
 			{

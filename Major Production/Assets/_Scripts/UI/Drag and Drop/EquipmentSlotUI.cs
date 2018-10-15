@@ -18,8 +18,26 @@ namespace RPG.UI {
 		}
 		
 
-		// TODO make slot have specific type of item it can be
-		// TODO override tooltip text so that empty slot says valid type?
+		public override string TooltipText
+		{
+			get
+			{
+				if(equipmentSlot != null)
+				{
+					if (equipmentSlot.IsEmpty)
+					{
+						return string.Format("{0} Slot", equipmentSlot.type.ToString("g"));
+					} else
+					{
+						return equipmentSlot.equippedItem.Description;
+					}
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
 
 		public override bool Drop(Draggable dragged)
 		{

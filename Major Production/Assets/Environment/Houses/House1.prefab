@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 33830452806640014}
   - component: {fileID: 23496627212018628}
   - component: {fileID: 95823830387990222}
-  - component: {fileID: 64070644737643424}
+  - component: {fileID: 65304011404813400}
   m_Layer: 0
   m_Name: House_Straw
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1808547890180366}
   m_LocalRotation: {x: -0, y: -0.017907152, z: -0, w: 0.99983966}
-  m_LocalPosition: {x: -9.38, y: 92.44, z: -15.74}
+  m_LocalPosition: {x: 65.75302, y: 50.499138, z: 57.067657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4386919405753710}
@@ -255,8 +255,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834937252263144}
   m_Mesh: {fileID: 4300000, guid: ad7186acb403518499e191cf905be4de, type: 3}
---- !u!64 &64070644737643424
-MeshCollider:
+--- !u!65 &65304011404813400
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -264,11 +264,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: ad7186acb403518499e191cf905be4de, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 8.719854, y: 6.540499, z: 6.4117737}
+  m_Center: {x: -0.08735799, y: 3.2702496, z: -0.07125139}
 --- !u!95 &95318219223772086
 Animator:
   serializedVersion: 3

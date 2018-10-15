@@ -22,7 +22,9 @@ GameObject:
   - component: {fileID: 33438521262279176}
   - component: {fileID: 23530738030804460}
   - component: {fileID: 95411398980020864}
-  - component: {fileID: 64565379785905474}
+  - component: {fileID: 65377718887538876}
+  - component: {fileID: 65774209787029748}
+  - component: {fileID: 65532971427806418}
   m_Layer: 0
   m_Name: Building_Balcony
   m_TagString: Untagged
@@ -103,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313045866899052}
   m_LocalRotation: {x: -0, y: -0.41321918, z: -0, w: -0.91063166}
-  m_LocalPosition: {x: -36.575497, y: 92.39383, z: -28.3404}
+  m_LocalPosition: {x: 67.9493, y: 59.4, z: 82.69164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4146655688194610}
@@ -255,8 +257,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1254730706042346}
   m_Mesh: {fileID: 4300000, guid: ba9bd0611875fcc47a1b0f4d3496a5f3, type: 3}
---- !u!64 &64565379785905474
-MeshCollider:
+--- !u!65 &65377718887538876
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -264,11 +266,33 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: ba9bd0611875fcc47a1b0f4d3496a5f3, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 6.113721, y: 8.595812, z: 5.5945516}
+  m_Center: {x: -0.9212031, y: 4.297906, z: -0.6202075}
+--- !u!65 &65532971427806418
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254730706042346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.78161204, y: 3.0003586, z: 0.8319968}
+  m_Center: {x: -3.6401541, y: 1.5001793, z: 4.113246}
+--- !u!65 &65774209787029748
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254730706042346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.88496053, y: 3.0003586, z: 0.8319968}
+  m_Center: {x: 1.7402071, y: 1.5001793, z: 4.113274}
 --- !u!95 &95411398980020864
 Animator:
   serializedVersion: 3

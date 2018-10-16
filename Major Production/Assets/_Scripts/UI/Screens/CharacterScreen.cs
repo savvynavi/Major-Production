@@ -26,10 +26,8 @@ namespace RPG.UI
 		[SerializeField] EquipmentSlotUI ringLSlot;
 		[SerializeField] EquipmentSlotUI ringRSlot;
 		[SerializeField] GameObject equipmentSlotPrefab;
-
-		// TODO maybe make itempanel its own class so behaviour can be reused?
-		[SerializeField] GameObject ItemBoxPrefab;
-		public RectTransform itemPanel;
+		
+		public InventoryPanel inventoryPanel;
 
 		public override void Close()
 		{
@@ -108,6 +106,7 @@ namespace RPG.UI
 			weaponSlot.draggable.dragArea = this.transform;
 			ringLSlot.draggable.dragArea = this.transform;
 			ringRSlot.draggable.dragArea = this.transform;
+			inventoryPanel.dragArea = this.transform;
 		}
 
 		// Update is called once per frame
@@ -118,17 +117,7 @@ namespace RPG.UI
 
 		public void UpdateItems()
 		{
-			foreach (Transform child in itemPanel)
-			{
-				GameObject.Destroy(child.gameObject);
-			}
-			foreach (RPGItems.Item item in GameController.Instance.inventory.playerInventory)
-			{
-				GameObject obj = Instantiate(ItemBoxPrefab, itemPanel);
-				InventorySlot box = obj.GetComponent<InventorySlot>();
-				box.ContainedItem = item;
-				box.draggable.dragArea = this.transform;
-			}
+			inventoryPanel.UpdateItems();
 		}
 
 		public void UpdateEquipment()

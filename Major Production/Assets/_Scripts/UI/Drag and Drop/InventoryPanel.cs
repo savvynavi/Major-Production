@@ -5,6 +5,7 @@ using RPGItems;
 
 namespace RPG.UI{
 	public class InventoryPanel : DragTarget {
+		#region Drag and Drop
 		public override bool Drop(Draggable dragged)
 		{
 			// Move item to end of inventory
@@ -61,8 +62,11 @@ namespace RPG.UI{
 				screen.DisplayCharacter();
 			}
 		}
-
+		#endregion
 		// TODO move logic for populating panel into here
+		[SerializeField] GameObject ItemBoxPrefab;
+		[SerializeField] RectTransform itemContainer;
+		public Transform dragArea;
 
 		// Use this for initialization
 		void Start () {
@@ -72,6 +76,21 @@ namespace RPG.UI{
 		// Update is called once per frame
 		void Update () {
 		
+		}
+
+		public void UpdateItems()
+		{
+			foreach(Transform child in itemContainer.transform)
+			{
+				GameObject.Destroy(child.gameObject);
+			}
+			foreach(Item item in GameController.Instance.inventory.playerInventory)
+			{
+				GameObject obj = Instantiate(ItemBoxPrefab, itemContainer);
+				InventorySlot box = obj.GetComponent<InventorySlot>();
+				box.ContainedItem = item;
+				box.draggable.dragArea = dragArea;
+			}
 		}
 	}
 }

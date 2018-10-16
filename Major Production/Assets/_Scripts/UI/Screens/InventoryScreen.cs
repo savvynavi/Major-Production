@@ -7,15 +7,15 @@ namespace RPG.UI
 	public class InventoryScreen : MenuScreen
 	{
 
-		public RectTransform itemPanel;
+		public InventoryPanel inventoryPanel;
 		public RectTransform characterPanel;
-		[SerializeField] GameObject ItemBoxPrefab;
 		[SerializeField] GameObject CharacterBoxPrefab;
 		// TODO figure out where this belongs, how it gets opened and closed
 
 		// Use this for initialization
 		void Start()
 		{
+			inventoryPanel.dragArea = this.transform;
 		}
 
 		// Update is called once per frame
@@ -45,17 +45,7 @@ namespace RPG.UI
 
 		public void UpdateItems()
 		{
-			foreach (Transform child in itemPanel)
-			{
-				GameObject.Destroy(child.gameObject);
-			}
-			foreach (RPGItems.Item item in GameController.Instance.inventory.playerInventory)
-			{
-				GameObject obj = Instantiate(ItemBoxPrefab, itemPanel);
-				InventorySlot box = obj.GetComponent<InventorySlot>();
-				box.ContainedItem = item;
-				box.draggable.dragArea = this.transform;
-			}
+			inventoryPanel.UpdateItems();
 		}
 
 		public void UpdateCharacters()

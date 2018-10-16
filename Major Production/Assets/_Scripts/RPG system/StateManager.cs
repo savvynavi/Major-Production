@@ -261,6 +261,10 @@ namespace RPGsys {
 						characterButtonList.uis[i].UndoMove = false;
 						characters[i].ActivePlayer = true;
 						currentPlayer = previousPlayer;
+						////decal stuff, deletes last one set if move undone
+						GameObject lastObj = projectors.Last();
+						projectors.Remove(lastObj);
+						Destroy(lastObj);
 					}
 					yield return null;
 				}
@@ -270,10 +274,7 @@ namespace RPGsys {
 				if(currentPlayer == previousPlayer) {
 					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
 					characterButtonList.uis[i].HidePowerButtons();
-					////decal stuff, deletes last one set if move undone
-					GameObject lastObj = projectors.Last();
-					projectors.Remove(lastObj);
-					Destroy(lastObj);
+
 					i = previousPlayer - 1;
 
 				} else {
@@ -356,8 +357,8 @@ namespace RPGsys {
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
 
-			foreach(GameObject obj in projectors) {
-				Destroy(projectors.Last());
+			for(int i = projectors.Count - 1; i >= 0; i--) {
+				Destroy(projectors[i]);
 			}
 			projectors.Clear();
 

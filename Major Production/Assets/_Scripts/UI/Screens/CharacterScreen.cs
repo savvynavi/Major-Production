@@ -9,7 +9,8 @@ namespace RPG.UI
 {
 	public class CharacterScreen : MenuScreen
 	{
-		[SerializeField] Dropdown characterDropdown;
+		[SerializeField] RectTransform characterSelectPanel;
+		[SerializeField] CharacterSelectButton characterSelectPrefab;
 		List<RPGsys.Character> characters;
 		public RPGsys.Character CurrentChar { get; private set; }
 
@@ -39,31 +40,35 @@ namespace RPG.UI
 		public override void Open()
 		{
 			gameObject.SetActive(true);
-			PopulateDropdownOptions();
+			PopulationCharacterSelection();
 			// TODO instead of these, have the change trigger a Dirty flag and do it at update
 			GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateItems);
 			GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateEquipment);
-			SelectCharacter();
+			SelectCharacter(characters[0]);
 			UpdateItems();
 		}
 
-		void PopulateDropdownOptions()
+		void PopulationCharacterSelection()
 		{
-			characterDropdown.options.Clear();
+			foreach(GameObject child in characterSelectPanel)
+			{
+				GameObject.Destroy(child);
+			}
 			characters = new List<RPGsys.Character>(GameController.Instance.Characters);
 			foreach (RPGsys.Character character in characters)
 			{
-				characterDropdown.options.Add(new Dropdown.OptionData(character.name));
+				GameObject clone = Instantiate(characterSelectPrefab.gameObject, characterSelectPanel);
+				CharacterSelectButton charButton = clone.GetComponent<CharacterSelectButton>();
+				Button button = clone.GetComponent<Button>();
+				charButton.SetCharacter(character);
+				button.onClick.AddListener(() => SelectCharacter(character));
 			}
-			int temp = characterDropdown.value;
-			characterDropdown.value = temp + 1;
-			characterDropdown.value = temp;
 		}
 
-		public void SelectCharacter()
+		public void SelectCharacter(Character character)
 		{
-			// TODO based on dropdown value pick character
-			CurrentChar = characters[characterDropdown.value];
+			// TODO make CharacterSelectButton with this character highlighted (but unselectable)
+			CurrentChar = character;
 			foreach (StatDisplay stat in statDisplays)
 			{
 				stat.character = CurrentChar;
@@ -132,7 +137,8 @@ namespace RPG.UI
 		public void UnequipAllItems()
 		{
 			CurrentChar.UnequipAll();
-			SelectCharacter();
+			// HACK
+			SelectCharacter(CurrentChar);
 		}
 
 		//HACK for testing level up system

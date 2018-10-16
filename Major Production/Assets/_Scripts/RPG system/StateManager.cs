@@ -16,7 +16,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
-		public GameObject projector;
+		public List<GameObject> projector;
 
 		int rand;
 		List<Character> enemies;
@@ -280,9 +280,15 @@ namespace RPGsys {
 				} else {
 
 					//decal stuff
-					
 					if(characters[i].target != null) {
-						GameObject tmpObj = Instantiate(projector);
+						int count = 0;
+						for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
+							if(turnBehaviour.MovesThisRound[j].player.target == characters[i].target) {
+								count++;
+							}
+						}
+						GameObject tmpObj = Instantiate(projector[count - 1]);
+						//height it different to prefab?
 						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
 						projectors.Add(tmpObj);
 					}
@@ -303,6 +309,10 @@ namespace RPGsys {
 			if(redoTurn == true) {
 				turnBehaviour.MovesThisRound.Clear();
 				turnBehaviour.ResetTurnNumber();
+				for(int i = projectors.Count - 1; i >= 0; i--) {
+					Destroy(projectors[i]);
+				}
+				projectors.Clear();
 				yield return PlayerTurn();
 			}
 			yield return true;

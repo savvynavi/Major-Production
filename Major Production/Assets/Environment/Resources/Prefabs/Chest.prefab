@@ -224,14 +224,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1642116754278450}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.6427876, y: 0, z: 0, w: 0.7660445}
   m_LocalPosition: {x: -0, y: 0.499, z: -0.735}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4001073213460780}
   m_Father: {fileID: 4459796725262274}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -80, y: 0, z: 0}
 --- !u!4 &4459796725262274
 Transform:
   m_ObjectHideFlags: 1
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionDescription: Open Chest
   contents:
-  - {fileID: 11400000, guid: 7dfb3ea11e514914e83eabe175b91402, type: 2}
+  - {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
   - {fileID: 11400000, guid: 958816bb426327a46985bca0a1f991e1, type: 2}
   - {fileID: 11400000, guid: 958816bb426327a46985bca0a1f991e1, type: 2}
   dialogue: {fileID: 0}
@@ -616,7 +616,7 @@ ParticleSystem:
   simulationSpeed: 1
   stopAction: 0
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -665,14 +665,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -43058014
+  randomSeed: 224437876
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4026,7 +4026,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2080499377
+  randomSeed: 707185087
   InitialModule:
     serializedVersion: 3
     enabled: 1

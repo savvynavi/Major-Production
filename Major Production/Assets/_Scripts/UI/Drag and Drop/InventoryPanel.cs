@@ -12,7 +12,7 @@ namespace RPG.UI{
 			// TODO when this knows about contents, instead figure out index based on position?
 			InventoryManager inventory = GameController.Instance.inventory;
 			DraggableItem draggedItem = (DraggableItem)dragged;
-			int index = inventory.playerInventory.Count;
+			int index = IndexAtPosition(Input.mousePosition);
 			if (draggedItem != null && draggedItem.itemBox != this)
 			{
 				Item item = draggedItem.itemBox.ContainedItem;
@@ -56,6 +56,7 @@ namespace RPG.UI{
 		protected override void OnHoverLeave()
 		{
 			// reset character display if in character screen
+			// HACK maybe remove functionality from InventorySlot?
 			CharacterScreen screen = GetComponentInParent<CharacterScreen>();
 			if (screen != null)
 			{

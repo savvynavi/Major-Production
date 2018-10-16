@@ -24,9 +24,21 @@ namespace RPGItems {
 				switch (equipmentType)
 				{
 					case EquipmentType.Weapon:
-						throw new System.NotImplementedException();
-						// TODO remove previous weapon if exists
-						// TODO equip this weapon and apply it
+						if (character.weapon.CanEquip(this))
+						{
+							// Remove previous weapon if it exists
+							Equipment oldWeapon = character.weapon.Unequip();
+							// Equip this weapon
+							character.weapon.Equip(this);
+							if(oldWeapon != null)
+							{
+								GameController.Instance.inventory.Add(oldWeapon);
+							}
+							return true;
+						} else
+						{
+							return false;
+						}
 					case EquipmentType.Ring:
 						if (character.PlaceInEmptyRingSlot(this))
 						{
@@ -57,7 +69,6 @@ namespace RPGItems {
 				default:
 					throw new System.NotImplementedException();
 			}
-			throw new System.NotImplementedException();
 		}
 
 		public void RemoveEffect(Character character)

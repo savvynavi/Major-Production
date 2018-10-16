@@ -9,12 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59db5d33a91fcc542b41e2e946c7cd27, type: 3}
-  m_Name: Ring of DefUp
+  m_Name: Staff of Int Item
   m_EditorClassIdentifier: 
-  Name: Ring of Defence
-  Description: Adds 50 points to defence
-  Sprite: {fileID: 21300000, guid: 0f8c5ead26c61f548b23167bd8f92253, type: 3}
-  Effect: {fileID: 11400000, guid: eabb6458e383b834f9cae6a06a39b799, type: 2}
-  buffInstances: []
+  Name: 
+  Description: 
+  Sprite: {fileID: 0}
+  Effect: {fileID: 0}
+  buffInstances:
+  - {fileID: 0}
   WeaponModel: {fileID: 0}
-  equipmentType: 1
+  equipmentType: 0
+  classRequirement: 2

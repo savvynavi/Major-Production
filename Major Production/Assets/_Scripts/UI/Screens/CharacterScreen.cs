@@ -9,9 +9,6 @@ namespace RPG.UI
 {
 	public class CharacterScreen : MenuScreen
 	{
-
-		
-
 		[SerializeField] Dropdown characterDropdown;
 		List<RPGsys.Character> characters;
 		public RPGsys.Character CurrentChar { get; private set; }
@@ -104,6 +101,13 @@ namespace RPG.UI
 		void Awake()
 		{
 			statDisplays = new List<StatDisplay>(GetComponentsInChildren<StatDisplay>(true));
+		}
+
+		private void Start()
+		{
+			weaponSlot.draggable.dragArea = this.transform;
+			ringLSlot.draggable.dragArea = this.transform;
+			ringRSlot.draggable.dragArea = this.transform;
 		}
 
 		// Update is called once per frame

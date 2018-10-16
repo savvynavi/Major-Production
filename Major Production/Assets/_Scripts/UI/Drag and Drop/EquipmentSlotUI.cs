@@ -47,65 +47,58 @@ namespace RPG.UI {
 			if (draggedItem != null && draggedItem.itemBox != this)
 			{
 				// TODO like with InventorySlot, check types and act accordingly
-				Item theirItem = draggedItem.itemBox.ContainedItem;
+				Equipment theirItem = (Equipment)draggedItem.itemBox.ContainedItem;
+				if(theirItem == null)
+				{
+					return false;
+				}
 
 				if (draggedItem.itemBox is InventorySlot)
 				{
 					// If from inventory unequip this and equip theirs
 					// Note: both will end up at end, not bothering with that since
 					// equipment slots will be changed later
-
-					//TODO check their item can be equipped, if so unequip
-					throw new System.NotImplementedException();
-
-					//InventorySlot theirSlot = (InventorySlot)draggedItem.itemBox;
-					//if (theirItem.Type == Item.ItemType.Equipable)
-					//{
-					//	character.Unequip(ContainedItem);
-					//	character.UseItem(theirItem);
-					//	return GameController.Instance.inventory.Replace(theirItem, ContainedItem);
-					//}
-					//else
-					//{
-					//	return false;
-					//}
+					if (equipmentSlot.CanEquip(theirItem))
+					{
+						Equipment myItem = equipmentSlot.Unequip();
+						equipmentSlot.Equip(theirItem);
+						if(myItem != null)
+						{
+							GameController.Instance.inventory.Replace(theirItem, myItem);
+						}
+						else
+						{
+							GameController.Instance.inventory.Discard(theirItem);
+						}
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
-				else if (draggedItem.itemBox is EquipmentSlot)
+				else if (draggedItem.itemBox is EquipmentSlotUI)
 				{
 					// TODO if both rings, swap rings?
-
-					throw new System.NotImplementedException();
-
-					//EquipmentSlot theirSlot = (EquipmentSlot)draggedItem.itemBox;
-					//Character theirCharacter = theirSlot.character;
-					//if (character == theirCharacter)
-					//{
-					//	int theirIndex = character.Equipment.IndexOf(theirItem);
-					//	if (myIndex >= 0 && theirIndex >= 0)
-					//	{
-					//		theirSlot.ContainedItem = ContainedItem;
-					//		character.Equipment[theirIndex] = ContainedItem;
-					//		ContainedItem = theirItem;
-					//		character.Equipment[myIndex] = theirItem;
-					//		return true;
-					//	}
-					//	else
-					//	{
-					//		return false;
-					//	}
-					//}
-					//else
-					//{
-					//	// order would change on reloading, but again don't care since temporary
-					//	character.Unequip(ContainedItem);
-					//	theirCharacter.Unequip(theirItem);
-					//	character.UseItem(theirItem);
-					//	theirCharacter.UseItem(ContainedItem);
-					//	theirSlot.ContainedItem = ContainedItem;
-					//	ContainedItem = theirItem;
-					//	return true;
-					//}
-
+					EquipmentSlotUI otherUI = (EquipmentSlotUI)draggedItem.itemBox;
+					EquipmentSlot theirSlot = otherUI.equipmentSlot;
+					if(theirSlot.character == equipmentSlot.character)
+					{
+						if (equipmentSlot.SwapItem(theirSlot))
+						{
+							ContainedItem = equipmentSlot.equippedItem;
+							otherUI.ContainedItem = theirSlot.equippedItem;
+							return true;
+						}
+						else
+						{
+							return false;
+						}
+					}
+					else
+					{
+						return false;
+					}
 				}
 				else
 				{

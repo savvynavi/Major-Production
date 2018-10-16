@@ -54,6 +54,20 @@ namespace RPGsys{
 			return oldItem;
 		}
 
+		public bool SwapItem(EquipmentSlot other)
+		{
+			if (other.type == this.type && other.character == this.character)
+			{
+				Equipment temp = this.equippedItem;
+				this.equippedItem = other.equippedItem;
+				other.equippedItem = temp;
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
 		public void Load(string equipmentName)
 		{
 			RPGItems.Equipment instance = null;

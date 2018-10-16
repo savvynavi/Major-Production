@@ -91,6 +91,25 @@ namespace RPGItems {
 			}
 		}
 
+		public bool MoveItem(Item item, int index)
+		{
+			index = Mathf.Clamp(index, 0, playerInventory.Count);
+			int oldIndex = playerInventory.IndexOf(item);
+			if(oldIndex < 0)
+			{
+				return false;
+			} else {
+				if(index > oldIndex)
+				{
+					--index;
+				}
+				playerInventory.Remove(item);
+				playerInventory.Insert(index, item);
+				OnInventoryChanged.Invoke();
+				return true;
+			}
+		}
+
 		public void DiscardStack(Item item) {
 			//playerInventory.RemoveAll(playerInventory[] == item);
 		}

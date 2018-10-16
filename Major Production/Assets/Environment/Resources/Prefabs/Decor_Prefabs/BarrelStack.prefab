@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4829074032121282}
+  - component: {fileID: 65449338680406252}
   m_Layer: 0
   m_Name: BarrelStack
   m_TagString: Untagged
@@ -113,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1140655425879836}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 73.42, y: 51.054832, z: 83.21}
+  m_LocalPosition: {x: 71.51151, y: 51.038902, z: 78.24089}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4835102663396630}
@@ -258,6 +259,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1641822628271532}
   m_Mesh: {fileID: 4300000, guid: 162946ee6a5eea24e9d9760a7faf8557, type: 3}
+--- !u!65 &65449338680406252
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1140655425879836}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9868774, y: 1.8485031, z: 1.273529}
+  m_Center: {x: -0.05115509, y: -0.09170532, z: -0.0045700073}
 --- !u!95 &95532746425988518
 Animator:
   serializedVersion: 3

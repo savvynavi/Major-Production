@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33334216900036680}
   - component: {fileID: 23758465696107002}
   - component: {fileID: 95456234658105200}
+  - component: {fileID: 65042635340724276}
   m_Layer: 0
   m_Name: Well
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1606341905491350}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 94.079185, y: 50.352997, z: 77.93095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1606341905491350}
   m_Mesh: {fileID: 4300000, guid: 55aa2fcc152f48549854e29fbfad0b44, type: 3}
+--- !u!65 &65042635340724276
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1606341905491350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9999998, y: 3.0946002, z: 2.1973236}
+  m_Center: {x: -0.00000011920929, y: 1.5390222, z: -0.00000035762787}
 --- !u!95 &95456234658105200
 Animator:
   serializedVersion: 3

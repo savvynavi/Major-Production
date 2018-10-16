@@ -75,7 +75,6 @@ namespace RPG.UI{
 	
 		// Update is called once per frame
 		void Update () {
-		
 		}
 
 		public void UpdateItems()
@@ -91,6 +90,27 @@ namespace RPG.UI{
 				box.ContainedItem = item;
 				box.draggable.dragArea = dragArea;
 			}
+		}
+
+		public int IndexAtPosition(Vector3 pos)
+		{
+			foreach(RectTransform child in itemContainer.transform)
+			{
+				Vector2 itemPos = child.position;
+				if(pos.y > child.position.y)
+				{
+					int index = GameController.Instance.inventory.playerInventory.IndexOf(child.GetComponent<InventorySlot>().ContainedItem);
+					if(index < 0)
+					{
+						throw new System.InvalidOperationException("Inventory contained null object");
+					}
+					else
+					{
+						return index;
+					}
+				}
+			}
+			return GameController.Instance.inventory.playerInventory.Count;
 		}
 	}
 }

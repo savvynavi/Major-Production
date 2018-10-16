@@ -46,7 +46,7 @@ namespace RPG.UI {
 			DraggableItem draggedItem = (DraggableItem)dragged;
 			if (draggedItem != null && draggedItem.itemBox != this)
 			{
-				// TODO like with InventorySlot, check types and act accordingly
+				// Check type of dragged item
 				Equipment theirItem = (Equipment)draggedItem.itemBox.ContainedItem;
 				if(theirItem == null)
 				{
@@ -79,7 +79,7 @@ namespace RPG.UI {
 				}
 				else if (draggedItem.itemBox is EquipmentSlotUI)
 				{
-					// TODO if both rings, swap rings?
+					//  if both rings, swap rings
 					EquipmentSlotUI otherUI = (EquipmentSlotUI)draggedItem.itemBox;
 					EquipmentSlot theirSlot = otherUI.equipmentSlot;
 					if(theirSlot.character == equipmentSlot.character)

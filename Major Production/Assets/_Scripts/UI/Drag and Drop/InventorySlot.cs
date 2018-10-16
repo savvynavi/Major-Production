@@ -26,13 +26,18 @@ namespace RPG.UI
 				}
 				else if (draggedItem.itemBox is EquipmentSlotUI)
 				{
-					EquipmentSlotUI theirSlot = (EquipmentSlotUI)draggedItem.itemBox;
-					throw new System.NotImplementedException();
 					// If from equipment, unequip item and insert before this
-
-					//return GameController.Instance.inventory.Unequip(theirItem, theirSlot.character, myIndex);
-
-					// TODO need to make an InventoryBox class so you can just drop it in with an empty inventory
+					EquipmentSlotUI theirSlot = (EquipmentSlotUI)draggedItem.itemBox;
+					theirItem = theirSlot.equipmentSlot.Unequip();
+					if (theirItem != null)
+					{
+						GameController.Instance.inventory.Add(theirItem, myIndex);
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
 				else
 				{

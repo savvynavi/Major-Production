@@ -30,16 +30,20 @@ namespace RPGItems {
 		}
 
 		//add item to the inventory. index parameter can be used to insert instead
-		public void Add(Item item, int index = -1) {
-			if (index < 0 || index >= playerInventory.Count)
+		public void Add(Item item, int index = -1)
+		{
+			if (item != null)
 			{
-				playerInventory.Add(item);
+				if (index < 0 || index >= playerInventory.Count)
+				{
+					playerInventory.Add(item);
+				}
+				else
+				{
+					playerInventory.Insert(index, item);
+				}
+				OnInventoryChanged.Invoke();
 			}
-			else
-			{
-				playerInventory.Insert(index, item);
-			}
-			OnInventoryChanged.Invoke();
 		}
 
 		public void AddRange(IEnumerable<Item> items)

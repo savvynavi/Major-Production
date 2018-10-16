@@ -12,7 +12,7 @@ namespace RPG {
 		[SerializeField] ParticleSystem sparkleEffect;
 		[SerializeField] Light spotlight;
 		[SerializeField] PersistentTrigger trigger;
-		// TODO saving treasure chest
+
 		public override void Interact(InteractionUser user)
 		{
 			StartCoroutine(OpenChestRoutine(user));
@@ -64,7 +64,7 @@ namespace RPG {
 				dialogue.SetDialogue("It was full of treasure!");
 				yield return new WaitWhile(waitP);
 				wait = true;
-				dialogue.SetDialogue("You found:\n" + ContentsText()); // TODO say what items were found
+				dialogue.SetDialogue("You found:\n" + ContentsText());
 				dialogue.ClearButtons();
 				dialogue.AddButton("Exit", continueAction);
 				dialogue.RebuildLayout();

@@ -170,7 +170,6 @@ namespace RPGsys {
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					// Do experience stuff
-					// HACK this is getting called 4 times, fix this or move elsewhere
 					int battleXP = 0;
 					foreach(Character enemy in enemies)
 					{

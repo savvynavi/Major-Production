@@ -9,6 +9,7 @@ namespace RPGItems {
 	public class Equipment : Item {
 		public GameObject WeaponModel;
 		public EquipmentType equipmentType;
+		public EClassType classRequirement;
 
 		public enum EquipmentType {
 			Weapon,
@@ -49,8 +50,8 @@ namespace RPGItems {
 			switch (equipmentType)
 			{
 				case EquipmentType.Weapon:
-					// TODO check if character's Weapon slot can equip
-					throw new System.NotImplementedException();
+					// check if character's Weapon slot can equip
+					return character.weapon.CanEquip(this);
 				case EquipmentType.Ring:
 					return character.HasEmptyRingSlot();
 				default:

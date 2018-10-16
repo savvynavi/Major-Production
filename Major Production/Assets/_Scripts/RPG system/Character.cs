@@ -21,10 +21,16 @@ namespace RPGsys{
 		public Character character { get; private set; }
 		public Equipment equippedItem { get; private set; }
 		public bool IsEmpty { get { return equippedItem == null; } }
+
 		public bool CanEquip(Equipment item)
 		{
-			// TODO also check correct class if weapon
-			return item != null && item.equipmentType == type;
+			bool matchesSlot = item != null && item.equipmentType == type;
+			// also check correct class if weapon
+			if (item.equipmentType == Equipment.EquipmentType.Weapon)
+			{
+				matchesSlot &= item.classRequirement == character.classInfo.classType;
+			}
+			return matchesSlot;
 		}
 
 		// Equips item if allowed and slot is empty

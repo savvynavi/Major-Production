@@ -16,6 +16,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public GameObject projector;
 
 		int rand;
 		List<Character> enemies;
@@ -30,6 +31,7 @@ namespace RPGsys {
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
 		BattleUIController battleUIController;
+		List<GameObject> projectors;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -146,6 +148,7 @@ namespace RPGsys {
 
 			turnBehaviour.Setup(characters, enemies);
 			//confirmMenu.Setup();
+			projectors = new List<GameObject>();
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -170,7 +173,6 @@ namespace RPGsys {
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					// Do experience stuff
-					// HACK this is getting called 4 times, fix this or move elsewhere
 					int battleXP = 0;
 					foreach(Character enemy in enemies)
 					{
@@ -248,6 +250,8 @@ namespace RPGsys {
 					selector.gameObject.SetActive(false);
 				}
 
+
+
 				int currentPlayer = i;
 				int previousPlayer = i - 1;
 
@@ -261,16 +265,30 @@ namespace RPGsys {
 					yield return null;
 				}
 
+
 				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
 				if(currentPlayer == previousPlayer) {
 					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
 					characterButtonList.uis[i].HidePowerButtons();
+					////decal stuff, deletes last one set if move undone
+					GameObject lastObj = projectors.Last();
+					projectors.Remove(lastObj);
+					Destroy(lastObj);
 					i = previousPlayer - 1;
 
 				} else {
+
+					//decal stuff
+					
+					if(characters[i].target != null) {
+						GameObject tmpObj = Instantiate(projector);
+						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
+						projectors.Add(tmpObj);
+					}
 					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
 					characterButtonList.uis[i].HidePowerButtons();
 				}
+
 
 			}
 		}
@@ -337,6 +355,11 @@ namespace RPGsys {
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
+
+			foreach(GameObject obj in projectors) {
+				Destroy(projectors.Last());
+			}
+			projectors.Clear();
 
 			//each loop is a players turn
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {

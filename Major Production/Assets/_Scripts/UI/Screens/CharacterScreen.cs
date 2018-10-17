@@ -50,9 +50,9 @@ namespace RPG.UI
 
 		void PopulationCharacterSelection()
 		{
-			foreach(GameObject child in characterSelectPanel)
+			foreach(Transform child in characterSelectPanel)
 			{
-				GameObject.Destroy(child);
+				GameObject.Destroy(child.gameObject);
 			}
 			characters = new List<RPGsys.Character>(GameController.Instance.Characters);
 			foreach (RPGsys.Character character in characters)

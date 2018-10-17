@@ -14,8 +14,9 @@ MonoBehaviour:
   Name: Ring of Intelligence
   Description: Adds 50 points to Intelligence
   Sprite: {fileID: 21300000, guid: 0f8c5ead26c61f548b23167bd8f92253, type: 3}
-  Effect: {fileID: 11400000, guid: c6e8e085885a24f4e849d9f0925f7bc7, type: 2}
-  buffInstances: []
+  Effect: {fileID: 0}
+  buffInstances:
+  - {fileID: 11400000, guid: 93fc22fb759f541459e75a0c3d5eba12, type: 2}
   WeaponModel: {fileID: 0}
   equipmentType: 1
   classRequirement: 0

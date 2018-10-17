@@ -76,7 +76,6 @@ GameObject:
   - component: {fileID: 4801764473043264}
   - component: {fileID: 198633546400105760}
   - component: {fileID: 199589510921349108}
-  - component: {fileID: 114817569252522624}
   - component: {fileID: 114115220195913402}
   m_Layer: 0
   m_Name: Smoke (3)
@@ -104,16 +103,16 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313045866899052}
-  m_LocalRotation: {x: -0, y: -0.71346605, z: -0, w: -0.7006898}
-  m_LocalPosition: {x: -54.57, y: 92.39383, z: -5.52}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.7123711, z: -0, w: -0.701803}
+  m_LocalPosition: {x: -38.77, y: 92.39383, z: 14.72}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children:
   - {fileID: 4146655688194610}
   - {fileID: 4588804644864644}
   - {fileID: 4801764473043264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -268.965, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -450.85602, z: 0}
 --- !u!4 &4588804644864644
 Transform:
   m_ObjectHideFlags: 1
@@ -339,17 +338,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
---- !u!114 &114817569252522624
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1493408922244398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198633546400105760
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -410,7 +398,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 111052933
+  randomSeed: -503117965
   InitialModule:
     serializedVersion: 3
     enabled: 1

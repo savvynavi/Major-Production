@@ -14,7 +14,7 @@ namespace RPG.UI
 		public void SetCharacter(RPGsys.Character character)
 		{
 			this.character = character;
-			portrait.sprite = character.Portrait;
+			portrait.sprite = character.ButtonPortrait;
 		}
 
 		public string TooltipText

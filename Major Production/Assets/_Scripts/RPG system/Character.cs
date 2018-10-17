@@ -110,6 +110,7 @@ namespace RPGsys{
 
 		public int ChoiceOrder;
 		public Sprite Portrait;
+		public Sprite ButtonPortrait;
 		//is true when that player is setting moves
 		public bool ActivePlayer { get; set; }
 

@@ -57,7 +57,10 @@ namespace RPG.UI {
 		void SetCharacter(Character c)
 		{
 			character = c;
-			nameText.text = character.name;
+			if (nameText != null)
+			{
+				nameText.text = character.name;
+			}
 		}
 
 	}	

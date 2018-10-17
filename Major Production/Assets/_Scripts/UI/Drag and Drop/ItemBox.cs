@@ -13,6 +13,7 @@ namespace RPG.UI {
 	{
 
 		[SerializeField] Text inventoryText;
+		[SerializeField] Image itemImage;
 		protected Item item;
 		public DraggableItem draggable;
 		public Item ContainedItem { get { return item; } set { SetItem(value); } }
@@ -42,6 +43,10 @@ namespace RPG.UI {
 			{
 				draggable.gameObject.SetActive(true);
 				inventoryText.text = item.Name;
+				if(itemImage != null)
+				{
+					itemImage.sprite = item.Sprite;
+				}
 			}
 		}
 

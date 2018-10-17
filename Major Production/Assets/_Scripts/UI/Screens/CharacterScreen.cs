@@ -14,6 +14,7 @@ namespace RPG.UI
 
 		[SerializeField] RectTransform characterSelectPanel;
 		[SerializeField] CharacterSelectButton characterSelectPrefab;
+		[SerializeField] CharacterUI characterPortrait;
 		List<RPGsys.Character> characters;
 		public RPGsys.Character CurrentChar { get; private set; }
 
@@ -101,7 +102,8 @@ namespace RPG.UI
 		public void DisplayCharacter(StatDisplay.StatChangeData changeData = null)
 		{
 			// TODO just make this set it as dirty and update next update?
-
+			characterPortrait.SetCharacter(CurrentChar);
+			characterPortrait.GetComponent<CharacterBox>().ContainedCharacter = CurrentChar;
 			foreach(StatDisplay stat in statDisplays)
 			{
 				stat.Display(changeData);

@@ -17,6 +17,7 @@ namespace RPGsys {
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
 		public List<GameObject> projector;
+		public GameObject arrowProjector;
 
 		int rand;
 		List<Character> enemies;
@@ -32,6 +33,7 @@ namespace RPGsys {
 		CameraMovement camMovement;
 		BattleUIController battleUIController;
 		List<GameObject> projectors;
+		List<GameObject> arrowProjectors;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -288,10 +290,23 @@ namespace RPGsys {
 							}
 						}
 						GameObject tmpObj = Instantiate(projector[count - 1]);
-						//height it different to prefab?
 						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
 						projectors.Add(tmpObj);
+
+						//arrow instantiating, spawns an arrow then rotates it towards the enemy from the character
+						//TODO add in arrow delete parts, figure out how to colour the rings
+						GameObject tmpArrow = Instantiate(arrowProjector);
+						tmpArrow.transform.position = new Vector3(characters[i].transform.position.x, tmpObj.transform.position.y, characters[i].transform.position.z);
+						tmpArrow.GetComponentInChildren<Transform>().transform.LookAt(characters[i].target.transform);
+						tmpArrow.GetComponentInChildren<Transform>().transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
+						//tmpArrow.transform.LookAt(characters[i].target.transform);
+						//tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
+						//scaing arrow towards the target
+						//tmpArrow.
+						//arrowProjectors.Add(tmpArrow);
 					}
+
+					//sets them out of idle state, hides their power buttons
 					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
 					characterButtonList.uis[i].HidePowerButtons();
 				}

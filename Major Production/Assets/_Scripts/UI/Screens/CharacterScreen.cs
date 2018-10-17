@@ -9,6 +9,9 @@ namespace RPG.UI
 {
 	public class CharacterScreen : MenuScreen
 	{
+		[SerializeField] List<GameObject> Tabs;
+		[SerializeField] GameObject CurrentTab;
+
 		[SerializeField] RectTransform characterSelectPanel;
 		[SerializeField] CharacterSelectButton characterSelectPrefab;
 		List<RPGsys.Character> characters;
@@ -46,6 +49,24 @@ namespace RPG.UI
 			GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateEquipment);
 			SelectCharacter(characters[0]);
 			UpdateItems();
+			// TODO deactivate all tabs and activate current one
+			foreach(GameObject tab in Tabs)
+			{
+				tab.SetActive(false);
+			}
+			CurrentTab.SetActive(true);
+		}
+
+		public void ChangeTab(GameObject newTab)
+		{
+			// TODO use scroll effect here too
+			if(newTab != CurrentTab)
+			{
+				CurrentTab.SetActive(false);
+				CurrentTab = newTab;
+				CurrentTab.SetActive(true);
+			}
+
 		}
 
 		void PopulationCharacterSelection()

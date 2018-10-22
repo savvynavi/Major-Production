@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 4972395238251018}
   - component: {fileID: 198306697621089330}
   - component: {fileID: 199352804426028334}
-  - component: {fileID: 114435576844406486}
   - component: {fileID: 114402748967337638}
   m_Layer: 0
   m_Name: Smoke
@@ -299,17 +298,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
---- !u!114 &114435576844406486
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1863889209034106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198306697621089330
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -370,7 +358,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1350896680
+  randomSeed: -1009422641
   InitialModule:
     serializedVersion: 3
     enabled: 1

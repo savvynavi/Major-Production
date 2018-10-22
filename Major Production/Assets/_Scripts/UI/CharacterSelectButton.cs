@@ -10,12 +10,7 @@ namespace RPG.UI
 	{
 		public RPGsys.Character character { get; private set; }
 		[SerializeField] Image portrait;
-		public Button button { get; private set; }
-
-		private void Awake()
-		{
-			button = GetComponent<Button>();
-		}
+		public Button button;
 
 		public void SetCharacter(RPGsys.Character character)
 		{

@@ -119,7 +119,7 @@ namespace RPG.UI {
 				DraggableItem di = (DraggableItem)dragged;
 				if (di.itemBox is InventorySlot)
 				{
-					if (equipmentSlot.CanEquip((Equipment)di.itemBox.ContainedItem))
+					if (equipmentSlot.CanEquip(di.itemBox.ContainedItem as Equipment))
 					{
 						StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
 						statChangeData.ItemToUse = di.itemBox.ContainedItem;

@@ -26,7 +26,7 @@ namespace RPGsys{
 		{
 			bool matchesSlot = item != null && item.equipmentType == type;
 			// also check correct class if weapon
-			if (item.equipmentType == Equipment.EquipmentType.Weapon)
+			if (matchesSlot && item.equipmentType == Equipment.EquipmentType.Weapon)
 			{
 				matchesSlot &= item.classRequirement == character.classInfo.classType;
 			}

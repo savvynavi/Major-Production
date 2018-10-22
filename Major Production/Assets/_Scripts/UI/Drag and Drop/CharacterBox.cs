@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RPGItems;
 using RPGsys;
 
 namespace RPG.UI {
@@ -40,7 +41,7 @@ namespace RPG.UI {
 			{
 				if (item.itemBox.ContainedItem.IsUsable(character))
 				{
-					//TODO show it's usable
+
 				}
 				else
 				{

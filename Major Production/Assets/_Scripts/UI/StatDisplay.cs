@@ -100,6 +100,8 @@ namespace RPG.UI
 			} else
 			{
 				// Display change 
+
+				// TODO if this is HP or MP, don't show it being healed over maximum value
 				float change = 0;
 				if(changeData.changes.TryGetValue(stat,out change) && change != 0)
 				{

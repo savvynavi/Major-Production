@@ -15,7 +15,6 @@ namespace RPG.UI
 		// Use this for initialization
 		void Start()
 		{
-			inventoryPanel.dragArea = this.transform;
 		}
 
 		// Update is called once per frame

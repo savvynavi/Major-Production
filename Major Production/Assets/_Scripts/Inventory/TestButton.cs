@@ -31,9 +31,7 @@ namespace RPGItems {
 		}
 
 		public void OnClickRemove() {
-			if(chara.Equipment.Count > 0) {
-				manager.Unequip(chara.Equipment[0], chara);
-			}
+			chara.UnequipAll();
 		}
 	}
 }

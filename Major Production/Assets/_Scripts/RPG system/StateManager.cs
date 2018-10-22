@@ -61,6 +61,7 @@ namespace RPGsys {
 
 			characters = new List<Character>();
 			enemies = new List<Character>();
+			deadCharactersREVIVE = new List<Character>();
 
             // Activate own and enemy team from battleManager, and move enemy team into this scene
             battleManager.playerTeam.gameObject.SetActive(true);
@@ -170,7 +171,6 @@ namespace RPGsys {
 				GameOverUI.SetActive(true);
 				if(Alive() == true) {
 					// Do experience stuff
-					// HACK this is getting called 4 times, fix this or move elsewhere
 					int battleXP = 0;
 					foreach(Character enemy in enemies)
 					{

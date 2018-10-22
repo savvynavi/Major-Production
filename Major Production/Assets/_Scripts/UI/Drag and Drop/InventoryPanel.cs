@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPGItems;
+using UnityEngine.UI;
 
 namespace RPG.UI{
 	public class InventoryPanel : DragTarget {
@@ -91,6 +92,7 @@ namespace RPG.UI{
 				box.ContainedItem = item;
 				box.draggable.dragArea = dragArea;
 			}
+			LayoutRebuilder.MarkLayoutForRebuild(itemContainer);
 		}
 
 		public int IndexAtPosition(Vector3 pos)

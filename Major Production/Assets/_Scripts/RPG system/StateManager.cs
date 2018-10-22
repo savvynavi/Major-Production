@@ -324,9 +324,28 @@ namespace RPGsys {
 					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
 					characterButtonList.uis[i].HidePowerButtons();
 				}
+			}
+			//end character loop
+			//TODO remove chara loop and set it up so that it is triggered by clicking instead and doesn't progress once a power is selected
+
+			//as long as there are moves available, while loop continues
+			int AvailableMoves = turnBehaviour.numOfTurns;
+			while(AvailableMoves > 0) {
+				for(int i = 0; i < characters.Count; i++) {
+					//if it's the active player, updates the displayed info to be theirs
+					if(characters[i].ActivePlayer == true) {
+						characterButtonList.uis[i].ShowPowerButtons();
+						battleUIController.MenuHp.UpdateInfo(characters[i]);
+
+
+
+					}
+				}
+
 
 
 			}
+
 		}
 
 		public IEnumerator LockInMoves() {

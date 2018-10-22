@@ -19,7 +19,8 @@ namespace RPG.UI
 		public RPGsys.Character CurrentChar { get; private set; }
 
 		//HACK might find different way to show this
-		[SerializeField] List<PowerToggle> powerToggles;	// maybe use GetComponentsInChildren?
+		[SerializeField] List<PowerToggle> powerToggles;    // maybe use GetComponentsInChildren?
+		[SerializeField] Text NameText;
 		[SerializeField] Text LevelText;
 		[SerializeField] Text xpText;
 
@@ -106,6 +107,7 @@ namespace RPG.UI
 		public void DisplayCharacter(StatDisplay.StatChangeData changeData = null)
 		{
 			// TODO just make this set it as dirty and update next update?
+			NameText.text = CurrentChar.name;
 			characterPortrait.SetCharacter(CurrentChar);
 			foreach(StatDisplay stat in statDisplays)
 			{

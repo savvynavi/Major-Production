@@ -61,6 +61,7 @@ namespace RPGsys {
 
 			characters = new List<Character>();
 			enemies = new List<Character>();
+			deadCharactersREVIVE = new List<Character>();
 
             // Activate own and enemy team from battleManager, and move enemy team into this scene
             battleManager.playerTeam.gameObject.SetActive(true);

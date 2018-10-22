@@ -13,6 +13,10 @@ namespace RPG {
 		[SerializeField] Light spotlight;
 		[SerializeField] PersistentTrigger trigger;
 
+        [SerializeField] Animator animator;
+        [SerializeField] ParticleSystem internalGlow;
+
+		// TODO saving treasure chest
 		public override void Interact(InteractionUser user)
 		{
 			StartCoroutine(OpenChestRoutine(user));
@@ -41,7 +45,16 @@ namespace RPG {
 
 		}
 
-		IEnumerator OpenChestRoutine(InteractionUser user)
+        private void OnEnable()
+        {
+            if (trigger.Triggered)
+            {
+                // necessary because disabling removes animator memory
+                animator.SetBool("Empty", true);
+            }
+        }
+
+        IEnumerator OpenChestRoutine(InteractionUser user)
 		{
 			// Suspend interactions
 			SceneLoader.Instance.currentSceneController.SetBusy();
@@ -61,6 +74,8 @@ namespace RPG {
 			dialogue.ShowBox();
 			if (contents.Count > 0)
 			{
+                internalGlow.Play();
+                animator.SetTrigger("Opening");
 				dialogue.SetDialogue("It was full of treasure!");
 				yield return new WaitWhile(waitP);
 				wait = true;
@@ -108,7 +123,9 @@ namespace RPG {
 		void EmptyChest()
 		{
 			contents.Clear();
+            animator.SetBool("Empty", true);
 			sparkleEffect.Stop();
+            internalGlow.Stop();
 			spotlight.enabled = false;
 		}
 	}

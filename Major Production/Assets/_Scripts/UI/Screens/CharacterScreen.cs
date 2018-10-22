@@ -81,9 +81,8 @@ namespace RPG.UI
 			{
 				GameObject clone = Instantiate(characterSelectPrefab.gameObject, characterSelectPanel);
 				CharacterSelectButton charButton = clone.GetComponent<CharacterSelectButton>();
-				Button button = clone.GetComponent<Button>();
 				charButton.SetCharacter(character);
-				button.onClick.AddListener(() => SelectCharacter(character));
+				charButton.button.onClick.AddListener(() => SelectCharacter(character));
 			}
 		}
 
@@ -91,6 +90,10 @@ namespace RPG.UI
 		{
 			// TODO make CharacterSelectButton with this character highlighted (but unselectable)
 			CurrentChar = character;
+			foreach (Transform child in characterSelectPanel)
+			{
+				child.GetComponent<CharacterSelectButton>().CharacterSelected(character);
+			}
 			foreach (StatDisplay stat in statDisplays)
 			{
 				stat.character = CurrentChar;

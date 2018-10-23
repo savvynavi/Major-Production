@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
 namespace RPG.UI
 {
 	[RequireComponent(typeof(Button))]
-	public class PowerToggle : MonoBehaviour, ITooltipTarget
+	public class PowerToggle : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		public Character character { get; private set; }
 		public Powers power { get; private set; }
@@ -16,19 +17,7 @@ namespace RPG.UI
 		public Color ActiveColor;
 		public Color InactiveColor;
 
-		public string TooltipText
-		{
-			get
-			{
-				if(power != null)
-				{
-					return power.description;
-				} else
-				{
-					return null;
-				}
-			}
-		}
+		public Text descriptionText;
 
 		Button button;
 		Text buttonText;
@@ -138,6 +127,23 @@ namespace RPG.UI
 		{
 			buttonText.fontStyle = FontStyle.Normal;
 			buttonText.color = InactiveColor;
+		}
+
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			if (power != null)
+			{
+				descriptionText.text = power.GetPowerDetails();
+			}
+			else
+			{
+				descriptionText.text = "";
+			}
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			descriptionText.text = "";
 		}
 	}
 }

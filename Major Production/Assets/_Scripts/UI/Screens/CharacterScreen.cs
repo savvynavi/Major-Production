@@ -20,6 +20,7 @@ namespace RPG.UI
 
 		//HACK might find different way to show this
 		[SerializeField] List<PowerToggle> powerToggles;    // maybe use GetComponentsInChildren?
+		[SerializeField] Text powerDescriptionText;
 		[SerializeField] Text NameText;
 		[SerializeField] Text LevelText;
 		[SerializeField] Text xpText;
@@ -52,6 +53,11 @@ namespace RPG.UI
 			GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateEquipment);
 			SelectCharacter(characters[0]);
 			UpdateItems();
+			powerDescriptionText.text = "";
+			foreach(PowerToggle toggle in powerToggles)
+			{
+				toggle.descriptionText = powerDescriptionText;
+			}
 			// TODO deactivate all tabs and activate current one
 			foreach(GameObject tab in Tabs)
 			{

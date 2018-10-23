@@ -205,5 +205,12 @@ namespace RPGsys {
 			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(powName);
 			return hashCode;
 		}
+
+		public string GetPowerDetails()
+		{ 
+			// TODO output more details about the power
+			// maybe make a version which estimates effect based on user and target?
+			return description;
+		}
 	}
 }

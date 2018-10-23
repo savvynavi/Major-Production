@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4020088903621402}
   - component: {fileID: 119993152769508824}
-  - component: {fileID: 114691780088544884}
   m_Layer: 0
   m_Name: ring
   m_TagString: Projector
@@ -41,18 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &114691780088544884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1328349150962094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bceff905b4e0a09468ea60434f2fb914, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colour: {r: 0.75735295, g: 0, b: 0, a: 0}
 --- !u!119 &119993152769508824
 Projector:
   m_ObjectHideFlags: 1

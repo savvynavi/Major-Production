@@ -55,7 +55,8 @@ namespace RPGsys {
 		public void HandleClick() {
 			Debug.Log("power button clicked: " + power.powName);
 			FindObjectOfType<TurnBehaviour>().TurnAddAttack(power, character);
-			character.ActivePlayer = true;
+
+			//character.ActivePlayer = true;
 		}
 
 	}

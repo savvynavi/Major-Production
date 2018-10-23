@@ -52,7 +52,7 @@ namespace RPGsys {
 
 		public void ShowPowerButtons() {
 			transform.gameObject.SetActive(true);
-			character.ActivePlayer = false;
+			//character.ActivePlayer = false;
 		}
 
 		public void HidePowerButtons() {

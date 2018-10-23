@@ -230,122 +230,114 @@ namespace RPGsys {
 				tmp += turnBehaviour.numOfTurns;
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
-
+			Debug.Log("Crashing before the loop starts");
 
 			////TODO set it up so that right clicking characters sets them as active/deactivates current active character (will let player chooose turn order)
 			////ALSO make it so it doesn't auto-move onto the next round when all moves are set(replace lockin moves menu with a thing that waits until a done button is pressed(if no move selected do random one as test))
 			//loop through characters and wait until input to move to next one
-			for(int i = 0; i < characters.Count; i++) {
-				characterButtonList.uis[i].ShowPowerButtons();
-				//TODO change this to be active character
-				battleUIController.MenuHp.UpdateInfo(characters[i]);
+			//for(int i = 0; i < characters.Count; i++) {
 
-				foreach(Character chara2 in characters) {
-					chara2.GetComponent<TargetSelection>().enabled = false;
-				}
-				characters[i].GetComponent<TargetSelection>().enabled = true;
+			//this allows the player to pick the turn order, fix it though as it Crashes at the slighest thing (mostly with decals?)
+			while(turnBehaviour.numOfTurns > 0) {
+				Debug.Log("Crashing after the loop starts");
 
-				//selector only visible if the target isn't null
-				if(characters[i].target != null) {
-					selector.gameObject.SetActive(true);
-					selector.transform.position = characters[i].target.transform.position;
-				} else {
-					selector.gameObject.SetActive(false);
-				}
-
-
-
-				int currentPlayer = i;
-				int previousPlayer = i - 1;
-
-				//shows the current players buttons, will only move on currently if power selected or undo button pressed
-				while(characters[i].ActivePlayer == false) {
-					if(characterButtonList.uis[i].UndoMove == true) {
-						characterButtonList.uis[i].UndoMove = false;
-						characters[i].ActivePlayer = true;
-						currentPlayer = previousPlayer;
-						////decal stuff, deletes last one set if move undone
-						GameObject lastObj = projectors.Last();
-						projectors.Remove(lastObj);
-						Destroy(lastObj);
-
-						GameObject lastArrowObj = arrowProjectors.Last();
-						arrowProjectors.Remove(lastArrowObj);
-						Destroy(lastArrowObj);
-					}
-					yield return null;
-				}
-
-
-				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
-				if(currentPlayer == previousPlayer) {
-					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
-					characterButtonList.uis[i].HidePowerButtons();
-
-					i = previousPlayer - 1;
-
-				} else {
-
-					//decal stuff
-					if(characters[i].target != null) {
-						int count = 0;
-						for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
-							if(turnBehaviour.MovesThisRound[j].player.target == characters[i].target) {
-								count++;
-							}
-						}
-						//disc spawning
-						GameObject tmpObj = Instantiate(projector[count - 1]);
-						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
-						projectors.Add(tmpObj);
-
-						//wont spawn an arrow if it's a self/team targeting move, as the arrows look super janked if they do
-						if(characters[i].target.tag != "Player") {
-							//arrow instantiating, spawns an arrow then rotates it towards the enemy from the character
-							//TODO add in arrow delete parts, figure out how to colour the rings
-							GameObject tmpArrow = Instantiate(arrowProjector);
-							Vector3 midPoint = (characters[i].transform.position + (characters[i].target.transform.position - characters[i].transform.position) / 2);
-							tmpArrow.transform.position = new Vector3(midPoint.x, tmpObj.transform.position.y, midPoint.z);
-
-							//scales the arrow so it fits between the characters
-							float distance = Vector3.Distance(characters[i].transform.position, characters[i].target.transform.position);
-							tmpArrow.GetComponent<Projector>().orthographicSize = distance / 2;
-							tmpArrow.GetComponent<Projector>().aspectRatio = 1 / Mathf.Pow(tmpArrow.GetComponent<Projector>().orthographicSize, 2);
-
-							tmpArrow.transform.LookAt(characters[i].target.transform);
-							tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
-
-							arrowProjectors.Add(tmpArrow);
-						}
-
-					}
-
-					//sets them out of idle state, hides their power buttons
-					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
-					characterButtonList.uis[i].HidePowerButtons();
-				}
-			}
-			//end character loop
-			//TODO remove chara loop and set it up so that it is triggered by clicking instead and doesn't progress once a power is selected
-
-			//as long as there are moves available, while loop continues
-			int AvailableMoves = turnBehaviour.numOfTurns;
-			while(AvailableMoves > 0) {
 				for(int i = 0; i < characters.Count; i++) {
-					//if it's the active player, updates the displayed info to be theirs
 					if(characters[i].ActivePlayer == true) {
 						characterButtonList.uis[i].ShowPowerButtons();
 						battleUIController.MenuHp.UpdateInfo(characters[i]);
+						foreach(Character chara2 in characters) {
+							chara2.GetComponent<TargetSelection>().enabled = false;
+						}
+						characters[i].GetComponent<TargetSelection>().enabled = true;
+
+						//selector only visible if the target isn't null
+						if(characters[i].target != null) {
+							selector.gameObject.SetActive(true);
+							selector.transform.position = characters[i].target.transform.position;
+						} else {
+							selector.gameObject.SetActive(false);
+						}
 
 
 
+						int currentPlayer = i;
+						int previousPlayer = i - 1;
+
+						//shows the current players buttons, will only move on currently if power selected or undo button pressed
+						while(characters[i].ActivePlayer == true) {
+							if(characterButtonList.uis[i].UndoMove == true) {
+								characterButtonList.uis[i].UndoMove = false;
+								//characters[i].ActivePlayer = true;
+								currentPlayer = previousPlayer;
+								////decal stuff, deletes last one set if move undone
+								GameObject lastObj = projectors.Last();
+								projectors.Remove(lastObj);
+								Destroy(lastObj);
+
+								GameObject lastArrowObj = arrowProjectors.Last();
+								arrowProjectors.Remove(lastArrowObj);
+								Destroy(lastArrowObj);
+							}
+							yield return null;
+						}
+
+
+						//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
+						//if(currentPlayer == previousPlayer) {
+						//	characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
+						//	characterButtonList.uis[i].HidePowerButtons();
+
+						//	i = previousPlayer - 1;
+
+						//} else {
+
+							//decal stuff
+							if(characters[i].target != null) {
+								int count = 0;
+								for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
+									if(turnBehaviour.MovesThisRound[j].player.target == characters[i].target) {
+										count++;
+									}
+								}
+								//disc spawning
+								GameObject tmpObj = Instantiate(projector[count - 1]);
+								tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
+								projectors.Add(tmpObj);
+
+								//wont spawn an arrow if it's a self/team targeting move, as the arrows look super janked if they do
+								if(characters[i].target.tag != "Player") {
+									//arrow instantiating, spawns an arrow then rotates it towards the enemy from the character
+									//TODO add in arrow delete parts, figure out how to colour the rings
+									GameObject tmpArrow = Instantiate(arrowProjector);
+									Vector3 midPoint = (characters[i].transform.position + (characters[i].target.transform.position - characters[i].transform.position) / 2);
+									tmpArrow.transform.position = new Vector3(midPoint.x, tmpObj.transform.position.y, midPoint.z);
+
+									//scales the arrow so it fits between the characters
+									float distance = Vector3.Distance(characters[i].transform.position, characters[i].target.transform.position);
+									tmpArrow.GetComponent<Projector>().orthographicSize = distance / 2;
+									tmpArrow.GetComponent<Projector>().aspectRatio = 1 / Mathf.Pow(tmpArrow.GetComponent<Projector>().orthographicSize, 2);
+
+									tmpArrow.transform.LookAt(characters[i].target.transform);
+									tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
+
+									arrowProjectors.Add(tmpArrow);
+								}
+
+							}
+
+							//sets them out of idle state, hides their power buttons
+							characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
+							characterButtonList.uis[i].HidePowerButtons();
+						//}
+					} else {
+						//put something here to stop it crashing :p
+						characters[i].ActivePlayer = true;
 					}
 				}
 
 
-
+				
 			}
-
 		}
 
 		public IEnumerator LockInMoves() {

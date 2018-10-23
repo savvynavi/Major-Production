@@ -100,18 +100,30 @@ namespace RPG.UI
 			} else
 			{
 				// Display change 
+				
 				float change = 0;
-				if(changeData.changes.TryGetValue(stat,out change) && change != 0)
+				changeData.changes.TryGetValue(stat, out change);
+
+				// If this is HP or MP don't show it being increased above maximum value
+				if(stat == RPGStats.Stats.Hp || stat == RPGStats.Stats.Mp)
 				{
-					if(change > 0)
+					change = Mathf.Min(change, character.BaseStat(stat) - character.CharaStats[stat]);
+				}
+
+				if(change != 0)
+				{
+					if (change > 0)
 					{
 						displayText.color = increaseColour;
-					} else
+					}
+					else
 					{
 						displayText.color = decreaseColour;
 					}
 					displayText.text = string.Format(changedFormat, RPGsys.RPGStats.GetStatName(stat), character.CharaStats[stat], character.CharaStats[stat] + change, character.BaseStat(stat));
-				} else
+
+				}
+				else
 				{
 					displayText.color = unimportantColour;
 					displayText.text = string.Format(defaultFormat, RPGsys.RPGStats.GetStatName(stat), character.CharaStats[stat], character.BaseStat(stat));

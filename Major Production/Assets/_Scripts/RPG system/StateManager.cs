@@ -16,6 +16,8 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public List<GameObject> projector;
+		public GameObject arrowProjector;
 
 		int rand;
 		List<Character> enemies;
@@ -30,6 +32,8 @@ namespace RPGsys {
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
 		BattleUIController battleUIController;
+		List<GameObject> projectors;
+		List<GameObject> arrowProjectors;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -61,6 +65,7 @@ namespace RPGsys {
 
 			characters = new List<Character>();
 			enemies = new List<Character>();
+			deadCharactersREVIVE = new List<Character>();
 
             // Activate own and enemy team from battleManager, and move enemy team into this scene
             battleManager.playerTeam.gameObject.SetActive(true);
@@ -146,6 +151,8 @@ namespace RPGsys {
 
 			turnBehaviour.Setup(characters, enemies);
 			//confirmMenu.Setup();
+			projectors = new List<GameObject>();
+			arrowProjectors = new List<GameObject>();
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -247,6 +254,8 @@ namespace RPGsys {
 					selector.gameObject.SetActive(false);
 				}
 
+
+
 				int currentPlayer = i;
 				int previousPlayer = i - 1;
 
@@ -256,20 +265,67 @@ namespace RPGsys {
 						characterButtonList.uis[i].UndoMove = false;
 						characters[i].ActivePlayer = true;
 						currentPlayer = previousPlayer;
+						////decal stuff, deletes last one set if move undone
+						GameObject lastObj = projectors.Last();
+						projectors.Remove(lastObj);
+						Destroy(lastObj);
+
+						GameObject lastArrowObj = arrowProjectors.Last();
+						arrowProjectors.Remove(lastArrowObj);
+						Destroy(lastArrowObj);
 					}
 					yield return null;
 				}
+
 
 				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
 				if(currentPlayer == previousPlayer) {
 					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
 					characterButtonList.uis[i].HidePowerButtons();
+
 					i = previousPlayer - 1;
 
 				} else {
+
+					//decal stuff
+					if(characters[i].target != null) {
+						int count = 0;
+						for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
+							if(turnBehaviour.MovesThisRound[j].player.target == characters[i].target) {
+								count++;
+							}
+						}
+						//disc spawning
+						GameObject tmpObj = Instantiate(projector[count - 1]);
+						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
+						projectors.Add(tmpObj);
+
+						//wont spawn an arrow if it's a self/team targeting move, as the arrows look super janked if they do
+						if(characters[i].target.tag != "Player") {
+							//arrow instantiating, spawns an arrow then rotates it towards the enemy from the character
+							//TODO add in arrow delete parts, figure out how to colour the rings
+							GameObject tmpArrow = Instantiate(arrowProjector);
+							Vector3 midPoint = (characters[i].transform.position + (characters[i].target.transform.position - characters[i].transform.position) / 2);
+							tmpArrow.transform.position = new Vector3(midPoint.x, tmpObj.transform.position.y, midPoint.z);
+
+							//scales the arrow so it fits between the characters
+							float distance = Vector3.Distance(characters[i].transform.position, characters[i].target.transform.position);
+							tmpArrow.GetComponent<Projector>().orthographicSize = distance / 2;
+							tmpArrow.GetComponent<Projector>().aspectRatio = 1 / Mathf.Pow(tmpArrow.GetComponent<Projector>().orthographicSize, 2);
+
+							tmpArrow.transform.LookAt(characters[i].target.transform);
+							tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
+
+							arrowProjectors.Add(tmpArrow);
+						}
+
+					}
+
+					//sets them out of idle state, hides their power buttons
 					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
 					characterButtonList.uis[i].HidePowerButtons();
 				}
+
 
 			}
 		}
@@ -283,6 +339,18 @@ namespace RPGsys {
 			if(redoTurn == true) {
 				turnBehaviour.MovesThisRound.Clear();
 				turnBehaviour.ResetTurnNumber();
+
+				//clearing projections
+				for(int i = projectors.Count - 1; i >= 0; i--) {
+					Destroy(projectors[i]);
+				}
+				projectors.Clear();
+
+				for(int i = arrowProjectors.Count - 1; i >= 0; i--) {
+					Destroy(arrowProjectors[i]);
+				}
+				arrowProjectors.Clear();
+
 				yield return PlayerTurn();
 			}
 			yield return true;
@@ -336,6 +404,17 @@ namespace RPGsys {
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
+
+			//destroying all the projector objects in the lists and then clearing lists
+			for(int i = projectors.Count - 1; i >= 0; i--) {
+				Destroy(projectors[i]);
+			}
+			projectors.Clear();
+
+			for(int i = arrowProjectors.Count - 1; i >= 0; i--) {
+				Destroy(arrowProjectors[i]);
+			}
+			arrowProjectors.Clear();
 
 			//each loop is a players turn
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {

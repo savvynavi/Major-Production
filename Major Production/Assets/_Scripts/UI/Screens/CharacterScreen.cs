@@ -14,13 +14,15 @@ namespace RPG.UI
 
 		[SerializeField] RectTransform characterSelectPanel;
 		[SerializeField] CharacterSelectButton characterSelectPrefab;
-		[SerializeField] CharacterUI characterPortrait;
+		[SerializeField] CharacterMenuPortrait characterPortrait;
 		List<RPGsys.Character> characters;
 		public RPGsys.Character CurrentChar { get; private set; }
 
 		//HACK might find different way to show this
-		[SerializeField] List<PowerToggle> powerToggles;	// maybe use GetComponentsInChildren?
-		[SerializeField] Text LevelText; //HACK
+		[SerializeField] List<PowerToggle> powerToggles;    // maybe use GetComponentsInChildren?
+		[SerializeField] Text NameText;
+		[SerializeField] Text LevelText;
+		[SerializeField] Text xpText;
 
 		List<StatDisplay> statDisplays;
 
@@ -105,11 +107,25 @@ namespace RPG.UI
 		public void DisplayCharacter(StatDisplay.StatChangeData changeData = null)
 		{
 			// TODO just make this set it as dirty and update next update?
+			NameText.text = CurrentChar.name;
 			characterPortrait.SetCharacter(CurrentChar);
-			characterPortrait.GetComponent<CharacterBox>().ContainedCharacter = CurrentChar;
 			foreach(StatDisplay stat in statDisplays)
 			{
 				stat.Display(changeData);
+			}
+
+			if(changeData != null)
+			{
+				float hpChange;
+				float mpChange;
+				if(changeData.changes.TryGetValue(RPGStats.Stats.Hp, out hpChange))
+				{
+					characterPortrait.characterUI.HPRegenBar.Init(hpChange + CurrentChar.Hp, CurrentChar.hpStat);
+				}
+				if (changeData.changes.TryGetValue(RPGStats.Stats.Mp, out mpChange))
+				{
+					characterPortrait.characterUI.MPRegenBar.Init(mpChange + CurrentChar.Mp, CurrentChar.mpStat);
+				}
 			}
 
 			for (int i = 0; i < powerToggles.Count; ++i)
@@ -123,6 +139,7 @@ namespace RPG.UI
 				}
 			}
 			LevelText.text = string.Format("Level {0}", CurrentChar.experience.CharacterLevel);
+			xpText.text = string.Format("XP {0}/{1}", CurrentChar.experience.Exp, CurrentChar.experience.XPToLevel);
 		}
 
 
@@ -134,16 +151,18 @@ namespace RPG.UI
 
 		private void Start()
 		{
-			weaponSlot.draggable.dragArea = this.transform;
-			ringLSlot.draggable.dragArea = this.transform;
-			ringRSlot.draggable.dragArea = this.transform;
-			inventoryPanel.dragArea = this.transform;
+
 		}
 
 		// Update is called once per frame
 		void Update()
 		{
-
+			// HACK
+			if (Input.GetKeyDown(KeyCode.H))
+			{
+				CurrentChar.Hp = CurrentChar.Hp - 100;
+				DisplayCharacter();
+			}
 		}
 
 		public void UpdateItems()

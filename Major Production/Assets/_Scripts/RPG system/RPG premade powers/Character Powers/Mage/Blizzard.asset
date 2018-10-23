@@ -11,14 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Blizzard
   m_EditorClassIdentifier: 
-  manaCost: 30
+  powName: Blizzard
+  description: 'Summon a freezing blizzard around the enemy '
+  icon: {fileID: 0}
   damage: 100
   dmgType: 4
   statType: 3
+  ScalePercentage: 0
+  manaCost: 30
   areaOfEffect: 1
-  anim: 0
-  powName: Blizzard
-  description: 'Summon a freezing blizzard around the enemy '
   duration: 0
   currentEffects:
   - {fileID: 11400000, guid: 96ada84420a356d4eb6c94cb9cd4ea65, type: 2}
+  anim: 6

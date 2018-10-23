@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Poison Cloud
   m_EditorClassIdentifier: 
-  manaCost: 50
+  powName: Poison Cloud
+  description: Surround the enemy with toxic gas
+  icon: {fileID: 0}
   damage: 10
   dmgType: 2
   statType: 3
+  ScalePercentage: 0
+  manaCost: 50
   areaOfEffect: 1
-  anim: 0
-  powName: Poison Cloud
-  description: Surround the enemy with toxic gas
   duration: 0
   currentEffects: []
+  anim: 6

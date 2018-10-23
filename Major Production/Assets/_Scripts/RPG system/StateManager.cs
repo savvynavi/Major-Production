@@ -413,7 +413,7 @@ namespace RPGsys {
 
 
 
-							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+							info.player.target.GetComponent<Animator>().Play("Hit");
 							//if player character, will allow them to go back to isle anim 
 							if(info.player.tag != "Enemy") {
 								info.player.GetComponent<Animator>().SetBool("IdleTransition", true);

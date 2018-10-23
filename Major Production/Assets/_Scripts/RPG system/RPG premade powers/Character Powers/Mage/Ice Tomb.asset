@@ -11,14 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Ice Tomb
   m_EditorClassIdentifier: 
-  manaCost: 50
+  powName: Ice Tomb
+  description: Encase an Enemy in ice
+  icon: {fileID: 0}
   damage: 50
   dmgType: 4
   statType: 3
+  ScalePercentage: 0
+  manaCost: 50
   areaOfEffect: 0
-  anim: 0
-  powName: Ice Tomb
-  description: Encase an Enemy in ice
   duration: 5
   currentEffects:
   - {fileID: 11400000, guid: 96ada84420a356d4eb6c94cb9cd4ea65, type: 2}
+  anim: 5

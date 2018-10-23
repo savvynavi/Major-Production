@@ -4,18 +4,18 @@
 	"definitions":{
 		"Character" : {
 			"type": "object",
-      "properties": {
-        "name": { "type": "string" },
-        "hp": { "type": "number" },
-        "mp": { "type": "number" },
-        "weapon": { "type": "string" },
-        "ringL": { "type": "string"},
-		"ringR": { "type": "string"},
-        "activePowers": {
-          "type": "array",
-          "items":  {"type": "string" }
-        },
-        "experience":  {"$ref":  "#/definitions/Experience" }
+			"properties": {
+				"name": { "type": "string" },
+				"hp": { "type": "number" },
+				"mp": { "type": "number" },
+				"weapon": { "type": "string" },
+				"ringL": { "type": "string"},
+				"ringR": { "type": "string"},
+				"activePowers": {
+					"type": "array",
+					"items":  {"type": "string" }
+				},
+			"experience":  {"$ref":  "#/definitions/Experience" }
 			},
 			"required": ["name","hp","mp","weapon","ringL","ringR","activePowers","experience"]
 		},
@@ -56,9 +56,7 @@
 		},
 		"PersitentObject" : {
 			"anyOf": [
-				{
-					"$ref": "#/definitions/PersistentTrigger"
-				}
+				{"$ref": "#/definitions/PersistentTrigger"}
 			]
 		},
 		"PersistentTrigger" : {

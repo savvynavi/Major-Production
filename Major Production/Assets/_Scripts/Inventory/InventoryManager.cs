@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace RPGItems {
 	//add safety list==null stuff 
 	public class InventoryManager : MonoBehaviour, ISaveable {
-		public List<Item> playerInventory;
+		public List<Item> playerInventory = new List<Item>();
 
 		public UnityEvent OnInventoryChanged;
 
@@ -30,15 +30,25 @@ namespace RPGItems {
 		}
 
 		//add item to the inventory. index parameter can be used to insert instead
-		public void Add(Item item, int index = -1) {
-			if (index < 0 || index >= playerInventory.Count)
+		public void Add(Item item, int index = -1)
+		{
+			if (item != null)
 			{
-				playerInventory.Add(item);
+				if (index < 0 || index >= playerInventory.Count)
+				{
+					playerInventory.Add(item);
+				}
+				else
+				{
+					playerInventory.Insert(index, item);
+				}
+				OnInventoryChanged.Invoke();
 			}
-			else
-			{
-				playerInventory.Insert(index, item);
-			}
+		}
+
+		public void AddRange(IEnumerable<Item> items)
+		{
+			playerInventory.AddRange(items);
 			OnInventoryChanged.Invoke();
 		}
 
@@ -78,6 +88,25 @@ namespace RPGItems {
 			} else
 			{
 				return false;
+			}
+		}
+
+		public bool MoveItem(Item item, int index)
+		{
+			index = Mathf.Clamp(index, 0, playerInventory.Count);
+			int oldIndex = playerInventory.IndexOf(item);
+			if(oldIndex < 0)
+			{
+				return false;
+			} else {
+				if(index > oldIndex)
+				{
+					--index;
+				}
+				playerInventory.Remove(item);
+				playerInventory.Insert(index, item);
+				OnInventoryChanged.Invoke();
+				return true;
 			}
 		}
 
@@ -121,19 +150,19 @@ namespace RPGItems {
 		}
 
 
-		public bool Unequip(Item item, RPGsys.Character character, int index = -1) {
-			if (character.Unequip(item))
-			{
-				Add(item, index);
-				return true;
-			}
-			else
-			{
-				Debug.Log("Item not found");
-				return false;
-			}
+		//public bool Unequip(Item item, RPGsys.Character character, int index = -1) {
+		//	if (character.Unequip(item))
+		//	{
+		//		Add(item, index);
+		//		return true;
+		//	}
+		//	else
+		//	{
+		//		Debug.Log("Item not found");
+		//		return false;
+		//	}
 
-		}
+		//}
 
 		public JObject Save()
 		{

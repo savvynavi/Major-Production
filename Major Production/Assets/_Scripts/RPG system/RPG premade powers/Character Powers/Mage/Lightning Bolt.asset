@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Lightning Bolt
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   manaCost: 30
   damage: 150
   dmgType: 2
@@ -19,6 +20,6 @@ MonoBehaviour:
   anim: 0
   powName: Lightning Bolt
   description: Summon lightning to devestate a line of enemies
-  duration: 2
+  duration: 3
   currentEffects:
-  - {fileID: 11400000, guid: 7a1c859b844d0df4682f5751c6831de8, type: 2}
+  - {fileID: 11400000, guid: db418ca748f3fe547941a041fdd66b82, type: 2}

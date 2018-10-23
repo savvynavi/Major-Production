@@ -13,11 +13,12 @@ namespace RPG.UI {
 	{
 
 		[SerializeField] Text inventoryText;
+		[SerializeField] Image itemImage;
 		protected Item item;
 		public DraggableItem draggable;
 		public Item ContainedItem { get { return item; } set { SetItem(value); } }
 
-		public string TooltipText
+		public virtual string TooltipText
 		{
 			get
 			{
@@ -34,7 +35,20 @@ namespace RPG.UI {
 		void SetItem(RPGItems.Item _item)
 		{
 			item = _item;
-			inventoryText.text = item.Name;
+			if (item == null)
+			{
+				draggable.gameObject.SetActive(false);
+			}
+			else
+			{
+				draggable.gameObject.SetActive(true);
+				inventoryText.text = item.Name;
+				if(itemImage != null)
+				{
+					itemImage.sprite = item.Sprite;
+					itemImage.preserveAspect = true;
+				}
+			}
 		}
 
 		// Use this for initialization

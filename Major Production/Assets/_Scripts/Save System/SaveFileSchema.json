@@ -9,17 +9,15 @@
         "hp": { "type": "number" },
         "mp": { "type": "number" },
         "weapon": { "type": "string" },
-        "equipment": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
+        "ringL": { "type": "string"},
+		"ringR": { "type": "string"},
         "activePowers": {
           "type": "array",
           "items":  {"type": "string" }
         },
         "experience":  {"$ref":  "#/definitions/Experience" }
 			},
-			"required": ["name","hp","mp","weapon","equipment","activePowers","experience"]
+			"required": ["name","hp","mp","weapon","ringL","ringR","activePowers","experience"]
 		},
 		"InventoryManager" : {
 			"type": "object",

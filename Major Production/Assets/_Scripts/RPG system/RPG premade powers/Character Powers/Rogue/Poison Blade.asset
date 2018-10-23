@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Poison Blade
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   manaCost: 0
   damage: 0
   dmgType: 0
@@ -18,7 +19,7 @@ MonoBehaviour:
   areaOfEffect: 0
   anim: 0
   powName: Poison Blade
-  description: Causes the next attack to deal more damage
-  duration: 1
+  description: Stab with a poison soaked blade
+  duration: 4
   currentEffects:
-  - {fileID: 11400000, guid: cba1b809776871647b1a4acfc1f4fc5d, type: 2}
+  - {fileID: 11400000, guid: c28cc4ed6081d8c4a831fc9b46322959, type: 2}

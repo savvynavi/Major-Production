@@ -13,6 +13,9 @@ namespace RPG.UI
 		public Powers power { get; private set; }
 		public bool isPowerOn { get; private set; }
 
+		public Color ActiveColor;
+		public Color InactiveColor;
+
 		public string TooltipText
 		{
 			get
@@ -63,7 +66,7 @@ namespace RPG.UI
 			{
 				power = null;
 				buttonText.text = "X";
-				buttonText.fontStyle = FontStyle.Normal;
+				ShowPowerInactive();
 			}
 			RefreshState();
 		}
@@ -75,11 +78,12 @@ namespace RPG.UI
 				isPowerOn = character.ActivePowers.Contains(power);
 				if (isPowerOn)
 				{
-					buttonText.fontStyle = FontStyle.Bold;
+
+					ShowPowerActive();
 				}
 				else
 				{
-					buttonText.fontStyle = FontStyle.Normal;
+					ShowPowerInactive();	
 				}
 
 				button.interactable = true;
@@ -122,6 +126,18 @@ namespace RPG.UI
 					GetComponentInParent<CharacterScreen>().RefreshAllPowerToggles();
 				}
 			}
+		}
+
+		void ShowPowerActive()
+		{
+			buttonText.fontStyle = FontStyle.Bold;
+			buttonText.color = ActiveColor;
+		}
+
+		void ShowPowerInactive()
+		{
+			buttonText.fontStyle = FontStyle.Normal;
+			buttonText.color = InactiveColor;
 		}
 	}
 }

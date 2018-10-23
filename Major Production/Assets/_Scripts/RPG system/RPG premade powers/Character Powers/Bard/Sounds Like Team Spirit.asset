@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
+  m_Name: Sounds Like Team Spirit
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  manaCost: 200
+  damage: 0
+  dmgType: 0
+  statType: 4
+  areaOfEffect: 1
+  anim: 2
+  powName: Sounds Like Team Spirit
+  description: Boosts the teams DEF, INT, SPEED, and STR
+  duration: 3
+  currentEffects:
+  - {fileID: 11400000, guid: 76e9bfab9263c2d4f9d51b5b3e033bd9, type: 2}
+  - {fileID: 11400000, guid: 8930456cb25e54542b0a94e2cd9526e8, type: 2}
+  - {fileID: 11400000, guid: 6df1982d313f4154c9f281b588f78d5a, type: 2}
+  - {fileID: 11400000, guid: 3016502bea3595c41ab6023484d00c5c, type: 2}

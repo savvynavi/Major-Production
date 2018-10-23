@@ -786,7 +786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1116669258303622
 GameObject:
   m_ObjectHideFlags: 1
@@ -3155,7 +3155,6 @@ GameObject:
   - component: {fileID: 95254764514122016}
   - component: {fileID: 136657925384032078}
   - component: {fileID: 114446163386112780}
-  - component: {fileID: 114177872401107248}
   - component: {fileID: 114807927417132590}
   m_Layer: 0
   m_Name: Bard
@@ -3191,7 +3190,6 @@ GameObject:
   - component: {fileID: 136023344246515896}
   - component: {fileID: 114594722006752054}
   - component: {fileID: 114021056651734466}
-  - component: {fileID: 114166747046565052}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Player
@@ -3700,7 +3698,6 @@ GameObject:
   - component: {fileID: 136838344260942696}
   - component: {fileID: 114044060177748888}
   - component: {fileID: 114132633301154942}
-  - component: {fileID: 114289672767316426}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Player
@@ -5779,7 +5776,6 @@ GameObject:
   - component: {fileID: 95832179942116738}
   - component: {fileID: 136092810025666492}
   - component: {fileID: 114797365855069034}
-  - component: {fileID: 114026707179067496}
   - component: {fileID: 114896450533721380}
   m_Layer: 0
   m_Name: Rogue
@@ -7470,7 +7466,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1393218731310820}
-  m_LocalRotation: {x: 0.52750516, y: 0.031375706, z: 0.8487588, w: 0.019032255}
+  m_LocalRotation: {x: 0.5275052, y: 0.03137571, z: 0.84875894, w: 0.019032257}
   m_LocalPosition: {x: -0.33738193, y: 0.000027808379, z: -0.066646256}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
@@ -7840,8 +7836,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1343518867748850}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.56996644, y: -0.77772474, z: -0.4240284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4031215930403490}
@@ -14625,40 +14621,11 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 2
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114026707179067496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1838915654141530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114044060177748888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14709,98 +14676,11 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 1
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: c6e94b1cbb1f95446bdceae49fa0d55d, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114166747046565052
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1470526585818616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
---- !u!114 &114177872401107248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1466749562911460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
---- !u!114 &114289672767316426
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1539038346799872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114293032116943468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14965,7 +14845,7 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 3
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
@@ -15025,7 +14905,7 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 3
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 7691e57f5b31e8242805c60707dbe304, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}

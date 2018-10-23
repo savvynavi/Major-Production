@@ -8,7 +8,6 @@ namespace Dialogue
 {
 	public abstract class MarkupToken
 	{
-		//TODO figure out best interface
 		public abstract string Evaluate(DialogueManager manager);
 
 		public static string EvaluateTokens(IEnumerable<MarkupToken> tokens, DialogueManager manager)

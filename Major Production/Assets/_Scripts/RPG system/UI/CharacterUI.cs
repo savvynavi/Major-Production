@@ -12,7 +12,9 @@ namespace RPGsys {
 		public Image Portrait;
 		public Text nameTag;
 		public MeterBar HPBar;
+		public MeterBar HPRegenBar;
 		public MeterBar MPBar;
+		public MeterBar MPRegenBar;
 		public bool FloatingMenu;
 
 		public GameObject GetContainer{ get; private set; }
@@ -34,8 +36,16 @@ namespace RPGsys {
 				if(HPBar != null) {
 					HPBar.Init(character.Hp, character.hpStat);
 				}
+				if(HPRegenBar != null)
+				{
+					HPRegenBar.Init(0, character.hpStat);
+				}
 				if(MPBar != null) {
 					MPBar.Init(character.Mp, character.mpStat);
+				}
+				if(MPRegenBar != null)
+				{
+					MPRegenBar.Init(0,character.mpStat);
 				}
 			} else {
 				//todo clear info if no character

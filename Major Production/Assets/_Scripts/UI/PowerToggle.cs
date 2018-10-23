@@ -1,31 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPGsys;
 
 namespace RPG.UI
 {
 	[RequireComponent(typeof(Button))]
-	public class PowerToggle : MonoBehaviour, ITooltipTarget
+	public class PowerToggle : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		public Character character { get; private set; }
 		public Powers power { get; private set; }
 		public bool isPowerOn { get; private set; }
 
-		public string TooltipText
-		{
-			get
-			{
-				if(power != null)
-				{
-					return power.description;
-				} else
-				{
-					return null;
-				}
-			}
-		}
+		public Color ActiveColor;
+		public Color InactiveColor;
+
+		public Text descriptionText;
 
 		Button button;
 		Text buttonText;
@@ -63,7 +55,7 @@ namespace RPG.UI
 			{
 				power = null;
 				buttonText.text = "X";
-				buttonText.fontStyle = FontStyle.Normal;
+				ShowPowerInactive();
 			}
 			RefreshState();
 		}
@@ -75,11 +67,12 @@ namespace RPG.UI
 				isPowerOn = character.ActivePowers.Contains(power);
 				if (isPowerOn)
 				{
-					buttonText.fontStyle = FontStyle.Bold;
+
+					ShowPowerActive();
 				}
 				else
 				{
-					buttonText.fontStyle = FontStyle.Normal;
+					ShowPowerInactive();	
 				}
 
 				button.interactable = true;
@@ -122,6 +115,35 @@ namespace RPG.UI
 					GetComponentInParent<CharacterScreen>().RefreshAllPowerToggles();
 				}
 			}
+		}
+
+		void ShowPowerActive()
+		{
+			buttonText.fontStyle = FontStyle.Bold;
+			buttonText.color = ActiveColor;
+		}
+
+		void ShowPowerInactive()
+		{
+			buttonText.fontStyle = FontStyle.Normal;
+			buttonText.color = InactiveColor;
+		}
+
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			if (power != null)
+			{
+				descriptionText.text = power.GetPowerDetails();
+			}
+			else
+			{
+				descriptionText.text = "";
+			}
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			descriptionText.text = "";
 		}
 	}
 }

@@ -34,6 +34,7 @@ public class DialogueBox : MonoBehaviour {
     public void ShowBox()
     {
         textboxPanel.gameObject.SetActive(true);
+		RebuildLayout();
         // might add effects here
     }
 
@@ -83,6 +84,6 @@ public class DialogueBox : MonoBehaviour {
 
     public void RebuildLayout()
     {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(textboxPanel);
+		LayoutRebuilder.ForceRebuildLayoutImmediate(textboxPanel);
     }
 }

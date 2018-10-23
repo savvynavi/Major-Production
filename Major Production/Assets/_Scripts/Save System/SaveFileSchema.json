@@ -39,7 +39,7 @@
 					"additionalProperties": {
 						"type": "object",
 						"additionalProperties": {
-							"type": "string"
+							"$ref": "#/definitions/PersitentObject"
 						}
 					}
 				}
@@ -48,11 +48,25 @@
 		},
 		"Experience": {
 			"type": "object",
-      "properties": {
-        "characterLevel": { "type": "integer" },
-        "exp": { "type": "integer" }
-      },
-      "required": ["characterLevel","exp"]
+			"properties": {
+				"characterLevel": { "type": "integer" },
+				"exp": { "type": "integer" }
+			},
+			"required": ["characterLevel","exp"]
+		},
+		"PersitentObject" : {
+			"anyOf": [
+				{
+					"$ref": "#/definitions/PersistentTrigger"
+				}
+			]
+		},
+		"PersistentTrigger" : {
+			"type": "object",
+			"properties": {
+				"Triggered": {"type":"boolean"}
+			},
+			"required": ["Triggered"]
 		}
 	},
 	"type": "object",

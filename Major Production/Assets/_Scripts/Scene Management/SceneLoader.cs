@@ -30,7 +30,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public SceneController currentSceneController { get; private set; }
 
-	public Dictionary<string, Dictionary<string, string>> persistentSceneData;
+	public Dictionary<string, Dictionary<string, JObject>> persistentSceneData;
 
 	public int EntrypointIndex { get; private set; }
 
@@ -58,7 +58,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public void Init()
 	{
-		persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
+		persistentSceneData = new Dictionary<string, Dictionary<string, JObject>>();
 		EntrypointIndex = -1;
 	}
 
@@ -170,12 +170,12 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		return new JObject(
 			new JProperty("scene", worldScene.name),
 			new JProperty("entrypointIndex", EntrypointIndex),
-			new JProperty("sceneData", JObject.FromObject(persistentSceneData)));
+			new JProperty("sceneData", JObject.FromObject(persistentSceneData)));	// TODO check this works right
 	}
 
 	public void Load(JObject data)
 	{
-		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, string>>>();
+		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, JObject>>>();	// TODO check this works right
 		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
 	}
 

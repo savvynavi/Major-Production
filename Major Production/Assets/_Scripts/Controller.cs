@@ -6,6 +6,7 @@ public class Controller : MonoBehaviour {
 	public float speed;
 	public GameObject randCount;
 	public float EncounterTimer; 
+	public bool IsMoving { get { return characterController.isGrounded && characterController.velocity != Vector3.zero; } }
 
 	CharacterController characterController;
 	Animator anim;
@@ -26,13 +27,9 @@ public class Controller : MonoBehaviour {
 		//basic blend tree stuff
 		float right = Input.GetAxis("Horizontal");
 		float forward = Input.GetAxis("Vertical");
-        anim.SetBool("isSprinting", Input.GetButton("Fire3"));
+        anim.SetBool("isSprinting", Input.GetButton("Sprint"));
 
 		Move(forward, right);
-
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-			//encounters.RandomEncounter();
-		}
 	}
 
 	//does animation movement 
@@ -48,6 +45,15 @@ public class Controller : MonoBehaviour {
         // Project movement onto character axes
 		anim.SetFloat("velX", Vector3.Dot(transform.right,move));
 		anim.SetFloat("velY", Vector3.Dot(transform.forward,move));
-		
+	}
+
+	public void Freeze()
+	{
+		anim.enabled = false;
+	}
+
+	public void Unfreeze()
+	{
+		anim.enabled = true;
 	}
 }

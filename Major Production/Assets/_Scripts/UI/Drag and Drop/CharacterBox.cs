@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RPGItems;
 using RPGsys;
 
 namespace RPG.UI {
@@ -23,8 +24,7 @@ namespace RPG.UI {
 			if (item != null)
 			{
 				// TODO check item is usable?
-				GameController.Instance.inventory.Use(item.itemBox.ContainedItem, ContainedCharacter);
-				return true;
+				return GameController.Instance.inventory.Use(item.itemBox.ContainedItem, ContainedCharacter);
 			}
 			else
 			{
@@ -36,6 +36,18 @@ namespace RPG.UI {
 		protected override void OnHoverEnter(Draggable dragged)
 		{
 			//TODO popup showing effect?
+			DraggableItem item = (DraggableItem)dragged;
+			if (item != null)
+			{
+				if (item.itemBox.ContainedItem.IsUsable(character))
+				{
+
+				}
+				else
+				{
+					// TODO show it's not usable
+				}
+			}
 		}
 
 		protected override void OnHoverLeave()
@@ -46,7 +58,10 @@ namespace RPG.UI {
 		void SetCharacter(Character c)
 		{
 			character = c;
-			nameText.text = character.name;
+			if (nameText != null)
+			{
+				nameText.text = character.name;
+			}
 		}
 
 	}	

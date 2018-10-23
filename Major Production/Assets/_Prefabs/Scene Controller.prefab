@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446502188450176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.530731, y: -19.960907, z: 12.756005}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,9 +65,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Probability: 1
-  minEncounterTime: 30
-  maxEncounterTime: 100
+  minEncounterTime: 10
+  maxEncounterTime: 20
   nextTimeEncounter: 0
-  encounter: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
+  encounterList:
+  - Option: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
+    Weight: 1
+  - Option: {fileID: 11400000, guid: 901d688905650a24dbfab0e6424542da, type: 2}
+    Weight: 2
+  repeatModifier: 0.5
   battleScene: Test Battle
   ticking: 0

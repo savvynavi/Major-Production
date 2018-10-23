@@ -28,6 +28,8 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	Scene worldScene;
 	Scene battleScene;
 
+	public SceneController currentSceneController { get; private set; }
+
 	public Dictionary<string, Dictionary<string, string>> persistentSceneData;
 
 	public int EntrypointIndex { get; private set; }
@@ -62,7 +64,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	// Use this for initialization
 	void Start () {
-
+		currentSceneController = FindObjectOfType<SceneController>();
 	}
 	
 	// Update is called once per frame
@@ -143,7 +145,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		OnLoadDone.Invoke();
 		Scene newScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(newScene);
-		// TODO find newScene's SceneController, pass through info needed for initialization
+		currentSceneController = FindObjectOfType<SceneController>();
 		worldScene = newScene;
 		Debug.Log(newScene.name);
 		State = ELoaderState.Idle;

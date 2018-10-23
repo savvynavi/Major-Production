@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RPG.UI;
 
 namespace RPGsys {
 	public class CharacterUI : MonoBehaviour {
@@ -10,8 +11,10 @@ namespace RPGsys {
 
 		public Image Portrait;
 		public Text nameTag;
-		public Image HPBar;
-		public Image MPBar;
+		public MeterBar HPBar;
+		public MeterBar HPRegenBar;
+		public MeterBar MPBar;
+		public MeterBar MPRegenBar;
 		public bool FloatingMenu;
 
 		public GameObject GetContainer{ get; private set; }
@@ -31,10 +34,18 @@ namespace RPGsys {
 				//snaps the hp bar to current hp
 
 				if(HPBar != null) {
-					HPBar.fillAmount = character.Hp / character.hpStat;
+					HPBar.Init(character.Hp, character.hpStat);
+				}
+				if(HPRegenBar != null)
+				{
+					HPRegenBar.Init(0, character.hpStat);
 				}
 				if(MPBar != null) {
-					MPBar.fillAmount = character.Mp / character.mpStat;
+					MPBar.Init(character.Mp, character.mpStat);
+				}
+				if(MPRegenBar != null)
+				{
+					MPRegenBar.Init(0,character.mpStat);
 				}
 			} else {
 				//todo clear info if no character
@@ -44,15 +55,8 @@ namespace RPGsys {
 		void Update() {
 
 			if(character != null) {
-				if(HPBar != null) {
-					float hp = character.Hp / character.hpStat;
-					// animate towards the true value of the character's hp
-					HPBar.fillAmount = Mathf.MoveTowards(HPBar.fillAmount, hp, Time.deltaTime);
-				}
-				if(MPBar != null) {
-					float mp = character.Mp / character.mpStat;
-					MPBar.fillAmount = Mathf.MoveTowards(MPBar.fillAmount, mp, Time.deltaTime);
-				}
+				HPBar.setValues(character.Hp, character.hpStat);
+				MPBar.setValues(character.Mp, character.mpStat);
 			}
 		}
 	}

@@ -6,27 +6,25 @@ using RPG.Save;
 using Newtonsoft.Json.Linq;
 
 namespace RPGItems {
-
-	[CreateAssetMenu(fileName = "Item", menuName = "RPG/Item", order = 4)]
-	public class Item : ScriptableObject {
+	public abstract class Item : ScriptableObject {
 
 		public string Name;
 		public string Description;
 		public Sprite Sprite;
-		public ItemType Type;
 		public RPGsys.Powers Effect;
 
 		public List<RPGsys.Buff> buffInstances;
-
-		public enum ItemType {
-			Consumable,
-			Equipable
-		}
 
         private void OnEnable()
         {
             RPG.Save.Factory<Item>.Register(this);
         }
+
+		public abstract bool Use(RPGsys.Character character);
+
+		public abstract bool IsUsable(RPGsys.Character character);
+
+		public void ApplyEffect(RPGsys.Character character) { Effect.Apply(character, this); }
 
         //initializes an item and then stores all instances in a list so they can be accessed later
         public void Initialize(RPGsys.Character target) {

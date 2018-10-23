@@ -167,41 +167,25 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public JObject Save()
 	{
+        JObject sceneDataObject = new JObject();
+        foreach (KeyValuePair<string,Dictionary<string,JObject>> sceneData in persistentSceneData)
+        {
+            JObject sceneProperty = new JObject();
+            foreach(KeyValuePair<string,JObject> objectData in sceneData.Value)
+            {
+                sceneProperty.Add(objectData.Key, objectData.Value);
+            }
+            sceneDataObject.Add(sceneData.Key, sceneProperty);
+        }
 		return new JObject(
 			new JProperty("scene", worldScene.name),
 			new JProperty("entrypointIndex", EntrypointIndex),
-			new JProperty("sceneData", JObject.FromObject(persistentSceneData)));	// TODO check this works right
+			new JProperty("sceneData", sceneDataObject));	// TODO check this works right
 	}
 
 	public void Load(JObject data)
 	{
 		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, JObject>>>();	// TODO check this works right
 		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
-	}
-
-	public static bool DataValid(JObject data)
-	{
-		JToken nameToken;
-		JToken entrypointToken;
-		JToken sceneDataToken;
-		if(data.TryGetValue("scene",out nameToken) &&
-			data.TryGetValue("entrypointIndex",out entrypointToken) &&
-			data.TryGetValue("sceneData",out sceneDataToken))
-		{
-			if(nameToken.Type == JTokenType.String &&
-				entrypointToken.Type == JTokenType.String &&
-				sceneDataToken.Type == JTokenType.Object)
-			{
-				return true;
-			} else
-			{
-				return false;
-			}
-
-		}
-		else
-		{
-			return false;
-		}
 	}
 }

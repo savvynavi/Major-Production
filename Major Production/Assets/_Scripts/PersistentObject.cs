@@ -11,9 +11,7 @@ using UnityEngine;
 /// </summary>
 public abstract class PersistentObject : MonoBehaviour {
 	public string ID;   // HACK figure out if there's some good way to get unique but persistent ID
-	SceneController controller;
-
-	public void SetController(SceneController sc) { controller = sc; }
+	public SceneController controller;
 
 	public void Save()
 	{

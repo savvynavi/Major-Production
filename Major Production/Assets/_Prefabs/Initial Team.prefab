@@ -1441,7 +1441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1402092419637454
 GameObject:
   m_ObjectHideFlags: 1
@@ -2567,7 +2567,6 @@ GameObject:
   - component: {fileID: 136789061497933376}
   - component: {fileID: 114109501640328012}
   - component: {fileID: 114451966219986172}
-  - component: {fileID: 114486937576185342}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Player
@@ -3157,7 +3156,6 @@ GameObject:
   - component: {fileID: 95799924161999976}
   - component: {fileID: 136978212828694512}
   - component: {fileID: 114941721776669110}
-  - component: {fileID: 114440286216513652}
   - component: {fileID: 114185978967360778}
   m_Layer: 0
   m_Name: Rogue
@@ -3253,7 +3251,6 @@ GameObject:
   - component: {fileID: 136986094549366598}
   - component: {fileID: 114066246882745902}
   - component: {fileID: 114206651766870718}
-  - component: {fileID: 114128810878692284}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Player
@@ -3677,7 +3674,6 @@ GameObject:
   - component: {fileID: 95510548379384274}
   - component: {fileID: 136805147670880304}
   - component: {fileID: 114624561491573896}
-  - component: {fileID: 114836103272443370}
   - component: {fileID: 114537527414713428}
   m_Layer: 0
   m_Name: Bard
@@ -7880,35 +7876,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selector: {fileID: 0}
---- !u!114 &114128810878692284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1810961019264746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114185978967360778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7934,7 +7901,7 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 3
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 7691e57f5b31e8242805c60707dbe304, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
@@ -7964,40 +7931,11 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 1
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: c6e94b1cbb1f95446bdceae49fa0d55d, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114440286216513652
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1768205746955798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114451966219986172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8023,40 +7961,11 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 2
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
   Equipment: []
---- !u!114 &114486937576185342
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1642689255068334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114537527414713428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8082,7 +7991,7 @@ MonoBehaviour:
   Weaknesses: 
   anim: {fileID: 0}
   ChoiceOrder: 3
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
   target: {fileID: 0}
   currentEffects: []
   Weapon: {fileID: 0}
@@ -8099,35 +8008,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selector: {fileID: 0}
---- !u!114 &114836103272443370
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932414753841714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8221381f090815649ada9df832c1fd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerActivated: 0
-  undoMove: 0
-  buttons: []
-  button: {fileID: 114310072343085520, guid: 22c396f2ea8024f4e87de412d8b9f3b8, type: 2}
-  font: {fileID: 114078524503352888, guid: df446a29b102a734c88d19993c2b80b0, type: 2}
-  canvas: {fileID: 0}
-  menuPos: {fileID: 0}
-  menuBG: {fileID: 114529533871621078, guid: 3ff9f13f82b4247498d271405a84697b, type: 2}
-  namePos: {fileID: 0}
-  hpImage: {fileID: 114851239606326738, guid: 1af6378958fe6224180f135ec6584b89, type: 2}
-  mpImage: {fileID: 114480177051114742, guid: 15be1b34f05ba304282d503415feed2c, type: 2}
-  hpPosition: {fileID: 0}
-  mpPosition: {fileID: 0}
-  hpTextPos: {fileID: 0}
-  mpTextPos: {fileID: 0}
-  hpBackground: {fileID: 114934242876710360, guid: 9be7b11018955ba4da852834b4516c79,
-    type: 2}
-  hoverTxtPos: {fileID: 0}
 --- !u!114 &114941721776669110
 MonoBehaviour:
   m_ObjectHideFlags: 1

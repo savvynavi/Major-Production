@@ -9,8 +9,13 @@ namespace RPGsys{
 
 		public ParticleSystem particles;
 		public Material material;
+		public Shader shader;
+		public GameObject gObject;
 		protected GameObject partInst;
 		protected Material matInst;
+		protected Shader shaderInst;
+		protected GameObject gObjectInst;
+		protected List<Shader> charaShaders;
 		bool particleRunning;
 		public Equipable equipable;
 
@@ -56,6 +61,17 @@ namespace RPGsys{
 			if(material != null && (timer < 1 || chara.Hp <= 0)) {
 				chara.gameObject.GetComponentInChildren<Renderer>().material = originalMaterial;
 			}
+			if(shader != null && (timer < 1 || chara.Hp <= 0)) {
+				foreach(Renderer shad in chara.GetComponentsInChildren<Renderer>()) {
+					if(shad.GetComponent<ParticleSystem>() == null) {
+						//edit here if models don't use the standard shader (eg are legacy ones)
+						shad.material.shader = Shader.Find("Standard");
+					}
+				}
+			}
+			if(gObject != null && (timer < 1 || chara.Hp <= 0)) {
+				Destroy(gObjectInst);
+			}
 		}
 
 		public virtual void Apply(Character target, float duration) {
@@ -94,6 +110,24 @@ namespace RPGsys{
 				
 				target.gameObject.GetComponentInChildren<Renderer>().material = matInst;
 				
+			}
+
+			if(shader != null) {
+				//shaderInst = Instantiate(shader);
+				//CAN'T INSTANTIATE SHADERS OR ELSE IT CRASHES THE BUILD
+				shaderInst = shader;
+				foreach(Renderer shad in target.GetComponentsInChildren<Renderer>()) {
+					if(shad.GetComponent<ParticleSystem>() == null) {
+						shad.material.shader = shaderInst;
+					}
+				}
+			}
+
+			//spawns the gameobject instance at targets feet(meybe make localTransform param?)
+			if(gObject != null) {
+				gObjectInst = Instantiate(gObject);
+				gObjectInst.transform.parent = target.transform;
+				gObjectInst.transform.localPosition = Vector3.zero;
 			}
 		}
 	}

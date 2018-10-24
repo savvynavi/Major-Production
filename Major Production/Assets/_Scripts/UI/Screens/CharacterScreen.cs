@@ -9,28 +9,33 @@ namespace RPG.UI
 {
 	public class CharacterScreen : MenuScreen
 	{
+		[SerializeField] List<GameObject> Tabs;
+		[SerializeField] GameObject CurrentTab;
 
-		
-
-		[SerializeField] Dropdown characterDropdown;
+		[SerializeField] RectTransform characterSelectPanel;
+		[SerializeField] CharacterSelectButton characterSelectPrefab;
+		[SerializeField] CharacterMenuPortrait characterPortrait;
 		List<RPGsys.Character> characters;
 		public RPGsys.Character CurrentChar { get; private set; }
 
 		//HACK might find different way to show this
-		[SerializeField] Text AbilitiesText;
+		[SerializeField] List<PowerToggle> powerToggles;    // maybe use GetComponentsInChildren?
+		[SerializeField] Text powerDescriptionText;
+		[SerializeField] Text NameText;
+		[SerializeField] Text LevelText;
+		[SerializeField] Text xpText;
 
 		List<StatDisplay> statDisplays;
 
 		// TODO health and mana bar
 
-		//HACK 
-		[SerializeField] EquipmentBox equipmentBox;
-		[SerializeField] RectTransform equipmentPanel;
+		//HACK make these WeaponSlot and RingSlots
+		[SerializeField] EquipmentSlotUI weaponSlot;
+		[SerializeField] EquipmentSlotUI ringLSlot;
+		[SerializeField] EquipmentSlotUI ringRSlot;
 		[SerializeField] GameObject equipmentSlotPrefab;
-
-		// TODO maybe make itempanel its own class so behaviour can be reused?
-		[SerializeField] GameObject ItemBoxPrefab;
-		public RectTransform itemPanel;
+		
+		public InventoryPanel inventoryPanel;
 
 		public override void Close()
 		{
@@ -42,32 +47,61 @@ namespace RPG.UI
 		public override void Open()
 		{
 			gameObject.SetActive(true);
-			PopulateDropdownOptions();
+			PopulationCharacterSelection();
 			// TODO instead of these, have the change trigger a Dirty flag and do it at update
 			GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateItems);
 			GameController.Instance.inventory.OnInventoryChanged.AddListener(UpdateEquipment);
-			SelectCharacter();
+			SelectCharacter(characters[0]);
 			UpdateItems();
+			powerDescriptionText.text = "";
+			foreach(PowerToggle toggle in powerToggles)
+			{
+				toggle.descriptionText = powerDescriptionText;
+			}
+			// TODO deactivate all tabs and activate current one
+			foreach(GameObject tab in Tabs)
+			{
+				tab.SetActive(false);
+			}
+			CurrentTab.SetActive(true);
 		}
 
-		void PopulateDropdownOptions()
+		public void ChangeTab(GameObject newTab)
 		{
-			characterDropdown.options.Clear();
+			// TODO use scroll effect here too
+			if(newTab != CurrentTab)
+			{
+				CurrentTab.SetActive(false);
+				CurrentTab = newTab;
+				CurrentTab.SetActive(true);
+			}
+
+		}
+
+		void PopulationCharacterSelection()
+		{
+			foreach(Transform child in characterSelectPanel)
+			{
+				GameObject.Destroy(child.gameObject);
+			}
 			characters = new List<RPGsys.Character>(GameController.Instance.Characters);
 			foreach (RPGsys.Character character in characters)
 			{
-				characterDropdown.options.Add(new Dropdown.OptionData(character.name));
+				GameObject clone = Instantiate(characterSelectPrefab.gameObject, characterSelectPanel);
+				CharacterSelectButton charButton = clone.GetComponent<CharacterSelectButton>();
+				charButton.SetCharacter(character);
+				charButton.button.onClick.AddListener(() => SelectCharacter(character));
 			}
-			int temp = characterDropdown.value;
-			characterDropdown.value = temp + 1;
-			characterDropdown.value = temp;
 		}
 
-		public void SelectCharacter()
+		public void SelectCharacter(Character character)
 		{
-			// TODO based on dropdown value pick character
-			CurrentChar = characters[characterDropdown.value];
-			equipmentBox.character = CurrentChar;
+			// TODO make CharacterSelectButton with this character highlighted (but unselectable)
+			CurrentChar = character;
+			foreach (Transform child in characterSelectPanel)
+			{
+				child.GetComponent<CharacterSelectButton>().CharacterSelected(character);
+			}
 			foreach (StatDisplay stat in statDisplays)
 			{
 				stat.character = CurrentChar;
@@ -79,70 +113,98 @@ namespace RPG.UI
 		public void DisplayCharacter(StatDisplay.StatChangeData changeData = null)
 		{
 			// TODO just make this set it as dirty and update next update?
-
+			NameText.text = CurrentChar.name;
+			characterPortrait.SetCharacter(CurrentChar);
 			foreach(StatDisplay stat in statDisplays)
 			{
 				stat.Display(changeData);
 			}
 
-			StringBuilder abilityList = new StringBuilder();
-			foreach (RPGsys.Powers ability in CurrentChar.classInfo.classPowers)
+			if(changeData != null)
 			{
-				abilityList.Append(ability.powName + '\n');
+				float hpChange;
+				float mpChange;
+				if(changeData.changes.TryGetValue(RPGStats.Stats.Hp, out hpChange))
+				{
+					characterPortrait.characterUI.HPRegenBar.Init(hpChange + CurrentChar.Hp, CurrentChar.hpStat);
+				}
+				if (changeData.changes.TryGetValue(RPGStats.Stats.Mp, out mpChange))
+				{
+					characterPortrait.characterUI.MPRegenBar.Init(mpChange + CurrentChar.Mp, CurrentChar.mpStat);
+				}
 			}
-			AbilitiesText.text = abilityList.ToString();
+
+			for (int i = 0; i < powerToggles.Count; ++i)
+			{
+				if (i < CurrentChar.classInfo.classPowers.Count) {
+					powerToggles[i].SetContents(CurrentChar, CurrentChar.classInfo.classPowers[i]);
+				}
+				else
+				{
+					powerToggles[i].SetContents(CurrentChar, null);
+				}
+			}
+			LevelText.text = string.Format("Level {0}", CurrentChar.experience.CharacterLevel);
+			xpText.text = string.Format("XP {0}/{1}", CurrentChar.experience.Exp, CurrentChar.experience.XPToLevel);
 		}
+
+
 
 		void Awake()
 		{
 			statDisplays = new List<StatDisplay>(GetComponentsInChildren<StatDisplay>(true));
 		}
 
+		private void Start()
+		{
+
+		}
+
 		// Update is called once per frame
 		void Update()
 		{
-
+			// HACK
+			if (Input.GetKeyDown(KeyCode.H))
+			{
+				CurrentChar.Hp = CurrentChar.Hp - 100;
+				DisplayCharacter();
+			}
 		}
 
 		public void UpdateItems()
 		{
-			foreach (Transform child in itemPanel)
-			{
-				GameObject.Destroy(child.gameObject);
-			}
-			foreach (RPGItems.Item item in GameController.Instance.inventory.playerInventory)
-			{
-				GameObject obj = Instantiate(ItemBoxPrefab, itemPanel);
-				InventorySlot box = obj.GetComponent<InventorySlot>();
-				box.ContainedItem = item;
-				box.draggable.dragArea = this.transform;
-			}
+			inventoryPanel.UpdateItems();
 		}
 
 		public void UpdateEquipment()
 		{
-			foreach (Transform child in equipmentPanel)
-			{
-				GameObject.Destroy(child.gameObject);
-			}
-			foreach (RPGItems.Item item in CurrentChar.Equipment)
-			{
-				GameObject obj = Instantiate(equipmentSlotPrefab, equipmentPanel);
-				EquipmentSlot box = obj.GetComponent<EquipmentSlot>();
-				box.ContainedItem = item;
-				box.draggable.dragArea = this.transform;
-				box.character = CurrentChar;
-			}
+			// TODO show weapon, both rings
+			weaponSlot.SetEquipmentSlot(CurrentChar.weapon);
+			ringLSlot.SetEquipmentSlot(CurrentChar.ringL);
+			ringRSlot.SetEquipmentSlot(CurrentChar.ringR);
 		}
 
 		//HACK
 		public void UnequipAllItems()
 		{
-			foreach (RPGItems.Item item in new List<RPGItems.Item>(CurrentChar.Equipment))
+			CurrentChar.UnequipAll();
+			// HACK
+			SelectCharacter(CurrentChar);
+		}
+
+		//HACK for testing level up system
+		public void LevelUpCharacter()
+		{
+			CurrentChar.GetComponent<RPG.XP.Experience>().LevelUp();
+			DisplayCharacter();
+		}
+
+		public void RefreshAllPowerToggles()
+		{
+			foreach(PowerToggle pt in powerToggles)
 			{
-				GameController.Instance.inventory.Unequip(item, CurrentChar);
+				pt.RefreshState();
 			}
-			SelectCharacter();
 		}
 	}
 }

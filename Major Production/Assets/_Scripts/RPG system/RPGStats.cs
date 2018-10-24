@@ -12,9 +12,16 @@ namespace RPGsys
 			None,
 			Physical,
 			Magic,
-			Fire,
-			Ice,
 			Healing
+		}
+
+		public enum Element 
+		{
+			None,
+			Fire,
+			Poison,
+			Lightning,
+			Ice
 		}
 
 		public enum Stats

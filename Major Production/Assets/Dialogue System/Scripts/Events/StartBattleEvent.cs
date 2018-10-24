@@ -7,7 +7,7 @@ namespace Dialogue
 	[CreateAssetMenu(menuName = "Dialogue/Event/Start Battle")]
 	public class StartBattleEvent : DialogueEvent
 	{
-		public GameObject enemies; // Prefab of enemies in battle
+		public RPG.Encounter encounter;
 		public string defaultScene = "Test Battle";
 
 		public override string Describe(string target, string parameters)
@@ -19,9 +19,7 @@ namespace Dialogue
 		{
 			// TODO make parameters do something?
 			// get scenename from there? Fight now vs later?
-			GameObject go = GameObject.Instantiate(enemies.gameObject);
-			go.SetActive(false);
-			FindObjectOfType<BattleManager>().StartBattle(defaultScene, go.transform);
+			FindObjectOfType<BattleManager>().StartBattle(defaultScene, encounter.InstantiateEnemyTeam().transform);
 		}
 	}
 }

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class CombatTrigger : MonoBehaviour {
 	
     [SerializeField] string battleScene;
-    [SerializeField] GameObject enemies;
+	[SerializeField] RPG.Encounter encounter;
     bool triggered = false;
 
 	// Use this for initialization
@@ -28,9 +28,7 @@ public class CombatTrigger : MonoBehaviour {
     {
         if (!triggered && other.CompareTag("Player"))
         {
-            GameObject go = GameObject.Instantiate(enemies.gameObject);
-            go.SetActive(false);
-            BattleManager.Instance.StartBattle(battleScene, go.transform);
+            BattleManager.Instance.StartBattle(battleScene, encounter.InstantiateEnemyTeam().transform);
             triggered = true;
         }
     }

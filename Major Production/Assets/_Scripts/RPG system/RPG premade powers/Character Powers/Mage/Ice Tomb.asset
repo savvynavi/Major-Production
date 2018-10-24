@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
+  m_Name: Ice Tomb
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  manaCost: 50
+  damage: 50
+  dmgType: 4
+  statType: 3
+  areaOfEffect: 0
+  anim: 0
+  powName: Ice Tomb
+  description: Encase an Enemy in ice
+  duration: 5
+  currentEffects:
+  - {fileID: 11400000, guid: 64df6879e9e762a4e8d2befd591536b4, type: 2}

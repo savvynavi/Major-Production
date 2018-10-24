@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Class placed in each scene, to correctly initialize player placement/persistent stuff
@@ -45,13 +46,13 @@ public class SceneController : MonoBehaviour {
 
 		// If this scene has dictionary, load from it
 		sceneKey = gameObject.scene.path;
-		Dictionary<string, string> objectData;
+		Dictionary<string, JObject> objectData;
 		if (SceneLoader.Instance.persistentSceneData.TryGetValue(sceneKey, out objectData)){
 			LoadPersistentObjects(objectData);
 		} else
 		{
 			// If dictionary not found, create it
-			SceneLoader.Instance.persistentSceneData[sceneKey] = new Dictionary<string, string>();
+			SceneLoader.Instance.persistentSceneData[sceneKey] = new Dictionary<string, JObject>();
 		}
 
 		// TODO move player to entrypoint set
@@ -84,14 +85,14 @@ public class SceneController : MonoBehaviour {
 	// Saves PersistentObject to SceneLoader's dictionary
 	public void SaveObject(PersistentObject po)
 	{
-		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = po.Serialize();
+		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = po.ToJObject();
 	} 
 
-	public void LoadPersistentObjects(Dictionary<string,string> loadData)
+	public void LoadPersistentObjects(Dictionary<string,JObject> loadData)
 	{
 		foreach(PersistentObject po in persistentObjects)
 		{
-			string data;
+			JObject data;
 			if(loadData.TryGetValue(po.ID, out data))
 			{
 				po.Load(data);

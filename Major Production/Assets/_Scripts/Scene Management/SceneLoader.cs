@@ -30,7 +30,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public SceneController currentSceneController { get; private set; }
 
-	public Dictionary<string, Dictionary<string, string>> persistentSceneData;
+	public Dictionary<string, Dictionary<string, JObject>> persistentSceneData;
 
 	public int EntrypointIndex { get; private set; }
 
@@ -58,7 +58,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public void Init()
 	{
-		persistentSceneData = new Dictionary<string, Dictionary<string, string>>();
+		persistentSceneData = new Dictionary<string, Dictionary<string, JObject>>();
 		EntrypointIndex = -1;
 	}
 
@@ -167,41 +167,34 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public JObject Save()
 	{
+        JObject sceneDataObject = new JObject();
+        foreach (KeyValuePair<string,Dictionary<string,JObject>> sceneData in persistentSceneData)
+        {
+            JObject sceneProperty = new JObject();
+            foreach(KeyValuePair<string,JObject> objectData in sceneData.Value)
+            {
+                sceneProperty.Add(objectData.Key, objectData.Value);
+            }
+            sceneDataObject.Add(sceneData.Key, sceneProperty);
+        }
 		return new JObject(
 			new JProperty("scene", worldScene.name),
 			new JProperty("entrypointIndex", EntrypointIndex),
-			new JProperty("sceneData", JObject.FromObject(persistentSceneData)));
+			new JProperty("sceneData", sceneDataObject));	// TODO check this works right
 	}
 
 	public void Load(JObject data)
 	{
-		persistentSceneData = data["sceneData"].ToObject<Dictionary<string, Dictionary<string, string>>>();
-		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
-	}
-
-	public static bool DataValid(JObject data)
-	{
-		JToken nameToken;
-		JToken entrypointToken;
-		JToken sceneDataToken;
-		if(data.TryGetValue("scene",out nameToken) &&
-			data.TryGetValue("entrypointIndex",out entrypointToken) &&
-			data.TryGetValue("sceneData",out sceneDataToken))
+		persistentSceneData = new Dictionary<string, Dictionary<string, JObject>>();
+		foreach(KeyValuePair<string, JToken> sceneProperty in data["sceneData"] as JObject)
 		{
-			if(nameToken.Type == JTokenType.String &&
-				entrypointToken.Type == JTokenType.String &&
-				sceneDataToken.Type == JTokenType.Object)
+			Dictionary<string, JObject> sceneData = new Dictionary<string, JObject>();
+			foreach(KeyValuePair<string, JToken> objectProperty in sceneProperty.Value as JObject)
 			{
-				return true;
-			} else
-			{
-				return false;
+				sceneData.Add(objectProperty.Key, objectProperty.Value as JObject);
 			}
-
+			persistentSceneData.Add(sceneProperty.Key, sceneData);
 		}
-		else
-		{
-			return false;
-		}
+		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
 	}
 }

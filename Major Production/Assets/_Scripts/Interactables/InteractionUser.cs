@@ -43,7 +43,7 @@ namespace RPG
 				interactable.Hilight();
 
 				ActionPopup.gameObject.SetActive(true);
-				ActionText.text = interactable.ActionDescription;
+				ActionText.text = "E: " + interactable.ActionDescription;
 				LayoutRebuilder.MarkLayoutForRebuild(ActionPopup);
 			}
 		}

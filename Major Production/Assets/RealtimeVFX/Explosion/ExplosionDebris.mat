@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ExplosionDebris
+  m_Shader: {fileID: 4800000, guid: 5893f67690130f547b6523a32ebc80e7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaClipNoise:
+        m_Texture: {fileID: 2800000, guid: d63174441f6baaa41aa114b6cd12b222, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DeformationNoise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d63174441f6baaa41aa114b6cd12b222, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _DeformationMultiplier: 1
+    - _EmissionBoost: 2
+    - _EmissionMultiiplier: 2.59
+    - _TessellationValue: 0
+    m_Colors:
+    - _EndColour: {r: 1, g: 0.7264706, b: 0.31617647, a: 1}
+    - _MiddleColour: {r: 1, g: 0.9119676, b: 0.5441177, a: 1}
+    - _StartColour: {r: 1, g: 0.9845842, b: 0.8602941, a: 1}
+    - _TintColor: {r: 1, g: 0.9361055, b: 0.6691177, a: 1}

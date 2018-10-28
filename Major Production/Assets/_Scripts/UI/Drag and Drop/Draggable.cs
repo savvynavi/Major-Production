@@ -68,7 +68,7 @@ namespace RPG.UI
 		public static List<DragTarget> GetDragTargetsUnderMouse()
 		{
 			List<DragTarget> targets = new List<DragTarget>();
-			foreach (GameObject obj in GetObjectsUnderMouse())
+			foreach (GameObject obj in Utility.GetObjectsUnderMouse())
 			{
 				DragTarget target = obj.GetComponent<DragTarget>();
 				if (target != null)
@@ -77,20 +77,6 @@ namespace RPG.UI
 				}
 			}
 			return targets;
-		}
-
-		public static List<GameObject> GetObjectsUnderMouse()
-		{
-			List<RaycastResult> hitObjects = new List<RaycastResult>();
-			PointerEventData pointer = new PointerEventData(EventSystem.current);
-			pointer.position = Input.mousePosition;
-			EventSystem.current.RaycastAll(pointer, hitObjects);
-			List<GameObject> objects = new List<GameObject>();
-			foreach (RaycastResult result in hitObjects)
-			{
-				objects.Add(result.gameObject);
-			}
-			return objects;
 		}
 	}
 }

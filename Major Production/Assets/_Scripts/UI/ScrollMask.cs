@@ -28,6 +28,7 @@ public class ScrollMask : MonoBehaviour {
 
 	public void SnapOpen()
 	{
+		// TODO here and elsewhere in class, use SetSizeWithCurrentAnchors or whatever
 		Vector2 size = rect.sizeDelta;
 		size.x = openWidth;
 		rect.sizeDelta = size;

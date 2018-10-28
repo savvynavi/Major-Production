@@ -24,12 +24,20 @@ namespace RPG.UI
 					InventorySlot theirSlot = (InventorySlot)draggedItem.itemBox;
 					return GameController.Instance.inventory.SwapItems(ContainedItem, theirItem);
 				}
-				else if (draggedItem.itemBox is EquipmentSlot)
+				else if (draggedItem.itemBox is EquipmentSlotUI)
 				{
-					EquipmentSlot theirSlot = (EquipmentSlot)draggedItem.itemBox;
 					// If from equipment, unequip item and insert before this
-					return GameController.Instance.inventory.Unequip(theirItem, theirSlot.character, myIndex);
-					// TODO need to make an InventoryBox class so you can just drop it in with an empty inventory
+					EquipmentSlotUI theirSlot = (EquipmentSlotUI)draggedItem.itemBox;
+					theirItem = theirSlot.equipmentSlot.Unequip();
+					if (theirItem != null)
+					{
+						GameController.Instance.inventory.Add(theirItem, myIndex);
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
 				else
 				{
@@ -43,28 +51,11 @@ namespace RPG.UI
 		}
 
 		protected override void OnHoverEnter(Draggable dragged) {
-			//If dragging equipment out, show effect from its removal
-			//HACK checking if in character screen
-			CharacterScreen screen = GetComponentInParent<CharacterScreen>();
-			if(screen != null) {
-				if(dragged is DraggableItem) {
-					DraggableItem di = (DraggableItem)dragged;
-					if(di.itemBox is EquipmentSlot) {
-						StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
-						statChangeData.ItemToUse = di.itemBox.ContainedItem;
-						statChangeData.ApplyItemEffects(di.itemBox.ContainedItem, true);
-						screen.DisplayCharacter(statChangeData);
-					}
-				}
-			}
+
 		}
 
 		protected override void OnHoverLeave() {
-			// reset character display if in character screen
-			CharacterScreen screen = GetComponentInParent<CharacterScreen>();
-			if(screen != null) {
-				screen.DisplayCharacter();
-			}
+
 		}
 	}
 }

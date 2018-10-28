@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using RPG.XP;
 
 namespace RPGsys {
 	public class StateManager : MonoBehaviour {
@@ -11,11 +12,14 @@ namespace RPGsys {
 		public bool redoTurn = false;
 		public List<Character> characters;
 		public float speed;
-		public Button MainMenu;
 		public Button Quit;
+		public Button GameOverNext;
+		public Text GameOverInfo;
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public List<GameObject> projector;
+		public GameObject arrowProjector;
 
 		int rand;
 		List<Character> enemies;
@@ -27,9 +31,12 @@ namespace RPGsys {
 		GameObject GameOverUI;
 		GameObject GameOverTextLose;
 		GameObject GameOverTextWin;
+
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
 		BattleUIController battleUIController;
+		List<GameObject> projectors;
+		List<GameObject> arrowProjectors;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -61,6 +68,7 @@ namespace RPGsys {
 
 			characters = new List<Character>();
 			enemies = new List<Character>();
+			deadCharactersREVIVE = new List<Character>();
 
             // Activate own and enemy team from battleManager, and move enemy team into this scene
             battleManager.playerTeam.gameObject.SetActive(true);
@@ -84,6 +92,8 @@ namespace RPGsys {
 			GameOverTextWin = GameObject.Find("WinText");
 
 			GameOverUI.SetActive(false);
+			GameOverNext.gameObject.SetActive(false);
+			GameOverInfo.gameObject.SetActive(false);
 			GameOverTextLose.SetActive(false);
 			GameOverTextWin.SetActive(false);
 
@@ -146,6 +156,8 @@ namespace RPGsys {
 
 			turnBehaviour.Setup(characters, enemies);
 			//confirmMenu.Setup();
+			projectors = new List<GameObject>();
+			arrowProjectors = new List<GameObject>();
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -167,34 +179,10 @@ namespace RPGsys {
 			Debug.Log("peope are dead now");
 
 			if(BattleOver() == true) {
-				GameOverUI.SetActive(true);
 				if(Alive() == true) {
-					// Do experience stuff
-					// HACK this is getting called 4 times, fix this or move elsewhere
-					int battleXP = 0;
-					foreach(Character enemy in enemies)
-					{
-						RPG.XP.XPSource xp = enemy.GetComponent<RPG.XP.XPSource>();
-						if(xp != null)
-						{
-							battleXP += xp.XP;
-						}
-					}
-
-					foreach(Character player in characters)
-					{
-						// maybe check character is alive?
-						if(player.experience != null)
-						{
-							player.experience.AddXp(battleXP);
-						}
-					}
-
-					GameOverTextWin.SetActive(true);
+					yield return WinRoutine();
 				} else if(EnemyAlive() == true) {
-					// Do Game Over stuff
-
-					GameOverTextLose.SetActive(true);
+					yield return LoseRoutine();
 				}
 			}
 		}
@@ -248,6 +236,8 @@ namespace RPGsys {
 					selector.gameObject.SetActive(false);
 				}
 
+
+
 				int currentPlayer = i;
 				int previousPlayer = i - 1;
 
@@ -257,20 +247,67 @@ namespace RPGsys {
 						characterButtonList.uis[i].UndoMove = false;
 						characters[i].ActivePlayer = true;
 						currentPlayer = previousPlayer;
+						////decal stuff, deletes last one set if move undone
+						GameObject lastObj = projectors.Last();
+						projectors.Remove(lastObj);
+						Destroy(lastObj);
+
+						GameObject lastArrowObj = arrowProjectors.Last();
+						arrowProjectors.Remove(lastArrowObj);
+						Destroy(lastArrowObj);
 					}
 					yield return null;
 				}
+
 
 				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
 				if(currentPlayer == previousPlayer) {
 					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
 					characterButtonList.uis[i].HidePowerButtons();
+
 					i = previousPlayer - 1;
 
 				} else {
+
+					//decal stuff
+					if(characters[i].target != null) {
+						int count = 0;
+						for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
+							if(turnBehaviour.MovesThisRound[j].player.target == characters[i].target) {
+								count++;
+							}
+						}
+						//disc spawning
+						GameObject tmpObj = Instantiate(projector[count - 1]);
+						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
+						projectors.Add(tmpObj);
+
+						//wont spawn an arrow if it's a self/team targeting move, as the arrows look super janked if they do
+						if(characters[i].target.tag != "Player") {
+							//arrow instantiating, spawns an arrow then rotates it towards the enemy from the character
+							//TODO add in arrow delete parts, figure out how to colour the rings
+							GameObject tmpArrow = Instantiate(arrowProjector);
+							Vector3 midPoint = (characters[i].transform.position + (characters[i].target.transform.position - characters[i].transform.position) / 2);
+							tmpArrow.transform.position = new Vector3(midPoint.x, tmpObj.transform.position.y, midPoint.z);
+
+							//scales the arrow so it fits between the characters
+							float distance = Vector3.Distance(characters[i].transform.position, characters[i].target.transform.position);
+							tmpArrow.GetComponent<Projector>().orthographicSize = distance / 2;
+							tmpArrow.GetComponent<Projector>().aspectRatio = 1 / Mathf.Pow(tmpArrow.GetComponent<Projector>().orthographicSize, 2);
+
+							tmpArrow.transform.LookAt(characters[i].target.transform);
+							tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
+
+							arrowProjectors.Add(tmpArrow);
+						}
+
+					}
+
+					//sets them out of idle state, hides their power buttons
 					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
 					characterButtonList.uis[i].HidePowerButtons();
 				}
+
 
 			}
 		}
@@ -284,6 +321,18 @@ namespace RPGsys {
 			if(redoTurn == true) {
 				turnBehaviour.MovesThisRound.Clear();
 				turnBehaviour.ResetTurnNumber();
+
+				//clearing projections
+				for(int i = projectors.Count - 1; i >= 0; i--) {
+					Destroy(projectors[i]);
+				}
+				projectors.Clear();
+
+				for(int i = arrowProjectors.Count - 1; i >= 0; i--) {
+					Destroy(arrowProjectors[i]);
+				}
+				arrowProjectors.Clear();
+
 				yield return PlayerTurn();
 			}
 			yield return true;
@@ -338,6 +387,17 @@ namespace RPGsys {
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
 
+			//destroying all the projector objects in the lists and then clearing lists
+			for(int i = projectors.Count - 1; i >= 0; i--) {
+				Destroy(projectors[i]);
+			}
+			projectors.Clear();
+
+			for(int i = arrowProjectors.Count - 1; i >= 0; i--) {
+				Destroy(arrowProjectors[i]);
+			}
+			arrowProjectors.Clear();
+
 			//each loop is a players turn
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
 				originalRotation = info.player.transform.rotation;
@@ -370,6 +430,12 @@ namespace RPGsys {
 
 					if(info.player.target != null) {
 						//turn player towards target
+
+						//check to see if self targeting powers are targeting self, if not set it to be so
+						if(info.ability.areaOfEffect == Powers.AreaOfEffect.Self) {
+							info.player.target = info.player.gameObject;
+						}
+
 						info.player.transform.LookAt(info.player.target.transform);
 						camMovement.LookAtAttacker(info.player);
 						yield return new WaitForSeconds(0.5f);
@@ -392,7 +458,7 @@ namespace RPGsys {
 							}
 
 
-						} else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single) {
+						} else if(info.ability.areaOfEffect == Powers.AreaOfEffect.Single || info.ability.areaOfEffect == Powers.AreaOfEffect.Self) {
 
 							//if same team, use facecam, else single out enemy target
 							if(info.player.tag == info.player.target.tag) {
@@ -482,13 +548,72 @@ namespace RPGsys {
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
 
-			GameOverUI.SetActive(true);
-			if(Alive() == true) {
-				GameOverTextWin.SetActive(true);
-			} else if(EnemyAlive() == true) {
-				GameOverTextLose.SetActive(true);
-			}
+			//GameOverUI.SetActive(true);
+			//if(Alive() == true) {
+			//	GameOverTextWin.SetActive(true);
+			//} else if(EnemyAlive() == true) {
+			//	GameOverTextLose.SetActive(true);
+			//}
 			yield return new WaitForSeconds(0.5f);
+		}
+
+		private IEnumerator WinRoutine()
+		{
+			GameOverUI.SetActive(true);
+			// Do experience stuff
+			int battleXP = 0;
+			Dictionary<Character, XPEvent> xpEvents = new Dictionary<Character, XPEvent>();
+			foreach (Character enemy in enemies)
+			{
+				XPSource xp = enemy.GetComponent<XPSource>();
+				if (xp != null)
+				{
+					battleXP += xp.XP;
+				}
+			}
+
+			foreach (Character player in characters)
+			{
+				// maybe check character is alive?
+				if (player.experience != null)
+				{
+					XPEvent xpEvent = player.experience.AddXp(battleXP);
+					xpEvents.Add(player, xpEvent);
+				}
+			}
+			GameOverTextWin.SetActive(true);
+			Quit.gameObject.SetActive(false);
+			GameOverNext.gameObject.SetActive(true);
+			GameOverInfo.gameObject.SetActive(true);
+
+			// have Next button control when coroutine proceeds
+			bool wait = true;
+			UnityEngine.Events.UnityAction continueAction = () => wait = false;
+			System.Func<bool> waitP = () => { return wait; };
+			GameOverNext.onClick.AddListener(continueAction);
+
+			GameOverInfo.text = string.Format("You gained {0} XP", battleXP);
+			//TODO more juicy XP gain UI
+			foreach(KeyValuePair<Character, XPEvent> eventPair in xpEvents)
+			{
+				foreach (LevelUpEvent levelUp in eventPair.Value.levelUps) {
+					yield return new WaitWhile(waitP);
+					wait = true;
+					GameOverInfo.text = LevelUpInfo(eventPair.Key, levelUp);
+				}
+			}
+
+			GameOverNext.onClick.RemoveListener(continueAction);
+			GameOverNext.gameObject.SetActive(false);
+			Quit.gameObject.SetActive(true);
+			yield return new WaitForEndOfFrame(); //HACK
+		}
+
+		private IEnumerator LoseRoutine()
+		{
+			GameOverUI.SetActive(true);
+			GameOverTextLose.SetActive(true);
+			yield return new WaitForEndOfFrame(); //HACK
 		}
 
 		public void Death(Character attackerTarget, List<Character> targets) {
@@ -562,6 +687,21 @@ namespace RPGsys {
 				return true;
 			}
 			return false;
+		}
+
+		private string LevelUpInfo(Character character, LevelUpEvent levelUp)
+		{
+			if (levelUp)
+			{
+				System.Text.StringBuilder infoBuilder = new System.Text.StringBuilder();
+				infoBuilder.AppendFormat("{0} reached level {1}!\n", character.name, levelUp.levelRank);
+				// TODO show stat increases
+				// TODO show powers learned
+				return infoBuilder.ToString();
+			} else
+			{
+				return "Error: LevelUp failed";
+			}
 		}
 	}
 }

@@ -4,22 +4,20 @@
 	"definitions":{
 		"Character" : {
 			"type": "object",
-      "properties": {
-        "name": { "type": "string" },
-        "hp": { "type": "number" },
-        "mp": { "type": "number" },
-        "weapon": { "type": "string" },
-        "equipment": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "activePowers": {
-          "type": "array",
-          "items":  {"type": "string" }
-        },
-        "experience":  {"$ref":  "#/definitions/Experience" }
+			"properties": {
+				"name": { "type": "string" },
+				"hp": { "type": "number" },
+				"mp": { "type": "number" },
+				"weapon": { "type": "string" },
+				"ringL": { "type": "string"},
+				"ringR": { "type": "string"},
+				"activePowers": {
+					"type": "array",
+					"items":  {"type": "string" }
+				},
+			"experience":  {"$ref":  "#/definitions/Experience" }
 			},
-			"required": ["name","hp","mp","weapon","equipment","activePowers","experience"]
+			"required": ["name","hp","mp","weapon","ringL","ringR","activePowers","experience"]
 		},
 		"InventoryManager" : {
 			"type": "object",
@@ -41,7 +39,7 @@
 					"additionalProperties": {
 						"type": "object",
 						"additionalProperties": {
-							"type": "string"
+							"$ref": "#/definitions/PersitentObject"
 						}
 					}
 				}
@@ -50,11 +48,23 @@
 		},
 		"Experience": {
 			"type": "object",
-      "properties": {
-        "characterLevel": { "type": "integer" },
-        "exp": { "type": "integer" }
-      },
-      "required": ["characterLevel","exp"]
+			"properties": {
+				"characterLevel": { "type": "integer" },
+				"exp": { "type": "integer" }
+			},
+			"required": ["characterLevel","exp"]
+		},
+		"PersitentObject" : {
+			"anyOf": [
+				{"$ref": "#/definitions/PersistentTrigger"}
+			]
+		},
+		"PersistentTrigger" : {
+			"type": "object",
+			"properties": {
+				"Triggered": {"type":"boolean"}
+			},
+			"required": ["Triggered"]
 		}
 	},
 	"type": "object",

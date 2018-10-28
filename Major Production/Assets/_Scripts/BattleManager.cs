@@ -38,6 +38,9 @@ public class BattleManager : MonoBehaviour {
     {
         enemyTeam = enemies;
 
+		// If this takes up time maybe move to AyncBattleLoad?
+		GameController.Instance.Autosave();
+
 		// TODO any other setup for team
 
 		SceneLoader.Instance.LoadBattle(sceneName);

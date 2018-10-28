@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Base class for components which have data saved between scene changes. Each PersistentObject
@@ -11,9 +12,7 @@ using UnityEngine;
 /// </summary>
 public abstract class PersistentObject : MonoBehaviour {
 	public string ID;   // HACK figure out if there's some good way to get unique but persistent ID
-	SceneController controller;
-
-	public void SetController(SceneController sc) { controller = sc; }
+	public SceneController controller;
 
 	public void Save()
 	{
@@ -21,13 +20,7 @@ public abstract class PersistentObject : MonoBehaviour {
 	}
 
 	// TODO consider making this return/take a JObject instead?
-	public string Serialize()
-	{
-		return JsonUtility.ToJson(this);
-	}
+	public abstract JObject ToJObject();
 
-	public virtual void Load(string data)
-	{
-		JsonUtility.FromJsonOverwrite(data, this);
-	}
+	public abstract void Load(JObject data);
 }

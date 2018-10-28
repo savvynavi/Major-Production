@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Fan of Blades
   m_EditorClassIdentifier: 
-  manaCost: 30
+  powName: Fan of Blades
+  description: Throws knives at all enemies
+  icon: {fileID: 0}
   damage: 50
   dmgType: 1
   statType: 1
+  ScalePercentage: 0
+  manaCost: 30
   areaOfEffect: 1
-  anim: 0
-  powName: Fan of Blades
-  description: Throws knives at all enemies
   duration: 0
   currentEffects: []
+  anim: 9

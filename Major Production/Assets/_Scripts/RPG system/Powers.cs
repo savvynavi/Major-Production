@@ -16,10 +16,15 @@ namespace RPGsys {
 
 		public enum AbilityAnim {
             Strike,
+            LuteSlowPlaying,
+            LutePlaying,
             Spin,
             Gaurd,
             WarCry,
             CallVolly,
+            Stab,
+            Hide,
+            ThrowObject,
             SpellSingle,
             SpellMulti,
             GetDebuff,

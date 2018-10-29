@@ -60,6 +60,7 @@ namespace Dialogue
             EditorGUILayout.PropertyField(text);
             EditorGUILayout.Separator();
             EditorGUILayout.PropertyField(onEnter, true);
+			EditorGUILayout.PropertyField(onExit, true);
             EditorGUILayout.PropertyField(cutsceneEvents, true);
             EditorGUILayout.Separator();
             EditorGUILayout.PropertyField(transitions,true);

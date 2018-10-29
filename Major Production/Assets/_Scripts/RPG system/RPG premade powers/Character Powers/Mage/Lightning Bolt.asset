@@ -14,13 +14,13 @@ MonoBehaviour:
   powName: Lightning Bolt
   description: Summon lightning to devestate a line of enemies
   icon: {fileID: 0}
-  damage: 150
+  damage: 100
   dmgType: 2
   statType: 3
-  ScalePercentage: 0
+  ScalePercentage: 1
   manaCost: 30
   areaOfEffect: 1
   duration: 2
   currentEffects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: db418ca748f3fe547941a041fdd66b82, type: 2}
   anim: 11

@@ -21,6 +21,8 @@ namespace RPG
 
 		public RPGsys.StateManager stateManager;
 
+		public static bool InBattle { get; private set; }
+
 		UnityEvent OnWin;
 		UnityEvent OnLoss;
 
@@ -29,6 +31,7 @@ namespace RPG
 			if (Instance == null)
 			{
 				Instance = this;
+				InBattle = false;
 			}
 			else if (Instance != this)
 			{
@@ -47,6 +50,7 @@ namespace RPG
 
 		public void StartBattle(string sceneName, Encounter e, UnityEvent winEvent = null, UnityEvent lossEvent = null)
 		{
+			InBattle = true;
 			OnWin = winEvent;
 			OnLoss = lossEvent;
 			encounter = e;
@@ -98,7 +102,10 @@ namespace RPG
 			{
 				case RPGsys.EBattleResult.Win:
 					SceneLoader.Instance.EndBattle();
-					OnWin.Invoke();
+					if (OnWin != null)
+					{
+						OnWin.Invoke();
+					}
 					break;
 				case RPGsys.EBattleResult.Loss:
 					if (OnLoss != null)
@@ -115,6 +122,7 @@ namespace RPG
 					break;
 			}
 			stateManager = null;
+			InBattle = false;
 		}
 	}
 }

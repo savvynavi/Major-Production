@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: Barricade Fight
   m_EditorClassIdentifier: 
-  nextID: 2
+  nextID: 5
   startingID: 0
   Entries:
   - ID: 0
@@ -20,6 +20,7 @@ MonoBehaviour:
     Text: This barricade blocks your path. You could break through it, but that might
       attract attention
     OnEnter: []
+    OnExit: []
     cutsceneEvents: []
     transitions:
       transitions: []
@@ -30,7 +31,10 @@ MonoBehaviour:
       OnChosen: []
       Prerequisite: {fileID: 0}
       transitions:
-        transitions: []
+        transitions:
+        - transition:
+            TargetID: 2
+          condition: {fileID: 0}
       Position: {x: 157, y: 121}
     - Text: Leave it alone
       OnChosen: []
@@ -47,6 +51,7 @@ MonoBehaviour:
     speakerIndex: 0
     Text: You decide to leave it alone
     OnEnter: []
+    OnExit: []
     cutsceneEvents: []
     transitions:
       transitions: []
@@ -54,6 +59,55 @@ MonoBehaviour:
     parent: {fileID: 11400000}
     Responses: []
     position: {x: 400, y: 223}
+  - ID: 2
+    Title: Challenge
+    speakerIndex: 1
+    Text: 
+    OnEnter: []
+    OnExit:
+    - description: Start battle
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: 9e8b36dbe8769d7428419b6047789880, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 4
+        condition: {fileID: 11400000, guid: 1936fdc838338304ca093b04f045ac67, type: 2}
+      - transition:
+          TargetID: 3
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 110, y: 225}
+  - ID: 3
+    Title: Lost
+    speakerIndex: 1
+    Text: 
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 278, y: 354}
+  - ID: 4
+    Title: Won
+    speakerIndex: 0
+    Text: 
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 76, y: 353}
   Speakers:
   - Barricade
   - BarricadeGuard

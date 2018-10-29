@@ -19,6 +19,10 @@ namespace Dialogue
         private StringActorDict actorDictionary;
         public Dictionary<string,DialogueActor> actors;
 
+		[SerializeField]
+		private StringEventDict customEventDictionary;
+		public Dictionary<string, UnityEvent> customEvents;
+
         public UnityEvent OnConversationStart;
         public UnityEvent OnConversationEnd;
 
@@ -31,6 +35,7 @@ namespace Dialogue
         {
             fields = new FieldManager();
             actors = actorDictionary.ToDictionary();
+			customEvents = customEventDictionary.ToDictionary();
             UISystem.manager = this;
         }
 

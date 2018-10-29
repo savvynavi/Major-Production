@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using RPGsys;
+using RPG;
 using RPG.UI;
 using RPG.Save;
 

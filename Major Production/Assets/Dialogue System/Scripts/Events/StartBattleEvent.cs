@@ -19,7 +19,7 @@ namespace Dialogue
 		{
 			// TODO make parameters do something?
 			// get scenename from there? Fight now vs later?
-			FindObjectOfType<BattleManager>().StartBattle(defaultScene, encounter.InstantiateEnemyTeam().transform);
+			FindObjectOfType<RPG.BattleManager>().StartBattle(defaultScene, encounter);
 		}
 	}
 }

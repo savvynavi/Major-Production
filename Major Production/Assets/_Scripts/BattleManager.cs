@@ -48,7 +48,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void EndBattle()
-    {
+	{
 		//TODO end of fight effects, cleanup, etc
 
 		//finds the statemanager, loops over characters, removing effects
@@ -56,16 +56,21 @@ public class BattleManager : MonoBehaviour {
 
 
 		List<RPGsys.Buff> deadlist = new List<RPGsys.Buff>();
-		foreach(RPGsys.Character chara in stateManager.characters) {
-			foreach(RPGsys.Buff buff in chara.currentEffects) {
-				if(buff.equipable == RPGsys.Status.Equipable.False) {
+		foreach (RPGsys.Character chara in stateManager.characters)
+		{
+			foreach (RPGsys.Buff buff in chara.currentEffects)
+			{
+				if (buff.equipable == RPGsys.Status.Equipable.False)
+				{
 					//chara.currentEffects.Remove(buff);
 					deadlist.Add(buff);
 					buff.Remove(chara);
 				}
 			}
-			if(deadlist.Count > 0) {
-				foreach(RPGsys.Buff buff in deadlist) {
+			if (deadlist.Count > 0)
+			{
+				foreach (RPGsys.Buff buff in deadlist)
+				{
 					chara.currentEffects.Remove(buff);
 				}
 				deadlist.Clear();
@@ -75,7 +80,17 @@ public class BattleManager : MonoBehaviour {
 
 		playerTeam.gameObject.SetActive(false);
 
-		stateManager = null;
-        SceneLoader.Instance.EndBattle();
-    }
+		if (stateManager.Alive())
+		{
+			// TODO do other win effects?
+			stateManager = null;
+			SceneLoader.Instance.EndBattle();
+		}
+		else
+		{
+			// TODO check if lose effect set, and do instead
+			stateManager = null;
+			GameController.Instance.Autoload();
+		}
+	}
 }

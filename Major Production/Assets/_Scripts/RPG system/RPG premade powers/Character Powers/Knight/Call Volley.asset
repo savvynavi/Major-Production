@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Call Volley
   m_EditorClassIdentifier: 
-  manaCost: 50
+  powName: Call Volley
+  description: 'Call for a volley of arrows  '
+  icon: {fileID: 0}
   damage: 100
   dmgType: 1
   statType: 1
+  ScalePercentage: 0
+  manaCost: 50
   areaOfEffect: 1
-  anim: 2
-  powName: Call Volley
-  description: 'Call for a volley of arrows  '
   duration: 3
   currentEffects: []
+  anim: 6

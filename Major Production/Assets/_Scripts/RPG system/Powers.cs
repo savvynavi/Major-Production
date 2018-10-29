@@ -18,7 +18,7 @@ namespace RPGsys {
             Strike,
             LuteSlowPlaying,
             LutePlaying,
-            Spin,
+            Sweep,
             Gaurd,
             WarCry,
             CallVolly,

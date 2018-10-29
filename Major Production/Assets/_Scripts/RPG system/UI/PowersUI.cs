@@ -42,7 +42,6 @@ namespace RPGsys {
 				if(Name != null) {
 					Name.text = power.powName;
 					if(Btn.GetComponentInChildren<Text>().text != null) {
-						Debug.Log("button text not null");
 					}
 				}
 

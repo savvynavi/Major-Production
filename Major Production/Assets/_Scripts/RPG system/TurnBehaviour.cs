@@ -47,6 +47,18 @@ namespace RPGsys {
 			MovesThisRound.RemoveAt(MovesThisRound.Count - 1);
 		}
 
+		public void RemoveAttack(TurnInfo givenInfo) {
+			numOfTurns++;
+			//goes over full list and removes all abilities made by this player
+			foreach(TurnInfo info in MovesThisRound) {
+				if(info.player == givenInfo.player) {
+					MovesThisRound.Remove(info);
+
+					break;
+				}
+			}
+		}
+
 		public void ResetTurnNumber(){
 			numOfTurns = AvailablePlayers.Count;
 		}

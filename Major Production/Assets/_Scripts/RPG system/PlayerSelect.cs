@@ -26,9 +26,14 @@ namespace RPGsys {
 						chara.ActivePlayer = false;
 					}
 					hit.transform.GetComponent<Character>().ActivePlayer = true;
+
+					//makes it so that the player transitions into correct animation the second they're clicked
+					for(int i = 0; i < manager.characters.Count; i++) {
+						manager.MoveSetCheck(i);
+
+					}
 				}
 			}
 		}
 	}
-
 }

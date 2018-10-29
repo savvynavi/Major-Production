@@ -36,6 +36,7 @@ namespace Dialogue
             SerializedProperty isEnd = property.FindPropertyRelative("isEnd");
             SerializedProperty text = property.FindPropertyRelative("Text");
             SerializedProperty onEnter = property.FindPropertyRelative("OnEnter");
+			SerializedProperty onExit = property.FindPropertyRelative("OnExit");
             SerializedProperty cutsceneEvents = property.FindPropertyRelative("cutsceneEvents");
             SerializedProperty transitions = property.FindPropertyRelative("transitions");
             SerializedProperty responsesList = property.FindPropertyRelative("Responses");

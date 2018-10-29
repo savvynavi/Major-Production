@@ -65,6 +65,7 @@ namespace Dialogue
             bool entryFound = false;
             if (current != null)
             {
+				// TODO execute current's OnExit
                 if (!current.isEnd)
                 {
                     Transition selectedTransition = current.transitions.SelectTransition(this);
@@ -105,6 +106,7 @@ namespace Dialogue
                 Response response = current.Responses[id];
                 if (response.CheckPrerequisite(this))
                 {
+					// TODO current's OnExit
                     foreach(DialogueEventInstance e in response.OnChosen)
                     {
                         e.Execute(this);
@@ -112,7 +114,9 @@ namespace Dialogue
                     Transition selectedTransition = response.transitions.SelectTransition(this);
 
                     current = conversation.FindEntry(selectedTransition.TargetID);
-                    UISystem.SetDialogueEntry(current);
+					// TODO do onEnter for current
+
+					UISystem.SetDialogueEntry(current);
                 }
             }
         }

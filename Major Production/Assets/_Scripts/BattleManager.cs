@@ -17,6 +17,7 @@ namespace RPG
 		public Encounter encounter;
 		public Transform playerTeam;
 		public Transform enemyTeam; // Transform containing enemies to move into battle scene
+		public RPGsys.EBattleResult lastResult;
 
 		public RPGsys.StateManager stateManager;
 
@@ -92,23 +93,26 @@ namespace RPG
 			}
 
 			playerTeam.gameObject.SetActive(false);
-
-			if (stateManager.Alive())
+			lastResult = stateManager.result;
+			switch (lastResult)
 			{
-				SceneLoader.Instance.EndBattle();
-				OnWin.Invoke();
-			}
-			else
-			{
-				// TODO check if lose effect set, and do instead
-				if (OnLoss != null)
-				{
-					OnLoss.Invoke();
-				}
-				else
-				{
-					GameController.Instance.Autoload();
-				}
+				case RPGsys.EBattleResult.Win:
+					SceneLoader.Instance.EndBattle();
+					OnWin.Invoke();
+					break;
+				case RPGsys.EBattleResult.Loss:
+					if (OnLoss != null)
+					{
+						OnLoss.Invoke();
+					}
+					else
+					{
+						GameController.Instance.Autoload();
+					}
+					break;
+				case RPGsys.EBattleResult.Flee:
+					SceneLoader.Instance.EndBattle();
+					break;
 			}
 			stateManager = null;
 		}

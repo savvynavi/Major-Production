@@ -10,7 +10,19 @@ namespace RPG.UI
 	{
 		public RPGsys.Character character { get; private set; }
 		[SerializeField] Image portrait;
+		Image background;
 		public Button button;
+		public Color selectedBGColor;
+		public Color defaultBGColor;
+
+		private void Awake()
+		{
+			background = GetComponent<Image>();
+		}
+
+		private void Update()
+		{
+		}
 
 		public void SetCharacter(RPGsys.Character character)
 		{
@@ -24,10 +36,12 @@ namespace RPG.UI
 			if(character == selectedCharacter)
 			{
 				button.interactable = false;
+				background.color = selectedBGColor;
 			}
 			else
 			{
 				button.interactable = true;
+				background.color = defaultBGColor;
 			}
 		}
 

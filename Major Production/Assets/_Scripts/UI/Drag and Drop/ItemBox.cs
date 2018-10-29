@@ -46,6 +46,7 @@ namespace RPG.UI {
 				if(itemImage != null)
 				{
 					itemImage.sprite = item.Sprite;
+					itemImage.preserveAspect = true;
 				}
 			}
 		}

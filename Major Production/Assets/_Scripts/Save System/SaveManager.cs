@@ -20,9 +20,9 @@ namespace RPG.Save
 		public class SaveOperation : ThreadOperation
 		{
 			private string _filepath;
-			private string _data;
+			private JObject _data;
 
-			public SaveOperation(string filepath, string data)
+			public SaveOperation(string filepath, JObject data)
 			{
 				_filepath = filepath;
 				_data = data;
@@ -34,7 +34,8 @@ namespace RPG.Save
 			{
 				try
 				{
-					File.WriteAllText(_filepath, _data);
+					string serializedData = _data.ToString();
+					File.WriteAllText(_filepath, serializedData);
 				}
 				catch (IOException exception)
 				{
@@ -131,7 +132,7 @@ namespace RPG.Save
 		public IEnumerator SaveToFile(string filepath)
 		{
 			SaveOperation saveOp;
-			string saveData = GameController.Instance.Save().ToString();
+			JObject saveData = GameController.Instance.Save();
 			saveOp = new SaveOperation(filepath, saveData);
 			OnStartSave.Invoke();
 			yield return new WaitUntil(() => saveOp.IsDone);

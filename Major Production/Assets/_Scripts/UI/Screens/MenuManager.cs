@@ -84,18 +84,18 @@ namespace RPG.UI
 		private void MenuOpenInternal()
 		{
 			GameController.Instance.Pause();
+			scroll.gameObject.SetActive(true);
 			currentScreen.Open();
 			commonElements.SetActive(true);
 			open = true;
-			scroll.gameObject.SetActive(true);
 			tooltip.enabled = true;
 		}
 
 		private void MenuCloseInternal()
 		{
 			currentScreen.Close();
-			scroll.gameObject.SetActive(false);
 			commonElements.SetActive(false);
+			scroll.gameObject.SetActive(false);
 			open = false;
 			GameController.Instance.Unpause();
 		}

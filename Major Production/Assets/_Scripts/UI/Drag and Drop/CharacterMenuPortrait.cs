@@ -42,7 +42,7 @@ namespace RPG.UI
 			if (item != null)
 			{
 				Item containedItem = item.itemBox.ContainedItem;
-				if (item.itemBox.ContainedItem.IsUsable(character))
+				if (containedItem.IsUsable(character))
 				{
 					StatDisplay.StatChangeData statChangeData = new StatDisplay.StatChangeData();
 					statChangeData.ItemToUse = containedItem;

@@ -11,6 +11,7 @@ namespace RPG{
 		public Conversation conversation;
 		public DialogueActor actor;
 		public DialogueActor guardActor;
+		public GameObject barricade; // for testing, might change later
 		// TODO persistent trigger to store being dropped
 
 		// Use this for initialization
@@ -46,6 +47,9 @@ namespace RPG{
 		public void DropBarricade()
 		{
 			// TODO
+			barricade.SetActive(false);
+			this.GetComponent<BoxCollider>().enabled = false;
+			// Will do nicer thing with animation, trigger, etc later
 			Debug.Log("Dropped barricade");
 		}
 	}

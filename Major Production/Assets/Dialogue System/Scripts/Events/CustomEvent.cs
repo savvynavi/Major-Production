@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 namespace Dialogue
 {
+	[CreateAssetMenu(fileName = "CustomEvent", menuName = "Dialogue/Event/Custom Event")]
 	public class CustomEvent : DialogueEvent
 	{
 		public override string Describe(string target, string parameters)
@@ -15,7 +16,7 @@ namespace Dialogue
 			{
 				description.AppendFormat(" on actor '{0}'", target);
 			}
-			return "Calls event '" + parameters + "' on dialogue manager."; 
+			return description.ToString();
 		}
 
 		public override void Execute(DialogueManager manager, string target, string parameters)
@@ -29,14 +30,20 @@ namespace Dialogue
 				}
 				else
 				{
-					Debug.LogWarning("Event '" + parameters + "; not found in dialogue manager");
+					Debug.LogWarning("Event '" + parameters + "' not found in dialogue manager");
 				}
 			} else
 			{
 				DialogueActor actor;
 				if(manager.actors.TryGetValue(target, out actor))
 				{
-					
+					if(actor.customEvents.TryGetValue(parameters, out customEvent))
+					{
+						customEvent.Invoke();
+					} else
+					{
+						Debug.LogWarning("Event '" + parameters + "' not found on actor '" + target + "'");
+					}
 				} else
 				{
 					Debug.LogWarning("Actor '" + target + "' not found in dialogue manager");

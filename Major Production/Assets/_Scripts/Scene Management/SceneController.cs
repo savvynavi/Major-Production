@@ -38,6 +38,11 @@ public class SceneController : MonoBehaviour {
 		OnBusyStart.AddListener(player.Freeze);
 		OnBusyEnd.AddListener(player.Unfreeze);
 
+		// Have dialogue manager make this busy
+		Dialogue.DialogueManager dialogue = FindObjectOfType<Dialogue.DialogueManager>();
+		dialogue.OnConversationStart.AddListener(SetBusy);
+		dialogue.OnConversationEnd.AddListener(ClearBusy);
+
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());
 		foreach(PersistentObject po in persistentObjects)
 		{
@@ -73,6 +78,7 @@ public class SceneController : MonoBehaviour {
 
 	public void SetBusy()
 	{
+		Busy = true;
 		OnBusyStart.Invoke();
 	}
 

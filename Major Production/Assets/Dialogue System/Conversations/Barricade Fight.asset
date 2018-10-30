@@ -62,7 +62,7 @@ MonoBehaviour:
   - ID: 2
     Title: Challenge
     speakerIndex: 1
-    Text: 
+    Text: Hey! What are you doing here?
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -85,7 +85,7 @@ MonoBehaviour:
   - ID: 3
     Title: Lost
     speakerIndex: 1
-    Text: 
+    Text: And stay out!
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
@@ -98,8 +98,12 @@ MonoBehaviour:
   - ID: 4
     Title: Won
     speakerIndex: 0
-    Text: 
-    OnEnter: []
+    Text: With the guards gone you break through the barricade
+    OnEnter:
+    - description: Calls event DropBarricade on actor 'Barricade'
+      target: Barricade
+      parameters: DropBarricade
+      dialogueEvent: {fileID: 11400000, guid: 6980d20817d5bc443b4ac87b1729bbc7, type: 2}
     OnExit: []
     cutsceneEvents: []
     transitions:

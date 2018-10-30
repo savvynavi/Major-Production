@@ -40,14 +40,7 @@ namespace RPGItems {
 							return false;
 						}
 					case EquipmentType.Ring:
-						if (character.PlaceInEmptyRingSlot(this))
-						{
-							ApplyEffect(character);
-							return true;
-						} else
-						{
-							return false;
-						}
+						return character.PlaceInEmptyRingSlot(this);
 					default:
 						throw new System.NotImplementedException();
 				}

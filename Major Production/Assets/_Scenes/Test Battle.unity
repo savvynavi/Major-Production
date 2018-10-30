@@ -1418,6 +1418,8 @@ GameObject:
   - component: {fileID: 875702932}
   - component: {fileID: 875702933}
   - component: {fileID: 875702934}
+  - component: {fileID: 875702935}
+  - component: {fileID: 875702936}
   m_Layer: 0
   m_Name: FinalStateManager
   m_TagString: Untagged
@@ -1458,6 +1460,7 @@ MonoBehaviour:
   MovesThisRound: []
   numOfTurns: 0
   numOfEnemyTurns: 0
+  manager: {fileID: 0}
 --- !u!114 &875702930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,13 +1482,6 @@ MonoBehaviour:
   selector: {fileID: 1500619447144818, guid: 6710e4fa39a8c0442bfe3f6962e3dae2, type: 2}
   uiCanvas: {fileID: 1050874238}
   characterButtonList: {fileID: 270154052}
-  projector:
-  - {fileID: 1328349150962094, guid: 1dee3002c4a31e949a519f9a9f375d34, type: 2}
-  - {fileID: 1437034471668644, guid: c5fb0997ce35a16438af34c7f5ba6f4c, type: 2}
-  - {fileID: 1573297284837350, guid: 912373d96f198a948b530f6253fa258c, type: 2}
-  - {fileID: 1457800867931760, guid: 0f9c4ed168121a742a83ebde35569865, type: 2}
-  arrowProjector: {fileID: 1480066109180024, guid: 41e889cd697396a4f9de861440174a9e,
-    type: 2}
   playerPositions:
   - {fileID: 1867567087}
   - {fileID: 966785850}
@@ -1554,6 +1550,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4df8f93df158eeb42a21043c524d3632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &875702935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 875702927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7516dccbd7e1e274fa4b89944e5cbebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projector:
+  - {fileID: 1328349150962094, guid: 1dee3002c4a31e949a519f9a9f375d34, type: 2}
+  - {fileID: 1437034471668644, guid: c5fb0997ce35a16438af34c7f5ba6f4c, type: 2}
+  - {fileID: 1573297284837350, guid: 912373d96f198a948b530f6253fa258c, type: 2}
+  - {fileID: 1457800867931760, guid: 0f9c4ed168121a742a83ebde35569865, type: 2}
+  arrowProjectors: {fileID: 1480066109180024, guid: 41e889cd697396a4f9de861440174a9e,
+    type: 2}
+  decalInfo: []
+--- !u!114 &875702936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 875702927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f400c36e96558e342ae750dc73d7f15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &899158505

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Dialogue
 {
@@ -19,6 +20,9 @@ namespace Dialogue
         public Sprite Portrait;
 
         public FieldManager fields;
+
+		[SerializeField] private StringEventDict customEventDictionary;
+		public Dictionary<string, UnityEvent> customEvents;
 
 		public EPronouns pronoun;
 
@@ -100,6 +104,11 @@ namespace Dialogue
 						return "(error: pronoun not found)";
 				}
 			}
+		}
+
+		private void Awake()
+		{
+			customEvents = customEventDictionary.ToDictionary();
 		}
 	}
 }

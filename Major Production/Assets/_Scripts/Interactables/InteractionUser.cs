@@ -20,6 +20,13 @@ namespace RPG
 		void Start()
 		{
 			ActionPopup.gameObject.SetActive(false);
+			// Don't interact during dialogue
+			Dialogue.DialogueManager dialogueManager = FindObjectOfType<Dialogue.DialogueManager>();
+			if (dialogueManager != null)
+			{
+				dialogueManager.OnConversationStart.AddListener(() => { CanInteract = false; });
+				dialogueManager.OnConversationEnd.AddListener(() => { CanInteract = true; });
+			}
 		}
 
 		// Update is called once per frame

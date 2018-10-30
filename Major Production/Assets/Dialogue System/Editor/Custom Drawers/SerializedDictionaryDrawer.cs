@@ -129,4 +129,7 @@ namespace Dialogue
 
     [CustomPropertyDrawer(typeof(StringAnimatorDict))]
     public class StringAnimatorDictDrawer : SerializedDictionaryDrawer { }
+
+	[CustomPropertyDrawer(typeof(StringEventDict))]
+	public class StringEventDictDrawer : SerializedDictionaryDrawer { }
 }

@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 143309643555462334}
   - component: {fileID: 114347764784671314}
   - component: {fileID: 114081071937568372}
+  - component: {fileID: 114797350359979222}
   m_Layer: 0
   m_Name: Beta
   m_TagString: Player
@@ -2125,6 +2126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681f79cf602620f4086f81e4a7fb293c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionPopup: {fileID: 0}
+  ActionText: {fileID: 0}
+  CanInteract: 1
 --- !u!114 &114347764784671314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2139,6 +2143,23 @@ MonoBehaviour:
   speed: 5
   randCount: {fileID: 0}
   EncounterTimer: 0
+--- !u!114 &114797350359979222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264816120944388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e971bd0b86acdf4885c792baf9e86b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Player
+  Portrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
+  customEventDictionary:
+    keys: []
+    values: []
+  pronoun: 0
 --- !u!137 &137294054828764958
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -18,6 +18,7 @@ namespace RPGsys {
             Strike,
             LuteSlowPlaying,
             LutePlaying,
+            MumbleRap,
             Sweep,
             Gaurd,
             WarCry,

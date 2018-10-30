@@ -8,6 +8,7 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 
 	[SerializeField] string battleScene;
 	[SerializeField] RPG.Encounter encounter;
+	[SerializeField] RPGsys.Character undeadWizardPrefab;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -32,21 +33,13 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 
 		// HACK figure out nicer way to do this, especially finding the wizard
 		RPGsys.Character[] characters = GameController.Instance.Characters;
-		RPGsys.Character wizard = null;
 		foreach(RPGsys.Character character in characters)
 		{
-			if(character.name == "Wizard")
-			{
-				wizard = character;
-			} else
-			{
-				GameObject.Destroy(character.gameObject);
-			}
+
 		}
-		wizard.Hp = wizard.hpStat;
 		// TODO change wizard portrait
 		// empty inventory and remove all items
-		wizard.UnequipAll();
 		GameController.Instance.inventory.Clear();
+		Utility.InstantiateSameName<RPGsys.Character>(undeadWizardPrefab, GameController.Instance.playerTeam.transform);
 	}
 }

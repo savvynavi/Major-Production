@@ -7,6 +7,13 @@ using UnityEngine.UI;
 using RPG.XP;
 
 namespace RPGsys {
+	public enum EBattleResult
+	{
+		Win,
+		Loss,
+		Flee
+	}
+
 	public class StateManager : MonoBehaviour {
 		public bool confirmMoves = false;
 		public bool redoTurn = false;
@@ -42,6 +49,8 @@ namespace RPGsys {
         [SerializeField] List<Transform> enemyPositions;
         [SerializeField] new Camera camera;
 
+		public EBattleResult result { get; private set; }
+
 		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
 
 		// Use this for initialization
@@ -54,7 +63,7 @@ namespace RPGsys {
             FloatingTextController.HealEnemy();
             FloatingTextController.HealAlly();
 
-			BattleManager battleManager = BattleManager.Instance;
+			RPG.BattleManager battleManager = RPG.BattleManager.Instance;
 			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
@@ -158,6 +167,8 @@ namespace RPGsys {
 			//confirmMenu.Setup();
 			projectors = new List<GameObject>();
 			arrowProjectors = new List<GameObject>();
+
+			result = EBattleResult.Flee;
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -560,6 +571,8 @@ namespace RPGsys {
 		private IEnumerator WinRoutine()
 		{
 			GameOverUI.SetActive(true);
+			result = EBattleResult.Win;
+
 			// Do experience stuff
 			int battleXP = 0;
 			Dictionary<Character, XPEvent> xpEvents = new Dictionary<Character, XPEvent>();
@@ -613,6 +626,7 @@ namespace RPGsys {
 		{
 			GameOverUI.SetActive(true);
 			GameOverTextLose.SetActive(true);
+			result = EBattleResult.Loss;
 			yield return new WaitForEndOfFrame(); //HACK
 		}
 

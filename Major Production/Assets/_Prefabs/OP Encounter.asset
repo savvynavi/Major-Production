@@ -8,8 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb74e3265c3d626479c6610c9680070b, type: 3}
-  m_Name: Orc Battle
+  m_Script: {fileID: 11500000, guid: 954cb35f9dac05c4393f1953e7ccdc66, type: 3}
+  m_Name: OP Encounter
   m_EditorClassIdentifier: 
-  encounter: {fileID: 11400000, guid: cc0ed57f1a095bf429649876fd6ed964, type: 2}
-  defaultScene: Test Battle
+  enemies:
+  - {fileID: 114171130311003998, guid: 4fb347b4b91ce0e4db0ce71d73b4e1a4, type: 2}

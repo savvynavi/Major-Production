@@ -75,8 +75,7 @@ namespace RPG {
 		protected void StartEncounter(Encounter e)
 		{
 			lastEncounter = e;
-			GameObject go = e.InstantiateEnemyTeam();
-			BattleManager.Instance.StartBattle(battleScene, go.transform);
+			BattleManager.Instance.StartBattle(battleScene, e);
 		}
 
 		protected Encounter SelectRandomEncounter()

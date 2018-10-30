@@ -34,10 +34,20 @@ public class SceneController : MonoBehaviour {
 	// PersistentObjects are set before anything else initializes
 	void Start () {
 		player = FindObjectOfType<Controller>();
+		Dialogue.DialogueActor playerActor = player.GetComponent<Dialogue.DialogueActor>();
 
 		OnBusyStart.AddListener(player.Freeze);
 		OnBusyEnd.AddListener(player.Unfreeze);
 
+		// Have dialogue manager make this busy
+		Dialogue.DialogueManager dialogue = FindObjectOfType<Dialogue.DialogueManager>();
+		if (dialogue != null)
+		{
+			dialogue.OnConversationStart.AddListener(SetBusy);
+			dialogue.OnConversationEnd.AddListener(ClearBusy);
+			// add player
+			dialogue.actors["Player"] = playerActor;
+		}
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());
 		foreach(PersistentObject po in persistentObjects)
 		{
@@ -73,6 +83,7 @@ public class SceneController : MonoBehaviour {
 
 	public void SetBusy()
 	{
+		Busy = true;
 		OnBusyStart.Invoke();
 	}
 

@@ -35,7 +35,11 @@ namespace Dialogue
 		public override Result<MarkupToken> Parse(string input, int index = 0)
 		{
 			CheckInputValid(input,index);
-			if(index == input.Length)
+			if (input.Length == 0)
+			{
+				return new Result<MarkupToken>(new LiteralText(""), 0);
+			}
+			if (index == input.Length)
 			{
 				return new Result<MarkupToken>(new ParseError("Unexpected end of input"));
 			}

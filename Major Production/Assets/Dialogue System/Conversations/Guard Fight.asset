@@ -19,6 +19,7 @@ MonoBehaviour:
     speakerIndex: 0
     Text: Oi, you! I'm the {SPEAKER.name}.
     OnEnter: []
+    OnExit: []
     cutsceneEvents: []
     transitions:
       transitions:
@@ -34,6 +35,7 @@ MonoBehaviour:
     speakerIndex: 0
     Text: What are you doing in here, {Player.name}?
     OnEnter: []
+    OnExit: []
     cutsceneEvents: []
     transitions:
       transitions: []
@@ -73,36 +75,7 @@ MonoBehaviour:
     speakerIndex: 0
     Text: Time to Fight!
     OnEnter: []
-    cutsceneEvents: []
-    transitions:
-      transitions:
-      - transition:
-          TargetID: 4
-        condition: {fileID: 0}
-    isEnd: 0
-    parent: {fileID: 11400000}
-    Responses: []
-    position: {x: 414, y: 337}
-  - ID: 3
-    Title: 
-    speakerIndex: 0
-    Text: Yaaargh
-    OnEnter: []
-    cutsceneEvents:
-    - target: OrcGuard
-      animation: DEAD
-      layer: -1
-    transitions:
-      transitions: []
-    isEnd: 1
-    parent: {fileID: 11400000}
-    Responses: []
-    position: {x: 398, y: 453}
-  - ID: 4
-    Title: 
-    speakerIndex: 1
-    Text: Take that!
-    OnEnter:
+    OnExit:
     - description: Start battle
       target: 
       parameters: 
@@ -116,7 +89,39 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 408, y: 397}
+    position: {x: 414, y: 337}
+  - ID: 3
+    Title: 
+    speakerIndex: 0
+    Text: Yaaargh
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents:
+    - target: OrcGuard
+      animation: DEAD
+      layer: -1
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 4
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 413, y: 412}
+  - ID: 4
+    Title: 
+    speakerIndex: 1
+    Text: Take that!
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 398, y: 481}
   Speakers:
   - OrcGuard
   - Player

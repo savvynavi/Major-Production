@@ -10,6 +10,7 @@ namespace RPGsys {
 		public List<TurnInfo> MovesThisRound;
 		public int numOfTurns;
 		public int numOfEnemyTurns;
+		public StateManager manager;
 
 		[System.Serializable]
 		public struct TurnInfo{
@@ -19,7 +20,7 @@ namespace RPGsys {
 
 		// Use this for initialization
 		void Start() {
-			
+			manager = GetComponent<StateManager>();
 		}
 
 		public void Setup(List<Character> players, List<Character> enemies) {
@@ -38,13 +39,30 @@ namespace RPGsys {
 				tmp.ability = pow;
 				tmp.player = chara;
 				numOfTurns--;
+
+				RemoveAttack(tmp);
 				MovesThisRound.Add(tmp);
+
+				//decal stuff
+				manager.AddDecal(chara);
 			}
 		}
 
 		public void RemoveAttack(){
 			numOfTurns++;
 			MovesThisRound.RemoveAt(MovesThisRound.Count - 1);
+		}
+
+		public void RemoveAttack(TurnInfo givenInfo) {
+			//goes over full list and removes all abilities made by this player
+			foreach(TurnInfo info in MovesThisRound) {
+				if(info.player == givenInfo.player) {
+					numOfTurns++;
+					MovesThisRound.Remove(info);
+
+					break;
+				}
+			}
 		}
 
 		public void ResetTurnNumber(){

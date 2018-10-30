@@ -20,11 +20,13 @@ namespace RPGsys {
 		public List<Character> characters;
 		public float speed;
 		public Button Quit;
+		public Button Continue;
 		public Button GameOverNext;
 		public Text GameOverInfo;
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public bool PlayerTurnOver = false;
 
 		//int rand;
 		List<Character> enemies;
@@ -174,9 +176,9 @@ namespace RPGsys {
 			// loop while players alive
 			while(!BattleOver()){
 				yield return PlayerTurn();
-				while(confirmMoves == false){
-					yield return LockInMoves();
-				}
+				//while(confirmMoves == false){
+				//	yield return LockInMoves();
+				//}
 				yield return EnemyTurn();
 				yield return ApplyMoves();
 			}
@@ -221,7 +223,7 @@ namespace RPGsys {
 
 			//loop through characters and wait until input to move to next one
 			//this allows the player to pick the turn order until there are no moves left
-			while(turnBehaviour.numOfTurns > 0) {
+			while(PlayerTurnOver == false) {
 				for(int i = 0; i < characters.Count; i++) {
 					if(characters[i].ActivePlayer == true) {
 
@@ -365,6 +367,7 @@ namespace RPGsys {
 
 		//loop through moves on a delay, apply to targets
 		public IEnumerator ApplyMoves() {
+			PlayerTurnOver = true;
 
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();

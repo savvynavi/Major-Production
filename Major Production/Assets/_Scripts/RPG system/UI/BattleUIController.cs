@@ -12,6 +12,7 @@ namespace RPGsys {
 		public GameObject MenuLayout;
 		public Image Healthbar;
 		public Image Magicbar;
+		public ContinueUI ContinueUi;
 
 		public CharacterListUI FloatingStats;
 		public CharacterListUI MenuHp;
@@ -28,6 +29,7 @@ namespace RPGsys {
 			//grab all the buttonBehaviours and store in a list
 			stateManager = GetComponent<StateManager>();
 			moveConfirmMenu = GetComponent<MoveConfirmMenu>();
+			ContinueUi = GetComponent<ContinueUI>();
 		}
 
 		public void UISetup(List<Character> characters) {
@@ -50,6 +52,7 @@ namespace RPGsys {
 			}
 
 			moveConfirmMenu.Setup(button, ButtonPanel, canvas);
+			ContinueUi.Setup(ButtonPanel, canvas);
 
 			//turning all unneeded assets off once passed into the button behaviours
 			NameText.gameObject.SetActive(false);

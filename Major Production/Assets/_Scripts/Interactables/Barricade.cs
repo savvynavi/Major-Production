@@ -5,9 +5,11 @@ using Dialogue;
 
 namespace RPG{
 	[RequireComponent(typeof(DialogueActor))]
+	[RequireComponent(typeof(PersistentTrigger))]
 	public class Barricade : Interactable {
 
 		DialogueManager dialogueManager;
+		public PersistentTrigger trigger;
 		public Conversation conversation;
 		public DialogueActor actor;
 		public DialogueActor guardActor;
@@ -18,7 +20,11 @@ namespace RPG{
 		void Start () {
 			dialogueManager = FindObjectOfType<DialogueManager>();
 			actor = GetComponent<DialogueActor>();
-			//TODO decide whether to have DropBarricade done here or in editor
+			trigger = GetComponent<PersistentTrigger>();
+			if (trigger.Triggered)
+			{
+				SetBarricadeDown();
+			}
 		}
 	
 		// Update is called once per frame
@@ -46,11 +52,18 @@ namespace RPG{
 
 		public void DropBarricade()
 		{
-			// TODO
-			barricade.SetActive(false);
-			this.GetComponent<BoxCollider>().enabled = false;
+			SetBarricadeDown();
 			// Will do nicer thing with animation, trigger, etc later
+			trigger.Triggered = true;
+			trigger.Save();
 			Debug.Log("Dropped barricade");
 		}
+
+		private void SetBarricadeDown()
+		{
+			barricade.SetActive(false);
+			this.GetComponent<BoxCollider>().enabled = false;
+		}
+
 	}
 }

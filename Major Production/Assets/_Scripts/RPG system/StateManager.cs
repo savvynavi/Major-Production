@@ -133,7 +133,7 @@ namespace RPGsys {
 			List<Character> tmp = new List<Character>();
 			//when battle reentered, forces any dead characters to act like it
 			foreach(Character chara in characters) {
-				Debug.Log(chara.name + "'s HP: " + chara.Hp);
+				Debug.Log(chara.characterName + "'s HP: " + chara.Hp);
 				if(chara.Hp <= 0) {
 					tmp.Add(chara);
 					Death(chara, tmp);
@@ -197,7 +197,7 @@ namespace RPGsys {
 			//if dead, remove from list
 			foreach(Character chara in characters) {
 				if(chara.Hp <= 0) {
-					Debug.Log(chara.name + " is dead");
+					Debug.Log(chara.characterName + " is dead");
 					chara.Hp = 0;
 					deadCharacters.Add(chara);
 				}
@@ -354,7 +354,7 @@ namespace RPGsys {
 			List<Character> deadEnemies = new List<Character>();
 			foreach(Character enemy in enemies) {
 				if(enemy.Hp <= 0) {
-					Debug.Log(enemy.name + " is dead");
+					Debug.Log(enemy.characterName + " is dead");
 					enemy.Hp = 0;
 					deadEnemies.Add(enemy);
 					enemy.GetComponent<EnemyUI>().HideUI();
@@ -694,7 +694,7 @@ namespace RPGsys {
 			if (levelUp)
 			{
 				System.Text.StringBuilder infoBuilder = new System.Text.StringBuilder();
-				infoBuilder.AppendFormat("{0} reached level {1}!\n", character.name, levelUp.levelRank);
+				infoBuilder.AppendFormat("{0} reached level {1}!\n", character.characterName, levelUp.levelRank);
 				// TODO show stat increases
 				// TODO show powers learned
 				return infoBuilder.ToString();

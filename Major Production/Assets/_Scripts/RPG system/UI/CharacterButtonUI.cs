@@ -30,7 +30,7 @@ namespace RPGsys {
 
 						PowerUI = go.GetComponent<PowersUI>();
 						PowerUI.SetPower(pow, go, character);
-						go.name = PowerUI.Name.text + "(" + character.name + ")";
+						go.name = PowerUI.Name.text + "(" + character.characterName + ")";
 					}
 
 					//undo button setup

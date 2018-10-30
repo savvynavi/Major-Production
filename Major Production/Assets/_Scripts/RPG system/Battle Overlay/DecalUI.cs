@@ -19,6 +19,11 @@ namespace RPGsys {
 		}
 
 		public void InstantiateDecal(int i, Character character, Character target, TurnBehaviour turnBehaviour) {
+			//randoml;y sets a target if none sent in
+			if(target == null) {
+
+			}
+
 			if(target != null) {
 				int count = 0;
 				for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
@@ -74,8 +79,6 @@ namespace RPGsys {
 					}
 					decalInfo[i].projectors.Clear();
 					Destroy(decalInfo[i].arrow);
-					
-
 
 					decalInfo.Remove(decalInfo[i]);
 					break;

@@ -17,7 +17,7 @@ namespace RPGsys {
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
 
-		int rand;
+		//int rand;
 		List<Character> enemies;
 		List<Character> deadCharactersREVIVE;
 		List<Character> storeTargets;
@@ -224,8 +224,9 @@ namespace RPGsys {
 				tmp += turnBehaviour.numOfTurns;
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
+
 			//loop through characters and wait until input to move to next one
-			//this allows the player to pick the turn order, fix it though as it Crashes at the slighest thing (mostly with decals?)
+			//this allows the player to pick the turn order until there are no moves left
 			while(turnBehaviour.numOfTurns > 0) {
 				for(int i = 0; i < characters.Count; i++) {
 					if(characters[i].ActivePlayer == true) {
@@ -266,17 +267,6 @@ namespace RPGsys {
 							yield return null;
 						}
 
-						//if no target selected, will select one for you
-						foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
-							RandomTargetSelect(info);
-						}
-
-						//decal stuff
-						if(characters[i].target != null) {
-							decalUI.InstantiateDecal(i, characters[i], characters[i].target.GetComponent<Character>(), turnBehaviour);
-
-						}
-
 						//sets them out of idle state, hides their power buttons
 						MoveSetCheck(i);
 						characterButtonList.uis[i].HidePowerButtons();
@@ -285,12 +275,40 @@ namespace RPGsys {
 						characters[i].ActivePlayer = true;
 					}
 				}
-
-
 				
 			}
-
 		}
+
+
+		public void AddDecal(Character chara) {
+
+			foreach(DecalUI.DecalInfo info in decalUI.decalInfo) {
+				if(info.player == chara) {
+					decalUI.RemoveDecal(info);
+					break;
+				}
+			}
+			//if no target selected, will select one for you
+			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
+				RandomTargetSelect(info);
+			}
+
+			if(chara.target != null) {
+				decalUI.InstantiateDecal(GetIndex(chara), chara, chara.target.GetComponent<Character>(), turnBehaviour);
+
+			}
+			MoveSetCheck(GetIndex(chara));
+		}
+
+		public int GetIndex(Character chara) {
+			for(int i = 0; i < characters.Count; i++) {
+				if(characters[i] == chara) {
+					return i;
+				}
+			}
+			return -1;
+		}
+
 
 		public IEnumerator LockInMoves() {
 			battleUIController.moveConfirmMenu.ShowMenu();
@@ -302,7 +320,7 @@ namespace RPGsys {
 				turnBehaviour.MovesThisRound.Clear();
 				turnBehaviour.ResetTurnNumber();
 
-				////clearing projections
+				//clearing projections
 				decalUI.ClearAll();
 				yield return PlayerTurn();
 			}
@@ -535,7 +553,7 @@ namespace RPGsys {
 		//if the player has no valid target, selects one for it
 		public void RandomTargetSelect(TurnBehaviour.TurnInfo info) {
 			if(info.player.target == null) {
-				rand = Random.Range(0, enemies.Count);
+				int rand = Random.Range(0, enemies.Count);
 				info.player.target = enemies[rand].gameObject;
 			}
 			if(info.player.target.GetComponent<Character>().Hp <= 0) {

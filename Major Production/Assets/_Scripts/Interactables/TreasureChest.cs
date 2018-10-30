@@ -79,7 +79,7 @@ namespace RPG {
 				dialogue.SetDialogue("It was full of treasure!");
 				yield return new WaitWhile(waitP);
 				wait = true;
-				dialogue.SetDialogue("You found:\n" + ContentsText()); // TODO say what items were found
+				dialogue.SetDialogue("You found:\n" + ContentsText());
 				dialogue.ClearButtons();
 				dialogue.AddButton("Exit", continueAction);
 				dialogue.RebuildLayout();

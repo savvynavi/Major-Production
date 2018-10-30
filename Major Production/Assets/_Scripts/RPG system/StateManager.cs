@@ -4,15 +4,24 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using RPG.XP;
 
 namespace RPGsys {
+	public enum EBattleResult
+	{
+		Win,
+		Loss,
+		Flee
+	}
+
 	public class StateManager : MonoBehaviour {
 		public bool confirmMoves = false;
 		public bool redoTurn = false;
 		public List<Character> characters;
 		public float speed;
-		public Button MainMenu;
 		public Button Quit;
+		public Button GameOverNext;
+		public Text GameOverInfo;
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
@@ -28,6 +37,7 @@ namespace RPGsys {
 		GameObject GameOverUI;
 		GameObject GameOverTextLose;
 		GameObject GameOverTextWin;
+
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
 		BattleUIController battleUIController;
@@ -35,6 +45,8 @@ namespace RPGsys {
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
         [SerializeField] new Camera camera;
+
+		public EBattleResult result { get; private set; }
 
 		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
 
@@ -48,7 +60,7 @@ namespace RPGsys {
             FloatingTextController.HealEnemy();
             FloatingTextController.HealAlly();
 
-			BattleManager battleManager = BattleManager.Instance;
+			RPG.BattleManager battleManager = RPG.BattleManager.Instance;
 			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
 			decalUI = GetComponent<DecalUI>();
@@ -63,6 +75,7 @@ namespace RPGsys {
 
 			characters = new List<Character>();
 			enemies = new List<Character>();
+			deadCharactersREVIVE = new List<Character>();
 
             // Activate own and enemy team from battleManager, and move enemy team into this scene
             battleManager.playerTeam.gameObject.SetActive(true);
@@ -86,6 +99,8 @@ namespace RPGsys {
 			GameOverTextWin = GameObject.Find("WinText");
 
 			GameOverUI.SetActive(false);
+			GameOverNext.gameObject.SetActive(false);
+			GameOverInfo.gameObject.SetActive(false);
 			GameOverTextLose.SetActive(false);
 			GameOverTextWin.SetActive(false);
 
@@ -147,6 +162,8 @@ namespace RPGsys {
 
 			turnBehaviour.Setup(characters, enemies);
 
+			result = EBattleResult.Flee;
+
 			//starting game loops
 			StartCoroutine(GameLoop());
 		}
@@ -167,33 +184,10 @@ namespace RPGsys {
 			Debug.Log("peope are dead now");
 
 			if(BattleOver() == true) {
-				GameOverUI.SetActive(true);
 				if(Alive() == true) {
-					// Do experience stuff
-					int battleXP = 0;
-					foreach(Character enemy in enemies)
-					{
-						RPG.XP.XPSource xp = enemy.GetComponent<RPG.XP.XPSource>();
-						if(xp != null)
-						{
-							battleXP += xp.XP;
-						}
-					}
-
-					foreach(Character player in characters)
-					{
-						// maybe check character is alive?
-						if(player.experience != null)
-						{
-							player.experience.AddXp(battleXP);
-						}
-					}
-
-					GameOverTextWin.SetActive(true);
+					yield return WinRoutine();
 				} else if(EnemyAlive() == true) {
-					// Do Game Over stuff
-
-					GameOverTextLose.SetActive(true);
+					yield return LoseRoutine();
 				}
 			}
 		}
@@ -515,13 +509,75 @@ namespace RPGsys {
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
 
-			GameOverUI.SetActive(true);
-			if(Alive() == true) {
-				GameOverTextWin.SetActive(true);
-			} else if(EnemyAlive() == true) {
-				GameOverTextLose.SetActive(true);
-			}
+			//GameOverUI.SetActive(true);
+			//if(Alive() == true) {
+			//	GameOverTextWin.SetActive(true);
+			//} else if(EnemyAlive() == true) {
+			//	GameOverTextLose.SetActive(true);
+			//}
 			yield return new WaitForSeconds(0.5f);
+		}
+
+		private IEnumerator WinRoutine()
+		{
+			GameOverUI.SetActive(true);
+			result = EBattleResult.Win;
+
+			// Do experience stuff
+			int battleXP = 0;
+			Dictionary<Character, XPEvent> xpEvents = new Dictionary<Character, XPEvent>();
+			foreach (Character enemy in enemies)
+			{
+				XPSource xp = enemy.GetComponent<XPSource>();
+				if (xp != null)
+				{
+					battleXP += xp.XP;
+				}
+			}
+
+			foreach (Character player in characters)
+			{
+				// maybe check character is alive?
+				if (player.experience != null)
+				{
+					XPEvent xpEvent = player.experience.AddXp(battleXP);
+					xpEvents.Add(player, xpEvent);
+				}
+			}
+			GameOverTextWin.SetActive(true);
+			Quit.gameObject.SetActive(false);
+			GameOverNext.gameObject.SetActive(true);
+			GameOverInfo.gameObject.SetActive(true);
+
+			// have Next button control when coroutine proceeds
+			bool wait = true;
+			UnityEngine.Events.UnityAction continueAction = () => wait = false;
+			System.Func<bool> waitP = () => { return wait; };
+			GameOverNext.onClick.AddListener(continueAction);
+
+			GameOverInfo.text = string.Format("You gained {0} XP", battleXP);
+			//TODO more juicy XP gain UI
+			foreach(KeyValuePair<Character, XPEvent> eventPair in xpEvents)
+			{
+				foreach (LevelUpEvent levelUp in eventPair.Value.levelUps) {
+					yield return new WaitWhile(waitP);
+					wait = true;
+					GameOverInfo.text = LevelUpInfo(eventPair.Key, levelUp);
+				}
+			}
+
+			GameOverNext.onClick.RemoveListener(continueAction);
+			GameOverNext.gameObject.SetActive(false);
+			Quit.gameObject.SetActive(true);
+			yield return new WaitForEndOfFrame(); //HACK
+		}
+
+		private IEnumerator LoseRoutine()
+		{
+			GameOverUI.SetActive(true);
+			GameOverTextLose.SetActive(true);
+			result = EBattleResult.Loss;
+			yield return new WaitForEndOfFrame(); //HACK
 		}
 
 		public void Death(Character attackerTarget, List<Character> targets) {
@@ -630,6 +686,21 @@ namespace RPGsys {
 				return true;
 			}
 			return false;
+		}
+
+		private string LevelUpInfo(Character character, LevelUpEvent levelUp)
+		{
+			if (levelUp)
+			{
+				System.Text.StringBuilder infoBuilder = new System.Text.StringBuilder();
+				infoBuilder.AppendFormat("{0} reached level {1}!\n", character.name, levelUp.levelRank);
+				// TODO show stat increases
+				// TODO show powers learned
+				return infoBuilder.ToString();
+			} else
+			{
+				return "Error: LevelUp failed";
+			}
 		}
 	}
 }

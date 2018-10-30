@@ -6,6 +6,7 @@ using RPG.UI;
 
 //stores all info needed to create a single power, will be called by buttonUI and needs to be on the button prefab passed in there
 namespace RPGsys {
+	// TODO instead of being a TooltipTarget, make this an IPointerEnterHandler and fill out some text object with the power details
 	public class PowersUI : MonoBehaviour, ITooltipTarget {
 		public Character character;
 		public Powers power;

@@ -43,7 +43,7 @@ namespace RPG.UI
 		private void Update()
 		{
 			float targetFill = currentValue / maxValue;
-			Bar.fillAmount = Mathf.MoveTowards(Bar.fillAmount, targetFill, Time.deltaTime);
+			Bar.fillAmount = Mathf.MoveTowards(Bar.fillAmount, targetFill, Time.unscaledDeltaTime);	// Using unscaled while pausing stops time
 			// maybe some weightier effect
 		}
 	}

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using RPGsys;
+using RPG;
 using RPG.UI;
 using RPG.Save;
 
@@ -36,6 +37,8 @@ public class GameController : MonoBehaviour, ISaveable {
 	[Header("Save System")]
 	[SerializeField]
 	SaveManager saveManager;
+	JObject autosaveData;
+
 
 	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
 	
@@ -139,6 +142,17 @@ public class GameController : MonoBehaviour, ISaveable {
 		StartCoroutine(saveManager.LoadFromFile(Application.persistentDataPath + "/savegame.json"));
 	}
 
+	// Saves to autosaveData. Note this does not save to a file
+	public void Autosave()
+	{
+		autosaveData = Save();
+	}
+
+	// Loads from autosaveData
+	public void Autoload()
+	{
+		Load(autosaveData);
+	}
 
 	// This is the top level save for the game, building a JObject containing the save 
 	// objects for everything in the game that needs saving

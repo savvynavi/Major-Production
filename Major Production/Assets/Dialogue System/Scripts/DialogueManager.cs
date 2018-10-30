@@ -19,16 +19,23 @@ namespace Dialogue
         private StringActorDict actorDictionary;
         public Dictionary<string,DialogueActor> actors;
 
+		[SerializeField]
+		private StringEventDict customEventDictionary;
+		public Dictionary<string, UnityEvent> customEvents;
+
         public UnityEvent OnConversationStart;
         public UnityEvent OnConversationEnd;
 
 		bool m_inConversation = false;
+		bool acceptingInput = true; // TODO maybe also have display disable buttons?
+
 		public bool InConversation {get{return m_inConversation;}}
 
         private void Awake()
         {
             fields = new FieldManager();
             actors = actorDictionary.ToDictionary();
+			customEvents = customEventDictionary.ToDictionary();
             UISystem.manager = this;
         }
 
@@ -45,6 +52,7 @@ namespace Dialogue
 				UISystem.OnConversationStart ();
 				OnConversationStart.Invoke ();
 				m_inConversation = true;
+				acceptingInput = true;
 				return true;
 			} else {
 				return false;
@@ -60,35 +68,21 @@ namespace Dialogue
 			}
 		}
 
-        public void NextEntry()
-        {
-            bool entryFound = false;
-            if (current != null)
-            {
-                if (!current.isEnd)
-                {
-                    Transition selectedTransition = current.transitions.SelectTransition(this);
-                    if(selectedTransition != null){
-                        DialogueEntry nextEntry = conversation.FindEntry(selectedTransition.TargetID);
-                        if(nextEntry != null)
-                        {
-                            current = nextEntry;
-                            foreach(DialogueEventInstance e in current.OnEnter)
-                            {
-                                e.Execute(this);
-                            }
-                            UISystem.SetDialogueEntry(current);
-                            entryFound = true;
-                        }
-                    }
-                    
-                }
-                if (!entryFound)
-                {
-                    EndConversation();
-                }
-            }
-        }
+		public void NextEntry()
+		{
+			if (acceptingInput)
+			{
+				StartCoroutine(NextEntryRoutine());
+			}
+		}
+
+		public void ResponseSelected(int id)
+		{
+			if (acceptingInput)
+			{
+				StartCoroutine(ResponseSelectedRoutine(id));
+			}
+		}
 
         public void EndConversation()
         {
@@ -98,23 +92,101 @@ namespace Dialogue
 			m_inConversation = false;
         }
 
-        public void ResponseSelected(int id)
+		private IEnumerator NextEntryRoutine()
+		{
+			bool entryFound = false;
+			acceptingInput = false;
+			if (current != null)
+			{
+				// Do onExit events and routines
+				foreach (DialogueEventInstance e in current.OnExit)
+				{
+					e.Execute(this);
+					if (e.IsRoutine)
+					{
+						yield return e.DoRoutine(this);
+					}
+				}
+				if (!current.isEnd)
+				{
+					Transition selectedTransition = current.transitions.SelectTransition(this);
+					if (selectedTransition != null)
+					{
+						DialogueEntry nextEntry = conversation.FindEntry(selectedTransition.TargetID);
+						if (nextEntry != null)
+						{
+							current = nextEntry;
+							// Do onEntry events and routines
+							foreach (DialogueEventInstance e in current.OnEnter)
+							{
+								e.Execute(this);
+								if (e.IsRoutine)
+								{
+									yield return e.DoRoutine(this);
+								}
+							}
+							UISystem.SetDialogueEntry(current);
+							entryFound = true;
+						}
+					}
+
+				}
+			}
+			if (!entryFound)
+			{
+				EndConversation();
+			}
+			acceptingInput = true;
+		}
+
+
+		public IEnumerator ResponseSelectedRoutine(int id)
         {
+			acceptingInput = false;
             if (id >= 0 && id < current.Responses.Count)
             {
                 Response response = current.Responses[id];
                 if (response.CheckPrerequisite(this))
                 {
+					// Do onExit events
+					foreach(DialogueEventInstance e in current.OnExit)
+					{
+						e.Execute(this);
+						if (e.IsRoutine)
+						{
+							yield return e.DoRoutine(this);
+						}
+					}
+					// Do response events
                     foreach(DialogueEventInstance e in response.OnChosen)
                     {
-                        e.Execute(this);
-                    }
+						e.Execute(this);
+						if (e.IsRoutine)
+						{
+							yield return e.DoRoutine(this);
+						}
+					}
                     Transition selectedTransition = response.transitions.SelectTransition(this);
-
-                    current = conversation.FindEntry(selectedTransition.TargetID);
-                    UISystem.SetDialogueEntry(current);
+					if (selectedTransition != null)
+					{
+						current = conversation.FindEntry(selectedTransition.TargetID);
+						// do onEnter for current
+						foreach (DialogueEventInstance e in current.OnEnter)
+						{
+							e.Execute(this);
+							if (e.IsRoutine)
+							{
+								yield return e.DoRoutine(this);
+							}
+						}
+						UISystem.SetDialogueEntry(current);
+					} else
+					{
+						EndConversation();
+					}
                 }
             }
+			acceptingInput = true;
         }
 
         public DialogueActor GetCurrentActor()

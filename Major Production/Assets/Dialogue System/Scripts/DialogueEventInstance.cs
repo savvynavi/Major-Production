@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,10 +22,20 @@ namespace Dialogue
         [SerializeField]
         DialogueEvent dialogueEvent;
 
+		public bool IsRoutine { get { return dialogueEvent is DialogueRoutineEvent; } }
+
         public void Execute(DialogueManager manager)
         {
             dialogueEvent.Execute(manager, target, parameters);
         }
+
+		public IEnumerator DoRoutine(DialogueManager manager)
+		{
+			if(IsRoutine)
+			{
+				yield return (dialogueEvent as DialogueRoutineEvent).DoRoutine(manager, target, parameters);
+			}
+		}
 
         // Update description of event
         public void OnAfterDeserialize()

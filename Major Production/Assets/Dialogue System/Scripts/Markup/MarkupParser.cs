@@ -8,10 +8,6 @@ namespace Dialogue
 {
 	public class MarkupParser
 	{
-		// TODO escaping characters
-		// TODO block can concatenate primitives with +?
-		// TODO random choices
-
 		public static readonly Parser<MarkupToken> Literal = new LiteralParser("{}".ToCharArray());
 
 		public static readonly Parser<MarkupToken> QuotedLiteral = new TrimWhitespace<MarkupToken>(new Between<MarkupToken>('"', new LiteralParser("{}\"".ToCharArray())));
@@ -20,7 +16,7 @@ namespace Dialogue
 
 		public static readonly Parser<MarkupToken> Concatenated = new ConcatenateParser(new Or<MarkupToken>(VariableToken, QuotedLiteral), '+');
 
-		public static readonly Parser<MarkupToken> RandomToken = new RandomParser(Concatenated, '|'); //TODO
+		public static readonly Parser<MarkupToken> RandomToken = new RandomParser(Concatenated, '|'); 
 
 		public static readonly Parser<MarkupToken> MarkupBlock = new Between<MarkupToken>('{', RandomToken, '}');
 		//TODO having several things concatenated in the block
@@ -39,7 +35,11 @@ namespace Dialogue
 		public override Result<MarkupToken> Parse(string input, int index = 0)
 		{
 			CheckInputValid(input,index);
-			if(index == input.Length)
+			if (input.Length == 0)
+			{
+				return new Result<MarkupToken>(new LiteralText(""), 0);
+			}
+			if (index == input.Length)
 			{
 				return new Result<MarkupToken>(new ParseError("Unexpected end of input"));
 			}

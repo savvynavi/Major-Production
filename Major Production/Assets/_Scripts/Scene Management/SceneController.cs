@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Class placed in each scene, to correctly initialize player placement/persistent stuff
@@ -33,10 +34,20 @@ public class SceneController : MonoBehaviour {
 	// PersistentObjects are set before anything else initializes
 	void Start () {
 		player = FindObjectOfType<Controller>();
+		Dialogue.DialogueActor playerActor = player.GetComponent<Dialogue.DialogueActor>();
 
 		OnBusyStart.AddListener(player.Freeze);
 		OnBusyEnd.AddListener(player.Unfreeze);
 
+		// Have dialogue manager make this busy
+		Dialogue.DialogueManager dialogue = FindObjectOfType<Dialogue.DialogueManager>();
+		if (dialogue != null)
+		{
+			dialogue.OnConversationStart.AddListener(SetBusy);
+			dialogue.OnConversationEnd.AddListener(ClearBusy);
+			// add player
+			dialogue.actors["Player"] = playerActor;
+		}
 		persistentObjects = new List<PersistentObject>(FindObjectsOfType<PersistentObject>());
 		foreach(PersistentObject po in persistentObjects)
 		{
@@ -45,13 +56,13 @@ public class SceneController : MonoBehaviour {
 
 		// If this scene has dictionary, load from it
 		sceneKey = gameObject.scene.path;
-		Dictionary<string, string> objectData;
+		Dictionary<string, JObject> objectData;
 		if (SceneLoader.Instance.persistentSceneData.TryGetValue(sceneKey, out objectData)){
 			LoadPersistentObjects(objectData);
 		} else
 		{
 			// If dictionary not found, create it
-			SceneLoader.Instance.persistentSceneData[sceneKey] = new Dictionary<string, string>();
+			SceneLoader.Instance.persistentSceneData[sceneKey] = new Dictionary<string, JObject>();
 		}
 
 		// TODO move player to entrypoint set
@@ -72,6 +83,7 @@ public class SceneController : MonoBehaviour {
 
 	public void SetBusy()
 	{
+		Busy = true;
 		OnBusyStart.Invoke();
 	}
 
@@ -84,14 +96,14 @@ public class SceneController : MonoBehaviour {
 	// Saves PersistentObject to SceneLoader's dictionary
 	public void SaveObject(PersistentObject po)
 	{
-		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = po.Serialize();
+		SceneLoader.Instance.persistentSceneData[sceneKey][po.ID] = po.ToJObject();
 	} 
 
-	public void LoadPersistentObjects(Dictionary<string,string> loadData)
+	public void LoadPersistentObjects(Dictionary<string,JObject> loadData)
 	{
 		foreach(PersistentObject po in persistentObjects)
 		{
-			string data;
+			JObject data;
 			if(loadData.TryGetValue(po.ID, out data))
 			{
 				po.Load(data);

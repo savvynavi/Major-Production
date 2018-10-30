@@ -28,5 +28,25 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 	{
 		//TODO heal mage, remove other party members, go to other scene
 		Debug.Log("Boss battle finished");
+		SceneLoader.Instance.LoadScene("Overworld Test"); // change this around
+
+		// HACK figure out nicer way to do this, especially finding the wizard
+		RPGsys.Character[] characters = GameController.Instance.Characters;
+		RPGsys.Character wizard = null;
+		foreach(RPGsys.Character character in characters)
+		{
+			if(character.name == "Wizard")
+			{
+				wizard = character;
+			} else
+			{
+				GameObject.Destroy(character.gameObject);
+			}
+		}
+		wizard.Hp = wizard.hpStat;
+		// TODO change wizard portrait
+		// empty inventory and remove all items
+		wizard.UnequipAll();
+		GameController.Instance.inventory.Clear();
 	}
 }

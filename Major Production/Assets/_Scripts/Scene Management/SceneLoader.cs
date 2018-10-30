@@ -149,6 +149,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		worldScene = newScene;
 		Debug.Log(newScene.name);
 		State = ELoaderState.Idle;
+		GameController.Instance.state = GameController.EGameStates.Overworld;
 	}
 
 	// Unloads the BattleScene and reactivates the current World scene

@@ -113,7 +113,7 @@ namespace RPG.UI
 		public void DisplayCharacter(StatDisplay.StatChangeData changeData = null)
 		{
 			// TODO just make this set it as dirty and update next update?
-			NameText.text = CurrentChar.name;
+			NameText.text = CurrentChar.characterName;
 			characterPortrait.SetCharacter(CurrentChar);
 			foreach(StatDisplay stat in statDisplays)
 			{

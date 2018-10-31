@@ -56,7 +56,7 @@ namespace RPGsys {
 
 			//turning all unneeded assets off once passed into the button behaviours
 			NameText.gameObject.SetActive(false);
-			ButtonPanel.gameObject.SetActive(false);
+			//ButtonPanel.gameObject.SetActive(false);
 		}
 	}
 

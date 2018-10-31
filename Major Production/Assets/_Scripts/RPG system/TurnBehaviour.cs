@@ -11,6 +11,7 @@ namespace RPGsys {
 		public int numOfTurns;
 		public int numOfEnemyTurns;
 		public StateManager manager;
+		public ContinueUI contUi;
 
 		[System.Serializable]
 		public struct TurnInfo{
@@ -21,6 +22,7 @@ namespace RPGsys {
 		// Use this for initialization
 		void Start() {
 			manager = GetComponent<StateManager>();
+			contUi = GetComponent<ContinueUI>();
 		}
 
 		public void Setup(List<Character> players, List<Character> enemies) {
@@ -45,12 +47,14 @@ namespace RPGsys {
 
 				//decal stuff
 				manager.AddDecal(chara);
+				contUi.SetInteractable();
 			}
 		}
 
 		public void RemoveAttack(){
 			numOfTurns++;
 			MovesThisRound.RemoveAt(MovesThisRound.Count - 1);
+			contUi.SetInteractable();
 		}
 
 		public void RemoveAttack(TurnInfo givenInfo) {
@@ -59,7 +63,7 @@ namespace RPGsys {
 				if(info.player == givenInfo.player) {
 					numOfTurns++;
 					MovesThisRound.Remove(info);
-
+					contUi.SetInteractable();
 					break;
 				}
 			}
@@ -67,6 +71,7 @@ namespace RPGsys {
 
 		public void ResetTurnNumber(){
 			numOfTurns = AvailablePlayers.Count;
+			contUi.SetInteractable();
 		}
 
 

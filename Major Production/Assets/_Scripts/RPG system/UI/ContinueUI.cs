@@ -9,7 +9,6 @@ namespace RPGsys {
 		public Button btn;
 		public StateManager manager;
 		public TurnBehaviour turnBehaviour;
-		public Transform tmpPos;
 
 		Button continueButton;
 
@@ -24,13 +23,15 @@ namespace RPGsys {
 			GameObject go = Instantiate(btn.gameObject);
 			continueButton = go.GetComponent<Button>();
 			continueButton.transform.SetParent(panel.transform, false);
+
+			continueButton.onClick.AddListener(() => HandleClick());
 		}
 
 		public void SetInteractable() {
 			if(turnBehaviour.numOfTurns <= 0) {
-				btn.GetComponent<Button>().interactable = true;
+				continueButton.GetComponent<Button>().interactable = true;
 			} else {
-				btn.GetComponent<Button>().interactable = false;
+				continueButton.GetComponent<Button>().interactable = false;
 			}
 		}
 

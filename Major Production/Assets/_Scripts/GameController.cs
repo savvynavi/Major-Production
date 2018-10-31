@@ -111,6 +111,12 @@ public class GameController : MonoBehaviour, ISaveable {
 		state = EGameStates.Overworld;
 	}
 
+	public void StartNewGame()
+	{
+		// TODO additional stuff around this
+		StartCoroutine(saveManager.LoadFromText(newGameSaveData));
+	}
+
 	public void Pause()
 	{
 		Time.timeScale = 0;

@@ -110,6 +110,50 @@ namespace RPG.Save
 			}
 		}
 
+		public class ParseOperation : ThreadOperation
+		{
+			private string _text;
+			private JSchema _schema;
+			public JObject data { get; private set; }
+
+			public ParseOperation(string text, JSchema schema)
+			{
+				_text = text;
+				data = null;
+				_schema = schema;
+				thread = new Thread(ParseText);
+				thread.Start();
+			}
+
+			void ParseText()
+			{
+				JObject saveData = null;
+				try
+				{
+					saveData = JObject.Parse(_text);
+				}
+				catch (Newtonsoft.Json.JsonReaderException exception)
+				{
+					Debug.LogWarning("Save file not valid JSON: " + exception.Message);
+					return;
+				}
+
+				IList<string> validationErrors;
+				if (saveData.IsValid(_schema, out validationErrors))
+				{
+					data = saveData;
+				}
+				else
+				{
+					Debug.LogWarning("Save File had invalid json");
+					foreach (string error in validationErrors)
+					{
+						Debug.LogWarning(error);
+					}
+				}
+			}
+		}
+
 		[SerializeField] TextAsset saveSchemaFile;
 		JSchema saveSchema;
 		// Events for UI to subscribe to
@@ -151,6 +195,18 @@ namespace RPG.Save
 			if (loadOp.data != null)
 			{
 				GameController.Instance.Load(loadOp.data);
+			}
+			OnFinishLoad.Invoke();
+		}
+
+		public IEnumerator LoadFromText(TextAsset text)
+		{
+			ParseOperation parseOp = new ParseOperation(text.text, saveSchema);
+			OnStartLoad.Invoke();
+			yield return new WaitUntil(() => parseOp.IsDone);
+			if(parseOp.data != null)
+			{
+				GameController.Instance.Load(parseOp.data);
 			}
 			OnFinishLoad.Invoke();
 		}

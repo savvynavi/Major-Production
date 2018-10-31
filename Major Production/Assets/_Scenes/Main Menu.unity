@@ -3133,8 +3133,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 700140104}
   m_HandleRect: {fileID: 700140103}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4242,7 +4242,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1743548530}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4432,7 +4432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0.000008609129}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0.00003353141}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &847742297
@@ -7030,7 +7030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tutorial_Greybox
+  m_Text: Town Greybox
 --- !u!222 &1240589542
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8236,6 +8236,8 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: Town Greybox
+      m_Image: {fileID: 0}
     - m_Text: Tutorial_Greybox
       m_Image: {fileID: 0}
     - m_Text: Greybox Test
@@ -8245,8 +8247,6 @@ MonoBehaviour:
     - m_Text: Castle_Outside
       m_Image: {fileID: 0}
     - m_Text: Keep_FL1_Level
-      m_Image: {fileID: 0}
-    - m_Text: Town Greybox
       m_Image: {fileID: 0}
     - m_Text: Overworld Greybox
       m_Image: {fileID: 0}
@@ -8771,7 +8771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000045776367, y: -0.000012561877}
+  m_AnchoredPosition: {x: 0.000045776367, y: 0.0000174962}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1511778827
@@ -9778,7 +9778,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1014341639}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

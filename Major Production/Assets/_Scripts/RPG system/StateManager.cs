@@ -25,6 +25,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public bool PlayerTurnOver = false;
 
 		//int rand;
 		List<Character> enemies;
@@ -174,9 +175,6 @@ namespace RPGsys {
 			// loop while players alive
 			while(!BattleOver()){
 				yield return PlayerTurn();
-				while(confirmMoves == false){
-					yield return LockInMoves();
-				}
 				yield return EnemyTurn();
 				yield return ApplyMoves();
 			}
@@ -221,9 +219,11 @@ namespace RPGsys {
 
 			//loop through characters and wait until input to move to next one
 			//this allows the player to pick the turn order until there are no moves left
-			while(turnBehaviour.numOfTurns > 0) {
+			turnBehaviour.contUi.SetInteractable();
+			while(PlayerTurnOver == false) {
 				for(int i = 0; i < characters.Count; i++) {
 					if(characters[i].ActivePlayer == true) {
+						
 
 						characterButtonList.uis[i].ShowPowerButtons();
 						battleUIController.MenuHp.UpdateInfo(characters[i]);
@@ -256,7 +256,7 @@ namespace RPGsys {
 							}
 						}
 
-						//shows the current players buttons, will only move on currently if power selected or undo button pressed
+						//shows the current players buttons, will only move on if player selects new character
 						while(characters[i].ActivePlayer == true) {
 							yield return null;
 						}
@@ -303,24 +303,6 @@ namespace RPGsys {
 			return -1;
 		}
 
-
-		public IEnumerator LockInMoves() {
-			battleUIController.moveConfirmMenu.ShowMenu();
-			while(confirmMoves != true) {
-				yield return null;
-			}
-			battleUIController.moveConfirmMenu.HideMenu();
-			if(redoTurn == true) {
-				turnBehaviour.MovesThisRound.Clear();
-				turnBehaviour.ResetTurnNumber();
-
-				//clearing projections
-				decalUI.ClearAll();
-				yield return PlayerTurn();
-			}
-			yield return true;
-		}
-
 		//clear menu away, rand select move
 		public IEnumerator EnemyTurn() {
 			yield return new WaitForEndOfFrame();
@@ -365,6 +347,7 @@ namespace RPGsys {
 
 		//loop through moves on a delay, apply to targets
 		public IEnumerator ApplyMoves() {
+			PlayerTurnOver = false;
 
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
@@ -434,8 +417,9 @@ namespace RPGsys {
 							info.player.GetComponent<Animator>().Play(name);
 
 
-
-							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+							if(info.player.target.GetComponent<Character>() != info.player) {
+								info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+							}
 							//if player character, will allow them to go back to isle anim 
 							if(info.player.tag != "Enemy") {
 								info.player.GetComponent<Animator>().SetBool("IdleTransition", true);

@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour, ISaveable {
 	[SerializeField]
 	SaveManager saveManager;
 	JObject autosaveData;
+	[SerializeField]
+	TextAsset newGameSaveData;
 
 
 	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }

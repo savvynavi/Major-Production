@@ -8,6 +8,8 @@ public class LoadScreen : MonoBehaviour {
 	[SerializeField] Text infoText;
 	[SerializeField] Slider progressBar;
 
+	// TODO loadscreen stuff for initial cutscene?
+
 	// Use this for initialization
 	void Start () {
 		gameObject.SetActive(false);

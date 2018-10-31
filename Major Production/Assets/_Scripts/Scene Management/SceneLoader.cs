@@ -7,6 +7,7 @@ using RPG.Save;
 using Newtonsoft.Json.Linq;
 
 // TODO Saving/Loading puts character back at entrypoint. Maybe think about having specific point to put character instead?
+// TODO write stuff for allowing operation activation
 
 /// <summary>
 /// This class manages loading and unloading scenes. It also stores data for PersistentObjects
@@ -142,6 +143,29 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 			OnLoadProgress.Invoke(loadOp.progress);
 			yield return new WaitForEndOfFrame();
 		}
+		OnLoadDone.Invoke();
+		Scene newScene = SceneManager.GetSceneByName(sceneName);
+		SceneManager.SetActiveScene(newScene);
+		currentSceneController = FindObjectOfType<SceneController>();
+		worldScene = newScene;
+		Debug.Log(newScene.name);
+		State = ELoaderState.Idle;
+	}
+
+	IEnumerator WaitingAsyncSceneLoad(string sceneName)
+	{
+		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+		loadOp.allowSceneActivation = false;
+		OnStartLoading.Invoke(sceneName);
+		while(loadOp.progress < 0.9f)
+		{
+			OnLoadProgress.Invoke(loadOp.progress);
+			yield return new WaitForEndOfFrame();
+		}
+		// TODO OnReady event?
+		yield return new WaitUntil(() => { return loadOp.isDone; });
+
+		// HACK extract following out (or otherwise refactor)
 		OnLoadDone.Invoke();
 		Scene newScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(newScene);

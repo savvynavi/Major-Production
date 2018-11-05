@@ -35,7 +35,7 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 		RPGsys.Character[] characters = GameController.Instance.Characters;
 		foreach(RPGsys.Character character in characters)
 		{
-
+			GameObject.Destroy(character.gameObject);
 		}
 		// TODO change wizard portrait
 		// empty inventory and remove all items

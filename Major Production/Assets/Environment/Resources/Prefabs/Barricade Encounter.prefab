@@ -653,6 +653,7 @@ GameObject:
   - component: {fileID: 136744639429610272}
   - component: {fileID: 23496485297413892}
   - component: {fileID: 114454596332536268}
+  - component: {fileID: 114257060193826096}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -4622,6 +4623,18 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   pronoun: 0
+--- !u!114 &114257060193826096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1683645281799792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6afee6d773f862d4e954e01e277ba1e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
 --- !u!114 &114423268254029630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4650,8 +4663,40 @@ MonoBehaviour:
   Name: Guard
   Portrait: {fileID: 21300000, guid: 98bc287e8d4049b48a33c6c0683422d6, type: 3}
   customEventDictionary:
-    keys: []
-    values: []
+    keys:
+    - GuardAppear
+    - GuardDeath
+    values:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114257060193826096}
+          m_MethodName: GuardAppear
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114257060193826096}
+          m_MethodName: GuardDeath
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   pronoun: 0
 --- !u!114 &114656929418539188
 MonoBehaviour:
@@ -4668,7 +4713,7 @@ MonoBehaviour:
   trigger: {fileID: 114423268254029630}
   conversation: {fileID: 11400000, guid: 5685e624923801a42991a0cd8de66ef2, type: 2}
   actor: {fileID: 114109961440249354}
-  guardActor: {fileID: 114454596332536268}
+  guard: {fileID: 0}
   barricade: {fileID: 1083276100221002}
 --- !u!136 &136744639429610272
 CapsuleCollider:

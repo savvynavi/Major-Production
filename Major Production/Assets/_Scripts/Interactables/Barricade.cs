@@ -12,7 +12,7 @@ namespace RPG{
 		public PersistentTrigger trigger;
 		public Conversation conversation;
 		public DialogueActor actor;
-		public DialogueActor guardActor;
+		public BarricadeGuard guard;
 		public GameObject barricade; // for testing, might change later
 		// TODO persistent trigger to store being dropped
 
@@ -36,7 +36,7 @@ namespace RPG{
 		{
 			// Assign Speakers to my dialogue actors
 			dialogueManager.actors["Barricade"] = actor;
-			dialogueManager.actors["BarricadeGuard"] = guardActor;
+			dialogueManager.actors["BarricadeGuard"] = guard.actor;
 			dialogueManager.StartConversation(conversation);
 		}
 
@@ -62,7 +62,7 @@ namespace RPG{
 		private void SetBarricadeDown()
 		{
 			barricade.SetActive(false);
-			guardActor.gameObject.SetActive(false);
+			guard.gameObject.SetActive(false);
 			this.GetComponent<BoxCollider>().enabled = false;
 		}
 

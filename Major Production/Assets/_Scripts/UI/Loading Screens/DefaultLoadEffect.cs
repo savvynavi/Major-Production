@@ -69,7 +69,7 @@ namespace RPG.UI {
 		}
 
 		// Use this for initialization
-		void Start()
+		void Awake()
 		{
 			gameObject.SetActive(false);
 		}

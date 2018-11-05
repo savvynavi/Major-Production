@@ -11,6 +11,7 @@ namespace RPG.UI
 		[SerializeField] Text infoText;
 		[SerializeField] Slider progressBar;
 		public LoadingEffect defaultLoad;
+		public LoadingEffect cutsceneLoad;
 
 		// TODO loadscreen stuff for initial cutscene?
 

@@ -118,6 +118,7 @@ public class GameController : MonoBehaviour, ISaveable {
 		// TODO additional stuff around this
 		SceneManager.LoadScene(startingCutsceneName);
 		// block activation until player activates or cutscene ends
+		loadScreen.SelectEffect(loadScreen.cutsceneLoad);
 		SceneLoader.Instance.BlockNextSceneActivation();
 		StartCoroutine(saveManager.LoadFromText(newGameSaveData));
 	}
@@ -228,6 +229,7 @@ public class GameController : MonoBehaviour, ISaveable {
 			inventory.Clear();
 			state = EGameStates.Menu;
 			SceneLoader.Instance.AllowSceneActivation();
+			loadScreen.SelectEffect(loadScreen.defaultLoad);
 			SceneManager.LoadScene("Main Menu");
 			// HACK would be better to show an error to the player
 			Debug.LogWarning("Exception on loading file: " + e.Message);

@@ -655,6 +655,7 @@ GameObject:
   - component: {fileID: 95245440981473598}
   - component: {fileID: 143800258186398170}
   - component: {fileID: 114859750007439480}
+  - component: {fileID: 114915002583655398}
   m_Layer: 0
   m_Name: Beta
   m_TagString: Player
@@ -2156,6 +2157,20 @@ MonoBehaviour:
   speed: 5
   randCount: {fileID: 0}
   EncounterTimer: 0
+--- !u!114 &114915002583655398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1675859344170450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681f79cf602620f4086f81e4a7fb293c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionPopup: {fileID: 0}
+  ActionText: {fileID: 0}
+  CanInteract: 1
 --- !u!137 &137184225609358470
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

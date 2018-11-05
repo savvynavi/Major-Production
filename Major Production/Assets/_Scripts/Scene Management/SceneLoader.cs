@@ -37,10 +37,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 
 	public ELoaderState State { get; private set; }
 
-	[Header("Loading Events")]
-	public StringEvent OnStartLoading;
-	public FloatEvent OnLoadProgress;
-	public UnityEvent OnLoadDone;
+	public RPG.UI.LoadScreen loadScreen { get { return GameController.Instance.loadScreen; } }
 
 	private void Awake()
 	{
@@ -111,18 +108,19 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	{
 		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		loadOp.allowSceneActivation = false;
-		OnStartLoading.Invoke(sceneName);
+		loadScreen.BeginSceneLoad(sceneName);
 		// TODO do battle loading effects
 		while(loadOp.progress < 0.9f)
 		{
-			OnLoadProgress.Invoke(loadOp.progress);
+			loadScreen.UpdateProgress(loadOp.progress);
 			yield return new WaitForEndOfFrame();
 		}
+		loadScreen.SceneReady();
 		// Deactivate objects in world scene
 		SetSceneObjectActive(worldScene, false);
 		loadOp.allowSceneActivation = true;
 		yield return new WaitUntil(() => { return loadOp.isDone; });
-		OnLoadDone.Invoke();
+		loadScreen.FinishSceneLoad();
 		battleScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(battleScene);
 		GameController.Instance.state = GameController.EGameStates.Battle;
@@ -135,15 +133,16 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	IEnumerator AsyncSceneLoad(string sceneName)
 	{
 		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-		OnStartLoading.Invoke(sceneName);
+		loadScreen.BeginSceneLoad(sceneName);
 		//TODO tell last scene's SceneController it's ending so it can save changes?
 		// TODO scene loading effects (maybe full load scene?)
 		while (!loadOp.isDone)
 		{
-			OnLoadProgress.Invoke(loadOp.progress);
+			loadScreen.UpdateProgress(loadOp.progress);
 			yield return new WaitForEndOfFrame();
 		}
-		OnLoadDone.Invoke();
+		loadScreen.SceneReady();
+		loadScreen.FinishSceneLoad();
 		Scene newScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(newScene);
 		currentSceneController = FindObjectOfType<SceneController>();
@@ -156,17 +155,18 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	{
 		AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 		loadOp.allowSceneActivation = false;
-		OnStartLoading.Invoke(sceneName);
+		loadScreen.BeginSceneLoad(sceneName);
 		while(loadOp.progress < 0.9f)
 		{
-			OnLoadProgress.Invoke(loadOp.progress);
+			loadScreen.UpdateProgress(loadOp.progress);
 			yield return new WaitForEndOfFrame();
 		}
 		// TODO OnReady event?
+		loadScreen.SceneReady();
 		yield return new WaitUntil(() => { return loadOp.isDone; });
 
 		// HACK extract following out (or otherwise refactor)
-		OnLoadDone.Invoke();
+		loadScreen.FinishSceneLoad();
 		Scene newScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(newScene);
 		currentSceneController = FindObjectOfType<SceneController>();

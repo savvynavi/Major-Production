@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour, ISaveable {
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
 	[SerializeField] MenuManager menus;
+	public LoadScreen loadScreen;
 	public CharacterPrefabList prefabList; // Might be needed to force its loading? should test in build with and without
 
 	[Header("Save System")]

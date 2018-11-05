@@ -10,7 +10,7 @@ namespace RPG.UI
 		LoadingEffect selectedEffect;
 		[SerializeField] Text infoText;
 		[SerializeField] Slider progressBar;
-		public DefaultLoadEffect defaultLoad;
+		public LoadingEffect defaultLoad;
 
 		// TODO loadscreen stuff for initial cutscene?
 
@@ -53,11 +53,15 @@ namespace RPG.UI
 		public void FinishSceneLoad()
 		{
 			selectedEffect.FinishSceneLoad();
+			// Go back to default effect
+			SelectEffect(defaultLoad);
 		}
 
 		public void LoadFailed()
 		{
 			selectedEffect.LoadFailed();
+			// Go back to default effect
+			SelectEffect(defaultLoad);
 		}
 	}
 }

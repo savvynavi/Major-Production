@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour, ISaveable {
 	[SerializeField] MenuManager menus;
 	public LoadScreen loadScreen;
 	public CharacterPrefabList prefabList; // Might be needed to force its loading? should test in build with and without
+	[SerializeField] string startingCutsceneName;
 
 	[Header("Save System")]
 	[SerializeField]
@@ -115,6 +116,9 @@ public class GameController : MonoBehaviour, ISaveable {
 	public void StartNewGame()
 	{
 		// TODO additional stuff around this
+		SceneManager.LoadScene(startingCutsceneName);
+		// block activation until player activates or cutscene ends
+		SceneLoader.Instance.BlockNextSceneActivation();
 		StartCoroutine(saveManager.LoadFromText(newGameSaveData));
 	}
 
@@ -223,6 +227,7 @@ public class GameController : MonoBehaviour, ISaveable {
 			BattleManager.Instance.playerTeam = null;
 			inventory.Clear();
 			state = EGameStates.Menu;
+			SceneLoader.Instance.AllowSceneActivation();
 			SceneManager.LoadScene("Main Menu");
 			// HACK would be better to show an error to the player
 			Debug.LogWarning("Exception on loading file: " + e.Message);

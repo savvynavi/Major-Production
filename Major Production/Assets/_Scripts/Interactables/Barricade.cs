@@ -62,6 +62,7 @@ namespace RPG{
 		private void SetBarricadeDown()
 		{
 			barricade.SetActive(false);
+			guardActor.gameObject.SetActive(false);
 			this.GetComponent<BoxCollider>().enabled = false;
 		}
 

@@ -43,7 +43,6 @@ namespace RPGsys {
 				if(Name != null) {
 					Name.text = power.powName;
 					if(Btn.GetComponentInChildren<Text>().text != null) {
-						Debug.Log("button text not null");
 					}
 				}
 
@@ -56,7 +55,8 @@ namespace RPGsys {
 		public void HandleClick() {
 			Debug.Log("power button clicked: " + power.powName);
 			FindObjectOfType<TurnBehaviour>().TurnAddAttack(power, character);
-			character.ActivePlayer = true;
+
+			//character.ActivePlayer = true;
 		}
 
 	}

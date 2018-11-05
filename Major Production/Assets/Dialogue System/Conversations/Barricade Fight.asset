@@ -35,7 +35,7 @@ MonoBehaviour:
         - transition:
             TargetID: 2
           condition: {fileID: 0}
-      Position: {x: 157, y: 121}
+      Position: {x: 157, y: 133}
     - Text: Leave it alone
       OnChosen: []
       Prerequisite: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
             TargetID: 1
           condition: {fileID: 0}
       Position: {x: 399, y: 144}
-    position: {x: 265, y: 62}
+    position: {x: 263, y: 56}
   - ID: 1
     Title: 
     speakerIndex: 0
@@ -62,7 +62,9 @@ MonoBehaviour:
   - ID: 2
     Title: Challenge
     speakerIndex: 1
-    Text: Hey! What are you doing here?
+    Text: Hey! Get out of here! {"Go and boil your bottoms, sons of a silly person!"|"I
+      fart in your general direction!"|"Your mother was a hamster and your father
+      smelled of elderberries!"}
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -81,11 +83,11 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 110, y: 225}
+    position: {x: 130, y: 215}
   - ID: 3
     Title: Lost
     speakerIndex: 1
-    Text: And stay out!
+    Text: Now go away or I shall taunt you a second time!
     OnEnter: []
     OnExit: []
     cutsceneEvents: []

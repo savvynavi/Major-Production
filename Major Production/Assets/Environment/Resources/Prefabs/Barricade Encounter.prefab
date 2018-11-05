@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114076311469881374}
   - component: {fileID: 65464453446041380}
   - component: {fileID: 114409244397591768}
+  - component: {fileID: 114269366438765418}
   m_Layer: 0
   m_Name: Barricade Encounter
   m_TagString: Untagged
@@ -225,10 +226,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionDescription: Inspect
+  trigger: {fileID: 0}
   conversation: {fileID: 11400000, guid: 5685e624923801a42991a0cd8de66ef2, type: 2}
   actor: {fileID: 0}
   guardActor: {fileID: 114750588065585082}
   barricade: {fileID: 1998176628093584}
+--- !u!114 &114269366438765418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267581561000778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbb8f939e9b8c04d9e914c22f76dd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
+  controller: {fileID: 0}
+  Triggered: 0
 --- !u!114 &114409244397591768
 MonoBehaviour:
   m_ObjectHideFlags: 1

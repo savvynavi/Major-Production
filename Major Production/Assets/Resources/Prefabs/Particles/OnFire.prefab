@@ -53,9 +53,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1543781406937580}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 45.78, y: 117.39835, z: 397.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.49961197, y: -0.5003877, z: -0.5003877, w: 0.49961197}
+  m_LocalPosition: {x: 56.337276, y: 123.54848, z: 363.23077}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4944112173326470}
   m_Father: {fileID: 0}
@@ -67,9 +67,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1770197884529828}
-  m_LocalRotation: {x: 0, y: 0, z: 0.3664869, w: 0.9304232}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25000024, z: 0.25000024}
+  m_LocalRotation: {x: 0, y: 0, z: 0.74313486, w: 0.6691417}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4055396748021284}
   m_RootOrder: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xRotation: 0
   yRotation: 0
-  zRotation: 1
+  zRotation: 2
 --- !u!198 &198297619890066458
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -162,7 +162,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 261703423
+  randomSeed: -357663259
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3523,7 +3523,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1580719393
+  randomSeed: -600471333
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6927,7 +6927,7 @@ ParticleSystemRenderer:
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 1
   m_VertexStreams: 000103041516
-  m_Mesh: {fileID: 4300024, guid: 27cd3ffabf618924f9c9eeefb09b60e0, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 9474bd5f7754cde4d8f3afaae3fe3c4a, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}

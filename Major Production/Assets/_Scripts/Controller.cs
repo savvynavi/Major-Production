@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour {
 	public float speed;
+	public float rotation;
 	public GameObject randCount;
 	public float EncounterTimer; 
 	public bool IsMoving { get { return characterController.isGrounded && characterController.velocity != Vector3.zero; } }
+	bool frozen = false;
 
 	CharacterController characterController;
 	Animator anim;
@@ -21,15 +23,22 @@ public class Controller : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		moveDir = Vector3.zero;
 	}
-	
+
 	//currently no isGrounded check
-	void FixedUpdate () {
+	void FixedUpdate()
+	{
 		//basic blend tree stuff
 		float right = Input.GetAxis("Horizontal");
 		float forward = Input.GetAxis("Vertical");
-        //anim.SetBool("isSprinting", Input.GetButton("Sprint"));
-
-		Move(forward, right);
+		//anim.SetBool("isSprinting", Input.GetButton("Sprint"));
+		if (!frozen)
+		{
+			Move(forward, right);
+		}
+		else
+		{
+			anim.SetBool("isWalking", false);
+		}
 	}
 
 	//does animation movement 
@@ -52,11 +61,10 @@ public class Controller : MonoBehaviour {
 		if (horizontalVelocity.magnitude > 0)
 		{
 			// HACK make this nicer
-			
-			transform.forward = horizontalVelocity.normalized;
-			// TODO fix transition to go off faster
+			transform.forward = Vector3.RotateTowards(transform.forward, horizontalVelocity.normalized, rotation * Time.fixedDeltaTime, 0);
 			anim.SetBool("isWalking", true);
-		} else
+		}
+		else
 		{
 			anim.SetBool("isWalking", false);
 		}
@@ -64,11 +72,11 @@ public class Controller : MonoBehaviour {
 
 	public void Freeze()
 	{
-		anim.enabled = false;
+		frozen = true;
 	}
 
 	public void Unfreeze()
 	{
-		anim.enabled = true;
+		frozen = false;
 	}
 }

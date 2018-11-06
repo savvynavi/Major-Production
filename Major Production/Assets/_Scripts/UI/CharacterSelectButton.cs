@@ -51,7 +51,7 @@ namespace RPG.UI
 			{
 				if (character != null)
 				{
-					return character.name;
+					return character.characterName;
 				} else
 				{
 					return null;

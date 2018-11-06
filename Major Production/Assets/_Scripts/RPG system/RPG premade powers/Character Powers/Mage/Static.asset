@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Static
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  manaCost: 0
-  damage: 0
-  dmgType: 2
-  statType: 0
-  areaOfEffect: 0
-  anim: 0
   powName: Static
   description: Zap a target with an electic charge
+  icon: {fileID: 0}
+  damage: 100
+  dmgType: 2
+  statType: 3
+  ScalePercentage: 0.75
+  manaCost: 5
+  areaOfEffect: 0
   duration: 3
   currentEffects:
   - {fileID: 11400000, guid: db418ca748f3fe547941a041fdd66b82, type: 2}
+  anim: 11

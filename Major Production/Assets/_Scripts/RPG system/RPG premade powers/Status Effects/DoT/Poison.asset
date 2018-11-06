@@ -11,10 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
-  particles: {fileID: 0}
+  particles: {fileID: 198256331625144942, guid: d370f6792f1e17c47bc6adf458b94c2d,
+    type: 2}
   material: {fileID: 0}
+  shader: {fileID: 0}
+  gObject: {fileID: 0}
   equipable: 0
-  timer: 0
+  timer: 4
   StatusEffects:
     effect: 3
     statBuff: 5

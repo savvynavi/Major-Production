@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  manaCost: 0
-  damage: 0
-  dmgType: 0
-  statType: 0
-  areaOfEffect: 0
-  anim: 0
   powName: 'Fireball '
   description: 
+  icon: {fileID: 0}
+  damage: 200
+  dmgType: 0
+  statType: 3
+  ScalePercentage: 1
+  manaCost: 50
+  areaOfEffect: 0
   duration: 1
   currentEffects:
   - {fileID: 11400000, guid: 8b3821779004e86429ba8aee82275033, type: 2}
+  anim: 12

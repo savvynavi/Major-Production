@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Ignite
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  manaCost: 30
-  damage: 150
-  dmgType: 0
-  statType: 3
-  areaOfEffect: 0
-  anim: 0
   powName: Ignite
   description: 'Set a target ablaze '
-  duration: 1
+  icon: {fileID: 0}
+  damage: 100
+  dmgType: 2
+  statType: 3
+  ScalePercentage: 0.25
+  manaCost: 30
+  areaOfEffect: 0
+  duration: 2
   currentEffects:
   - {fileID: 11400000, guid: 8b3821779004e86429ba8aee82275033, type: 2}
+  anim: 11

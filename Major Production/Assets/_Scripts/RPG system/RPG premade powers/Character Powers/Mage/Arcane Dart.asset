@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Arcane Dart
   m_EditorClassIdentifier: 
-  manaCost: 5
+  powName: Arcane Dart
+  description: 'Blasts an enemy with a magic projectile '
+  icon: {fileID: 0}
   damage: 100
   dmgType: 2
   statType: 3
+  ScalePercentage: 1
+  manaCost: 0
   areaOfEffect: 0
-  anim: 0
-  powName: Arcane Dart
-  description: 'Blasts an enemy with a magic projectile '
   duration: 0
   currentEffects: []
+  anim: 11

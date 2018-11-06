@@ -214,6 +214,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		worldScene = newScene;
 		Debug.Log(newScene.name);
 		State = ELoaderState.Idle;
+		GameController.Instance.state = GameController.EGameStates.Overworld;
 		loadOp = null;
 	}
 

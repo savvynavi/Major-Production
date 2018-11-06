@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 114323168386545994}
   - component: {fileID: 114031493243004326}
   - component: {fileID: 114912838262789470}
+  - component: {fileID: 114855187504152482}
   m_Layer: 0
   m_Name: Player Living
   m_TagString: Untagged
@@ -1864,6 +1865,23 @@ MonoBehaviour:
   rotation: 6
   randCount: {fileID: 0}
   EncounterTimer: 0
+--- !u!114 &114855187504152482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210573064432562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad78dd43ac72fff47aa6531133136909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFootstep: {fileID: 8300000, guid: 48497cd62f7ec8a4f8a7735682dce2f0, type: 3}
+  volume: 1
+  footstepLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  maxDistance: 2
 --- !u!114 &114912838262789470
 MonoBehaviour:
   m_ObjectHideFlags: 1

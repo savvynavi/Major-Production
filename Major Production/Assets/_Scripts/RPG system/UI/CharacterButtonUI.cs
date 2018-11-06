@@ -30,7 +30,7 @@ namespace RPGsys {
 
 						PowerUI = go.GetComponent<PowersUI>();
 						PowerUI.SetPower(pow, go, character);
-						go.name = PowerUI.Name.text + "(" + character.name + ")";
+						go.name = PowerUI.Name.text + "(" + character.characterName + ")";
 					}
 
 					//undo button setup
@@ -52,7 +52,7 @@ namespace RPGsys {
 
 		public void ShowPowerButtons() {
 			transform.gameObject.SetActive(true);
-			character.ActivePlayer = false;
+			//character.ActivePlayer = false;
 		}
 
 		public void HidePowerButtons() {

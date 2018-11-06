@@ -7,7 +7,7 @@ public class TestEndFight : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GetComponent<Button>().onClick.AddListener(BattleManager.Instance.EndBattle);
+        GetComponent<Button>().onClick.AddListener(RPG.BattleManager.Instance.EndBattle);
 	}
 	
 	// Update is called once per frame

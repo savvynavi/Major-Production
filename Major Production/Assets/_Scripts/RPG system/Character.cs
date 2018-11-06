@@ -91,6 +91,8 @@ namespace RPGsys{
 		public const int maxActivePowers = 4;
 		public const int maxRingSlots = 2;
 
+		public string characterName;
+
 		//base stats
 		public float speedStat;
 		public float strStat;
@@ -401,8 +403,6 @@ namespace RPGsys{
 		public void Load(JObject data)
 		{
             name = (string)data["name"];
-            // HACK character names should be their own field, not the object's name
-
 			// Load experience first because maybe that will affect equipment legality?
 			if(experience != null)
 			{

@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Gaurd
   m_EditorClassIdentifier: 
+  powName: Guard
+  description: 'Protect an Ally '
   icon: {fileID: 0}
-  manaCost: 30
   damage: 0
   dmgType: 1
   statType: 1
+  ScalePercentage: 0
+  manaCost: 10
   areaOfEffect: 0
-  anim: 2
-  powName: Guard
-  description: 'Protect an Ally '
   duration: 3
   currentEffects:
   - {fileID: 11400000, guid: b2f7ebdbc8ecf7b45939eeee5bb841b2, type: 2}
+  anim: 5

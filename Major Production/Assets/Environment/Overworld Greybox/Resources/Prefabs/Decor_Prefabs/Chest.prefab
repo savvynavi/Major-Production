@@ -332,7 +332,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a442422942b7ff240bc7259e69062eaa, type: 3}
+  - {fileID: 2100000, guid: 84a66575341dc6549a34bcdcea88adff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -366,7 +366,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a442422942b7ff240bc7259e69062eaa, type: 3}
+  - {fileID: 2100000, guid: 84a66575341dc6549a34bcdcea88adff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -399,14 +399,14 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353375659530306}
-  m_Mesh: {fileID: 4300002, guid: a442422942b7ff240bc7259e69062eaa, type: 3}
+  m_Mesh: {fileID: 4300002, guid: aae16740e8e6bb6439c86565516ba1be, type: 3}
 --- !u!33 &33799373560322630
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1974164576366598}
-  m_Mesh: {fileID: 4300000, guid: a442422942b7ff240bc7259e69062eaa, type: 3}
+  m_Mesh: {fileID: 4300000, guid: aae16740e8e6bb6439c86565516ba1be, type: 3}
 --- !u!65 &65600251801284952
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -581,9 +581,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionDescription: Open Chest
   contents:
-  - {fileID: 11400000, guid: f17923bcd77788644aa6022b496f7aae, type: 2}
-  - {fileID: 11400000, guid: 958816bb426327a46985bca0a1f991e1, type: 2}
-  - {fileID: 11400000, guid: 958816bb426327a46985bca0a1f991e1, type: 2}
+  - {fileID: 11400000, guid: 8665b8c93be9fc74aa8103df684befe2, type: 2}
+  - {fileID: 11400000, guid: 8665b8c93be9fc74aa8103df684befe2, type: 2}
+  - {fileID: 11400000, guid: 2fa0d3715a6e9f049b3ad3998292e62f, type: 2}
   dialogue: {fileID: 0}
   treasureImage: {fileID: 21300000, guid: 63e698edeb0df76448f068cb0a8f0090, type: 3}
   sparkleEffect: {fileID: 198875799967433628}

@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Net
   m_EditorClassIdentifier: 
+  powName: Net
+  description: Throw it on him, not me!
   icon: {fileID: 0}
-  manaCost: 0
   damage: 0
   dmgType: 0
   statType: 0
+  ScalePercentage: 0
+  manaCost: 10
   areaOfEffect: 0
-  anim: 0
-  powName: Net
-  description: Throw it on him, not me!
   duration: 3
   currentEffects:
-  - {fileID: 11400000, guid: 6d884a5e35ccdd04190e38afee63da37, type: 2}
+  - {fileID: 11400000, guid: 9deb901072f8318468105c1c40c203c3, type: 2}
+  anim: 10

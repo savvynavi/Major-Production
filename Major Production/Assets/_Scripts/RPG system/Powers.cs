@@ -15,7 +15,25 @@ namespace RPGsys {
 		}
 
 		public enum AbilityAnim {
-			RIGHT_PUNCH,
+            Strike,
+            LuteSlowPlaying,
+            LutePlaying,
+            MumbleRap,
+            Sweep,
+            Gaurd,
+            WarCry,
+            CallVolly,
+            Stab,
+            Hide,
+            ThrowObject,
+            SpellSingle,
+            SpellMulti,
+            GetDebuff,
+            GetBuff,
+            Death1,
+            BleedOut,
+
+            RIGHT_PUNCH,
 			KICK,
 			SPELL,
 			ORC_AXE,

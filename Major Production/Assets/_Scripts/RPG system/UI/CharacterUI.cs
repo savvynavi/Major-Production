@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using RPG.UI;
 
 namespace RPGsys {
@@ -28,7 +29,7 @@ namespace RPGsys {
 					Portrait.sprite = character.Portrait;
 				}
 				if(nameTag != null) {
-					nameTag.text = character.name;
+					nameTag.text = character.characterName;
 				}
 
 				//snaps the hp bar to current hp

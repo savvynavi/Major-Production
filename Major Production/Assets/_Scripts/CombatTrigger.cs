@@ -28,7 +28,7 @@ public class CombatTrigger : MonoBehaviour {
     {
         if (!triggered && other.CompareTag("Player"))
         {
-            BattleManager.Instance.StartBattle(battleScene, encounter.InstantiateEnemyTeam().transform);
+            RPG.BattleManager.Instance.StartBattle(battleScene, encounter);
             triggered = true;
         }
     }

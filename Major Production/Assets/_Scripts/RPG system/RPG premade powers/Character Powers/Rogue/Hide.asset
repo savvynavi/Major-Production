@@ -11,16 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Hide
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  manaCost: 5
-  damage: 50
-  dmgType: 0
-  statType: 1
-  areaOfEffect: 0
-  anim: 0
   powName: Hide
   description: avoid detection, then strike unexpectedly for more damage
+  icon: {fileID: 0}
+  damage: 0
+  dmgType: 0
+  statType: 1
+  ScalePercentage: 0
+  manaCost: 20
+  areaOfEffect: 0
   duration: 1
   currentEffects:
   - {fileID: 11400000, guid: 83e38e001a56d774db171654e7d69478, type: 2}
   - {fileID: 11400000, guid: d44e514af56e27b46b644280b99ee7b2, type: 2}
+  anim: 9

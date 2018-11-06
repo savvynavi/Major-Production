@@ -7,6 +7,13 @@ using UnityEngine.UI;
 using RPG.XP;
 
 namespace RPGsys {
+	public enum EBattleResult
+	{
+		Win,
+		Loss,
+		Flee
+	}
+
 	public class StateManager : MonoBehaviour {
 		public bool confirmMoves = false;
 		public bool redoTurn = false;
@@ -18,14 +25,14 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
-		public List<GameObject> projector;
-		public GameObject arrowProjector;
+		public bool PlayerTurnOver = false;
 
-		int rand;
+		//int rand;
 		List<Character> enemies;
 		List<Character> deadCharactersREVIVE;
 		List<Character> storeTargets;
 		TurnBehaviour turnBehaviour;
+		DecalUI decalUI;
 		EnemyBehaviour[] enemyBehav;
 		Quaternion originalRotation;
 		GameObject GameOverUI;
@@ -35,12 +42,12 @@ namespace RPGsys {
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
 		BattleUIController battleUIController;
-		List<GameObject> projectors;
-		List<GameObject> arrowProjectors;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
         [SerializeField] new Camera camera;
+
+		public EBattleResult result { get; private set; }
 
 		public TurnBehaviour GetTurnBehaviour() { return turnBehaviour; }
 
@@ -54,9 +61,10 @@ namespace RPGsys {
             FloatingTextController.HealEnemy();
             FloatingTextController.HealAlly();
 
-			BattleManager battleManager = BattleManager.Instance;
+			RPG.BattleManager battleManager = RPG.BattleManager.Instance;
 			battleManager.stateManager = this;
 			turnBehaviour = GetComponent<TurnBehaviour>();
+			decalUI = GetComponent<DecalUI>();
 			confirmMenu = GetComponent<MoveConfirmMenu>();
 
 			camMovement = GetComponent<CameraMovement>();
@@ -133,7 +141,6 @@ namespace RPGsys {
 			List<Character> tmp = new List<Character>();
 			//when battle reentered, forces any dead characters to act like it
 			foreach(Character chara in characters) {
-				Debug.Log(chara.name + "'s HP: " + chara.Hp);
 				if(chara.Hp <= 0) {
 					tmp.Add(chara);
 					Death(chara, tmp);
@@ -155,9 +162,8 @@ namespace RPGsys {
 			}
 
 			turnBehaviour.Setup(characters, enemies);
-			//confirmMenu.Setup();
-			projectors = new List<GameObject>();
-			arrowProjectors = new List<GameObject>();
+
+			result = EBattleResult.Flee;
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -169,9 +175,6 @@ namespace RPGsys {
 			// loop while players alive
 			while(!BattleOver()){
 				yield return PlayerTurn();
-				while(confirmMoves == false){
-					yield return LockInMoves();
-				}
 				yield return EnemyTurn();
 				yield return ApplyMoves();
 			}
@@ -214,128 +217,90 @@ namespace RPGsys {
 				chara.GetComponent<Animator>().SetBool("IdleTransition", true);
 			}
 
-
-			////TODO set it up so that right clicking characters sets them as active/deactivates current active character (will let player chooose turn order)
-			////ALSO make it so it doesn't auto-move onto the next round when all moves are set(replace lockin moves menu with a thing that waits until a done button is pressed(if no move selected do random one as test))
 			//loop through characters and wait until input to move to next one
-			for(int i = 0; i < characters.Count; i++) {
-				characterButtonList.uis[i].ShowPowerButtons();
-				//TODO change this to be active character
-				battleUIController.MenuHp.UpdateInfo(characters[i]);
+			//this allows the player to pick the turn order until there are no moves left
+			turnBehaviour.contUi.SetInteractable();
+			while(PlayerTurnOver == false) {
+				for(int i = 0; i < characters.Count; i++) {
+					if(characters[i].ActivePlayer == true) {
+						
 
-				foreach(Character chara2 in characters) {
-					chara2.GetComponent<TargetSelection>().enabled = false;
-				}
-				characters[i].GetComponent<TargetSelection>().enabled = true;
+						characterButtonList.uis[i].ShowPowerButtons();
+						battleUIController.MenuHp.UpdateInfo(characters[i]);
+						foreach(Character chara2 in characters) {
+							chara2.GetComponent<TargetSelection>().enabled = false;
+						}
+						characters[i].GetComponent<TargetSelection>().enabled = true;
 
-				//selector only visible if the target isn't null
-				if(characters[i].target != null) {
-					selector.gameObject.SetActive(true);
-					selector.transform.position = characters[i].target.transform.position;
-				} else {
-					selector.gameObject.SetActive(false);
-				}
+						//selector only visible if the target isn't null
+						if(characters[i].target != null) {
+							selector.gameObject.SetActive(true);
+							selector.transform.position = characters[i].target.transform.position;
+						} else {
+							selector.gameObject.SetActive(false);
+						}
 
-
-
-				int currentPlayer = i;
-				int previousPlayer = i - 1;
-
-				//shows the current players buttons, will only move on currently if power selected or undo button pressed
-				while(characters[i].ActivePlayer == false) {
-					if(characterButtonList.uis[i].UndoMove == true) {
-						characterButtonList.uis[i].UndoMove = false;
-						characters[i].ActivePlayer = true;
-						currentPlayer = previousPlayer;
-						////decal stuff, deletes last one set if move undone
-						GameObject lastObj = projectors.Last();
-						projectors.Remove(lastObj);
-						Destroy(lastObj);
-
-						GameObject lastArrowObj = arrowProjectors.Last();
-						arrowProjectors.Remove(lastArrowObj);
-						Destroy(lastArrowObj);
-					}
-					yield return null;
-				}
-
-
-				//if undo button hit, sets previous player to idle anim, hides buttons of current, removes the last set move and sets i to be 1 less than prev(does this as on next loop will auto i++)
-				if(currentPlayer == previousPlayer) {
-					characters[currentPlayer].GetComponent<Animator>().SetBool("IdleTransition", true);
-					characterButtonList.uis[i].HidePowerButtons();
-
-					i = previousPlayer - 1;
-
-				} else {
-
-					//decal stuff
-					if(characters[i].target != null) {
-						int count = 0;
-						for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
-							if(turnBehaviour.MovesThisRound[j].player.target == characters[i].target) {
-								count++;
+						//remove last power for this character if you reselect them
+						foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
+							if(info.player == characters[i]) {
+								turnBehaviour.RemoveAttack(info);
+								break;
 							}
 						}
-						//disc spawning
-						GameObject tmpObj = Instantiate(projector[count - 1]);
-						tmpObj.transform.position = new Vector3(characters[i].target.transform.position.x, tmpObj.transform.position.y, characters[i].target.transform.position.z);
-						projectors.Add(tmpObj);
 
-						//wont spawn an arrow if it's a self/team targeting move, as the arrows look super janked if they do
-						if(characters[i].target.tag != "Player") {
-							//arrow instantiating, spawns an arrow then rotates it towards the enemy from the character
-							//TODO add in arrow delete parts, figure out how to colour the rings
-							GameObject tmpArrow = Instantiate(arrowProjector);
-							Vector3 midPoint = (characters[i].transform.position + (characters[i].target.transform.position - characters[i].transform.position) / 2);
-							tmpArrow.transform.position = new Vector3(midPoint.x, tmpObj.transform.position.y, midPoint.z);
-
-							//scales the arrow so it fits between the characters
-							float distance = Vector3.Distance(characters[i].transform.position, characters[i].target.transform.position);
-							tmpArrow.GetComponent<Projector>().orthographicSize = distance / 2;
-							tmpArrow.GetComponent<Projector>().aspectRatio = 1 / Mathf.Pow(tmpArrow.GetComponent<Projector>().orthographicSize, 2);
-
-							tmpArrow.transform.LookAt(characters[i].target.transform);
-							tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
-
-							arrowProjectors.Add(tmpArrow);
+						//remove decals from this character if reselected
+						foreach(DecalUI.DecalInfo info in decalUI.decalInfo) {
+							if(info.player == characters[i]) {
+								decalUI.RemoveDecal(info);
+								break;
+							}
 						}
 
+						//shows the current players buttons, will only move on if player selects new character
+						while(characters[i].ActivePlayer == true) {
+							yield return null;
+						}
+
+						//sets them out of idle state, hides their power buttons
+						MoveSetCheck(i);
+						characterButtonList.uis[i].HidePowerButtons();
+					}else {
+						//put something here to stop it crashing :p
+						characters[i].ActivePlayer = true;
 					}
-
-					//sets them out of idle state, hides their power buttons
-					characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
-					characterButtonList.uis[i].HidePowerButtons();
 				}
-
-
+				
 			}
 		}
 
-		public IEnumerator LockInMoves() {
-			battleUIController.moveConfirmMenu.ShowMenu();
-			while(confirmMoves != true) {
-				yield return null;
-			}
-			battleUIController.moveConfirmMenu.HideMenu();
-			if(redoTurn == true) {
-				turnBehaviour.MovesThisRound.Clear();
-				turnBehaviour.ResetTurnNumber();
 
-				//clearing projections
-				for(int i = projectors.Count - 1; i >= 0; i--) {
-					Destroy(projectors[i]);
+		public void AddDecal(Character chara) {
+
+			foreach(DecalUI.DecalInfo info in decalUI.decalInfo) {
+				if(info.player == chara) {
+					decalUI.RemoveDecal(info);
+					break;
 				}
-				projectors.Clear();
-
-				for(int i = arrowProjectors.Count - 1; i >= 0; i--) {
-					Destroy(arrowProjectors[i]);
-				}
-				arrowProjectors.Clear();
-
-				yield return PlayerTurn();
 			}
-			yield return true;
+			//if no target selected, will select one for you
+			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
+				RandomTargetSelect(info);
+			}
+
+			if(chara.target != null) {
+				decalUI.InstantiateDecal(GetIndex(chara), chara, chara.target.GetComponent<Character>(), turnBehaviour);
+
+			}
+			MoveSetCheck(GetIndex(chara));
+		}
+
+		public int GetIndex(Character chara) {
+			for(int i = 0; i < characters.Count; i++) {
+				if(characters[i] == chara) {
+					return i;
+				}
+			}
+			return -1;
 		}
 
 		//clear menu away, rand select move
@@ -382,21 +347,14 @@ namespace RPGsys {
 
 		//loop through moves on a delay, apply to targets
 		public IEnumerator ApplyMoves() {
+			PlayerTurnOver = false;
 
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();
 			turnBehaviour.MovesThisRound = sortedList;
 
 			//destroying all the projector objects in the lists and then clearing lists
-			for(int i = projectors.Count - 1; i >= 0; i--) {
-				Destroy(projectors[i]);
-			}
-			projectors.Clear();
-
-			for(int i = arrowProjectors.Count - 1; i >= 0; i--) {
-				Destroy(arrowProjectors[i]);
-			}
-			arrowProjectors.Clear();
+			decalUI.ClearAll();
 
 			//each loop is a players turn
 			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
@@ -412,21 +370,7 @@ namespace RPGsys {
 				}
 
 				if(info.player.Hp > 0) {
-					if(info.player.target == null) {
-						rand = Random.Range(0, enemies.Count);
-						info.player.target = enemies[rand].gameObject;
-					}
-					if(info.player.target.GetComponent<Character>().Hp <= 0) {
-						//add check if target is dead, if so randomly selects enemy to fight
-						for(int i = 0; i < enemies.Count; i++) {
-							if(enemies[i].GetComponent<Character>().Hp > 0) {
-								info.player.target = enemies[i].gameObject;
-								break;
-							} else {
-								info.player.target = null;
-							}
-						}
-					}
+					RandomTargetSelect(info);
 
 					if(info.player.target != null) {
 						//turn player towards target
@@ -473,8 +417,9 @@ namespace RPGsys {
 							info.player.GetComponent<Animator>().Play(name);
 
 
-
-							info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+							if(info.player.target.GetComponent<Character>() != info.player) {
+								info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+							}
 							//if player character, will allow them to go back to isle anim 
 							if(info.player.tag != "Enemy") {
 								info.player.GetComponent<Animator>().SetBool("IdleTransition", true);
@@ -560,6 +505,8 @@ namespace RPGsys {
 		private IEnumerator WinRoutine()
 		{
 			GameOverUI.SetActive(true);
+			result = EBattleResult.Win;
+
 			// Do experience stuff
 			int battleXP = 0;
 			Dictionary<Character, XPEvent> xpEvents = new Dictionary<Character, XPEvent>();
@@ -613,6 +560,7 @@ namespace RPGsys {
 		{
 			GameOverUI.SetActive(true);
 			GameOverTextLose.SetActive(true);
+			result = EBattleResult.Loss;
 			yield return new WaitForEndOfFrame(); //HACK
 		}
 
@@ -640,6 +588,41 @@ namespace RPGsys {
 					}
 				}
 			} 
+		}
+
+		//if the player has no valid target, selects one for it
+		public void RandomTargetSelect(TurnBehaviour.TurnInfo info) {
+			if(info.player.target == null) {
+				int rand = Random.Range(0, enemies.Count);
+				info.player.target = enemies[rand].gameObject;
+			}
+			if(info.player.target.GetComponent<Character>().Hp <= 0) {
+				//add check if target is dead, if so randomly selects enemy to fight
+				for(int i = 0; i < enemies.Count; i++) {
+					if(enemies[i].GetComponent<Character>().Hp > 0) {
+						info.player.target = enemies[i].gameObject;
+						break;
+					} else {
+						info.player.target = null;
+					}
+				}
+			}
+		}
+
+		//checks if character has an attack queued up, if so changes it's anim to the attack state
+		public void MoveSetCheck(int i) {
+			bool MoveSet = false;
+			foreach(TurnBehaviour.TurnInfo info in turnBehaviour.MovesThisRound) {
+				if(info.player == characters[i]) {
+					MoveSet = true;
+					break;
+				}
+			}
+			if(MoveSet == true) {
+				characters[i].GetComponent<Animator>().SetBool("IdleTransition", false);
+			} else {
+				characters[i].GetComponent<Animator>().SetBool("IdleTransition", true);
+			}
 		}
 
 		//if player is alive returns true, otherwise false

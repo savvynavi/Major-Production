@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Bashing Pumpkins
   m_EditorClassIdentifier: 
-  manaCost: 5
+  powName: Bashing Pumpkins
+  description: Hit 'em with your best shot
+  icon: {fileID: 0}
   damage: 50
   dmgType: 1
   statType: 1
+  ScalePercentage: 1
+  manaCost: 0
   areaOfEffect: 0
-  anim: 0
-  powName: Bashing Pumpkins
-  description: Hit 'em with your best shot
   duration: 0
   currentEffects: []
+  anim: 0

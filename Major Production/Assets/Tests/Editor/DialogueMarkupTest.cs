@@ -39,6 +39,15 @@ public class DialogueMarkupTest {
 		Assert.AreEqual("Sphinx of \"black quartz\" judge my vow.", literal.ToString());
 	}
 
+	[Test]
+	public void EmptyInput()
+	{
+		LiteralText literal = (LiteralText)MarkupParser.Literal.Parse("").Value;
+		Assert.AreEqual("", literal.ToString());
+		List<MarkupToken> tokens = new List<MarkupToken>(MarkupParser.Dialogue.Parse("").Value);
+		Assert.AreEqual("", tokens[0].ToString());
+	}
+
 	// TODO testing quoted literals in a sentence
 
 

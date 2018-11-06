@@ -9,7 +9,7 @@ namespace RPG.Audio
     public abstract class FootstepSounds : MonoBehaviour
     {
         // HACK maybe use something else for argument?
-        public abstract AudioClip GetFootstep(GameObject other);
+        public abstract AudioClip GetFootstep(Vector3 position);
     }
 
     public class SimpleFootstep : FootstepSounds
@@ -17,7 +17,7 @@ namespace RPG.Audio
         [SerializeField]
         AudioClip Footstep;
 
-        public override AudioClip GetFootstep(GameObject other)
+        public override AudioClip GetFootstep(Vector3 position)
         {
             return Footstep;
         }

@@ -18,11 +18,17 @@ namespace RPG.Audio
             terrain = GetComponent<Terrain>();
         }
 
-        public override AudioClip GetFootstep(GameObject other)
+        public override AudioClip GetFootstep(Vector3 position)
         {
-            int terrainIndex = terrain.GetMainTexture(other.transform.position);
-            return Footsteps[terrainIndex];
-            // TODO return default if out of range?
+            int terrainIndex = terrain.GetMainTexture(position);
+			if (terrainIndex < Footsteps.Count)
+			{
+				return Footsteps[terrainIndex];
+			}
+			else
+			{
+				return null;
+			}
         }
     }
 }

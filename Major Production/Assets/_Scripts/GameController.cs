@@ -32,12 +32,16 @@ public class GameController : MonoBehaviour, ISaveable {
 	public GameObject playerTeam;
 	public RPGItems.InventoryManager inventory;
 	[SerializeField] MenuManager menus;
+	public LoadScreen loadScreen;
 	public CharacterPrefabList prefabList; // Might be needed to force its loading? should test in build with and without
+	[SerializeField] string startingCutsceneName;
 
 	[Header("Save System")]
 	[SerializeField]
 	SaveManager saveManager;
 	JObject autosaveData;
+	[SerializeField]
+	TextAsset newGameSaveData;
 
 
 	public RPGsys.Character[] Characters { get { return playerTeam.GetComponentsInChildren<RPGsys.Character>(true); } }
@@ -107,6 +111,16 @@ public class GameController : MonoBehaviour, ISaveable {
 		inventory.Initialize(initialInventory);
 
 		state = EGameStates.Overworld;
+	}
+
+	public void StartNewGame()
+	{
+		// TODO additional stuff around this
+		SceneManager.LoadScene(startingCutsceneName);
+		// block activation until player activates or cutscene ends
+		loadScreen.SelectEffect(loadScreen.cutsceneLoad);
+		SceneLoader.Instance.BlockNextSceneActivation();
+		StartCoroutine(saveManager.LoadFromText(newGameSaveData));
 	}
 
 	public void Pause()
@@ -214,6 +228,8 @@ public class GameController : MonoBehaviour, ISaveable {
 			BattleManager.Instance.playerTeam = null;
 			inventory.Clear();
 			state = EGameStates.Menu;
+			SceneLoader.Instance.AllowSceneActivation();
+			loadScreen.SelectEffect(loadScreen.defaultLoad);
 			SceneManager.LoadScene("Main Menu");
 			// HACK would be better to show an error to the player
 			Debug.LogWarning("Exception on loading file: " + e.Message);

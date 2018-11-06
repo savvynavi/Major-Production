@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Good Medicine
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  manaCost: 0
-  damage: 500
-  dmgType: 5
-  statType: 4
-  areaOfEffect: 0
-  anim: 2
   powName: 'Good Medicine '
   description: 'Heal an ally '
+  icon: {fileID: 0}
+  damage: 500
+  dmgType: 0
+  statType: 4
+  ScalePercentage: 0
+  manaCost: 10
+  areaOfEffect: 0
   duration: 1
   currentEffects:
   - {fileID: 11400000, guid: 643a1fcefbe02934fa2047687e8dbc1c, type: 2}
+  anim: 2

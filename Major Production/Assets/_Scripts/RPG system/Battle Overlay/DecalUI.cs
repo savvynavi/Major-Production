@@ -19,11 +19,6 @@ namespace RPGsys {
 		}
 
 		public void InstantiateDecal(int i, Character character, Character target, TurnBehaviour turnBehaviour) {
-			//randoml;y sets a target if none sent in
-			if(target == null) {
-
-			}
-
 			if(target != null) {
 				int count = 0;
 				for(int j = 0; j < turnBehaviour.MovesThisRound.Count; j++) {
@@ -62,9 +57,10 @@ namespace RPGsys {
 						tmpArrow.transform.eulerAngles = new Vector3(90, tmpArrow.transform.eulerAngles.y, tmpArrow.transform.eulerAngles.z);
 
 						tmpInfo.arrow = tmpArrow;
-						//storing the decal info into a list
-						decalInfo.Add(tmpInfo);
+
 					}
+					//storing the decal info into a list
+					decalInfo.Add(tmpInfo);
 				}
 			}
 		}

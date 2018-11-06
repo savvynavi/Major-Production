@@ -154,7 +154,7 @@ namespace RPG.XP
 			xpEvent.initialXP = exp;
 			xpEvent.gainedXP = xp;
 			exp += xp;
-			Debug.Log(character.name + " new XP = " + exp);
+			Debug.Log(character.characterName + " new XP = " + exp);
 			// HACK figure out rule for XP to level, where to store that data, etc
 			// for now, just do 100xp to level up
 			while (exp >= XPToLevel)
@@ -166,7 +166,7 @@ namespace RPG.XP
 					levelEvent.levelRank = characterLevel;
 					xpEvent.levelUps.Add(levelEvent);
 				}
-				Debug.Log(character.name + " levelled up to L " + characterLevel + ", XP = " + exp);
+				Debug.Log(character.characterName + " levelled up to L " + characterLevel + ", XP = " + exp);
 			}
 			if(characterLevel == MaxLevel)
 			{

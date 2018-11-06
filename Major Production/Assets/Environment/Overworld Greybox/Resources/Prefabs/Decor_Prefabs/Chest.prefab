@@ -238,8 +238,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347640813680290}
-  m_LocalRotation: {x: -0, y: 0.96592635, z: -0, w: -0.2588172}
-  m_LocalPosition: {x: 134.51764, y: 50.2, z: 134.79012}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 71.074, y: -0.3900001, z: -84.13466}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4172297936220314}
@@ -250,7 +250,7 @@ Transform:
   - {fileID: 4942864079681976}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 210, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4527900203117270
 Transform:
   m_ObjectHideFlags: 1
@@ -332,7 +332,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f5961a621c17d1841adbc8a22c293a74, type: 2}
+  - {fileID: 2100000, guid: 84a66575341dc6549a34bcdcea88adff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -366,7 +366,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f5961a621c17d1841adbc8a22c293a74, type: 2}
+  - {fileID: 2100000, guid: 84a66575341dc6549a34bcdcea88adff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -399,14 +399,14 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353375659530306}
-  m_Mesh: {fileID: 4300002, guid: 1aacf2bf25102994287c743bfb8121ac, type: 3}
+  m_Mesh: {fileID: 4300002, guid: aae16740e8e6bb6439c86565516ba1be, type: 3}
 --- !u!33 &33799373560322630
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1974164576366598}
-  m_Mesh: {fileID: 4300000, guid: 1aacf2bf25102994287c743bfb8121ac, type: 3}
+  m_Mesh: {fileID: 4300000, guid: aae16740e8e6bb6439c86565516ba1be, type: 3}
 --- !u!65 &65600251801284952
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -581,9 +581,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionDescription: Open Chest
   contents:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 8665b8c93be9fc74aa8103df684befe2, type: 2}
+  - {fileID: 11400000, guid: 8665b8c93be9fc74aa8103df684befe2, type: 2}
+  - {fileID: 11400000, guid: 2fa0d3715a6e9f049b3ad3998292e62f, type: 2}
   dialogue: {fileID: 0}
   treasureImage: {fileID: 21300000, guid: 63e698edeb0df76448f068cb0a8f0090, type: 3}
   sparkleEffect: {fileID: 198875799967433628}
@@ -665,7 +665,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1787970403
+  randomSeed: 224437876
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7342,8 +7342,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25bd086592405bc4b85fb8280fe53759, type: 2}
-  - {fileID: 2100000, guid: 5295231def6a41a49b341aee6a8fc803, type: 2}
+  - {fileID: 2100000, guid: c7d7d4d1a02b84a4184d26ac7d19513b, type: 2}
+  - {fileID: 2100000, guid: c7d7d4d1a02b84a4184d26ac7d19513b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

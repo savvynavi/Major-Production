@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Mumble Rap
   m_EditorClassIdentifier: 
+  powName: 'Mumble Rap '
+  description: Simply hearing this drivle will redce your enemies intelligance
   icon: {fileID: 0}
-  manaCost: 0
   damage: 0
   dmgType: 0
   statType: 4
+  ScalePercentage: 0
+  manaCost: 10
   areaOfEffect: 1
-  anim: 2
-  powName: 'Mumble Rap '
-  description: Simply hearing this drivle will redce your enemies intelligance
   duration: 3
   currentEffects:
   - {fileID: 11400000, guid: b54dfe3130284394ba9a40e7009c659a, type: 2}
+  anim: 3

@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Intimidate
   m_EditorClassIdentifier: 
+  powName: Intimidate
+  description: Crush your enemies courage with a terrifying shout
   icon: {fileID: 0}
-  manaCost: 0
   damage: 0
   dmgType: 0
   statType: 4
+  ScalePercentage: 0
+  manaCost: 20
   areaOfEffect: 1
-  anim: 0
-  powName: Intimidate
-  description: Crush your enemies courage with a terrifying shout
   duration: 3
   currentEffects:
   - {fileID: 11400000, guid: 6d884a5e35ccdd04190e38afee63da37, type: 2}
+  anim: 6

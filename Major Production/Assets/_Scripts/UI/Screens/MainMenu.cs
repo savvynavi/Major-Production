@@ -25,6 +25,11 @@ namespace RPG.UI
 			}
 		}
 
+		public void NewGame()
+		{
+			GameController.Instance.StartNewGame();
+		}
+
 		public void Play()
 		{
 			GameController.Instance.InitializeGame();

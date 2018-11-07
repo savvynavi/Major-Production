@@ -9,7 +9,7 @@ namespace RPG
 		public AudioClip defaultFootstep;
 		public float volume = 1;
 		[Header("Raycast Settings")]
-		[SerializeField] LayerMask footstepLayers = LayerMask.NameToLayer("Terrain");
+		[SerializeField] LayerMask footstepLayers;
 		[SerializeField] float maxDistance = 2.0f;
 		// Use this for initialization
 		void Start()

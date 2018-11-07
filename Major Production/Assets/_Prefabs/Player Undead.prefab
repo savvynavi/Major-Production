@@ -431,6 +431,7 @@ GameObject:
   - component: {fileID: 114262055218700252}
   - component: {fileID: 114546047809406552}
   - component: {fileID: 114395361704785756}
+  - component: {fileID: 114911339824550506}
   m_Layer: 0
   m_Name: Player Undead
   m_TagString: Player
@@ -1881,6 +1882,23 @@ MonoBehaviour:
   ActionPopup: {fileID: 0}
   ActionText: {fileID: 0}
   CanInteract: 1
+--- !u!114 &114911339824550506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352943854795842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad78dd43ac72fff47aa6531133136909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFootstep: {fileID: 8300000, guid: 48497cd62f7ec8a4f8a7735682dce2f0, type: 3}
+  volume: 1
+  footstepLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  maxDistance: 2
 --- !u!137 &137029401656401058
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -42408,9 +42408,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38302a337740d0f4b851af6dccd95bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleScene: Test Battle
-  encounter: {fileID: 11400000, guid: f02cbcdb6064af346a0a40c24b6de1d3, type: 2}
+  actor: {fileID: 1149889686}
+  necromancerConversation: {fileID: 11400000, guid: 0a85f6f0781bb014399a7a599f91667d,
+    type: 2}
   undeadWizardPrefab: {fileID: 2094683882}
+--- !u!114 &1149889686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1149889683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e971bd0b86acdf4885c792baf9e86b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: The Necromancer
+  Portrait: {fileID: 21300000, guid: 41c6f94d80f9e034a9c63dcf97d30f5c, type: 3}
+  customEventDictionary:
+    keys:
+    - BossBattleEnd
+    values:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1149889685}
+          m_MethodName: BossBattleEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  pronoun: 0
 --- !u!1001 &1156170033
 Prefab:
   m_ObjectHideFlags: 0
@@ -52893,12 +52927,12 @@ Prefab:
     - target: {fileID: 224075997516190100, guid: ebf74a33071a1244981f5c5eda2bc3f7,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 137
       objectReference: {fileID: 0}
     - target: {fileID: 224075997516190100, guid: ebf74a33071a1244981f5c5eda2bc3f7,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 224075997516190100, guid: ebf74a33071a1244981f5c5eda2bc3f7,
         type: 2}
@@ -71101,12 +71135,12 @@ Prefab:
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 440
       objectReference: {fileID: 0}
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 138.72
       objectReference: {fileID: 0}
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}

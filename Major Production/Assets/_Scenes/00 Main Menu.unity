@@ -1974,8 +1974,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 646050837}
   m_HandleRect: {fileID: 646050836}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.5
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3208,7 +3208,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 700140103}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4628,7 +4628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0.000036993297}
+  m_AnchoredPosition: {x: 0.000030517578, y: -0.000017266597}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &847742297
@@ -7226,7 +7226,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tutorial_Dungeon
+  m_Text: 02 Tutorial_Dungeon
 --- !u!222 &1240589542
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8558,8 +8558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 231.9, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 242.37, y: 0}
+  m_SizeDelta: {x: 180.93, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1444099691
 MonoBehaviour:
@@ -8605,17 +8605,17 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Tutorial_Dungeon
+    - m_Text: 02 Tutorial_Dungeon
+      m_Image: {fileID: 0}
+    - m_Text: 08 Castle_Town
+      m_Image: {fileID: 0}
+    - m_Text: 03 Forest Path
+      m_Image: {fileID: 0}
+    - m_Text: 04 Town
       m_Image: {fileID: 0}
     - m_Text: Greybox Test
       m_Image: {fileID: 0}
     - m_Text: Overworld Test
-      m_Image: {fileID: 0}
-    - m_Text: Castle_Outside
-      m_Image: {fileID: 0}
-    - m_Text: Keep_FL1_Level
-      m_Image: {fileID: 0}
-    - m_Text: Overworld Greybox
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

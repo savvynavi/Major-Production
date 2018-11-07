@@ -29,7 +29,7 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 	{
 		//TODO heal mage, remove other party members, go to other scene
 		Debug.Log("Boss battle finished");
-		SceneLoader.Instance.LoadScene("Overworld Test"); // change this around
+		SceneLoader.Instance.LoadScene("03 Forest Path"); // change this around
 
 		// HACK figure out nicer way to do this, especially finding the wizard
 		RPGsys.Character[] characters = GameController.Instance.Characters;

@@ -4,32 +4,34 @@ using UnityEngine;
 using UnityEngine.Events;
 using RPG;
 
+
 public class NecromancerBattleTrigger : MonoBehaviour {
 
-	[SerializeField] string battleScene;
-	[SerializeField] RPG.Encounter encounter;
+	Dialogue.DialogueManager dialogueManager;
+	[SerializeField] Dialogue.DialogueActor actor;
+	[SerializeField] Dialogue.Conversation necromancerConversation;
 	[SerializeField] RPGsys.Character undeadWizardPrefab;
+	bool triggered = false;
+
+	private void Start()
+	{
+		dialogueManager = FindObjectOfType<Dialogue.DialogueManager>();
+		dialogueManager.actors["Necromancer"] = actor;
+	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Player"))
+		if (!triggered && other.CompareTag("Player"))
 		{
-			StartBossBattle();
+			dialogueManager.StartConversation(necromancerConversation);
+			triggered = true;
 		}
 	}
 
-	private void StartBossBattle()
-	{
-		UnityEvent battleEndEvent = new UnityEvent();
-		battleEndEvent.AddListener(BossBattleEnd);
-		BattleManager.Instance.StartBattle(battleScene, encounter,lossEvent:battleEndEvent);
-	}
-
-	private void BossBattleEnd()
+	public void BossBattleEnd()
 	{
 		//TODO heal mage, remove other party members, go to other scene
-		Debug.Log("Boss battle finished");
-		SceneLoader.Instance.LoadScene("03 Forest Path"); // change this around
+		//SceneLoader.Instance.LoadScene("03 Forest Path"); // change this around
 
 		// HACK figure out nicer way to do this, especially finding the wizard
 		RPGsys.Character[] characters = GameController.Instance.Characters;
@@ -38,6 +40,7 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 			GameObject.Destroy(character.gameObject);
 		}
 		// TODO change wizard portrait
+		// maybe totally replace wizard with undead wizard?
 		// empty inventory and remove all items
 		GameController.Instance.inventory.Clear();
 		Utility.InstantiateSameName<RPGsys.Character>(undeadWizardPrefab, GameController.Instance.playerTeam.transform);

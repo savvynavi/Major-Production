@@ -110,13 +110,55 @@ namespace RPG.Save
 			}
 		}
 
+		public class ParseOperation : ThreadOperation
+		{
+			private string _text;
+			private JSchema _schema;
+			public JObject data { get; private set; }
+
+			public ParseOperation(string text, JSchema schema)
+			{
+				_text = text;
+				data = null;
+				_schema = schema;
+				thread = new Thread(ParseText);
+				thread.Start();
+			}
+
+			void ParseText()
+			{
+				JObject saveData = null;
+				try
+				{
+					saveData = JObject.Parse(_text);
+				}
+				catch (Newtonsoft.Json.JsonReaderException exception)
+				{
+					Debug.LogWarning("Save file not valid JSON: " + exception.Message);
+					return;
+				}
+
+				IList<string> validationErrors;
+				if (saveData.IsValid(_schema, out validationErrors))
+				{
+					data = saveData;
+				}
+				else
+				{
+					Debug.LogWarning("Save File had invalid json");
+					foreach (string error in validationErrors)
+					{
+						Debug.LogWarning(error);
+					}
+				}
+			}
+		}
+
 		[SerializeField] TextAsset saveSchemaFile;
 		JSchema saveSchema;
 		// Events for UI to subscribe to
-		public UnityEvent OnStartSave;
-		public UnityEvent OnFinishSave;
-		public UnityEvent OnStartLoad;
-		public UnityEvent OnFinishLoad;
+		public SaveDisplay saveDisplay;
+		public RPG.UI.LoadScreen loadScreen { get { return GameController.Instance.loadScreen; } }
 
 		SaveManager()
 		{
@@ -134,9 +176,9 @@ namespace RPG.Save
 			SaveOperation saveOp;
 			JObject saveData = GameController.Instance.Save();
 			saveOp = new SaveOperation(filepath, saveData);
-			OnStartSave.Invoke();
+			saveDisplay.BeginSave();
 			yield return new WaitUntil(() => saveOp.IsDone);
-			OnFinishSave.Invoke();
+			saveDisplay.FinishSave();
 		}
 
 
@@ -145,14 +187,34 @@ namespace RPG.Save
 		{
 			LoadOperation loadOp;
 			loadOp = new LoadOperation(filepath, saveSchema);
-			OnStartLoad.Invoke();
+			loadScreen.BeginFileLoad();
 			yield return new WaitUntil(() => loadOp.IsDone);
 			Debug.Log(loadOp.ToString());
 			if (loadOp.data != null)
 			{
 				GameController.Instance.Load(loadOp.data);
+				loadScreen.FinishFileLoad();
 			}
-			OnFinishLoad.Invoke();
+			else
+			{
+				loadScreen.LoadFailed();
+			}
+		}
+
+		public IEnumerator LoadFromText(TextAsset text)
+		{
+			ParseOperation parseOp = new ParseOperation(text.text, saveSchema);
+			loadScreen.BeginFileLoad();
+			yield return new WaitUntil(() => parseOp.IsDone);
+			if(parseOp.data != null)
+			{
+				GameController.Instance.Load(parseOp.data);
+				loadScreen.FinishFileLoad();
+			}
+			else
+			{
+				loadScreen.LoadFailed();
+			}
 		}
 	}
 }

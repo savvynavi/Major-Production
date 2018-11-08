@@ -106,6 +106,11 @@ namespace Dialogue
 					{
 						yield return e.DoRoutine(this);
 					}
+                    // Some events force end conversation, if so breaking here
+                    if (!m_inConversation)
+                    {
+                        yield break;
+                    }
 				}
 				if (!current.isEnd)
 				{
@@ -124,7 +129,12 @@ namespace Dialogue
 								{
 									yield return e.DoRoutine(this);
 								}
-							}
+                                // Some events force end conversation, if so breaking here
+                                if (!m_inConversation)
+                                {
+                                    yield break;
+                                }
+                            }
 							UISystem.SetDialogueEntry(current);
 							entryFound = true;
 						}
@@ -156,7 +166,12 @@ namespace Dialogue
 						{
 							yield return e.DoRoutine(this);
 						}
-					}
+                        // Some events force end conversation, if so breaking here
+                        if (!m_inConversation)
+                        {
+                            yield break;
+                        }
+                    }
 					// Do response events
                     foreach(DialogueEventInstance e in response.OnChosen)
                     {
@@ -165,7 +180,12 @@ namespace Dialogue
 						{
 							yield return e.DoRoutine(this);
 						}
-					}
+                        // Some events force end conversation, if so breaking here
+                        if (!m_inConversation)
+                        {
+                            yield break;
+                        }
+                    }
                     Transition selectedTransition = response.transitions.SelectTransition(this);
 					if (selectedTransition != null)
 					{
@@ -178,7 +198,12 @@ namespace Dialogue
 							{
 								yield return e.DoRoutine(this);
 							}
-						}
+                            // Some events force end conversation, if so breaking here
+                            if (!m_inConversation)
+                            {
+                                yield break;
+                            }
+                        }
 						UISystem.SetDialogueEntry(current);
 					} else
 					{

@@ -110,7 +110,8 @@ namespace RPG
 				case RPGsys.EBattleResult.Loss:
 					if (OnLoss != null)
 					{
-						OnLoss.Invoke();
+                        SceneLoader.Instance.EndBattle();
+                        OnLoss.Invoke();
 					}
 					else
 					{

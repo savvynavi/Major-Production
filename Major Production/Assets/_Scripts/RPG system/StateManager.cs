@@ -457,7 +457,7 @@ namespace RPGsys {
 			//if dead, remove from list
 			foreach (Character chara in characters)
 			{
-				if (chara.Hp <= 0)
+				if (chara.IsDead)
 				{
 					Debug.Log(chara.name + " is dead");
 					chara.Hp = 0;
@@ -475,7 +475,7 @@ namespace RPGsys {
 			List<Character> deadEnemies = new List<Character>();
 			foreach (Character enemy in enemies)
 			{
-				if (enemy.Hp <= 0)
+				if (enemy.IsDead)
 				{
 					Debug.Log(enemy.name + " is dead");
 					enemy.Hp = 0;

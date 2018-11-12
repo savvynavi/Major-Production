@@ -220,6 +220,8 @@ namespace RPGsys {
 			//loop through characters and wait until input to move to next one
 			//this allows the player to pick the turn order until there are no moves left
 			turnBehaviour.contUi.SetInteractable();
+			// Set up character buttons
+			characterButtonList.PopulateList(characters);
 			while(PlayerTurnOver == false) {
 				for(int i = 0; i < characters.Count; i++) {
 					if(characters[i].ActivePlayer == true) {

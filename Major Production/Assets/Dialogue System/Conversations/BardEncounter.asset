@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
+  m_Name: BardEncounter
+  m_EditorClassIdentifier: 
+  nextID: 4
+  startingID: 0
+  Entries:
+  - ID: 0
+    Title: 
+    speakerIndex: 0
+    Text: Hey come be a zombie with me
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 181, y: 40}
+  - ID: 1
+    Title: 
+    speakerIndex: 1
+    Text: '*angry dooting noises*'
+    OnEnter: []
+    OnExit:
+    - description: Start battle
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: 9738519f4c5bffb4883b88f83a35aa49, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 2
+        condition: {fileID: 11400000, guid: 1936fdc838338304ca093b04f045ac67, type: 2}
+      - transition:
+          TargetID: 3
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 188, y: 165}
+  - ID: 2
+    Title: 
+    speakerIndex: 0
+    Text: zip zop zap
+    OnEnter: []
+    OnExit:
+    - description: Calls event BossBattleWin on actor 'Bard'
+      target: Bard
+      parameters: BossBattleWin
+      dialogueEvent: {fileID: 11400000, guid: 6980d20817d5bc443b4ac87b1729bbc7, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 134, y: 299}
+  - ID: 3
+    Title: 
+    speakerIndex: 1
+    Text: '*contented strumming*'
+    OnEnter: []
+    OnExit:
+    - description: Autoloads last autosave
+      target: Bard
+      parameters: BossBattleWin
+      dialogueEvent: {fileID: 11400000, guid: 6f3fa35a116a93847a4bd8950a93a6a7, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 452, y: 277}
+  Speakers:
+  - Player
+  - Bard

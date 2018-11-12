@@ -385,8 +385,6 @@ namespace RPGsys{
 
 			JObject saveData = new JObject(
 				new JProperty("name", Utility.TrimCloned(name)),
-				new JProperty("hp", Hp),
-				new JProperty("mp", Mp),
 				new JProperty("weapon", !weapon.IsEmpty ? Utility.TrimCloned(weapon.equippedItem.name) : ""),
 				new JProperty("ringL", !ringL.IsEmpty ? Utility.TrimCloned(ringL.equippedItem.name) : ""),
 				new JProperty("ringR", !ringR.IsEmpty ? Utility.TrimCloned(ringR.equippedItem.name) : ""),
@@ -433,9 +431,6 @@ namespace RPGsys{
 			weapon.Load((string)data["weapon"]);
 			ringL.Load((string)data["ringL"]);
 			ringR.Load((string)data["ringR"]);
-			
-			Hp = (float)data["hp"];
-			Mp = (float)data["mp"];
 		}
 
 		private RPGItems.Equipment InstantiateAndApplyEquipment(string equipmentName)

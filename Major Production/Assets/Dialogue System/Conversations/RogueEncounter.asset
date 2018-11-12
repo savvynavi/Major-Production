@@ -36,10 +36,10 @@ MonoBehaviour:
     Text: Uh, no
     OnEnter: []
     OnExit:
-    - description: 
+    - description: Start battle
       target: 
       parameters: 
-      dialogueEvent: {fileID: 0}
+      dialogueEvent: {fileID: 11400000, guid: 9de1e7262efd7094c934f5caa4ae7b57, type: 2}
     cutsceneEvents: []
     transitions:
       transitions:
@@ -52,7 +52,7 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 258, y: 132}
+    position: {x: 258, y: 134}
   - ID: 2
     Title: 
     speakerIndex: 0
@@ -69,17 +69,17 @@ MonoBehaviour:
     isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 208, y: 238}
+    position: {x: 207, y: 238}
   - ID: 3
     Title: 
     speakerIndex: 1
     Text: Back to stealing
     OnEnter: []
     OnExit:
-    - description: Calls event BossBattleWin on actor 'Rogue'
-      target: Rogue
-      parameters: BossBattleWin
-      dialogueEvent: {fileID: 11400000, guid: 6980d20817d5bc443b4ac87b1729bbc7, type: 2}
+    - description: Autoloads last autosave
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: 6f3fa35a116a93847a4bd8950a93a6a7, type: 2}
     cutsceneEvents: []
     transitions:
       transitions: []

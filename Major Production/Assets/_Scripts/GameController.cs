@@ -141,7 +141,7 @@ public class GameController : MonoBehaviour, ISaveable {
 		{
 			playerTeam.SetActive(false);
 		}
-		SceneManager.LoadScene("Main Menu");
+		SceneManager.LoadScene("00 Main Menu");
 		menus.CloseMenuImmediate();
 		state = EGameStates.Menu;
 	}
@@ -230,7 +230,7 @@ public class GameController : MonoBehaviour, ISaveable {
 			state = EGameStates.Menu;
 			SceneLoader.Instance.AllowSceneActivation();
 			loadScreen.SelectEffect(loadScreen.defaultLoad);
-			SceneManager.LoadScene("Main Menu");
+			SceneManager.LoadScene("00 Main Menu");
 			// HACK would be better to show an error to the player
 			Debug.LogWarning("Exception on loading file: " + e.Message);
 		}

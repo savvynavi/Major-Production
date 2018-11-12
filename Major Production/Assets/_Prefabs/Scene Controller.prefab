@@ -53,6 +53,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entrypoints: []
+  OnBusyStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnBusyEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114923034993907596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,9 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d53d05af123f6741a4daf83bb6313a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Probability: 1
-  minEncounterTime: 10
-  maxEncounterTime: 20
+  Probability: 0.9
+  minEncounterTime: 20
+  maxEncounterTime: 30
   nextTimeEncounter: 0
   encounterList:
   - Option: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}

@@ -47,7 +47,7 @@ namespace RPG.UI {
 			if (draggedItem != null && draggedItem.itemBox != this)
 			{
 				// Check type of dragged item
-				Equipment theirItem = (Equipment)draggedItem.itemBox.ContainedItem;
+				Equipment theirItem = draggedItem.itemBox.ContainedItem as Equipment;
 				if(theirItem == null)
 				{
 					return false;

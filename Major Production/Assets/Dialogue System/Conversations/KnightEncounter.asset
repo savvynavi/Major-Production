@@ -35,7 +35,11 @@ MonoBehaviour:
     speakerIndex: 1
     Text: Have at you!
     OnEnter: []
-    OnExit: []
+    OnExit:
+    - description: Start battle
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: e24acbadb0b3b1748a8a488e072e27fa, type: 2}
     cutsceneEvents: []
     transitions:
       transitions:
@@ -65,7 +69,7 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 191, y: 211}
+    position: {x: 194, y: 211}
   - ID: 3
     Title: 
     speakerIndex: 1

@@ -257,9 +257,11 @@ namespace RPGsys {
 						}
 
 						//shows the current players buttons, will only move on if player selects new character
-						while(characters[i].ActivePlayer == true) {
-							yield return null;
-						}
+						System.Func<bool> waiting = () => { return characters[i].ActivePlayer == true && PlayerTurnOver == false; };
+						yield return new WaitWhile(waiting);
+						//while(characters[i].ActivePlayer == true) {
+						//	yield return null;
+						//}
 
 						//sets them out of idle state, hides their power buttons
 						MoveSetCheck(i);

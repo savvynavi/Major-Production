@@ -391,7 +391,7 @@ namespace RPGsys {
 
 
 							if(info.player.target.GetComponent<Character>() != info.player) {
-								info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+								info.player.target.GetComponent<Animator>().Play("Hit");
 							}
 							//if player character, will allow them to go back to isle anim 
 							if(info.player.tag != "Enemy") {
@@ -584,7 +584,7 @@ namespace RPGsys {
 				foreach(Character target in targets) {
 					if(target.Hp <= 0) {
 						target.Hp = 0;
-						target.GetComponent<Animator>().Play("DEAD");
+						target.GetComponent<Animator>().Play("Death1");
 
 						foreach(Buff buff in target.currentEffects) {
 							buff.UpdateEffect(target);
@@ -669,7 +669,7 @@ namespace RPGsys {
 				info.ability.Apply(info.player, chara);
 				string name = info.ability.anim.ToString();
 				info.player.GetComponent<Animator>().Play(name);
-				chara.GetComponent<Animator>().Play("TAKE_DAMAGE");
+				chara.GetComponent<Animator>().Play("Hit");
 				//storeTargets.Add(chara);
 			}
 

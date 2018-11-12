@@ -72,6 +72,7 @@ namespace RPG {
 				dialogue.SetDialogue("Your party breaks down the roadblock");
 				yield return new WaitWhile(waitP);
 				// TODO break down barricade particle effect/animation
+				yield return RoadblockFallRoutine();
 				gameObject.SetActive(false);
 			}
 
@@ -79,6 +80,12 @@ namespace RPG {
 			dialogue.HideBox();
 			user.CanInteract = true;
 			SceneLoader.Instance.currentSceneController.ClearBusy();
+		}
+
+		IEnumerator RoadblockFallRoutine()
+		{
+			// TODO use routine for falling down animation, trigger particle effect
+			yield return new WaitForEndOfFrame();
 		}
 	}
 }

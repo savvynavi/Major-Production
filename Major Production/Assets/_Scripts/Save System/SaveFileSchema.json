@@ -17,7 +17,7 @@
 				},
 			"experience":  {"$ref":  "#/definitions/Experience" }
 			},
-			"required": ["name","hp","mp","weapon","ringL","ringR","activePowers","experience"]
+			"required": ["name","weapon","ringL","ringR","activePowers","experience"]
 		},
 		"InventoryManager" : {
 			"type": "object",

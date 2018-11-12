@@ -1299,6 +1299,87 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc16a2084ac873249bd2f445449a931f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &101005152 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1463936198051052, guid: fc16a2084ac873249bd2f445449a931f,
+    type: 2}
+  m_PrefabInternal: {fileID: 101005151}
+--- !u!65 &101005153
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101005152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5, y: 2.6270986, z: 3.5}
+  m_Center: {x: 0, y: 1.1637876, z: 0}
+--- !u!114 &101005154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101005152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02379dcda78ecef449f4490e53a92e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorName: Knight
+  actor: {fileID: 101005156}
+  encounterConversation: {fileID: 11400000, guid: 0cf3b5a45a7fc30438597fb0b9e2f269,
+    type: 2}
+  partyMemberPrefab: {fileID: 114587627001518698, guid: 65b6cf2acc66d5244887b4cad242d5db,
+    type: 2}
+--- !u!114 &101005155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101005152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbb8f939e9b8c04d9e914c22f76dd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: knight_battle
+  controller: {fileID: 690230104}
+  Triggered: 0
+--- !u!114 &101005156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101005152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e971bd0b86acdf4885c792baf9e86b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Knight
+  Portrait: {fileID: 21300000, guid: b292776c221b5e64089745e1d8f93c20, type: 3}
+  customEventDictionary:
+    keys:
+    - BossBattleWin
+    values:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 101005154}
+          m_MethodName: BossBattleWin
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  pronoun: 0
 --- !u!1001 &101507655
 Prefab:
   m_ObjectHideFlags: 0
@@ -8138,6 +8219,12 @@ Prefab:
     - {fileID: 114923034993907596, guid: 23890acf04f6df74f87a465f1c755c72, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 23890acf04f6df74f87a465f1c755c72, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &690230104 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114030874027932528, guid: 23890acf04f6df74f87a465f1c755c72,
+    type: 2}
+  m_PrefabInternal: {fileID: 690230103}
+  m_Script: {fileID: 11500000, guid: e5c47a9193ed3144a97db4566a240484, type: 3}
 --- !u!1 &693385955
 GameObject:
   m_ObjectHideFlags: 0
@@ -14934,7 +15021,7 @@ Prefab:
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -337.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
@@ -15009,12 +15096,12 @@ Prefab:
     - target: {fileID: 224709987229446924, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224709987229446924, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224121302751421824, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
@@ -15034,7 +15121,7 @@ Prefab:
     - target: {fileID: 224121302751421824, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -124.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224364671731631810, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
@@ -15054,7 +15141,7 @@ Prefab:
     - target: {fileID: 224364671731631810, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -108.72
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224818367103110390, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
@@ -15114,7 +15201,7 @@ Prefab:
     - target: {fileID: 224028238398107016, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 128.72
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cfac2a9b1d67d54885564629ccdc182, type: 2}

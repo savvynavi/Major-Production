@@ -283,4 +283,23 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		LoadScene((string)data["scene"], (int)data["entrypointIndex"]);
 	}
 	#endregion
+
+	public bool CheckBool(string sceneName, string objectName, string field = "Triggered")
+	{
+		bool value = false;
+		Dictionary<string, JObject> sceneData;
+		if(persistentSceneData.TryGetValue(sceneName,out sceneData))
+		{
+			JObject persistentObject;
+			if(sceneData.TryGetValue(objectName, out persistentObject))
+			{
+				JToken jBool;
+				if(persistentObject.TryGetValue(field, out jBool))
+				{
+					value = (bool)jBool;
+				}
+			}
+		}
+		return value;
+	}
 }

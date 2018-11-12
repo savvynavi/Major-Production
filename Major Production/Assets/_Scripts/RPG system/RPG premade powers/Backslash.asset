@@ -11,13 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9d6e4adf644304e9bfc4ce5666d486, type: 3}
   m_Name: Backslash
   m_EditorClassIdentifier: 
-  manaCost: 0
+  powName: Backslash
+  description: Backwards swing of axe
+  icon: {fileID: 0}
   damage: 15
   dmgType: 1
   statType: 1
-  target: 1
-  anim: 3
-  powName: Backslash
-  description: Backwards swing of axe
+  ScalePercentage: 0.5
+  manaCost: 0
+  areaOfEffect: 0
   duration: 0
   currentEffects: []
+  anim: 24

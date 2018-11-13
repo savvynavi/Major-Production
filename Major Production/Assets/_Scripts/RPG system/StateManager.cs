@@ -196,6 +196,7 @@ namespace RPGsys {
 		//Pauses while each character can choose a target + power to use
 		private IEnumerator PlayerTurn() {
 			yield return new WaitForEndOfFrame();
+			turnBehaviour.contUi.Active(true);
 			redoTurn = false;
 			confirmMoves = false;
 			
@@ -241,7 +242,7 @@ namespace RPGsys {
 						//remove decals from this character if reselected
 						foreach(DecalUI.DecalInfo info in decalUI.decalInfo) {
 							if(info.player == characters[i]) {
-								decalUI.RemoveDecal(info);
+								decalUI.RemoveDecal(info, turnBehaviour);
 								break;
 							}
 						}
@@ -270,7 +271,7 @@ namespace RPGsys {
 
 			foreach(DecalUI.DecalInfo info in decalUI.decalInfo) {
 				if(info.player == chara) {
-					decalUI.RemoveDecal(info);
+					decalUI.RemoveDecal(info, turnBehaviour);
 					break;
 				}
 			}
@@ -324,6 +325,7 @@ namespace RPGsys {
 		//loop through moves on a delay, apply to targets
 		public IEnumerator ApplyMoves() {
 			PlayerTurnOver = false;
+			turnBehaviour.contUi.Active(false);
 
 			//sort move list by speed
 			List<TurnBehaviour.TurnInfo> sortedList = turnBehaviour.MovesThisRound.OrderByDescending(o => o.player.Speed).ToList();

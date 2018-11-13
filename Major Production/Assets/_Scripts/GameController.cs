@@ -156,6 +156,11 @@ public class GameController : MonoBehaviour, ISaveable {
 		StartCoroutine(saveManager.LoadFromFile(Application.persistentDataPath + "/savegame.json"));
 	}
 
+	public void LoadGame(TextAsset saveAsset)
+	{
+		StartCoroutine(saveManager.LoadFromText(saveAsset));
+	}
+
 	// Saves to autosaveData. Note this does not save to a file
 	public void Autosave()
 	{

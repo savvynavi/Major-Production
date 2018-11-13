@@ -25,6 +25,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public MoveDescriptionUI descriptionUI;
 		public bool PlayerTurnOver = false;
 
 		//int rand;
@@ -74,6 +75,7 @@ namespace RPGsys {
                 camera = Camera.main;
             }
 
+
 			characters = new List<Character>();
 			enemies = new List<Character>();
 			deadCharactersREVIVE = new List<Character>();
@@ -104,6 +106,7 @@ namespace RPGsys {
 			GameOverInfo.gameObject.SetActive(false);
 			GameOverTextLose.SetActive(false);
 			GameOverTextWin.SetActive(false);
+			descriptionUI.gameObject.SetActive(false);
 
 			//grabbing players/enemies from the scene to fill lists
             characters.AddRange(battleManager.playerTeam.GetComponentsInChildren<Character>(true));
@@ -336,13 +339,13 @@ namespace RPGsys {
 
 				info.player.Timer();
 				//died due to effect SET UP BETTER DEATH CHECK SYSTEM THIS IS GETTING SILLY
-				if(info.player.Hp <= 0) {
+				if(info.player.IsDead) {
 					List<Character> tmp = new List<Character>();
 					tmp.Add(info.player);
 					Death(info.player, tmp);
 				}
-
-				if(info.player.Hp > 0) {
+				// HACK maybe just use else? Does the previous block change info or player?
+				if(!info.player.IsDead) {
 					RandomTargetSelect(info);
 
 					if(info.player.target != null) {
@@ -355,6 +358,8 @@ namespace RPGsys {
 
 						info.player.transform.LookAt(info.player.target.transform);
 						camMovement.LookAtAttacker(info.player);
+						descriptionUI.gameObject.SetActive(true);
+						descriptionUI.Display(info);
 						yield return new WaitForSeconds(0.5f);
 
 
@@ -437,6 +442,7 @@ namespace RPGsys {
 						//		enem.gameObject.SetActive(true);
 						//	}
 						//}
+						descriptionUI.gameObject.SetActive(false);
 					}
 				}
 

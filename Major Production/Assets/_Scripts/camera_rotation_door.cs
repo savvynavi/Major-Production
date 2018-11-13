@@ -27,8 +27,8 @@ public class camera_rotation_door : MonoBehaviour {
 	}
 	void OnTriggerExit (Collider collider){
 		if (collider.tag == "Player") {
-			smoothFollow.height = 8;
-			Debug.Log ("Height changed to 8");
+			smoothFollow.height = 9;
+			Debug.Log ("Height changed to 9");
 		}
 	}
 }

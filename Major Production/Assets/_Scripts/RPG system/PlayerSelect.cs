@@ -27,13 +27,19 @@ namespace RPGsys {
 				ray = camera.ScreenPointToRay(Input.mousePosition);
 				RaycastHit hit;
 				if(Physics.Raycast(ray, out hit) && hit.transform.gameObject.tag == "Player" && hit.transform.GetComponent<Character>()) {
-					foreach(Character chara in manager.characters) {
-						chara.ActivePlayer = false;
-					}
-					hit.transform.GetComponent<Character>().ActivePlayer = true;
-					//makes it so that the player transitions into correct animation the second they're clicked
-					for(int i = 0; i < manager.characters.Count; i++) {
-						manager.MoveSetCheck(i);
+					Character hitCharacter = hit.transform.GetComponent<Character>();
+					if (hitCharacter && !hitCharacter.IsDead)
+					{
+						foreach (Character chara in manager.characters)
+						{
+							chara.ActivePlayer = false;
+						}
+						hit.transform.GetComponent<Character>().ActivePlayer = true;
+						//makes it so that the player transitions into correct animation the second they're clicked
+						for (int i = 0; i < manager.characters.Count; i++)
+						{
+							manager.MoveSetCheck(i);
+						}
 					}
 				}
 			}
@@ -53,7 +59,7 @@ namespace RPGsys {
 			//loops over all hits, if the gameobject has a charaUI component it will set only that character to active/change the animations
 			foreach(RaycastResult hit in hits) {
 				CharacterUI charaUi = hit.gameObject.GetComponentInParent<CharacterUI>();
-				if(charaUi != null ) {
+				if(charaUi != null && !charaUi.character.IsDead) {
 					Debug.Log("in loop");
 					foreach(Character chara in manager.characters) {
 						chara.ActivePlayer = false;

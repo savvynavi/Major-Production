@@ -240,6 +240,8 @@ namespace RPGsys{
 		//Material material;
 		public List<Status> currentEffects;
 
+		public bool IsDead { get { return Hp <= 0; } }
+
 		//stores the 1 weapon a character can wield
 		public EquipmentSlot weapon { get; private set; }
 		//stores the character's rings
@@ -472,7 +474,6 @@ namespace RPGsys{
 			{
 				Debug.LogWarning("Power " + power.powName + " could not be added as it already exists in list.");
 			}
-			Debug.Log("Current powers: " + (from p in classInfo.classPowers select p.powName).Aggregate((a, b) => a + ", " + b));
 		}
 
 		#endregion

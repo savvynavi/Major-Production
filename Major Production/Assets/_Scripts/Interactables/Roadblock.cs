@@ -71,34 +71,37 @@ namespace RPG {
 			{
 				dialogue.SetDialogue("Your party breaks down the roadblock");
 				yield return new WaitWhile(waitP);
+				trigger.enabled = false;
+				EndDialogue(user);
 				yield return RoadblockFallRoutine();
 			} else 
 			if (!(SceneLoader.Instance.CheckBool("06 Barracks_Interior", "knight_battle")))
 			{
 				dialogue.SetDialogue("You need a strong knight to move these objects!");
 				yield return new WaitWhile(waitP);
+				EndDialogue(user);
 			}
 			else if (!(SceneLoader.Instance.CheckBool("04 Town", "rogue_battle")))
 			{
 				dialogue.SetDialogue("You need an expert in breaking and entering for this job.");
 				yield return new WaitWhile(waitP);
+				EndDialogue(user);
 			}
 			else if (!(SceneLoader.Instance.CheckBool("05 Tavern_Interior", "bard_battle")))
 			{
 				dialogue.SetDialogue("You can't work without musical accompaniment!");
 				yield return new WaitWhile(waitP);
+				EndDialogue(user);
 			}
 			else
 			{
 				dialogue.SetDialogue("Your party breaks down the roadblock");
 				yield return new WaitWhile(waitP);
+				trigger.enabled = false;
+				EndDialogue(user);
 				yield return RoadblockFallRoutine();
 			}
 
-			dialogue.ClearButtons();
-			dialogue.HideBox();
-			user.CanInteract = true;
-			SceneLoader.Instance.currentSceneController.ClearBusy();
 		}
 
 		IEnumerator RoadblockFallRoutine()
@@ -113,6 +116,14 @@ namespace RPG {
 			roadblockBefore.SetActive(false);
 			roadblockAfter.SetActive(true);
 			trigger.enabled = false;
+		}
+
+		void EndDialogue(InteractionUser user)
+		{
+			dialogue.ClearButtons();
+			dialogue.HideBox();
+			user.CanInteract = true;
+			SceneLoader.Instance.currentSceneController.ClearBusy();
 		}
 	}
 }

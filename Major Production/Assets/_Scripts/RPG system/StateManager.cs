@@ -198,21 +198,6 @@ namespace RPGsys {
 			yield return new WaitForEndOfFrame();
 			redoTurn = false;
 			confirmMoves = false;
-			//REMOVE ANY INSTANCE OF THIS GARBAGE, REDO DEATH CHECK WITH A BOOL OR SOMETHING
-			List<Character> deadCharacters = new List<Character>();
-			//if dead, remove from list
-			foreach(Character chara in characters) {
-				if(chara.Hp <= 0) {
-					Debug.Log(chara.name + " is dead");
-					chara.Hp = 0;
-					deadCharacters.Add(chara);
-				}
-			}
-			if(deadCharacters.Count > 0) {
-				foreach(Character dead in deadCharacters) {
-					characters.Remove(dead);
-				}
-			}
 			
 			int tmp = 0;
 			foreach(Character chara in characters) {
@@ -223,6 +208,8 @@ namespace RPGsys {
 			//loop through characters and wait until input to move to next one
 			//this allows the player to pick the turn order until there are no moves left
 			turnBehaviour.contUi.SetInteractable();
+			// Set up character buttons
+			characterButtonList.PopulateList(characters);
 			while(PlayerTurnOver == false) {
 				for(int i = 0; i < characters.Count; i++) {
 					if(characters[i].ActivePlayer == true) {
@@ -321,22 +308,6 @@ namespace RPGsys {
 				characterButtonList.uis[i].HidePowerButtons();
 			}
 
-			List<Character> deadEnemies = new List<Character>();
-			foreach(Character enemy in enemies) {
-				if(enemy.Hp <= 0) {
-					Debug.Log(enemy.name + " is dead");
-					enemy.Hp = 0;
-					deadEnemies.Add(enemy);
-					enemy.GetComponent<EnemyUI>().HideUI();
-
-				}
-			}
-			if(deadEnemies.Count > 0) {
-				foreach(Character dead in deadEnemies) {
-					enemies.Remove(dead);
-				}
-			}
-
 			for(int i = 0; i < enemies.Count; i++) {
 				for(int j = 0; j < enemyBehav.Count(); j++) {
 					if(enemies[i] == enemyBehav[j].GetChara) {
@@ -423,7 +394,7 @@ namespace RPGsys {
 
 
 							if(info.player.target.GetComponent<Character>() != info.player) {
-								info.player.target.GetComponent<Animator>().Play("TAKE_DAMAGE");
+								info.player.target.GetComponent<Animator>().Play("Hit");
 							}
 							//if player character, will allow them to go back to isle anim 
 							if(info.player.tag != "Enemy") {
@@ -484,9 +455,50 @@ namespace RPGsys {
 				}
 			}
 
+			//REMOVE ANY INSTANCE OF THIS GARBAGE, REDO DEATH CHECK WITH A BOOL OR SOMETHING
+			List<Character> deadCharacters = new List<Character>();
+			//if dead, remove from list
+			foreach (Character chara in characters)
+			{
+				if (chara.IsDead)
+				{
+					Debug.Log(chara.name + " is dead");
+					chara.Hp = 0;
+					deadCharacters.Add(chara);
+				}
+			}
+			if (deadCharacters.Count > 0)
+			{
+				foreach (Character dead in deadCharacters)
+				{
+					characters.Remove(dead);
+				}
+			}
+
+			List<Character> deadEnemies = new List<Character>();
+			foreach (Character enemy in enemies)
+			{
+				if (enemy.IsDead)
+				{
+					Debug.Log(enemy.name + " is dead");
+					enemy.Hp = 0;
+					deadEnemies.Add(enemy);
+					enemy.GetComponent<EnemyUI>().HideUI();
+
+				}
+			}
+			if (deadEnemies.Count > 0)
+			{
+				foreach (Character dead in deadEnemies)
+				{
+					enemies.Remove(dead);
+				}
+			}
+
 			turnBehaviour.MovesThisRound.Clear();
-			turnBehaviour.numOfTurns = turnBehaviour.AvailablePlayers.Count;
-			turnBehaviour.numOfEnemyTurns = turnBehaviour.AvailableEnemies.Count;
+			turnBehaviour.Setup(characters, enemies);
+			//turnBehaviour.numOfTurns = turnBehaviour.AvailablePlayers.Count;
+			//turnBehaviour.numOfEnemyTurns = turnBehaviour.AvailableEnemies.Count;
 
 			yield return new WaitForSeconds(0.5f);
 		}
@@ -575,7 +587,7 @@ namespace RPGsys {
 				foreach(Character target in targets) {
 					if(target.Hp <= 0) {
 						target.Hp = 0;
-						target.GetComponent<Animator>().Play("DEAD");
+						target.GetComponent<Animator>().Play("Death1");
 
 						foreach(Buff buff in target.currentEffects) {
 							buff.UpdateEffect(target);
@@ -660,7 +672,7 @@ namespace RPGsys {
 				info.ability.Apply(info.player, chara);
 				string name = info.ability.anim.ToString();
 				info.player.GetComponent<Animator>().Play(name);
-				chara.GetComponent<Animator>().Play("TAKE_DAMAGE");
+				chara.GetComponent<Animator>().Play("Hit");
 				//storeTargets.Add(chara);
 			}
 

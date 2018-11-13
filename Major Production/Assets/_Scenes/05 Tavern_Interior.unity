@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.45116842, g: 0.50093377, b: 0.5738138, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorName: Bard
-  actor: {fileID: 0}
+  actor: {fileID: 395978907}
   encounterConversation: {fileID: 11400000, guid: 3d156255294bd2d409c6e99052fbc5d0,
     type: 2}
   partyMemberPrefab: {fileID: 114422255365845076, guid: de4ef4673a3fc0a40875ad25af7ba9a8,
@@ -4104,7 +4104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: bard_battle
-  controller: {fileID: 0}
+  controller: {fileID: 777574073}
   Triggered: 0
 --- !u!65 &395978906
 BoxCollider:
@@ -6407,12 +6407,12 @@ Prefab:
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: -1466
+      value: -619
       objectReference: {fileID: 0}
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -848.28
+      value: -478.28
       objectReference: {fileID: 0}
     - target: {fileID: 224948621137799114, guid: 2cfac2a9b1d67d54885564629ccdc182,
         type: 2}
@@ -6884,6 +6884,12 @@ Prefab:
     - {fileID: 114923034993907596, guid: 23890acf04f6df74f87a465f1c755c72, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 23890acf04f6df74f87a465f1c755c72, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &777574073 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114030874027932528, guid: 23890acf04f6df74f87a465f1c755c72,
+    type: 2}
+  m_PrefabInternal: {fileID: 777574072}
+  m_Script: {fileID: 11500000, guid: e5c47a9193ed3144a97db4566a240484, type: 3}
 --- !u!1 &783376096
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ namespace RPGsys {
 		public GameObject selector;
 		public GameObject uiCanvas; //HACK
 		public CharacterButtonList characterButtonList;
+		public MoveDescriptionUI descriptionUI;
 		public bool PlayerTurnOver = false;
 
 		//int rand;
@@ -74,6 +75,7 @@ namespace RPGsys {
                 camera = Camera.main;
             }
 
+
 			characters = new List<Character>();
 			enemies = new List<Character>();
 			deadCharactersREVIVE = new List<Character>();
@@ -104,6 +106,7 @@ namespace RPGsys {
 			GameOverInfo.gameObject.SetActive(false);
 			GameOverTextLose.SetActive(false);
 			GameOverTextWin.SetActive(false);
+			descriptionUI.gameObject.SetActive(false);
 
 			//grabbing players/enemies from the scene to fill lists
             characters.AddRange(battleManager.playerTeam.GetComponentsInChildren<Character>(true));

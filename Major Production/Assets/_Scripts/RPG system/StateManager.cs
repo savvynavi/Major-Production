@@ -27,7 +27,7 @@ namespace RPGsys {
 		public CharacterButtonList characterButtonList;
 		public MoveDescriptionUI descriptionUI;
 		public bool PlayerTurnOver = false;
-
+        int xpEarned;
 		//int rand;
 		List<Character> enemies;
 		List<Character> deadCharactersREVIVE;
@@ -167,6 +167,9 @@ namespace RPGsys {
 			turnBehaviour.Setup(characters, enemies);
 
 			result = EBattleResult.Flee;
+
+            // initialize XP to 0
+            xpEarned = 0;
 
 			//starting game loops
 			StartCoroutine(GameLoop());
@@ -497,7 +500,12 @@ namespace RPGsys {
 				foreach (Character dead in deadEnemies)
 				{
 					enemies.Remove(dead);
-				}
+                    XPSource xp = dead.GetComponent<XPSource>();
+                    if (xp != null)
+                    {
+                        xpEarned += xp.XP;
+                    }
+                }
 			}
 
 			turnBehaviour.MovesThisRound.Clear();
@@ -530,23 +538,14 @@ namespace RPGsys {
 			result = EBattleResult.Win;
 
 			// Do experience stuff
-			int battleXP = 0;
 			Dictionary<Character, XPEvent> xpEvents = new Dictionary<Character, XPEvent>();
-			foreach (Character enemy in enemies)
-			{
-				XPSource xp = enemy.GetComponent<XPSource>();
-				if (xp != null)
-				{
-					battleXP += xp.XP;
-				}
-			}
 
 			foreach (Character player in characters)
 			{
 				// maybe check character is alive?
 				if (player.experience != null)
 				{
-					XPEvent xpEvent = player.experience.AddXp(battleXP);
+					XPEvent xpEvent = player.experience.AddXp(xpEarned);
 					xpEvents.Add(player, xpEvent);
 				}
 			}
@@ -561,7 +560,7 @@ namespace RPGsys {
 			System.Func<bool> waitP = () => { return wait; };
 			GameOverNext.onClick.AddListener(continueAction);
 
-			GameOverInfo.text = string.Format("You gained {0} XP", battleXP);
+			GameOverInfo.text = string.Format("You gained {0} XP", xpEarned);
 			//TODO more juicy XP gain UI
 			foreach(KeyValuePair<Character, XPEvent> eventPair in xpEvents)
 			{
@@ -699,7 +698,7 @@ namespace RPGsys {
 			if (levelUp)
 			{
 				System.Text.StringBuilder infoBuilder = new System.Text.StringBuilder();
-				infoBuilder.AppendFormat("{0} reached level {1}!\n", character.name, levelUp.levelRank);
+				infoBuilder.AppendFormat("{0} reached level {1}!\n", character.characterName, levelUp.levelRank);
 				// TODO show stat increases
 				// TODO show powers learned
 				return infoBuilder.ToString();

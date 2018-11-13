@@ -61,4 +61,7 @@ namespace Dialogue
 
 	[Serializable]
 	public class StringEventDict : SerializedDictionary<string, UnityEvent> { };
+
+	[Serializable]
+	public class StringTextAssetDict : SerializedDictionary<string, TextAsset> { };
 }

@@ -7,17 +7,30 @@ namespace RPG {
 	[RequireComponent(typeof(PersistentTrigger))]
 	public class Roadblock : Interactable
 	{
-		[SerializeField] PersistentTrigger trigger;
+		[SerializeField] PersistentTrigger wasBroken;
 		// HACK this feels dirty
 		[SerializeField] DialogueBox dialogue;
 		[SerializeField] Sprite roadblockImage;
+		[SerializeField] BoxCollider trigger;
+		public GameObject roadblockBefore;
+		public GameObject roadblockAfter;
+		public ParticleSystem breakEffect;
+		public float swapTime;
+
+		// HACK for testing this
+		public bool forceAllow;
 
 		private void Start()
 		{
-			trigger = GetComponent<PersistentTrigger>();
-			if (trigger.Triggered)
+			wasBroken = GetComponent<PersistentTrigger>();
+			if (wasBroken.Triggered)
 			{
-				gameObject.SetActive(false);
+				BreakRoadblock();
+			}
+			else
+			{
+				roadblockBefore.SetActive(true);
+				roadblockAfter.SetActive(false);
 			}
 		}
 
@@ -53,11 +66,19 @@ namespace RPG {
 			dialogue.SetDialogue("A pile of objects blocks your path out of the town");
 			yield return new WaitWhile(waitP);
 			wait = true;
-			if(!(SceneLoader.Instance.CheckBool("06 Barracks_Interior", "knight_battle")))
+			// HACK for testing
+			if (forceAllow)
+			{
+				dialogue.SetDialogue("Your party breaks down the roadblock");
+				yield return new WaitWhile(waitP);
+				yield return RoadblockFallRoutine();
+			} else 
+			if (!(SceneLoader.Instance.CheckBool("06 Barracks_Interior", "knight_battle")))
 			{
 				dialogue.SetDialogue("You need a strong knight to move these objects!");
 				yield return new WaitWhile(waitP);
-			}else if (!(SceneLoader.Instance.CheckBool("04 Town","rogue_battle")))
+			}
+			else if (!(SceneLoader.Instance.CheckBool("04 Town", "rogue_battle")))
 			{
 				dialogue.SetDialogue("You need an expert in breaking and entering for this job.");
 				yield return new WaitWhile(waitP);
@@ -71,9 +92,7 @@ namespace RPG {
 			{
 				dialogue.SetDialogue("Your party breaks down the roadblock");
 				yield return new WaitWhile(waitP);
-				// TODO break down barricade particle effect/animation
 				yield return RoadblockFallRoutine();
-				gameObject.SetActive(false);
 			}
 
 			dialogue.ClearButtons();
@@ -84,8 +103,16 @@ namespace RPG {
 
 		IEnumerator RoadblockFallRoutine()
 		{
-			// TODO use routine for falling down animation, trigger particle effect
-			yield return new WaitForEndOfFrame();
+			breakEffect.Play();
+			yield return new WaitForSeconds(swapTime);
+			BreakRoadblock();
+		}
+
+		void BreakRoadblock()
+		{
+			roadblockBefore.SetActive(false);
+			roadblockAfter.SetActive(true);
+			trigger.enabled = false;
 		}
 	}
 }

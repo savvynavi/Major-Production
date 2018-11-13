@@ -15,6 +15,8 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class SceneLoader : MonoBehaviour, ISaveable {
 
+    const string ScenePath = "Assets/_Scenes/";
+
 	public enum ELoaderState
 	{
 		Idle,
@@ -288,7 +290,7 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	{
 		bool value = false;
 		Dictionary<string, JObject> sceneData;
-		if(persistentSceneData.TryGetValue(sceneName,out sceneData))
+		if(persistentSceneData.TryGetValue(ScenePath + sceneName + ".unity",out sceneData))
 		{
 			JObject persistentObject;
 			if(sceneData.TryGetValue(objectName, out persistentObject))

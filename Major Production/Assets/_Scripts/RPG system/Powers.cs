@@ -20,7 +20,7 @@ namespace RPGsys {
             LutePlaying,
             MumbleRap,
             Sweep,
-            Gaurd,
+            Guard,
             WarCry,
             CallVolly,
             Stab,

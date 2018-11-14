@@ -55,7 +55,6 @@ namespace RPGsys {
 
 			CurrentCamera = cameraAttack.GetComponent<Camera>();
 
-
 			CapsuleCollider tmp = attacker.GetComponent<CapsuleCollider>();
 
 			//cameraAttack.transform.SetParent(attacker.transform);
@@ -71,7 +70,6 @@ namespace RPGsys {
 			cameraAttack.SetActive(true);
 
 			CurrentCamera = cameraAttack.GetComponent<Camera>();
-
 
 			attackOffset = Mathf.Abs(attackOffset);
 
@@ -95,12 +93,14 @@ namespace RPGsys {
 		//sets camera back to the main scene camera
 		public void Reset() {
 			Debug.Log("resetting camera");
+			cameraFace.transform.SetParent(cameraMAIN.transform);
+			cameraFace.transform.SetParent(null);
+
 			cameraMAIN.SetActive(true);
 			cameraFace.SetActive(false);
 			cameraAttack.SetActive(false);
 
 			CurrentCamera = cameraMAIN.GetComponent<Camera>();
-
 		}
 
 		//returns the averave position vector of given list of positions

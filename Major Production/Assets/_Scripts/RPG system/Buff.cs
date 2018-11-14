@@ -6,6 +6,7 @@ using UnityEngine;
 namespace RPGsys {
 	[CreateAssetMenu(fileName = "StatusEffect", menuName = "RPG/StatusEffect", order = 2)]
 	public class Buff : Status {
+		[Header("Details about what the effect does and how long it lasts")]
 		public StatusEffect StatusEffects;
 
 		public override void Apply(Character target, float duration) {

@@ -44,9 +44,11 @@ namespace RPGsys {
 		};
 
 		public enum EffectPosition {
+			ROOT,
 			HEAD,
 			TORSO,
-			HANDS,
+			LEFT_HAND,
+			RIGHT_HAND,
 			FEET
 		};
 
@@ -55,7 +57,11 @@ namespace RPGsys {
 		public string description;
 		public Sprite icon;
 		public float damage;
-		public EffectPosition effectPos;
+
+		[Header("Effects power does/its pos on character/target")]
+		public GameObject effect;
+		public EffectPosition effectPosCharacter;
+		public EffectPosition effectPosTarget;
 
 		[Header("Damage Scale")]
 		public RPGStats.DmgType dmgType;
@@ -81,8 +87,6 @@ namespace RPGsys {
 
 		//applies damage to target based on character stats + power used
 		public void Apply(Character obj, Character target) {
-
-            
 
             if (obj.Mp - manaCost >= 0) {
 				float rand = Random.Range(1, 100);

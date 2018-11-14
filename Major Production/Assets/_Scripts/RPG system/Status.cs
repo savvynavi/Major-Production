@@ -7,6 +7,7 @@ namespace RPGsys{
 	public abstract class Status : ScriptableObject {
 		Material originalMaterial;
 
+		[Header("Effects applied to targets")]
 		public ParticleSystem particles;
 		public Material material;
 		public Shader shader;
@@ -17,6 +18,7 @@ namespace RPGsys{
 		protected GameObject gObjectInst;
 		protected List<Shader> charaShaders;
 		bool particleRunning;
+		[Header("Is this status effect an equipment?")]
 		public Equipable equipable;
 
 		//public Animation anim;

@@ -91,10 +91,15 @@ namespace RPGsys{
 		public const int maxActivePowers = 4;
 		public const int maxRingSlots = 2;
 
+		[Header("General Info")]
 		public string characterName;
 		public Color uiColour;
+		public Sprite Portrait;
+		public Sprite ButtonPortrait;
+		public Animator anim;
 
 		//base stats
+		[Header("Character base stats")]
 		public float speedStat;
 		public float strStat;
 		public float defStat;
@@ -105,23 +110,63 @@ namespace RPGsys{
 		public float dexStat;
 		public float agiStat;
 
+		//bodyparts
+		[Header("bodypart transforms")]
+		public Transform rootStat;
+		public Transform headStat;
+		public Transform torsoStat;
+		public Transform leftHandStat;
+		public Transform rightHandStat;
+		public Transform feetStat;
+
+		[Header("class and strengths/weaknesses")]
 		public ClassInfo classInfo;
 		public List<RPGStats.DmgType> Strengths;
 		public List<RPGStats.DmgType> Weaknesses;
-		public Animator anim;
+
 		public RPG.XP.Experience experience { get; private set; }
 
+		[Header("position in turn order")]
 		public int ChoiceOrder;
-		public Sprite Portrait;
-		public Sprite ButtonPortrait;
+
 		//is true when that player is setting moves
 		public bool ActivePlayer { get; set; }
 
 		//dictionary stuff
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();
 
+		//DICTIONARY OF BODYPARTS AND TRANSFORMS FOR PLAYER POWERS
+		public Dictionary<RPGsys.Powers.EffectPosition, Transform> CharaBodyparts = new Dictionary<Powers.EffectPosition, Transform>(); 
+
 		List<Powers> activePowers;	// maybe extract out to own class?
 		public ReadOnlyCollection<Powers> ActivePowers { get { return activePowers.AsReadOnly(); } }
+
+		//setting up transform dictionary
+		public Transform Root {
+			get {return CharaBodyparts[RPGsys.Powers.EffectPosition.ROOT]; }
+			set { CharaBodyparts[RPGsys.Powers.EffectPosition.ROOT] = value; }
+		}
+		public Transform Head {
+			get { return CharaBodyparts[RPGsys.Powers.EffectPosition.HEAD]; }
+			set { CharaBodyparts[RPGsys.Powers.EffectPosition.HEAD] = value; }
+		}
+		public Transform Torso {
+			get { return CharaBodyparts[RPGsys.Powers.EffectPosition.TORSO]; }
+			set { CharaBodyparts[RPGsys.Powers.EffectPosition.TORSO] = value; }
+		}
+		public Transform LeftHand {
+			get { return CharaBodyparts[RPGsys.Powers.EffectPosition.LEFT_HAND]; }
+			set { CharaBodyparts[RPGsys.Powers.EffectPosition.LEFT_HAND] = value; }
+		}
+		public Transform RightHand {
+			get { return CharaBodyparts[RPGsys.Powers.EffectPosition.RIGHT_HAND]; }
+			set { CharaBodyparts[RPGsys.Powers.EffectPosition.RIGHT_HAND] = value; }
+		}
+		public Transform Feet {
+			get { return CharaBodyparts[RPGsys.Powers.EffectPosition.FEET]; }
+			set { CharaBodyparts[RPGsys.Powers.EffectPosition.FEET] = value; }
+		}
+
 
 		// Returns the base stat value for a given stat
 		public float BaseStat(RPGStats.Stats stat)
@@ -236,6 +281,7 @@ namespace RPGsys{
 			set { CharaStats[RPGStats.Stats.Agi] = value; }
 		}
 		#endregion
+		[Header("Current target and effects")]
 		public GameObject target;
 		public List<Character> targetList;
 

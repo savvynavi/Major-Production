@@ -43,6 +43,7 @@ public class NecromancerBattleTrigger : MonoBehaviour {
 		// maybe totally replace wizard with undead wizard?
 		// empty inventory and remove all items
 		GameController.Instance.inventory.Clear();
-		Utility.InstantiateSameName<RPGsys.Character>(undeadWizardPrefab, GameController.Instance.playerTeam.transform);
+		RPGsys.Character newMage = Utility.InstantiateSameName<RPGsys.Character>(undeadWizardPrefab);
+        newMage.transform.SetParent(GameController.Instance.playerTeam.transform);
 	}
 }

@@ -44,7 +44,8 @@ public class PartyEncounter : MonoBehaviour {
 	public void BossBattleWin()
 	{
 		// make character join party
-		Utility.InstantiateSameName<RPGsys.Character>(partyMemberPrefab, GameController.Instance.playerTeam.transform);
+		RPGsys.Character newMember = Utility.InstantiateSameName<RPGsys.Character>(partyMemberPrefab);
+        newMember.transform.SetParent(GameController.Instance.playerTeam.transform);
 		encounterWon.Triggered = true;
 		encounterWon.Save();
 		// TODO some effect on character joining instead of just disappearing

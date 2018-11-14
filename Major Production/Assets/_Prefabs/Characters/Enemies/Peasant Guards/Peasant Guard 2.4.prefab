@@ -838,9 +838,10 @@ GameObject:
   - component: {fileID: 4519425294343118}
   - component: {fileID: 95360986332549642}
   - component: {fileID: 136877828100485072}
-  - component: {fileID: 114163098789578080}
   - component: {fileID: 114317800217569812}
-  - component: {fileID: 114542450177590500}
+  - component: {fileID: 114459328304413038}
+  - component: {fileID: 114216466960788964}
+  - component: {fileID: 114695115341656652}
   m_Layer: 8
   m_Name: Peasant Guard 2.4
   m_TagString: Player
@@ -2026,7 +2027,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114163098789578080
+--- !u!114 &114216466960788964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2034,10 +2035,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1838008797802910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06ec6c3f852ebf459a6e7444e22a460, type: 3}
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selector: {fileID: 0}
+  xp: 15
 --- !u!114 &114317800217569812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2068,7 +2069,7 @@ MonoBehaviour:
   ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
   currentEffects: []
---- !u!114 &114542450177590500
+--- !u!114 &114459328304413038
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2076,28 +2077,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1838008797802910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dceb8891fe289344584a4819e4898c57, type: 3}
+  m_Script: {fileID: 11500000, guid: 57b0a653b0f83cc42b0694a605e1a643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Pesant Guard
-  speedStat: 3
-  strStat: 75
-  defStat: 5
-  intStat: 7
-  mindStat: 7
-  hpStat: 500
-  mpStat: 900
-  dexStat: 7
-  agiStat: 4
-  classInfo: {fileID: 0}
-  Strengths: 
-  Weaknesses: 
-  anim: {fileID: 95360986332549642}
-  ChoiceOrder: 2
-  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
-  ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
-  target: {fileID: 0}
-  currentEffects: []
+  hp: {fileID: 114786207104202202, guid: 998aa48bf4c29e8489eb44fd60b28900, type: 2}
+  mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
+  bg: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
+  canvas: {fileID: 0}
+--- !u!114 &114695115341656652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838008797802910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136877828100485072
 CapsuleCollider:
   m_ObjectHideFlags: 1

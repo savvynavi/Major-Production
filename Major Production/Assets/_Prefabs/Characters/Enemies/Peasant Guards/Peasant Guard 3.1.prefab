@@ -625,8 +625,10 @@ GameObject:
   - component: {fileID: 4788293460018686}
   - component: {fileID: 95772718789411716}
   - component: {fileID: 136886484632724928}
-  - component: {fileID: 114157445645827502}
   - component: {fileID: 114343234527338036}
+  - component: {fileID: 114520971865872232}
+  - component: {fileID: 114598689387640158}
+  - component: {fileID: 114371538458690998}
   m_Layer: 8
   m_Name: Peasant Guard 3.1
   m_TagString: Player
@@ -1953,18 +1955,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114157445645827502
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1627134647537614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06ec6c3f852ebf459a6e7444e22a460, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selector: {fileID: 0}
 --- !u!114 &114343234527338036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1995,6 +1985,44 @@ MonoBehaviour:
   ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
   currentEffects: []
+--- !u!114 &114371538458690998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627134647537614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114520971865872232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627134647537614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b0a653b0f83cc42b0694a605e1a643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: {fileID: 114786207104202202, guid: 998aa48bf4c29e8489eb44fd60b28900, type: 2}
+  mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
+  bg: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
+  canvas: {fileID: 0}
+--- !u!114 &114598689387640158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627134647537614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 15
 --- !u!136 &136886484632724928
 CapsuleCollider:
   m_ObjectHideFlags: 1

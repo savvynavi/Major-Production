@@ -554,9 +554,10 @@ GameObject:
   - component: {fileID: 4041745832585434}
   - component: {fileID: 95189079025764268}
   - component: {fileID: 136111076234923388}
-  - component: {fileID: 114638914342928952}
   - component: {fileID: 114055667987602844}
-  - component: {fileID: 114758390100058154}
+  - component: {fileID: 114570371208860752}
+  - component: {fileID: 114304763422008544}
+  - component: {fileID: 114713382709426770}
   m_Layer: 8
   m_Name: Peasant Guard 1.1
   m_TagString: Player
@@ -2056,7 +2057,7 @@ MonoBehaviour:
   ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
   currentEffects: []
---- !u!114 &114638914342928952
+--- !u!114 &114304763422008544
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2064,40 +2065,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1571024663240064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06ec6c3f852ebf459a6e7444e22a460, type: 3}
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selector: {fileID: 0}
---- !u!114 &114758390100058154
+  xp: 15
+--- !u!114 &114570371208860752
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571024663240064}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dceb8891fe289344584a4819e4898c57, type: 3}
+  m_Script: {fileID: 11500000, guid: 57b0a653b0f83cc42b0694a605e1a643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Pesant Guard
-  speedStat: 3
-  strStat: 75
-  defStat: 5
-  intStat: 7
-  mindStat: 7
-  hpStat: 500
-  mpStat: 900
-  dexStat: 7
-  agiStat: 4
-  classInfo: {fileID: 0}
-  Strengths: 
-  Weaknesses: 
-  anim: {fileID: 95189079025764268}
-  ChoiceOrder: 2
-  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
-  ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
-  target: {fileID: 0}
-  currentEffects: []
+  hp: {fileID: 114786207104202202, guid: 998aa48bf4c29e8489eb44fd60b28900, type: 2}
+  mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
+  bg: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
+  canvas: {fileID: 0}
+--- !u!114 &114713382709426770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571024663240064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136111076234923388
 CapsuleCollider:
   m_ObjectHideFlags: 1

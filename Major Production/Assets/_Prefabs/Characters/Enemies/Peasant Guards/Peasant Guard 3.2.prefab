@@ -688,8 +688,10 @@ GameObject:
   - component: {fileID: 4568227457034252}
   - component: {fileID: 95651744925371230}
   - component: {fileID: 136400334251456226}
-  - component: {fileID: 114287743163973660}
   - component: {fileID: 114325710669737866}
+  - component: {fileID: 114716360789104188}
+  - component: {fileID: 114903542700200524}
+  - component: {fileID: 114229293288069786}
   m_Layer: 8
   m_Name: Peasant Guard 3.2
   m_TagString: Player
@@ -1953,7 +1955,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114287743163973660
+--- !u!114 &114229293288069786
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1961,10 +1963,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1714698272226086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06ec6c3f852ebf459a6e7444e22a460, type: 3}
+  m_Script: {fileID: 11500000, guid: 68ed83d90b6d0b84ba2d2d2d330ab1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selector: {fileID: 0}
 --- !u!114 &114325710669737866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1995,6 +1996,33 @@ MonoBehaviour:
   ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
   currentEffects: []
+--- !u!114 &114716360789104188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714698272226086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b0a653b0f83cc42b0694a605e1a643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: {fileID: 114786207104202202, guid: 998aa48bf4c29e8489eb44fd60b28900, type: 2}
+  mp: {fileID: 114983378396728392, guid: c5b143de469f4594e82cf04c0108bdfe, type: 2}
+  bg: {fileID: 114073248832444466, guid: 405ce380bb17017449221b4cffd39056, type: 2}
+  canvas: {fileID: 0}
+--- !u!114 &114903542700200524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714698272226086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf5491e2a11af941bcf9fc0dc75b35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 15
 --- !u!136 &136400334251456226
 CapsuleCollider:
   m_ObjectHideFlags: 1

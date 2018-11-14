@@ -43,11 +43,19 @@ namespace RPGsys {
 			ORC_AXE_2
 		};
 
+		public enum EffectPosition {
+			HEAD,
+			TORSO,
+			HANDS,
+			FEET
+		};
+
 		[Header("Power Details")]
 		public string powName;
 		public string description;
 		public Sprite icon;
 		public float damage;
+		public EffectPosition effectPos;
 
 		[Header("Damage Scale")]
 		public RPGStats.DmgType dmgType;

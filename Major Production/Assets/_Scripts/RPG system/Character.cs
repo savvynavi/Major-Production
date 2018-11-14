@@ -92,6 +92,7 @@ namespace RPGsys{
 		public const int maxRingSlots = 2;
 
 		public string characterName;
+		public Color uiColour;
 
 		//base stats
 		public float speedStat;
@@ -236,6 +237,7 @@ namespace RPGsys{
 		}
 		#endregion
 		public GameObject target;
+		public List<Character> targetList;
 
 		//Material material;
 		public List<Status> currentEffects;
@@ -263,7 +265,8 @@ namespace RPGsys{
 			Dex = dexStat;
 			Agi = agiStat;
 
-
+			targetList = new List<Character>();
+			targetList = null;
 
 			classInfo = Instantiate(classInfo);
 			for(int i = 0; i < classInfo.classPowers.Count(); i++) {

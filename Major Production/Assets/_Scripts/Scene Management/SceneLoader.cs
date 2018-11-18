@@ -98,6 +98,11 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 		
 	}
 
+	public void SetEntryPoint(int newEntryPoint)
+	{
+		EntrypointIndex = newEntryPoint;
+	}
+
     // Activates or deactivates root objects in scene not tagged "Don't Suspend"
     void SetSceneObjectActive(Scene scene, bool value)
     {
@@ -116,7 +121,8 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	{
 		if (State == ELoaderState.Idle)
 		{
-			if (GameController.Instance.state == GameController.EGameStates.Menu)
+			if (GameController.Instance.state == GameController.EGameStates.Menu
+				|| GameController.Instance.state == GameController.EGameStates.Cutscene)
 			{
 				State = ELoaderState.StartGame;
 			}

@@ -27,27 +27,23 @@ namespace RPGsys {
 		//	}
 		//}
 
-		private void Awake()
-		{
+		private void Awake(){
 			uis = new List<CharacterButtonUI>();
 		}
 
-		public void PopulateList(List<Character> characters)
-		{
-			foreach(CharacterButtonUI ui in uis)
-			{
+		public void PopulateList(List<Character> characters){
+			foreach(CharacterButtonUI ui in uis){
 				GameObject.Destroy(ui.gameObject);
 			}
 			uis.Clear();
-			for (int i = 0; i < characters.Count; i++)
-			{
+			for (int i = 0; i < characters.Count; i++){
 				GameObject go = Instantiate(prefab.gameObject, transform);
 
 				CharacterButtonUI tmp = go.GetComponent<CharacterButtonUI>();
 
 				(go.transform as RectTransform).anchoredPosition = Vector3.zero;
 				uis.Add(tmp);
-				tmp.SetButtons(characters[i]);
+				tmp.SetButtons(characters[i], manager);
 			}
 		}
 	}

@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 114875967304891242}
   m_Layer: 8
   m_Name: Bard_Boss
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1967,6 +1967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Bard
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
   speedStat: 10
   strStat: 30
   defStat: 5
@@ -1984,6 +1985,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
   ButtonPortrait: {fileID: 21300000, guid: cce558e774574654b9061c651dd29d06, type: 3}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114652256404426110
 MonoBehaviour:

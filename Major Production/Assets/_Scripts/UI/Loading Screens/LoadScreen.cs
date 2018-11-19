@@ -108,6 +108,11 @@ namespace RPG.UI
 			battleEffect.StartBattleOutro();
 		}
 
+		public void FinishBattleOutro()
+		{
+			battleEffect.FinishBattleOutro();
+		}
+
 		public bool BattleOutroDone()
 		{
 			return battleEffect.IsOutroDone;

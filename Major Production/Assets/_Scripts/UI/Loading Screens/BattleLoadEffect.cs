@@ -20,6 +20,8 @@ namespace RPG.UI
 		// TODO figure out this side of things with BattleManager
 		public abstract void StartBattleOutro();
 
+		public abstract void FinishBattleOutro();
+
 		public abstract void LoadFailed();
 	} 
 }

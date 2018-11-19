@@ -127,6 +127,7 @@ namespace RPG
 			}
 			stateManager = null;
 			InBattle = false;
+			loadScreen.FinishBattleOutro();
 		}
 	}
 }

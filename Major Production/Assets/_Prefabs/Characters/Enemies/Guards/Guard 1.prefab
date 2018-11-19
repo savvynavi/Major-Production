@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 114656218227531166}
   m_Layer: 8
   m_Name: Guard 1
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2080,6 +2080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Guard
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
   speedStat: 3
   strStat: 150
   defStat: 15
@@ -2097,6 +2098,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
   ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114237391217261370
 MonoBehaviour:

@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 114574816127166104}
   m_Layer: 8
   m_Name: Knight_Boss
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2063,6 +2063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Knight
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
   speedStat: 4
   strStat: 100
   defStat: 10
@@ -2080,6 +2081,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: c6e94b1cbb1f95446bdceae49fa0d55d, type: 3}
   ButtonPortrait: {fileID: 21300000, guid: b292776c221b5e64089745e1d8f93c20, type: 3}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114659084207346978
 MonoBehaviour:

@@ -11,6 +11,24 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1802294505119100}
   m_IsPrefabParent: 1
+--- !u!1 &1132791729992480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4101051312762756}
+  - component: {fileID: 33026544594011672}
+  - component: {fileID: 23492357970886900}
+  - component: {fileID: 95131271960741644}
+  m_Layer: 0
+  m_Name: Floor_WallSupportBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1802294505119100
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,8 +37,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4713257977884982}
-  - component: {fileID: 33747470902583828}
-  - component: {fileID: 23860569868949522}
   - component: {fileID: 64868214468804614}
   - component: {fileID: 114645167862647936}
   m_Layer: 9
@@ -30,25 +46,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!4 &4101051312762756
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132791729992480}
+  m_LocalRotation: {x: -0, y: 0.0000056326385, z: -0, w: -1}
+  m_LocalPosition: {x: 0.005, y: 0, z: 0.005}
+  m_LocalScale: {x: 0.002, y: 1, z: 0.002}
+  m_Children: []
+  m_Father: {fileID: 4713257977884982}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4713257977884982
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802294505119100}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000027567148}
-  m_LocalPosition: {x: 43.56777, y: 37.829258, z: -43.04613}
+  m_LocalRotation: {x: -0, y: -0.0000056326385, z: -0, w: -1}
+  m_LocalPosition: {x: -41.424236, y: 37.855, z: -8.094131}
   m_LocalScale: {x: 500, y: 1, z: 500}
-  m_Children: []
+  m_Children:
+  - {fileID: 4101051312762756}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
---- !u!23 &23860569868949522
+  m_LocalEulerAnglesHint: {x: 0, y: -359.999, z: 0}
+--- !u!23 &23492357970886900
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1802294505119100}
+  m_GameObject: {fileID: 1132791729992480}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +87,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e797003f3655ac344b585f7c7279217d, type: 2}
+  - {fileID: 2100000, guid: 26b852ff62e436849bbe75aafcef49e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,13 +107,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33747470902583828
+--- !u!33 &33026544594011672
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1802294505119100}
-  m_Mesh: {fileID: 4300000, guid: 8845ffa403c97a942a6c7a27057c4f87, type: 3}
+  m_GameObject: {fileID: 1132791729992480}
+  m_Mesh: {fileID: 4300000, guid: edc2960a1c6387a4195e00146d6e7fbb, type: 3}
 --- !u!64 &64868214468804614
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -98,6 +128,23 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: e3bae98484bcf1f4bacb7e9d061c8adb, type: 3}
+--- !u!95 &95131271960741644
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132791729992480}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: edc2960a1c6387a4195e00146d6e7fbb, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114645167862647936
 MonoBehaviour:
   m_ObjectHideFlags: 1

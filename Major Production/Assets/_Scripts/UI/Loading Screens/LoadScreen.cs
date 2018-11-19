@@ -31,6 +31,7 @@ namespace RPG.UI
 		void Start()
 		{
 			SelectEffect(defaultLoad);
+			SelectBattleEffect(defaultBattleEffect);
 		}
 
 		public void BeginFileLoad()

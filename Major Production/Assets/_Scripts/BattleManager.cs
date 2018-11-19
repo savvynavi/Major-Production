@@ -69,12 +69,13 @@ namespace RPG
 
 		public void EndBattle()
 		{
-			//TODO end of fight effects, cleanup, etc
+			StartCoroutine(EndBattleRoutine());
+		}
 
-			//finds the statemanager, loops over characters, removing effects
-			//stateManager = FindObjectOfType<RPGsys.StateManager>();
-
-
+		IEnumerator EndBattleRoutine()
+		{
+			loadScreen.StartBattleOutro();
+			yield return new WaitUntil(loadScreen.BattleOutroDone);
 			List<RPGsys.Buff> deadlist = new List<RPGsys.Buff>();
 			foreach (RPGsys.Character chara in stateManager.characters)
 			{
@@ -112,8 +113,8 @@ namespace RPG
 				case RPGsys.EBattleResult.Loss:
 					if (OnLoss != null)
 					{
-                        SceneLoader.Instance.EndBattle();
-                        OnLoss.Invoke();
+						SceneLoader.Instance.EndBattle();
+						OnLoss.Invoke();
 					}
 					else
 					{

@@ -66,8 +66,10 @@ namespace RPG.UI
 
 		IEnumerator OutroRoutine()
 		{
+			// Do outro effect stuff
 			yield return new WaitForEndOfFrame();
 			IsOutroDone = true;
+			gameObject.SetActive(false);
 		}
 
 		public override void UpdateLoadProgress(float progress)

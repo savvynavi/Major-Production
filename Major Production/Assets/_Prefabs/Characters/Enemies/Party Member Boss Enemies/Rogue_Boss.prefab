@@ -997,7 +997,7 @@ GameObject:
   - component: {fileID: 114562512653848630}
   m_Layer: 8
   m_Name: Rogue_Boss
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2039,6 +2039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Rogue
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
   speedStat: 20
   strStat: 80
   defStat: 2
@@ -2056,6 +2057,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: 7691e57f5b31e8242805c60707dbe304, type: 3}
   ButtonPortrait: {fileID: 21300000, guid: 770fba93bce52e448aff4a0d949a4c44, type: 3}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114518048837525554
 MonoBehaviour:

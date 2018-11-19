@@ -1968,6 +1968,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Mage
   uiColour: {r: 0, g: 0, b: 0, a: 0}
+  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
+  ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
+  anim: {fileID: 95134533416274628}
   speedStat: 12
   strStat: 20
   defStat: 5
@@ -1977,13 +1980,16 @@ MonoBehaviour:
   mpStat: 500
   dexStat: 10
   agiStat: 5
-  classInfo: {fileID: 0}
+  rootStat: {fileID: 0}
+  headStat: {fileID: 0}
+  torsoStat: {fileID: 0}
+  leftHandStat: {fileID: 0}
+  rightHandStat: {fileID: 0}
+  feetStat: {fileID: 0}
+  classInfo: {fileID: 11400000, guid: 8669eba17de086949a0717143085f85e, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 95134533416274628}
   ChoiceOrder: 2
-  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
-  ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
   targetList: []
   currentEffects: []

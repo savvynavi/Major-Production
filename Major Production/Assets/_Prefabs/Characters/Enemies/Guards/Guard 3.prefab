@@ -2069,8 +2069,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Guard
   uiColour: {r: 0, g: 0, b: 0, a: 0}
+  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
+  ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
+  anim: {fileID: 95868028214504442}
   speedStat: 3
-  strStat: 150
+  strStat: 100
   defStat: 15
   intStat: 5
   mindStat: 5
@@ -2078,13 +2081,16 @@ MonoBehaviour:
   mpStat: 900
   dexStat: 10
   agiStat: 5
+  rootStat: {fileID: 0}
+  headStat: {fileID: 0}
+  torsoStat: {fileID: 0}
+  leftHandStat: {fileID: 0}
+  rightHandStat: {fileID: 0}
+  feetStat: {fileID: 0}
   classInfo: {fileID: 11400000, guid: a104636fbdb0c3149bad0e846cdf1379, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 95868028214504442}
   ChoiceOrder: 2
-  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
-  ButtonPortrait: {fileID: 21300000, guid: 95a5a5fb25ce5b8439bd770da8e639e8, type: 3}
   target: {fileID: 0}
   targetList: []
   currentEffects: []

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59db5d33a91fcc542b41e2e946c7cd27, type: 3}
+  m_Name: Ring of Health
+  m_EditorClassIdentifier: 
+  Name: Ring of Health
+  Description: Adds 200 points to HP
+  Sprite: {fileID: 21300000, guid: d3a402c2b41d2cd40af165871c1e6141, type: 3}
+  Effect: {fileID: 11400000, guid: 449387483e6200d4288d021dce811be8, type: 2}
+  buffInstances: []
+  WeaponModel: {fileID: 0}
+  equipmentType: 1
+  classRequirement: 0

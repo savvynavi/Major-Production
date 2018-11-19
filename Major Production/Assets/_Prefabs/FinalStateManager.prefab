@@ -1200,7 +1200,7 @@ MonoBehaviour:
     m_Top: 8
     m_Bottom: 8
   m_ChildAlignment: 0
-  m_Spacing: 30
+  m_Spacing: 45
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -1250,11 +1250,12 @@ MonoBehaviour:
   Quit: {fileID: 114615323726763238}
   GameOverNext: {fileID: 114120020423690734}
   GameOverInfo: {fileID: 114344428065132174}
-  selector: {fileID: 1500619447144818, guid: 6710e4fa39a8c0442bfe3f6962e3dae2, type: 2}
+  selector: {fileID: 1532867179471640, guid: 01f1a41bc893ee94887c64c747f580e8, type: 2}
   uiCanvas: {fileID: 1663573882506126}
   characterButtonList: {fileID: 114548861063332020}
   descriptionUI: {fileID: 114001691967019662}
   PlayerTurnOver: 0
+  battleUIController: {fileID: 0}
   playerPositions:
   - {fileID: 0}
   - {fileID: 0}
@@ -2320,6 +2321,7 @@ MonoBehaviour:
   ContinueUi: {fileID: 0}
   FloatingStats: {fileID: 114793776375428362}
   MenuHp: {fileID: 114297254331296140}
+  TabBar: {fileID: 0}
 --- !u!114 &114849602900270536
 MonoBehaviour:
   m_ObjectHideFlags: 1

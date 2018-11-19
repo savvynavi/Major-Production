@@ -37,7 +37,8 @@ namespace RPGsys {
 			//selector movement code
 			if(transform.GetComponent<Character>().target != null) {
 				selector.GetComponent<StateManager>().selector.SetActive(true);
-				selector.GetComponent<StateManager>().selector.transform.position = transform.GetComponent<Character>().target.transform.position;
+				Vector3 pos = new Vector3(transform.GetComponent<Character>().target.transform.position.x, selector.GetComponent<StateManager>().selector.transform.position.y, transform.GetComponent<Character>().target.transform.position.z);
+				selector.GetComponent<StateManager>().selector.transform.position = pos;
 			}
 
 		}

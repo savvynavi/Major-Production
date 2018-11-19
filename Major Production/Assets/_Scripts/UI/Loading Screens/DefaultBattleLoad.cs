@@ -12,8 +12,16 @@ namespace RPG.UI
 
 		public Texture battleWipeInTexture;
 
+		public Texture battleOutroStartTexture;
+		public Texture battleOutroEndTexture;
+
+		public AudioSource battleStart;
+
 		public float wipeOutTime = 1;
 		public float battleWipeInTime = 0.5f;
+
+		public float battleOutroStartTime = 0.5f;
+		public float battleOutroEndTime = 0.5f;
 
 		bool battleReady;
 		bool loadFinished;
@@ -63,7 +71,7 @@ namespace RPG.UI
 				yield return new WaitForEndOfFrame();
 			}
 
-			//TODO play audio
+			battleStart.Play();
 
 			// Load effect goes in
 			blackoutImage.gameObject.SetActive(true);
@@ -117,14 +125,55 @@ namespace RPG.UI
 		{
 			gameObject.SetActive(true);
 			IsOutroDone = false;
+			loadFinished = false;
 			StartCoroutine(OutroRoutine());
 		}
 
 		IEnumerator OutroRoutine()
 		{
-			// Do outro effect stuff
-			yield return new WaitForEndOfFrame();
+			CameraWipe wipe = Camera.main.GetComponent<CameraWipe>();
+			if (wipe == null)
+			{
+				Debug.LogError("CameraWipe component not found");
+				IsOutroDone = true;
+				gameObject.SetActive(false);
+				yield break;
+			}
+			wipe.enabled = true;
+			wipe.Cutoff = 0;
+			wipe.WipeTexture = battleOutroStartTexture;
+			float cutoffTime = 0;
+
+			while(cutoffTime < battleOutroStartTime)
+			{
+				cutoffTime += Time.deltaTime;
+				wipe.Cutoff = cutoffTime / battleOutroStartTime;
+				yield return new WaitForEndOfFrame();
+			}
 			IsOutroDone = true;
+			blackoutImage.gameObject.SetActive(true);
+			yield return new WaitUntil(() => { return this.loadFinished; });
+			blackoutImage.gameObject.SetActive(false);
+			wipe = Camera.main.GetComponent<CameraWipe>();
+			if (wipe == null)
+			{
+				Debug.LogError("CameraWipe component not found");
+				gameObject.SetActive(false);
+				yield break;
+			}
+			wipe.enabled = true;
+			wipe.Cutoff = 1;
+			wipe.WipeTexture = battleOutroEndTexture;
+			float outroCutoffTime = battleOutroEndTime;
+			while(outroCutoffTime > 0)
+			{
+				outroCutoffTime -= Time.deltaTime;
+				wipe.Cutoff = outroCutoffTime / battleOutroEndTime;
+				yield return new WaitForEndOfFrame();
+			}
+
+			wipe.enabled = false;
+			wipe.Cutoff = 0;
 			gameObject.SetActive(false);
 		}
 
@@ -135,7 +184,7 @@ namespace RPG.UI
 
 		public override void FinishBattleOutro()
 		{
-			throw new System.NotImplementedException();
+			loadFinished = true;
 		}
 	}
 }

@@ -63,15 +63,16 @@ namespace RPG.UI
 			wipe.WipeTexture = wipeTextures[Random.Range(0, wipeTextures.Count - 1)];
 			float cutoffTime = 0;
 
+			battleStart.Play();
 
-			while(cutoffTime < wipeOutTime)
+			while (cutoffTime < wipeOutTime)
 			{
 				cutoffTime += Time.deltaTime;
 				wipe.Cutoff = cutoffTime / wipeOutTime;
 				yield return new WaitForEndOfFrame();
 			}
 
-			battleStart.Play();
+
 
 			// Load effect goes in
 			blackoutImage.gameObject.SetActive(true);

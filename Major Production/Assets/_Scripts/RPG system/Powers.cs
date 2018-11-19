@@ -60,7 +60,8 @@ namespace RPGsys {
 		public AbilityAnim anim;
 
 		[Header("Effects power does/its pos on character/target")]
-		public GameObject Effect;
+		public GameObject EffectPlayer;
+		public GameObject EffectTarget;
 		public EffectPosition effectPosCharacter;
 		public EffectPosition effectPosTarget;
 
@@ -79,7 +80,8 @@ namespace RPGsys {
 		[Header("List of effects power does")]
 		public List<Status> currentEffects;
 
-		protected GameObject gameObjInstance;
+		protected GameObject gameObjInstancePlayer;
+		protected GameObject gameObjInstanceTarget;
 
 		public string Description {
 			get { return description; }
@@ -214,16 +216,35 @@ namespace RPGsys {
 			return IncomingDmg;
 		}
 
+		//spawns a game object on the player at a given spot, or else at its feet
 		void SpawnEffect(Character chara, Character target) {
-			if(Effect != null) {
-				gameObjInstance = Instantiate(Effect);
-				gameObjInstance.transform.parent = chara.CharaBodyparts[effectPosCharacter];
+			if(EffectPlayer != null) {
+				gameObjInstancePlayer = Instantiate(EffectPlayer);
+				if(chara.CharaBodyparts[effectPosCharacter] != null) {
+					gameObjInstancePlayer.transform.parent = chara.transform;
+					gameObjInstancePlayer.transform.position = chara.CharaBodyparts[effectPosCharacter].transform.position;
+
+				} else {
+					gameObjInstancePlayer.transform.parent = chara.transform;
+					gameObjInstancePlayer.transform.localPosition = Vector3.zero;
+				}
 
 			}
 		}
 
-		void SendEffectToEnemy() {
+		void SendEffectToEnemy(Character target) {
+			if(EffectTarget != null) {
+				gameObjInstancePlayer = Instantiate(EffectTarget);
+				if(target.CharaBodyparts[effectPosCharacter] != null) {
+					gameObjInstancePlayer.transform.parent = target.transform;
+					gameObjInstancePlayer.transform.position = target.CharaBodyparts[effectPosCharacter].transform.position;
 
+				} else {
+					gameObjInstancePlayer.transform.parent = target.transform;
+					gameObjInstancePlayer.transform.localPosition = Vector3.zero;
+				}
+
+			}
 		}
 
 		// Checks powers are the same

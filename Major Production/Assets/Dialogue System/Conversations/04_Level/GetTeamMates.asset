@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
+  m_Name: GetTeamMates
+  m_EditorClassIdentifier: 
+  nextID: 2
+  startingID: 0
+  Entries:
+  - ID: 0
+    Title: 
+    speakerIndex: 0
+    Text: The village we went past on our way to the necromancer. my other party member
+      should be around here.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 545, y: 105}
+  - ID: 1
+    Title: 
+    speakerIndex: 0
+    Text: 
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 548, y: 218}
+  Speakers:
+  - player

@@ -6,6 +6,8 @@ namespace RPG.UI
 {
 	public abstract class BattleLoadEffect : MonoBehaviour
 	{
+		public bool IsActivationAllowed { get; protected set; }
+		public bool IsOutroDone { get; protected set; }
 		// TODO figure out what this needs to know
 		public abstract void BeginBattleLoad();
 
@@ -15,11 +17,9 @@ namespace RPG.UI
 
 		public abstract void FinishBattleLoad();
 
-		public bool IsActivationAllowed { get; protected set; }
-
 		// TODO figure out this side of things with BattleManager
 		public abstract void StartBattleOutro();
 
-		public bool IsOutroDone { get; protected set; }
+		public abstract void LoadFailed();
 	} 
 }

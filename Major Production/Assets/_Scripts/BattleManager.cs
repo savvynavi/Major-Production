@@ -23,6 +23,8 @@ namespace RPG
 
 		public static bool InBattle { get; private set; }
 
+		public RPG.UI.LoadScreen loadScreen { get { return GameController.Instance.loadScreen; } }
+
 		UnityEvent OnWin;
 		UnityEvent OnLoss;
 

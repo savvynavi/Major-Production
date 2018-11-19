@@ -8,16 +8,23 @@ namespace RPG.UI
 	public class LoadScreen : MonoBehaviour
 	{
 		LoadingEffect selectedEffect;
+		BattleLoadEffect battleEffect;
 		[SerializeField] Text infoText;
 		[SerializeField] Slider progressBar;
 		public LoadingEffect defaultLoad;
 		public LoadingEffect cutsceneLoad;
+		public BattleLoadEffect defaultBattleEffect;
 
 		// TODO loadscreen stuff for initial cutscene?
 
 		public void SelectEffect(LoadingEffect effect)
 		{
 			selectedEffect = effect;
+		}
+
+		public void SelectBattleEffect(BattleLoadEffect effect)
+		{
+			battleEffect = effect;
 		}
 
 		// Use this for initialization
@@ -63,6 +70,46 @@ namespace RPG.UI
 			selectedEffect.LoadFailed();
 			// Go back to default effect
 			SelectEffect(defaultLoad);
+		}
+
+		public void BeginBattleLoad()
+		{
+			battleEffect.BeginBattleLoad();
+		}
+
+		public void UpdateBattleLoadProgress(float progress)
+		{
+			battleEffect.UpdateLoadProgress(progress);
+		}
+
+		public bool IsBattleReady()
+		{
+			return battleEffect.IsActivationAllowed;
+		}
+
+		public void BattleSceneReady()
+		{
+			battleEffect.BattleSceneReady();
+		}
+
+		public void FinishBattleLoad()
+		{
+			battleEffect.FinishBattleLoad();
+		}
+
+		public void BattleLoadFailed()
+		{
+			battleEffect.LoadFailed();
+		}
+
+		public void StartBattleOutro()
+		{
+			battleEffect.StartBattleOutro();
+		}
+
+		public bool BattleOutroDone()
+		{
+			return battleEffect.IsOutroDone;
 		}
 	}
 }

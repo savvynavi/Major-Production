@@ -26,7 +26,8 @@ namespace RPGsys{
 			Buff,
 			Debuff,
 			Heal,
-			DamageOverTime
+			DamageOverTime,
+			ManaHeal
 		}
 
 		public enum StatusEffectTarget {
@@ -46,6 +47,8 @@ namespace RPGsys{
 			public RPGStats.Stats statBuff;
 			public float amount;
 		}
+
+		public Powers.EffectPosition StatusEffectPosition;
 
 		public float timer;
 
@@ -98,16 +101,25 @@ namespace RPGsys{
 		public void Clone(Character target){
 			// make as copy of the particles
 			if(particles != null) {
+				//if given a position, will move particle to there, if not dumps at feet
 				partInst = Instantiate(particles.gameObject);
-				partInst.transform.parent = target.transform;
-				partInst.transform.localPosition = Vector3.zero;
+				if(target.CharaBodyparts[StatusEffectPosition] != null) {
+					partInst.transform.parent = target.transform;
+					partInst.transform.position = target.CharaBodyparts[StatusEffectPosition].transform.position;
+
+
+				} else {
+					partInst.transform.parent = target.transform;
+					partInst.transform.localPosition = Vector3.zero;
+
+				}
+
 			}
 			//makes a copy of the materialFIX THIS OR REMOVE AND REPLACE WITH SHADERS
 			if(material != null) {
 				matInst = Instantiate(material);
 				target.GetComponentInChildren<Renderer>().material.EnableKeyword("_METALLICGLOSSMAP");
 				originalMaterial = target.GetComponentInChildren<Renderer>().material;
-				//matInst.mainTexture = target.gameObject.GetComponentInChildren<Renderer>().material.mainTexture;
 				matInst.SetTexture("_MetallicGlossMap", target.GetComponentInChildren<Renderer>().material.mainTexture);
 				
 				target.gameObject.GetComponentInChildren<Renderer>().material = matInst;
@@ -128,8 +140,15 @@ namespace RPGsys{
 			//spawns the gameobject instance at targets feet(meybe make localTransform param?)
 			if(gObject != null) {
 				gObjectInst = Instantiate(gObject);
-				gObjectInst.transform.parent = target.transform;
-				gObjectInst.transform.localPosition = Vector3.zero;
+				if(target.CharaBodyparts[StatusEffectPosition] != null) {
+					gObjectInst.transform.parent = target.transform;
+					gObjectInst.transform.position = target.CharaBodyparts[StatusEffectPosition].transform.position;
+				} else {
+					gObjectInst.transform.parent = target.transform;
+					gObjectInst.transform.localPosition = Vector3.zero;
+
+				}
+
 			}
 		}
 	}

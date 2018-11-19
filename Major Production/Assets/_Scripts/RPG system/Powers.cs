@@ -57,9 +57,10 @@ namespace RPGsys {
 		public string description;
 		public Sprite icon;
 		public float damage;
+		public AbilityAnim anim;
 
 		[Header("Effects power does/its pos on character/target")]
-		public GameObject effect;
+		public GameObject Effect;
 		public EffectPosition effectPosCharacter;
 		public EffectPosition effectPosTarget;
 
@@ -78,7 +79,7 @@ namespace RPGsys {
 		[Header("List of effects power does")]
 		public List<Status> currentEffects;
 
-		public AbilityAnim anim;
+		protected GameObject gameObjInstance;
 
 		public string Description {
 			get { return description; }
@@ -211,6 +212,18 @@ namespace RPGsys {
             }
 
 			return IncomingDmg;
+		}
+
+		void SpawnEffect(Character chara, Character target) {
+			if(Effect != null) {
+				gameObjInstance = Instantiate(Effect);
+				gameObjInstance.transform.parent = chara.CharaBodyparts[effectPosCharacter];
+
+			}
+		}
+
+		void SendEffectToEnemy() {
+
 		}
 
 		// Checks powers are the same

@@ -1871,7 +1871,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1086686746418390}
   m_LocalRotation: {x: -0, y: -0.85827875, z: -0, w: 0.5131839}
-  m_LocalPosition: {x: 1.2481384, y: 0.77772474, z: -0.6378374}
+  m_LocalPosition: {x: -2.796, y: 0.01, z: -5.467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4494328559758300}
@@ -2569,6 +2569,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Archer
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
+  Portrait: {fileID: 0}
+  ButtonPortrait: {fileID: 0}
+  anim: {fileID: 0}
   speedStat: 6
   strStat: 100
   defStat: 5
@@ -2578,14 +2582,18 @@ MonoBehaviour:
   mpStat: 100
   dexStat: 7
   agiStat: 3
+  rootStat: {fileID: 4409344732407748}
+  headStat: {fileID: 4896930092661922}
+  torsoStat: {fileID: 4494328559758300}
+  leftHandStat: {fileID: 4837343725678102}
+  rightHandStat: {fileID: 4223925549988120}
+  feetStat: {fileID: 4647261290321786}
   classInfo: {fileID: 11400000, guid: 47874ec15c5ddfb4282ca2df5590797a, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 0}
   ChoiceOrder: 0
-  Portrait: {fileID: 0}
-  ButtonPortrait: {fileID: 0}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114470252497700902
 MonoBehaviour:

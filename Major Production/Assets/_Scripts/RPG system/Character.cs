@@ -136,7 +136,7 @@ namespace RPGsys{
 		public Dictionary<RPGStats.Stats, float> CharaStats = new Dictionary<RPGStats.Stats, float>();
 
 		//DICTIONARY OF BODYPARTS AND TRANSFORMS FOR PLAYER POWERS
-		public Dictionary<RPGsys.Powers.EffectPosition, Transform> CharaBodyparts = new Dictionary<Powers.EffectPosition, Transform>(); 
+		public Dictionary<Powers.EffectPosition, Transform> CharaBodyparts = new Dictionary<Powers.EffectPosition, Transform>(); 
 
 		List<Powers> activePowers;	// maybe extract out to own class?
 		public ReadOnlyCollection<Powers> ActivePowers { get { return activePowers.AsReadOnly(); } }
@@ -310,6 +310,13 @@ namespace RPGsys{
 			Mp = mpStat;
 			Dex = dexStat;
 			Agi = agiStat;
+
+			Root = rootStat;
+			Head = headStat;
+			LeftHand = leftHandStat;
+			RightHand = rightHandStat;
+			Torso = torsoStat;
+			Feet = feetStat;
 
 			targetList = new List<Character>();
 			targetList = null;

@@ -42,7 +42,7 @@ namespace RPGsys {
 
 		MoveConfirmMenu confirmMenu;
 		CameraMovement camMovement;
-		BattleUIController battleUIController;
+		public BattleUIController battleUIController;
 
 		[SerializeField] List<Transform> playerPositions;
         [SerializeField] List<Transform> enemyPositions;
@@ -217,7 +217,7 @@ namespace RPGsys {
 			while(PlayerTurnOver == false) {
 				for(int i = 0; i < characters.Count; i++) {
 					if(characters[i].ActivePlayer == true) {
-						
+						battleUIController.FloatingStats.ActivateHalo(characters[i]);
 
 						characterButtonList.uis[i].ShowPowerButtons();
 						battleUIController.MenuHp.UpdateInfo(characters[i]);
@@ -263,6 +263,7 @@ namespace RPGsys {
 					}else {
 						//put something here to stop it crashing :p
 						characters[i].ActivePlayer = true;
+						//break;
 					}
 				}
 				

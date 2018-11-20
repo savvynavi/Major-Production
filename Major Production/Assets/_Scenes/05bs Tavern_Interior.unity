@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2740,6 +2740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
   speedStat: 12
   strStat: 20
   defStat: 5
@@ -2757,6 +2758,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
   ButtonPortrait: {fileID: 0}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &387896792
 MonoBehaviour:
@@ -3172,6 +3174,7 @@ GameObject:
   - component: {fileID: 463811147}
   - component: {fileID: 463811146}
   - component: {fileID: 463811151}
+  - component: {fileID: 463811150}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3242,6 +3245,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 33.807003, y: -180.236, z: -0.034}
+--- !u!114 &463811150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 463811145}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751eac73520b13f4495816187c5f83dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wipeMaterial: {fileID: 2100000, guid: 7624d611bd330e44b80ef65275598a16, type: 2}
 --- !u!114 &463811151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4718,6 +4733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
+  uiColour: {r: 0, g: 0, b: 0, a: 0}
   speedStat: 10
   strStat: 30
   defStat: 5
@@ -4735,6 +4751,7 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
   ButtonPortrait: {fileID: 0}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &813748457
 MonoBehaviour:
@@ -9894,7 +9911,7 @@ Prefab:
     - target: {fileID: 224656802832974928, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 224769557279844700, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}
@@ -9914,7 +9931,7 @@ Prefab:
     - target: {fileID: 224769557279844700, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 33.95591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224124317734167172, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}
@@ -9924,7 +9941,7 @@ Prefab:
     - target: {fileID: 224124317734167172, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 43.95591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224769557279844700, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}

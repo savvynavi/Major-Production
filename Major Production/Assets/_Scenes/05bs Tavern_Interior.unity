@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2741,6 +2741,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   uiColour: {r: 0, g: 0, b: 0, a: 0}
+  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
+  ButtonPortrait: {fileID: 0}
+  anim: {fileID: 0}
   speedStat: 12
   strStat: 20
   defStat: 5
@@ -2750,13 +2753,16 @@ MonoBehaviour:
   mpStat: 500
   dexStat: 10
   agiStat: 5
+  rootStat: {fileID: 0}
+  headStat: {fileID: 0}
+  torsoStat: {fileID: 0}
+  leftHandStat: {fileID: 0}
+  rightHandStat: {fileID: 0}
+  feetStat: {fileID: 0}
   classInfo: {fileID: 11400000, guid: 387b2e419b3901445bf35f68e32440be, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 0}
   ChoiceOrder: 2
-  Portrait: {fileID: 21300000, guid: 095ac85b74508724681b8069c06cb5aa, type: 3}
-  ButtonPortrait: {fileID: 0}
   target: {fileID: 0}
   targetList: []
   currentEffects: []
@@ -3487,7 +3493,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 234d5e1a4c82e8e48b202a9edaa673c2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4734,6 +4740,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   uiColour: {r: 0, g: 0, b: 0, a: 0}
+  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
+  ButtonPortrait: {fileID: 0}
+  anim: {fileID: 0}
   speedStat: 10
   strStat: 30
   defStat: 5
@@ -4743,13 +4752,16 @@ MonoBehaviour:
   mpStat: 400
   dexStat: 10
   agiStat: 5
+  rootStat: {fileID: 0}
+  headStat: {fileID: 0}
+  torsoStat: {fileID: 0}
+  leftHandStat: {fileID: 0}
+  rightHandStat: {fileID: 0}
+  feetStat: {fileID: 0}
   classInfo: {fileID: 11400000, guid: 3a2bf35ad1820564eb24d50eb32ec85a, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 0}
   ChoiceOrder: 3
-  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
-  ButtonPortrait: {fileID: 0}
   target: {fileID: 0}
   targetList: []
   currentEffects: []
@@ -9911,7 +9923,7 @@ Prefab:
     - target: {fileID: 224656802832974928, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224769557279844700, guid: 19613adb75f648748b0d97123738bc79,
         type: 2}

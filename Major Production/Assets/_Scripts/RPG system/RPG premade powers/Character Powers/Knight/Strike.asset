@@ -15,6 +15,12 @@ MonoBehaviour:
   description: Your bread and butter
   icon: {fileID: 0}
   damage: 100
+  anim: 0
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1106083919608070, guid: 040859019942c2242a4f7d59c5454d6f,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 2
   dmgType: 1
   statType: 1
   ScalePercentage: 1
@@ -22,4 +28,3 @@ MonoBehaviour:
   areaOfEffect: 0
   duration: 0
   currentEffects: []
-  anim: 0

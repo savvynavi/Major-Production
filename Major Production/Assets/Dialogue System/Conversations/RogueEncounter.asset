@@ -11,13 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: RogueEncounter
   m_EditorClassIdentifier: 
-  nextID: 4
+  nextID: 6
   startingID: 0
   Entries:
   - ID: 0
     Title: 
     speakerIndex: 0
-    Text: Hey Rogue, join me
+    Text: Hey Rogue. pleasent to see you here
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
@@ -29,11 +29,11 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 244, y: 55}
+    position: {x: 316, y: 44}
   - ID: 1
     Title: 
     speakerIndex: 1
-    Text: Uh, no
+    Text: Uh, no, I thought you were dead!
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -44,49 +44,29 @@ MonoBehaviour:
     transitions:
       transitions:
       - transition:
-          TargetID: 2
-        condition: {fileID: 11400000, guid: 1936fdc838338304ca093b04f045ac67, type: 2}
-      - transition:
-          TargetID: 3
+          TargetID: 4
         condition: {fileID: 0}
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 258, y: 134}
-  - ID: 2
+    position: {x: 318, y: 122}
+  - ID: 4
     Title: 
     speakerIndex: 0
-    Text: Bluh, bluh, you're a zombie
+    Text: I thought so as well, maybe you should try it?
     OnEnter: []
     OnExit:
-    - description: Calls event BossBattleWin on actor 'Rogue'
-      target: Rogue
-      parameters: BossBattleWin
-      dialogueEvent: {fileID: 11400000, guid: 6980d20817d5bc443b4ac87b1729bbc7, type: 2}
-    cutsceneEvents: []
-    transitions:
-      transitions: []
-    isEnd: 1
-    parent: {fileID: 11400000}
-    Responses: []
-    position: {x: 207, y: 238}
-  - ID: 3
-    Title: 
-    speakerIndex: 1
-    Text: Back to stealing
-    OnEnter: []
-    OnExit:
-    - description: Autoloads last autosave
+    - description: Start battle
       target: 
       parameters: 
-      dialogueEvent: {fileID: 11400000, guid: 6f3fa35a116a93847a4bd8950a93a6a7, type: 2}
+      dialogueEvent: {fileID: 11400000, guid: 9de1e7262efd7094c934f5caa4ae7b57, type: 2}
     cutsceneEvents: []
     transitions:
       transitions: []
-    isEnd: 1
+    isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 473, y: 235}
+    position: {x: 306, y: 214}
   Speakers:
   - Player
   - Rogue

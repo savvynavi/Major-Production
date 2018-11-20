@@ -74,7 +74,6 @@ namespace RPGsys {
 			contUi.SetInteractable();
 		}
 
-
 		//seperates out enemy movement turns from player
 		public void turnAddAttackEnemy(Powers pow, Character chara) {
 			if(numOfEnemyTurns > 0) {

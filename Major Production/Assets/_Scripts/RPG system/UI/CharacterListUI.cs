@@ -33,6 +33,22 @@ namespace RPGsys
 			}
 		}
 
+		public void UpdateHalos() {
+			foreach(CharacterUI ui in uis) {
+				if(ui.Halo != null) {
+					ui.Halo.gameObject.SetActive(false);
+				}
+			}
+		}
+
+		public void ActivateHalo(Character chara) {
+			foreach(CharacterUI ui in uis) {
+				if(ui.Halo != null && ui.character == chara) {
+					ui.Halo.gameObject.SetActive(true);
+				}
+			}
+		}
+
 		//updates the character info to given character (used for menu portrait)
 		public void UpdateInfo(Character chara) {
 			uis[0].SetCharacter(chara);

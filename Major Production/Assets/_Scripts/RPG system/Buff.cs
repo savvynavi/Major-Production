@@ -6,6 +6,7 @@ using UnityEngine;
 namespace RPGsys {
 	[CreateAssetMenu(fileName = "StatusEffect", menuName = "RPG/StatusEffect", order = 2)]
 	public class Buff : Status {
+		[Header("Details about what the effect does and how long it lasts")]
 		public StatusEffect StatusEffects;
 
 		public override void Apply(Character target, float duration) {
@@ -87,6 +88,23 @@ namespace RPGsys {
 							else if (target.tag == "Player")
 								FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
 						}
+						break;
+				}
+			case StatusEffectType.ManaHeal: {
+						target.Mp += StatusEffects.amount;
+						if(target.Mp > target.mpStat) {
+							target.Mp = target.mpStat;
+						}
+						//HACK check if in battle so it doesn't try making effect when using potion in inventory
+						if(GameController.Instance.state == GameController.EGameStates.Battle) {
+							GetScreenLoc tempLoc = new GetScreenLoc();
+							Vector2 location = tempLoc.getScreenPos(target.transform);
+							if(target.tag == "Enemy")
+								FloatingTextController.CreateHealEnemyText((StatusEffects.amount).ToString(), location);
+							else if(target.tag == "Player")
+								FloatingTextController.CreateHealAllyText((StatusEffects.amount).ToString(), location);
+						}
+
 						break;
 				}
 			default:

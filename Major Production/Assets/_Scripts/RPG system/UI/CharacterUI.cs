@@ -16,6 +16,7 @@ namespace RPGsys {
 		public MeterBar HPRegenBar;
 		public MeterBar MPBar;
 		public MeterBar MPRegenBar;
+		public Image Halo;
 		public bool FloatingMenu;
 
 		public GameObject GetContainer{ get; private set; }
@@ -48,6 +49,10 @@ namespace RPGsys {
 				{
 					MPRegenBar.Init(0,character.mpStat);
 				}
+				if(Halo != null) {
+					Halo.gameObject.SetActive(false);
+				}
+
 			} else {
 				//todo clear info if no character
 			}

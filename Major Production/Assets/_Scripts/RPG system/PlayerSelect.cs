@@ -64,7 +64,16 @@ namespace RPGsys {
 					foreach(Character chara in manager.characters) {
 						chara.ActivePlayer = false;
 					}
+
+					manager.battleUIController.FloatingStats.UpdateHalos();
+
 					hit.gameObject.GetComponentInParent<CharacterUI>().character.ActivePlayer = true;
+					//turing halo on for active playert
+					foreach(Character chara in manager.characters) {
+						if(chara.ActivePlayer == true && charaUi.character == chara && charaUi.Halo != null) {
+							charaUi.Halo.gameObject.SetActive(true);
+						}
+					}
 					for(int i = 0; i < manager.characters.Count; i++) {
 						manager.MoveSetCheck(i);
 					}

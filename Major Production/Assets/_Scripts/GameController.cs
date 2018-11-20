@@ -18,7 +18,8 @@ public class GameController : MonoBehaviour, ISaveable {
 	public enum EGameStates{
 		Menu,
 		Overworld,
-		Battle
+		Battle,
+		Cutscene
 	}
 
 	public static GameController Instance = null;
@@ -73,20 +74,25 @@ public class GameController : MonoBehaviour, ISaveable {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if(state == EGameStates.Overworld)
 		{
-			//HACK for now, until we put in a proper pause menu
-			QuitToTitle();
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				if (menus.Open)
+				{
+					menus.CloseMenus();
+				}
+				else
+				{
+					menus.OpenMenus();
+				}
+			}
 		}
-
-		if (Input.GetKeyDown(KeyCode.Tab) && state == EGameStates.Overworld)
+		else
 		{
 			if (menus.Open)
 			{
-				menus.CloseMenus();
-			} else
-			{
-				menus.OpenMenus();
+				menus.CloseMenuImmediate();
 			}
 		}
 	}
@@ -117,6 +123,7 @@ public class GameController : MonoBehaviour, ISaveable {
 	{
 		// TODO additional stuff around this
 		SceneManager.LoadScene(startingCutsceneName);
+		state = EGameStates.Cutscene;
 		// block activation until player activates or cutscene ends
 		loadScreen.SelectEffect(loadScreen.cutsceneLoad);
 		SceneLoader.Instance.BlockNextSceneActivation();
@@ -215,8 +222,6 @@ public class GameController : MonoBehaviour, ISaveable {
 
 			inventory.Load((JObject)data["inventory"]);
 			SceneLoader.Instance.Load((JObject)data["scene"]);
-
-			state = EGameStates.Overworld;
 			
 		}catch(System.Exception e)
 		{

@@ -27,6 +27,7 @@ namespace RPGsys {
 			continueButton.onClick.AddListener(() => HandleClick());
 		}
 
+		//once all characters have a move set the button can be clicked
 		public void SetInteractable() {
 			if(turnBehaviour.numOfTurns <= 0) {
 				continueButton.GetComponent<Button>().interactable = true;
@@ -37,6 +38,11 @@ namespace RPGsys {
 
 		public void HandleClick() {
 			manager.PlayerTurnOver = true;
+		}
+
+		//if pass in true, activates the button in the hierarchy, if false deactivates it
+		public void Active(bool active) {
+			continueButton.gameObject.SetActive(active);
 		}
 
 	}

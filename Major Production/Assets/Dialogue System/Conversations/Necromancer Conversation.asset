@@ -11,13 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: Necromancer Conversation
   m_EditorClassIdentifier: 
-  nextID: 4
+  nextID: 9
   startingID: 0
   Entries:
   - ID: 0
     Title: 
     speakerIndex: 1
-    Text: Oh look, A group of adventures. How frightening.
+    Text: Oh good, you're finally here.
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
@@ -31,9 +31,9 @@ MonoBehaviour:
     Responses: []
     position: {x: 99, y: 14}
   - ID: 1
-    Title: 
-    speakerIndex: 0
-    Text: ok lets fight
+    Title: Battle Start
+    speakerIndex: 1
+    Text: Looks like the show can really begin.
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -51,9 +51,9 @@ MonoBehaviour:
     Responses: []
     position: {x: 99, y: 95}
   - ID: 2
-    Title: 
-    speakerIndex: 1
-    Text: You are defeated
+    Title: Battle End
+    speakerIndex: 2
+    Text: Let's get out of here!
     OnEnter:
     - description: Calls event BossBattleEnd on actor 'Necromancer'
       target: Necromancer
@@ -64,16 +64,16 @@ MonoBehaviour:
     transitions:
       transitions:
       - transition:
-          TargetID: 3
+          TargetID: 4
         condition: {fileID: 0}
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
     position: {x: 114, y: 192}
   - ID: 3
-    Title: 
-    speakerIndex: 0
-    Text: oh no I'm a zombie
+    Title: Final Line
+    speakerIndex: 1
+    Text: Just go.
     OnEnter: []
     OnExit:
     - description: Load Scene 03 Forest Path
@@ -86,7 +86,89 @@ MonoBehaviour:
     isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 136, y: 305}
+    position: {x: 556, y: 426}
+  - ID: 4
+    Title: 
+    speakerIndex: 1
+    Text: Damn. I really needed all of you.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 5
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 167, y: 249}
+  - ID: 5
+    Title: 
+    speakerIndex: 1
+    Text: Hey, Wizard, how about you go murder all your friends?
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 6
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 152, y: 304}
+  - ID: 6
+    Title: 
+    speakerIndex: 0
+    Text: Wow, that sounds like the best idea ever. They'll be so psyched to join
+      you and your undead army!
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 7
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 278, y: 375}
+  - ID: 7
+    Title: 
+    speakerIndex: 1
+    Text: Yes, I bet they'll be <i>dying</i> to get in!
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 8
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 586, y: 322}
+  - ID: 8
+    Title: 
+    speakerIndex: 0
+    Text: '...'
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 3
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 814, y: 405}
   Speakers:
   - Player
   - Necromancer
+  - Rogue

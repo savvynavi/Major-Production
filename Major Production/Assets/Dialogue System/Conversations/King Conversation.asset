@@ -11,29 +11,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: King Conversation
   m_EditorClassIdentifier: 
-  nextID: 4
+  nextID: 6
   startingID: 0
   Entries:
   - ID: 0
     Title: 
     speakerIndex: 1
-    Text: Thoumst cantst cometh inst hyre
+    Text: I see you made it past all my guards.
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
     transitions:
       transitions:
       - transition:
-          TargetID: 1
+          TargetID: 4
         condition: {fileID: 0}
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 344, y: 58}
+    position: {x: 366, y: 40}
   - ID: 1
-    Title: 
-    speakerIndex: 0
-    Text: I can do anything!
+    Title: Start King Fight
+    speakerIndex: 1
+    Text: This time, don't come back!
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -52,11 +52,11 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 345, y: 137}
+    position: {x: 367, y: 167}
   - ID: 2
-    Title: 
+    Title: King Fight Won
     speakerIndex: 0
-    Text: Chaos, chaos!
+    Text: '*gasp* no... I can''t die here...'
     OnEnter: []
     OnExit:
     - description: Calls event BossBattleWin on actor 'King'
@@ -66,20 +66,46 @@ MonoBehaviour:
     cutsceneEvents: []
     transitions:
       transitions: []
-    isEnd: 0
+    isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
     position: {x: 309, y: 266}
   - ID: 3
+    Title: King Fight Lost
+    speakerIndex: 1
+    Text: Your reign of terror is over.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 5
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 625, y: 255}
+  - ID: 4
+    Title: 
+    speakerIndex: 0
+    Text: I guess it it up to me to stop you...
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 378, y: 100}
+  - ID: 5
     Title: 
     speakerIndex: 1
-    Text: "\r\n___________.__                    __________             .__       .__
-      \    \r\n\\__    ___/|  |__   ____   ____   \\______   \\ ___________|__| _____|
-      \ |__  \r\n  |    |   |  |  \\_/ __ \\ /    \\   |     ___// __ \\_  __ \\  |/
-      \ ___/  |  \\ \r\n  |    |   |   Y  \\  ___/|   |  \\  |    |   \\  ___/|  |
-      \\/  |\\___ \\|   Y  \\\r\n  |____|   |___|  /\\___  >___|  /  |____|    \\___
-      \ >__|  |__/____  >___|  /\r\n                \\/     \\/     \\/                 \\/
-      \             \\/     \\/ \r\n"
+    Text: Rest in peace.
     OnEnter: []
     OnExit:
     - description: Autoloads last autosave
@@ -89,10 +115,10 @@ MonoBehaviour:
     cutsceneEvents: []
     transitions:
       transitions: []
-    isEnd: 0
+    isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 625, y: 255}
+    position: {x: 643, y: 369}
   Speakers:
   - Player
   - King

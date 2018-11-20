@@ -15,6 +15,12 @@ MonoBehaviour:
   description: 'Set a target ablaze '
   icon: {fileID: 0}
   damage: 100
+  anim: 11
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1017204414299168, guid: 411be185f2f24ba498e5a7f0490f917c,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 2
   dmgType: 2
   statType: 3
   ScalePercentage: 0.25
@@ -23,4 +29,3 @@ MonoBehaviour:
   duration: 2
   currentEffects:
   - {fileID: 11400000, guid: 8b3821779004e86429ba8aee82275033, type: 2}
-  anim: 11

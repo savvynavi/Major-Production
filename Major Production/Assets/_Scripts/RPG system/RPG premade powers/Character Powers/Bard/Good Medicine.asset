@@ -15,6 +15,12 @@ MonoBehaviour:
   description: 'Heal an ally '
   icon: {fileID: 0}
   damage: 0
+  anim: 2
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1473378867694920, guid: e88bdb9bd047ff7488562c5d4ba6ba8d,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 5
   dmgType: 0
   statType: 4
   ScalePercentage: 1
@@ -23,4 +29,3 @@ MonoBehaviour:
   duration: 1
   currentEffects:
   - {fileID: 11400000, guid: 643a1fcefbe02934fa2047687e8dbc1c, type: 2}
-  anim: 2

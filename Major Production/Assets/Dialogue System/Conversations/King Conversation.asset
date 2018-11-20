@@ -17,7 +17,7 @@ MonoBehaviour:
   - ID: 0
     Title: 
     speakerIndex: 1
-    Text: Thoumst cantst cometh inst hyre
+    Text: Placeholder King text
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
@@ -33,7 +33,7 @@ MonoBehaviour:
   - ID: 1
     Title: Start King Fight
     speakerIndex: 0
-    Text: I can do anything!
+    Text: Placeholder King battle start text
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -56,7 +56,7 @@ MonoBehaviour:
   - ID: 2
     Title: King Fight Won
     speakerIndex: 0
-    Text: Chaos, chaos!
+    Text: Placeholder win text
     OnEnter: []
     OnExit:
     - description: Calls event BossBattleWin on actor 'King'
@@ -73,13 +73,7 @@ MonoBehaviour:
   - ID: 3
     Title: King Fight Lost
     speakerIndex: 1
-    Text: "\r\n___________.__                    __________             .__       .__
-      \    \r\n\\__    ___/|  |__   ____   ____   \\______   \\ ___________|__| _____|
-      \ |__  \r\n  |    |   |  |  \\_/ __ \\ /    \\   |     ___// __ \\_  __ \\  |/
-      \ ___/  |  \\ \r\n  |    |   |   Y  \\  ___/|   |  \\  |    |   \\  ___/|  |
-      \\/  |\\___ \\|   Y  \\\r\n  |____|   |___|  /\\___  >___|  /  |____|    \\___
-      \ >__|  |__/____  >___|  /\r\n                \\/     \\/     \\/                 \\/
-      \             \\/     \\/ \r\n"
+    Text: Placeholder lose text
     OnEnter: []
     OnExit:
     - description: Autoloads last autosave

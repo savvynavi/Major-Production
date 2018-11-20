@@ -11,8 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
   m_Name: Mana Potion Effect
   m_EditorClassIdentifier: 
-  particles: {fileID: 198297079135555946, guid: e88bdb9bd047ff7488562c5d4ba6ba8d,
-    type: 2}
+  particles: {fileID: 0}
   material: {fileID: 0}
   shader: {fileID: 0}
   gObject: {fileID: 0}
@@ -20,6 +19,6 @@ MonoBehaviour:
   StatusEffectPosition: 0
   timer: 0
   StatusEffects:
-    effect: 2
-    statBuff: 5
+    effect: 4
+    statBuff: 6
     amount: 400

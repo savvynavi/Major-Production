@@ -229,7 +229,8 @@ namespace RPGsys {
 						//selector only visible if the target isn't null
 						if(characters[i].target != null) {
 							selector.gameObject.SetActive(true);
-							selector.transform.position = characters[i].target.transform.position;
+							Vector3 pos = new Vector3(characters[i].target.transform.position.x, selector.transform.position.y, characters[i].target.transform.position.z);
+							selector.transform.position = pos;
 						} else {
 							selector.gameObject.SetActive(false);
 						}
@@ -253,9 +254,6 @@ namespace RPGsys {
 						//shows the current players buttons, will only move on if player selects new character
 						System.Func<bool> waiting = () => { return characters[i].ActivePlayer == true && PlayerTurnOver == false; };
 						yield return new WaitWhile(waiting);
-						//while(characters[i].ActivePlayer == true) {
-						//	yield return null;
-						//}
 
 						//sets them out of idle state, hides their power buttons
 						MoveSetCheck(i);
@@ -263,7 +261,6 @@ namespace RPGsys {
 					}else {
 						//put something here to stop it crashing :p
 						characters[i].ActivePlayer = true;
-						//break;
 					}
 				}
 				

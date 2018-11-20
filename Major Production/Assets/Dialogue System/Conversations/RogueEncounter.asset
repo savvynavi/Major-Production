@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: RogueEncounter
   m_EditorClassIdentifier: 
-  nextID: 6
+  nextID: 8
   startingID: 0
   Entries:
   - ID: 0
@@ -35,11 +35,7 @@ MonoBehaviour:
     speakerIndex: 1
     Text: Uh, no, I thought you were dead!
     OnEnter: []
-    OnExit:
-    - description: Start battle
-      target: 
-      parameters: 
-      dialogueEvent: {fileID: 11400000, guid: 9de1e7262efd7094c934f5caa4ae7b57, type: 2}
+    OnExit: []
     cutsceneEvents: []
     transitions:
       transitions:
@@ -51,7 +47,7 @@ MonoBehaviour:
     Responses: []
     position: {x: 318, y: 122}
   - ID: 4
-    Title: 
+    Title: Fight Start
     speakerIndex: 0
     Text: I thought so as well, maybe you should try it?
     OnEnter: []
@@ -62,11 +58,51 @@ MonoBehaviour:
       dialogueEvent: {fileID: 11400000, guid: 9de1e7262efd7094c934f5caa4ae7b57, type: 2}
     cutsceneEvents: []
     transitions:
-      transitions: []
+      transitions:
+      - transition:
+          TargetID: 6
+        condition: {fileID: 11400000, guid: 1936fdc838338304ca093b04f045ac67, type: 2}
+      - transition:
+          TargetID: 7
+        condition: {fileID: 0}
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
     position: {x: 306, y: 214}
+  - ID: 6
+    Title: Fight Win
+    speakerIndex: 0
+    Text: 
+    OnEnter: []
+    OnExit:
+    - description: Calls event BossBattleWin on actor 'Rogue'
+      target: Rogue
+      parameters: BossBattleWin
+      dialogueEvent: {fileID: 11400000, guid: 6980d20817d5bc443b4ac87b1729bbc7, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 173, y: 321}
+  - ID: 7
+    Title: Fight Lost
+    speakerIndex: 1
+    Text: 
+    OnEnter: []
+    OnExit:
+    - description: Autoloads last autosave
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: 6f3fa35a116a93847a4bd8950a93a6a7, type: 2}
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 666, y: 351}
   Speakers:
   - Player
   - Rogue

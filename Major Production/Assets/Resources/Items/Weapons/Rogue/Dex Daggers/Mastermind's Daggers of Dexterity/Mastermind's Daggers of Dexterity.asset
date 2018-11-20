@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59db5d33a91fcc542b41e2e946c7cd27, type: 3}
+  m_Name: Mastermind's Daggers of Dexterity
+  m_EditorClassIdentifier: 
+  Name: Mastermind's Daggers of Dexterity
+  Description: A magic pair of daggers that greatly increases Dex
+  Sprite: {fileID: 21300000, guid: 95bd182af874d074f84dce42f92487dd, type: 3}
+  Effect: {fileID: 11400000, guid: acfa8113d43cc2848a39ce2ecca55804, type: 2}
+  buffInstances:
+  - {fileID: 0}
+  WeaponModel: {fileID: 0}
+  equipmentType: 0
+  classRequirement: 1

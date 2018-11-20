@@ -36,13 +36,13 @@ namespace RPGsys {
 
 					//undo button setup
 					if(character.ChoiceOrder != 1) {
-						GameObject tmp = Instantiate(Button.gameObject);
-						goBackButton = tmp.GetComponent<Button>();
-						tmp.transform.SetParent(transform, false);
-						tmp.transform.localScale = Vector3.one;
-						goBackButton.name = "UNDO";
-						goBackButton.GetComponentInChildren<Text>().text = "UNDO";
-						goBackButton.onClick.AddListener(() => HandleClickBack());
+						//GameObject tmp = Instantiate(Button.gameObject);
+						//goBackButton = tmp.GetComponent<Button>();
+						//tmp.transform.SetParent(transform, false);
+						//tmp.transform.localScale = Vector3.one;
+						//goBackButton.name = "UNDO";
+						//goBackButton.GetComponentInChildren<Text>().text = "UNDO";
+						//goBackButton.onClick.AddListener(() => HandleClickBack());
 
 					}
 				}

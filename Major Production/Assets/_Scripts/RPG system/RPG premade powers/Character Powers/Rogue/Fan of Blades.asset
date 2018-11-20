@@ -15,6 +15,12 @@ MonoBehaviour:
   description: Throws knives at all enemies
   icon: {fileID: 0}
   damage: 100
+  anim: 10
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1197940980530000, guid: 3d0b29154ad85994da3c51f1bf967d4b,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 2
   dmgType: 1
   statType: 1
   ScalePercentage: 0.5
@@ -22,4 +28,3 @@ MonoBehaviour:
   areaOfEffect: 1
   duration: 0
   currentEffects: []
-  anim: 10

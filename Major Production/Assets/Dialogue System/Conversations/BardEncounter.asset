@@ -11,20 +11,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: BardEncounter
   m_EditorClassIdentifier: 
-  nextID: 4
+  nextID: 5
   startingID: 0
   Entries:
   - ID: 0
     Title: 
-    speakerIndex: 0
-    Text: Hey come be a zombie with me
+    speakerIndex: 1
+    Text: Oh god, what happened to you?!
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
     transitions:
       transitions:
       - transition:
-          TargetID: 1
+          TargetID: 4
         condition: {fileID: 0}
     isEnd: 0
     parent: {fileID: 11400000}
@@ -33,7 +33,9 @@ MonoBehaviour:
   - ID: 1
     Title: 
     speakerIndex: 1
-    Text: '*angry dooting noises*'
+    Text: 'I''ll put you to rest, dear friend.
+
+      *lute strumming intensifies*'
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -55,8 +57,10 @@ MonoBehaviour:
     position: {x: 188, y: 165}
   - ID: 2
     Title: 
-    speakerIndex: 0
-    Text: zip zop zap
+    speakerIndex: 1
+    Text: 'Wow, you were right, being dead rocks!
+
+      *electric chords*'
     OnEnter: []
     OnExit:
     - description: Calls event BossBattleWin on actor 'Bard'
@@ -69,16 +73,16 @@ MonoBehaviour:
     isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 134, y: 299}
+    position: {x: 133, y: 299}
   - ID: 3
     Title: 
     speakerIndex: 1
-    Text: '*contented strumming*'
+    Text: '*triumphant strum*'
     OnEnter: []
     OnExit:
     - description: Autoloads last autosave
-      target: Bard
-      parameters: BossBattleWin
+      target: 
+      parameters: 
       dialogueEvent: {fileID: 11400000, guid: 6f3fa35a116a93847a4bd8950a93a6a7, type: 2}
     cutsceneEvents: []
     transitions:
@@ -87,6 +91,22 @@ MonoBehaviour:
     parent: {fileID: 11400000}
     Responses: []
     position: {x: 452, y: 277}
+  - ID: 4
+    Title: 
+    speakerIndex: 0
+    Text: What? I'm cool now.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 495, y: 81}
   Speakers:
   - Player
   - Bard

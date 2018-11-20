@@ -15,6 +15,12 @@ MonoBehaviour:
   description: Encase an Enemy in ice
   icon: {fileID: 0}
   damage: 100
+  anim: 11
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1536546454863124, guid: 59d7ce847bcb201478d8852a348c7cc0,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 1
   dmgType: 2
   statType: 3
   ScalePercentage: 0.5
@@ -23,4 +29,3 @@ MonoBehaviour:
   duration: 5
   currentEffects:
   - {fileID: 11400000, guid: 64df6879e9e762a4e8d2befd591536b4, type: 2}
-  anim: 11

@@ -153,6 +153,9 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	}
 	IEnumerator AsyncBattleLoad(string sceneName)
 	{
+		// Freeze character in scene
+		currentSceneController.player.Freeze();
+
 		loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		loadOp.allowSceneActivation = false;
 		loadScreen.BeginBattleLoad();
@@ -235,6 +238,12 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 			SetSceneObjectActive(worldScene, true);
 			SceneManager.SetActiveScene(worldScene);
 			// TODO may need to tell scene it was just reactivated?
+
+			// If character wasn't previously frozen, unfreeze them
+			if (!currentSceneController.Busy)
+			{
+				currentSceneController.player.Unfreeze();
+			}
 
 			SetSceneObjectActive(battleScene, false);
 			SceneManager.UnloadSceneAsync(battleScene);

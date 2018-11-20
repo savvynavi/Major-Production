@@ -93,7 +93,11 @@ MonoBehaviour:
     speakerIndex: 1
     Text: Now go away or I shall taunt you a second time!
     OnEnter: []
-    OnExit: []
+    OnExit:
+    - description: Autoloads last autosave
+      target: 
+      parameters: 
+      dialogueEvent: {fileID: 11400000, guid: 6f3fa35a116a93847a4bd8950a93a6a7, type: 2}
     cutsceneEvents: []
     transitions:
       transitions: []

@@ -21,7 +21,7 @@ namespace RPGsys {
 		Image Portrait;
 		Image Container;
 		Text NameText;
-		public GameObject TabBar;
+		//public GameObject TabBar;
 		public MoveConfirmMenu moveConfirmMenu { get; private set; }
 		StateManager stateManager;
 
@@ -50,9 +50,9 @@ namespace RPGsys {
 				if(child.name == "Name") {
 					NameText = child.gameObject.GetComponent<Text>();
 				}
-				if(child.name == "Tab Bar") {
-					TabBar = child.gameObject;
-				}
+				//if(child.name == "Tab Bar") {
+				//	TabBar = child.gameObject;
+				//}
 			}
 
 			moveConfirmMenu.Setup(button, ButtonPanel, canvas);

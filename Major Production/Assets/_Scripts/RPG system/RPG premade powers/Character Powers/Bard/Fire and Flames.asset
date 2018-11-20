@@ -15,6 +15,12 @@ MonoBehaviour:
   description: Put a burning in their heart
   icon: {fileID: 0}
   damage: 100
+  anim: 2
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1524116567194384, guid: 0a1baa99c8c2c424b8cc97bdf2eb59a7,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 2
   dmgType: 2
   statType: 3
   ScalePercentage: 0.5
@@ -23,4 +29,3 @@ MonoBehaviour:
   duration: 1
   currentEffects:
   - {fileID: 11400000, guid: 8b3821779004e86429ba8aee82275033, type: 2}
-  anim: 2

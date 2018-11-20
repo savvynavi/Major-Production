@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: ChestTalk
   m_EditorClassIdentifier: 
-  nextID: 2
+  nextID: 3
   startingID: 0
   Entries:
   - ID: 0
@@ -34,16 +34,32 @@ MonoBehaviour:
     Title: 
     speakerIndex: 1
     Text: You can get some pretty cool loot from chests, try and seek these out alright.
-      You will be better off.
+      You'll be better off.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 2
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 565, y: 189}
+  - ID: 2
+    Title: 
+    speakerIndex: 0
+    Text: (I feel like I should try pressing 'E' near the chest)
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
     transitions:
       transitions: []
-    isEnd: 0
+    isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 565, y: 188}
+    position: {x: 583, y: 294}
   Speakers:
   - Player
   - Rogue

@@ -39,11 +39,10 @@ namespace RPGsys {
 
 			//fix enemy not facing correct dir for camera
 			CapsuleCollider tmp = attacker.GetComponent<CapsuleCollider>();
-			if(attacker.tag == "Enemy") {
-				faceOffset *= -1;
-			}
 
-			cameraFace.transform.position = new Vector3(attacker.transform.position.x + faceOffset, attacker.transform.position.y + tmp.height, attacker.transform.position.z);
+			Vector3 offset = attacker.transform.forward * faceOffset;
+
+			cameraFace.transform.position = new Vector3(attacker.transform.position.x + offset.x, attacker.transform.position.y + tmp.height, attacker.transform.position.z + offset.z);
 			cameraFace.transform.LookAt(attacker.transform);
 		}
 
@@ -57,8 +56,9 @@ namespace RPGsys {
 
 			CapsuleCollider tmp = attacker.GetComponent<CapsuleCollider>();
 
+			Vector3 offset = attacker.transform.forward * (-attackOffset);
 			//cameraAttack.transform.SetParent(attacker.transform);
-			cameraAttack.transform.position = new Vector3(attacker.transform.position.x - faceOffset, attacker.transform.position.y + tmp.height, attacker.transform.position.z);
+			cameraAttack.transform.position = new Vector3(attacker.transform.position.x - offset.x, attacker.transform.position.y + tmp.height, attacker.transform.position.z + offset.z);
 			cameraAttack.transform.LookAt(target.transform);
 
 		}
@@ -73,10 +73,6 @@ namespace RPGsys {
 
 			attackOffset = Mathf.Abs(attackOffset);
 
-			if(targets[0].tag == "Enemy") {
-				attackOffset *= -1;
-			}
-
 			//get average position vector of group
 			List<Vector3> positions = new List<Vector3>();
 			foreach(Character chara in targets) {
@@ -85,8 +81,10 @@ namespace RPGsys {
 
 			Vector3 meanPos = AveragePosition(positions);
 
+			Vector3 offset = targets[0].transform.forward * attackOffset;
+
 			//set the camera to look at the group from the front from average position
-			cameraAttack.transform.position = new Vector3(meanPos.x + attackOffset, targets[0].GetComponent<CapsuleCollider>().height, meanPos.z);
+			cameraAttack.transform.position = new Vector3(meanPos.x + offset.x, targets[0].GetComponent<CapsuleCollider>().height, meanPos.z + offset.z);
 			cameraAttack.transform.LookAt(meanPos);
 		}
 

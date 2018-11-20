@@ -15,6 +15,12 @@ MonoBehaviour:
   description: Stick 'em with the pointy end
   icon: {fileID: 0}
   damage: 100
+  anim: 8
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 1197940980530000, guid: 3d0b29154ad85994da3c51f1bf967d4b,
+    type: 2}
+  effectPosCharacter: 0
+  effectPosTarget: 2
   dmgType: 0
   statType: 1
   ScalePercentage: 2
@@ -22,4 +28,3 @@ MonoBehaviour:
   areaOfEffect: 0
   duration: 0
   currentEffects: []
-  anim: 8

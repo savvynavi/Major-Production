@@ -11,13 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
   m_Name: RogueEncounter
   m_EditorClassIdentifier: 
-  nextID: 4
+  nextID: 8
   startingID: 0
   Entries:
   - ID: 0
     Title: 
     speakerIndex: 0
-    Text: Hey Rogue, join me
+    Text: Hey Rogue. Pleasant to see you here
     OnEnter: []
     OnExit: []
     cutsceneEvents: []
@@ -29,11 +29,27 @@ MonoBehaviour:
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 244, y: 55}
+    position: {x: 449, y: 44}
   - ID: 1
     Title: 
     speakerIndex: 1
-    Text: Uh, no
+    Text: Uh, no, I thought you were dead!
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 4
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 451, y: 119}
+  - ID: 4
+    Title: Fight Start
+    speakerIndex: 0
+    Text: I thought so as well, maybe you should try it?
     OnEnter: []
     OnExit:
     - description: Start battle
@@ -44,19 +60,19 @@ MonoBehaviour:
     transitions:
       transitions:
       - transition:
-          TargetID: 2
+          TargetID: 6
         condition: {fileID: 11400000, guid: 1936fdc838338304ca093b04f045ac67, type: 2}
       - transition:
-          TargetID: 3
+          TargetID: 7
         condition: {fileID: 0}
     isEnd: 0
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 258, y: 134}
-  - ID: 2
-    Title: 
+    position: {x: 436, y: 206}
+  - ID: 6
+    Title: Fight Win
     speakerIndex: 0
-    Text: Bluh, bluh, you're a zombie
+    Text: Placeholder win text
     OnEnter: []
     OnExit:
     - description: Calls event BossBattleWin on actor 'Rogue'
@@ -69,11 +85,11 @@ MonoBehaviour:
     isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 207, y: 238}
-  - ID: 3
-    Title: 
+    position: {x: 283, y: 331}
+  - ID: 7
+    Title: Fight Lost
     speakerIndex: 1
-    Text: Back to stealing
+    Text: Placeholder defeat text
     OnEnter: []
     OnExit:
     - description: Autoloads last autosave
@@ -86,7 +102,7 @@ MonoBehaviour:
     isEnd: 1
     parent: {fileID: 11400000}
     Responses: []
-    position: {x: 473, y: 235}
+    position: {x: 595, y: 349}
   Speakers:
   - Player
   - Rogue

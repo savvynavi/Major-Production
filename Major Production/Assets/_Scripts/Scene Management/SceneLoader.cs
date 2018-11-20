@@ -155,27 +155,27 @@ public class SceneLoader : MonoBehaviour, ISaveable {
 	{
 		loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		loadOp.allowSceneActivation = false;
-		loadScreen.BeginSceneLoad(sceneName);
+		loadScreen.BeginBattleLoad();
 		// TODO do battle loading effects
 		while(loadOp.progress < 0.9f)
 		{
-			loadScreen.UpdateProgress(loadOp.progress);
+			loadScreen.UpdateBattleLoadProgress(loadOp.progress);
 			yield return new WaitForEndOfFrame();
 		}
-		loadScreen.SceneReady();
+		loadScreen.BattleSceneReady();
+		yield return new WaitUntil(loadScreen.IsBattleReady);
 		// Deactivate objects in world scene
 		SetSceneObjectActive(worldScene, false);
 		loadOp.allowSceneActivation = true;
 		yield return new WaitUntil(() => { return loadOp.isDone; });
-		loadScreen.FinishSceneLoad();
 		battleScene = SceneManager.GetSceneByName(sceneName);
 		SceneManager.SetActiveScene(battleScene);
 		GameController.Instance.state = GameController.EGameStates.Battle;
-
 		//TODO maybe some event/function called here letting battle initialize itself?
 		Debug.Log(battleScene.name);
 		State = ELoaderState.Idle;
 		loadOp = null;
+		loadScreen.FinishBattleLoad();
 	}
 
 	IEnumerator AsyncSceneLoad(string sceneName)

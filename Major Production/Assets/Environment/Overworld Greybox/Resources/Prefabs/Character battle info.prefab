@@ -250,8 +250,8 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 3
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
 --- !u!114 &114669361412254604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -294,7 +294,10 @@ MonoBehaviour:
   Portrait: {fileID: 114093707862620348}
   nameTag: {fileID: 0}
   HPBar: {fileID: 114325397094990712}
+  HPRegenBar: {fileID: 0}
   MPBar: {fileID: 114358590469251778}
+  MPRegenBar: {fileID: 0}
+  Halo: {fileID: 0}
   FloatingMenu: 0
 --- !u!222 &222050843819075890
 CanvasRenderer:

@@ -20,7 +20,7 @@ namespace RPGsys {
             LutePlaying,
             MumbleRap,
             Sweep,
-            Gaurd,
+            Guard,
             WarCry,
             CallVolly,
             Stab,
@@ -43,11 +43,27 @@ namespace RPGsys {
 			ORC_AXE_2
 		};
 
+		public enum EffectPosition {
+			ROOT,
+			HEAD,
+			TORSO,
+			LEFT_HAND,
+			RIGHT_HAND,
+			FEET
+		};
+
 		[Header("Power Details")]
 		public string powName;
 		public string description;
 		public Sprite icon;
 		public float damage;
+		public AbilityAnim anim;
+
+		[Header("Effects power does/its pos on character/target")]
+		public GameObject EffectPlayer;
+		public GameObject EffectTarget;
+		public EffectPosition effectPosCharacter;
+		public EffectPosition effectPosTarget;
 
 		[Header("Damage Scale")]
 		public RPGStats.DmgType dmgType;
@@ -64,7 +80,8 @@ namespace RPGsys {
 		[Header("List of effects power does")]
 		public List<Status> currentEffects;
 
-		public AbilityAnim anim;
+		protected GameObject gameObjInstancePlayer;
+		protected GameObject gameObjInstanceTarget;
 
 		public string Description {
 			get { return description; }
@@ -73,8 +90,6 @@ namespace RPGsys {
 
 		//applies damage to target based on character stats + power used
 		public void Apply(Character obj, Character target) {
-
-            
 
             if (obj.Mp - manaCost >= 0) {
 				float rand = Random.Range(1, 100);
@@ -199,6 +214,37 @@ namespace RPGsys {
             }
 
 			return IncomingDmg;
+		}
+
+		//spawns a game object on the player at a given spot, or else at its feet
+		void SpawnEffect(Character chara, Character target) {
+			if(EffectPlayer != null) {
+				gameObjInstancePlayer = Instantiate(EffectPlayer);
+				if(chara.CharaBodyparts[effectPosCharacter] != null) {
+					gameObjInstancePlayer.transform.parent = chara.transform;
+					gameObjInstancePlayer.transform.position = chara.CharaBodyparts[effectPosCharacter].transform.position;
+
+				} else {
+					gameObjInstancePlayer.transform.parent = chara.transform;
+					gameObjInstancePlayer.transform.localPosition = Vector3.zero;
+				}
+
+			}
+		}
+
+		void SendEffectToEnemy(Character target) {
+			if(EffectTarget != null) {
+				gameObjInstancePlayer = Instantiate(EffectTarget);
+				if(target.CharaBodyparts[effectPosCharacter] != null) {
+					gameObjInstancePlayer.transform.parent = target.transform;
+					gameObjInstancePlayer.transform.position = target.CharaBodyparts[effectPosCharacter].transform.position;
+
+				} else {
+					gameObjInstancePlayer.transform.parent = target.transform;
+					gameObjInstancePlayer.transform.localPosition = Vector3.zero;
+				}
+
+			}
 		}
 
 		// Checks powers are the same

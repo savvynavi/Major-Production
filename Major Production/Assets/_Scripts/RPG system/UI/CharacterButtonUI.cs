@@ -13,10 +13,11 @@ namespace RPGsys {
 		public Button Button;
 
 		Button goBackButton;
+		GameObject TabBarObject;
 		public bool UndoMove = false;
 		//public Image Panel;
 
-		public void SetButtons(Character chara) {
+		public void SetButtons(Character chara, StateManager manager) {
 			character = chara;
 
 			if(character != null) {
@@ -35,13 +36,13 @@ namespace RPGsys {
 
 					//undo button setup
 					if(character.ChoiceOrder != 1) {
-						GameObject tmp = Instantiate(Button.gameObject);
-						goBackButton = tmp.GetComponent<Button>();
-						tmp.transform.SetParent(transform, false);
-						tmp.transform.localScale = Vector3.one;
-						goBackButton.name = "UNDO";
-						goBackButton.GetComponentInChildren<Text>().text = "UNDO";
-						goBackButton.onClick.AddListener(() => HandleClickBack());
+						//GameObject tmp = Instantiate(Button.gameObject);
+						//goBackButton = tmp.GetComponent<Button>();
+						//tmp.transform.SetParent(transform, false);
+						//tmp.transform.localScale = Vector3.one;
+						//goBackButton.name = "UNDO";
+						//goBackButton.GetComponentInChildren<Text>().text = "UNDO";
+						//goBackButton.onClick.AddListener(() => HandleClickBack());
 
 					}
 				}
@@ -62,6 +63,11 @@ namespace RPGsys {
 		public void HandleClickBack() {
 			FindObjectOfType<TurnBehaviour>().RemoveAttack();
 			UndoMove = true;
+		}
+
+		//creates a panel to bring up when clicked
+		public void TabBarButton() {
+
 		}
 	}
 }

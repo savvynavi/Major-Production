@@ -52,7 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c47a9193ed3144a97db4566a240484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Entrypoints: []
+  Entrypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   OnBusyStart:
     m_PersistentCalls:
       m_Calls: []
@@ -79,10 +81,14 @@ MonoBehaviour:
   maxEncounterTime: 30
   nextTimeEncounter: 0
   encounterList:
-  - Option: {fileID: 11400000, guid: 603a696e2660bba4584a14bfaf21c40d, type: 2}
-    Weight: 1
-  - Option: {fileID: 11400000, guid: 901d688905650a24dbfab0e6424542da, type: 2}
+  - Option: {fileID: 11400000, guid: d44d4c5a0a812fa4399d3eb2d3539912, type: 2}
+    Weight: 3
+  - Option: {fileID: 11400000, guid: 24eeb6b6f77329043bddf9c47bac17c3, type: 2}
+    Weight: 3
+  - Option: {fileID: 11400000, guid: f9d7a9bfc276638488e538b94ea89cfd, type: 2}
     Weight: 2
+  - Option: {fileID: 11400000, guid: 6be8d47731da8334b883a518b1c8bc17, type: 2}
+    Weight: 1
   repeatModifier: 0.5
   battleScene: Test Battle
   ticking: 0

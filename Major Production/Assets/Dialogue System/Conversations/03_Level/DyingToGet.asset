@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4885efe881bb0794b8c9439ff478a019, type: 3}
+  m_Name: DyingToGet
+  m_EditorClassIdentifier: 
+  nextID: 2
+  startingID: 0
+  Entries:
+  - ID: 0
+    Title: 
+    speakerIndex: 0
+    Text: I have been dying to get of that place.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions:
+      - transition:
+          TargetID: 1
+        condition: {fileID: 0}
+    isEnd: 0
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 473, y: 89}
+  - ID: 1
+    Title: 
+    speakerIndex: 0
+    Text: Now I got a bone to pick with the king, no one can stop me from achieving
+      my goal for my master.
+    OnEnter: []
+    OnExit: []
+    cutsceneEvents: []
+    transitions:
+      transitions: []
+    isEnd: 1
+    parent: {fileID: 11400000}
+    Responses: []
+    position: {x: 503, y: 227}
+  Speakers:
+  - Player

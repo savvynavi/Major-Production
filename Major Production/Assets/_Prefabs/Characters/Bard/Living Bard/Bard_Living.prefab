@@ -2032,6 +2032,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Bard
+  uiColour: {r: 0.18590264, g: 0.5735294, b: 0, a: 1}
+  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
+  ButtonPortrait: {fileID: 21300000, guid: cce558e774574654b9061c651dd29d06, type: 3}
+  anim: {fileID: 95763209826309532}
   speedStat: 10
   strStat: 30
   defStat: 5
@@ -2041,14 +2045,18 @@ MonoBehaviour:
   mpStat: 400
   dexStat: 10
   agiStat: 5
+  rootStat: {fileID: 0}
+  headStat: {fileID: 0}
+  torsoStat: {fileID: 0}
+  leftHandStat: {fileID: 0}
+  rightHandStat: {fileID: 0}
+  feetStat: {fileID: 0}
   classInfo: {fileID: 11400000, guid: 3a2bf35ad1820564eb24d50eb32ec85a, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 95763209826309532}
   ChoiceOrder: 3
-  Portrait: {fileID: 21300000, guid: 85e9cde9552b0504ab7cba72eff85f1e, type: 3}
-  ButtonPortrait: {fileID: 21300000, guid: cce558e774574654b9061c651dd29d06, type: 3}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114912260791375866
 MonoBehaviour:

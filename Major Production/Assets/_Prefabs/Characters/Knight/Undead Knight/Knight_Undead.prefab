@@ -1972,6 +1972,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Knight
+  uiColour: {r: 0.9852941, g: 0.8765721, b: 0, a: 1}
+  Portrait: {fileID: 21300000, guid: c6e94b1cbb1f95446bdceae49fa0d55d, type: 3}
+  ButtonPortrait: {fileID: 21300000, guid: b292776c221b5e64089745e1d8f93c20, type: 3}
+  anim: {fileID: 95548765029335616}
   speedStat: 4
   strStat: 100
   defStat: 10
@@ -1981,14 +1985,18 @@ MonoBehaviour:
   mpStat: 200
   dexStat: 0
   agiStat: 5
+  rootStat: {fileID: 0}
+  headStat: {fileID: 0}
+  torsoStat: {fileID: 0}
+  leftHandStat: {fileID: 0}
+  rightHandStat: {fileID: 0}
+  feetStat: {fileID: 0}
   classInfo: {fileID: 11400000, guid: 3b775744c6fe6fc41b22c4ff5ffe8b33, type: 2}
   Strengths: 
   Weaknesses: 
-  anim: {fileID: 95548765029335616}
   ChoiceOrder: 1
-  Portrait: {fileID: 21300000, guid: c6e94b1cbb1f95446bdceae49fa0d55d, type: 3}
-  ButtonPortrait: {fileID: 21300000, guid: b292776c221b5e64089745e1d8f93c20, type: 3}
   target: {fileID: 0}
+  targetList: []
   currentEffects: []
 --- !u!114 &114844359389543830
 MonoBehaviour:

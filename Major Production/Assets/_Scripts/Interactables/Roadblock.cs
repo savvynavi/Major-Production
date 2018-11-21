@@ -52,7 +52,6 @@ namespace RPG {
 		IEnumerator TryBreakRoadblockRoutine(InteractionUser user)
 		{
 			SceneLoader.Instance.currentSceneController.SetBusy();
-			user.CanInteract = false;
 			// HACK this feels dirty
 			bool wait = true;
 			UnityEngine.Events.UnityAction continueAction = () => wait = false;
@@ -122,7 +121,6 @@ namespace RPG {
 		{
 			dialogue.ClearButtons();
 			dialogue.HideBox();
-			user.CanInteract = true;
 			SceneLoader.Instance.currentSceneController.ClearBusy();
 		}
 	}

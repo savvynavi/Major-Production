@@ -13,6 +13,7 @@ public class Controller : MonoBehaviour {
 	CharacterController characterController;
 	Animator anim;
 	Vector3 moveDir;
+	RPG.InteractionUser interactionUser;
 
 	// TODO events for moving or not moving?
 
@@ -20,6 +21,7 @@ public class Controller : MonoBehaviour {
 	void Start () {
 
 		characterController = GetComponent<CharacterController>();
+		interactionUser = GetComponent<RPG.InteractionUser>();
 		anim = GetComponent<Animator>();
 		moveDir = Vector3.zero;
 	}
@@ -73,10 +75,18 @@ public class Controller : MonoBehaviour {
 	public void Freeze()
 	{
 		frozen = true;
+		if(interactionUser != null)
+		{
+			interactionUser.CanInteract = false;
+		}
 	}
 
 	public void Unfreeze()
 	{
 		frozen = false;
+		if(interactionUser != null)
+		{
+			interactionUser.CanInteract = true;
+		}
 	}
 }

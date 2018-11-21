@@ -58,7 +58,6 @@ namespace RPG {
 		{
 			// Suspend interactions
 			SceneLoader.Instance.currentSceneController.SetBusy();
-			user.CanInteract = false;
 
 			// TODO factor out dialogue stuff to some other class
 
@@ -104,8 +103,7 @@ namespace RPG {
 			}
 			dialogue.ClearButtons();
 			dialogue.HideBox();
-
-			user.CanInteract = true;
+			
 			SceneLoader.Instance.currentSceneController.ClearBusy();
 		}
 

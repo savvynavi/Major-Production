@@ -1,0 +1,100 @@
+{
+  "playerTeam": [
+    {
+      "name": "Mage_Undead",
+      "weapon": "",
+      "ringL": "",
+      "ringR": "",
+      "activePowers": [
+        "Arcane Dart",
+        "Ice Tomb",
+        "Static",
+        "Ignite"
+      ],
+      "experience": {
+        "characterLevel": 5,
+        "exp": 0
+      }
+    },
+    {
+      "name": "Bard_Undead",
+      "weapon": "",
+      "ringL": "",
+      "ringR": "",
+      "activePowers": [
+        "Bashing Pumpkins",
+        "Good Medicine",
+        "Ride the Lightning",
+        "Fire and Flames"
+      ],
+      "experience": {
+        "characterLevel": 5,
+        "exp": 0
+      }
+    },
+    {
+      "name": "Knight_Undead",
+      "weapon": "",
+      "ringL": "",
+      "ringR": "",
+      "activePowers": [
+        "Strike",
+        "Shield Bash",
+        "Guard",
+        "War Cry"
+      ],
+      "experience": {
+        "characterLevel": 5,
+        "exp": 0
+      }
+    },
+    {
+      "name": "Rogue_Undead",
+      "weapon": "",
+      "ringL": "",
+      "ringR": "",
+      "activePowers": [
+        "Stab",
+        "Net",
+        "Poison Blade",
+        "Smoke Bomb"
+      ],
+      "experience": {
+        "characterLevel": 5,
+        "exp": 0
+      }
+    }
+  ],
+  "inventory": {
+    "playerInventory": []
+  },
+  "scene": {
+    "scene": "08 Castle_Town",
+    "entrypointIndex": 0,
+    "sceneData": {
+      "Assets/_Scenes/02 Tutorial_Dungeon.unity": {},
+      "Assets/_Scenes/03 Forest Path.unity": {},
+      "Assets/_Scenes/04 Town.unity": {
+        "rogue_battle": {
+          "Triggered": true
+        }
+      },
+      "Assets/_Scenes/05 Tavern_Interior.unity": {
+        "bard_battle": {
+          "Triggered": true
+        }
+      },
+      "Assets/_Scenes/06 Barracks_Interior.unity": {
+        "knight_battle": {
+          "Triggered": true
+        }
+      },
+	  "Assets/_Scenes/07 OuterKeep.unity": {},
+	  "Assets/_Scenes/08 Castle_Town.unity": {
+		"barricade_1": {
+			"Triggered": true
+		}
+	  }
+    }
+  }
+}

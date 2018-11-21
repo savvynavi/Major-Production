@@ -15,7 +15,11 @@ MonoBehaviour:
   description: A magic shield that increases Str by a small ammount
   icon: {fileID: 21300000, guid: cd4ad5d36b7247040ba81ec0950fb68b, type: 3}
   damage: 0
-  effectPos: 0
+  anim: 0
+  EffectPlayer: {fileID: 0}
+  EffectTarget: {fileID: 0}
+  effectPosCharacter: 0
+  effectPosTarget: 0
   dmgType: 0
   statType: 0
   ScalePercentage: 0
@@ -23,5 +27,4 @@ MonoBehaviour:
   areaOfEffect: 0
   duration: 0
   currentEffects:
-  - {fileID: 11400000, guid: d1bbd6828811466489c10bf7e8b77c15, type: 2}
-  anim: 0
+  - {fileID: 11400000, guid: e455ec80adda6c445a83edbb385e0b83, type: 2}

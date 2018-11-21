@@ -9,15 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f7d1f87acd36bf499445ddfc0b92fe2, type: 3}
-  m_Name: Archmage's Staff of Power Effect
+  m_Name: Mage's Staff of MP Effect
   m_EditorClassIdentifier: 
   particles: {fileID: 0}
   material: {fileID: 0}
   shader: {fileID: 0}
   gObject: {fileID: 0}
   equipable: 1
+  StatusEffectPosition: 0
   timer: 0
   StatusEffects:
     effect: 0
-    statBuff: 3
-    amount: 75
+    statBuff: 6
+    amount: 200
